@@ -15,6 +15,9 @@
         @keyframes blink {
             50% { opacity: 0; }
         }
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 <body class="font-sans text-slate-800 bg-slate-50 min-h-screen selection:bg-blue-500 selection:text-white">
@@ -32,6 +35,7 @@
             <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
                 <a href="#vision" class="hover:text-blue-600 transition-colors">計畫願景</a>
                 <a href="#solution" class="hover:text-blue-600 transition-colors">解決方案</a>
+                <a href="#initiative" class="hover:text-blue-600 transition-colors">倡議目標</a>
                 <a href="#leader" class="hover:text-blue-600 transition-colors">主持人</a>
                 <a href="#impact" class="hover:text-blue-600 transition-colors">預期效益</a>
             </div>
@@ -203,9 +207,7 @@
             <div class="text-center mb-16">
                 <span class="text-blue-600 font-bold tracking-widest text-sm uppercase">Methodology</span>
                 <h2 class="text-4xl font-bold text-slate-900 mt-2">Vibe Coding 敏捷開發流程</h2>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-8">
+            </div><div class="grid md:grid-cols-3 gap-8">
                 <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-blue-500 hover:-translate-y-2 transition-transform duration-300">
                     <div class="bg-blue-50 w-14 h-14 rounded-xl flex items-center justify-center text-blue-600 mb-6">
                         <i data-lucide="message-square" width="28"></i>
@@ -232,17 +234,72 @@
                     </div>
                     <h3 class="text-xl font-bold mb-3">03. 穩定交付</h3>
                     <p class="text-slate-600 leading-relaxed text-sm">
-                        主持人親自進行代碼優化與資安檢測，交付工業級穩定的「數位引導指南 / 智能機器人」，並完成技術移轉。
+                        主持人親自進行代碼優化與資安檢測，交付工業級穩定的「數位引導指南 / 智能諮詢機器人」，並完成技術移轉。
                     </p>
                 </div>
             </div>
+
+            <div id="initiative" class="py-20 my-12 border-t border-slate-200">
+                <div class="text-center mb-12">
+                    <span class="text-blue-600 font-bold tracking-widest text-sm uppercase">INITIATIVE GOALS</span>
+                    <h3 class="text-3xl font-bold text-slate-900 mt-2">計畫倡議目標</h3>
+                    <p class="text-slate-500 mt-2">「數據民主・技術平權」—打造鄉鎮專屬的數位韌性模型</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all group">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                            <i data-lucide="search"></i>
+                        </div>
+                        <div class="text-slate-300 font-mono text-xs mb-1">GOAL.01</div>
+                        <h4 class="font-bold text-lg mb-2 text-slate-900">數據民主化</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            導入全域輿情爬搜，將遊客真實聲音轉化為客觀決策報表。終結盲目試錯，讓「數據」成為溝通語言。
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all group">
+                        <div class="w-12 h-12 bg-cyan-100 text-cyan-600 rounded-lg flex items-center justify-center mb-4 group-hover:bg-cyan-600 group-hover:text-white transition-colors">
+                            <i data-lucide="scale"></i>
+                        </div>
+                        <div class="text-slate-300 font-mono text-xs mb-1">GOAL.02</div>
+                        <h4 class="font-bold text-lg mb-2 text-slate-900">技術平權</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            實證「AI 敏捷開發」，以 1/5 資源突破百萬級開發門檻。建立鄉鎮可無痛複製的低代碼 MVP 模型。
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all group">
+                        <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                            <i data-lucide="handshake"></i>
+                        </div>
+                        <div class="text-slate-300 font-mono text-xs mb-1">GOAL.03</div>
+                        <h4 class="font-bold text-lg mb-2 text-slate-900">產學共生</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            結合微軟競賽驗證架構，確保系統具備工業級資安與高承載力。拒絕一次性作業，建立專業落地標準。
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all group">
+                        <div class="w-12 h-12 bg-green-100 text-green-600 rounded-lg flex items-center justify-center mb-4 group-hover:bg-green-600 group-hover:text-white transition-colors">
+                            <i data-lucide="leaf"></i>
+                        </div>
+                        <div class="text-slate-300 font-mono text-xs mb-1">GOAL.04</div>
+                        <h4 class="font-bold text-lg mb-2 text-slate-900">綠色永續</h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            實踐 Digital for Green，以 Web App 取代印刷與耗材。將無紙化數據轉化為減碳績效，打造 ESG 競爭力。
+                        </p>
+                    </div>
+                </div>
+            </div>
             
-            <div class="mt-16 bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-100 flex flex-col md:flex-row gap-12 items-center">
+            <div class="mt-8 bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-100 flex flex-col md:flex-row gap-12 items-center">
                 <div class="flex-1">
                     <h3 class="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-3">
                         <i data-lucide="bot" class="text-blue-600"></i>
                         土庫數位引導指南 / 智能諮詢機器人
                     </h3>
+                    
                     <p class="text-slate-600 mb-6 leading-7">
                         這不僅僅是一個聊天機器人，它是土庫的「24小時數位店長」。解決人力不足的問題，提供遊客即時的導覽資訊。
                     </p>
