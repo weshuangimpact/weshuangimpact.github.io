@@ -37,7 +37,6 @@
                 <a href="#solution" class="hover:text-blue-600 transition-colors">解決方案</a>
                 <a href="#initiative" class="hover:text-blue-600 transition-colors">倡議目標</a>
                 <a href="#leader" class="hover:text-blue-600 transition-colors">主持人</a>
-                <a href="#impact" class="hover:text-blue-600 transition-colors">預期效益</a>
             </div>
             <button class="bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-blue-600 transition-colors duration-300 shadow-lg shadow-blue-500/20">
                 專案聯繫
@@ -207,7 +206,9 @@
             <div class="text-center mb-16">
                 <span class="text-blue-600 font-bold tracking-widest text-sm uppercase">Methodology</span>
                 <h2 class="text-4xl font-bold text-slate-900 mt-2">Vibe Coding 敏捷開發流程</h2>
-            </div><div class="grid md:grid-cols-3 gap-8">
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
                 <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-blue-500 hover:-translate-y-2 transition-transform duration-300">
                     <div class="bg-blue-50 w-14 h-14 rounded-xl flex items-center justify-center text-blue-600 mb-6">
                         <i data-lucide="message-square" width="28"></i>
@@ -239,7 +240,7 @@
                 </div>
             </div>
 
-            <div id="initiative" class="py-20 my-12 border-t border-slate-200">
+            <div id="initiative" class="py-20 mt-12 border-t border-slate-200">
                 <div class="text-center mb-12">
                     <span class="text-blue-600 font-bold tracking-widest text-sm uppercase">INITIATIVE GOALS</span>
                     <h3 class="text-3xl font-bold text-slate-900 mt-2">計畫倡議目標</h3>
@@ -292,14 +293,65 @@
                     </div>
                 </div>
             </div>
+
+            <div id="pain-points" class="mt-8 bg-slate-900 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden">
+                 <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full blur-3xl opacity-20 -mr-16 -mt-16"></div>
+                 
+                 <div class="flex flex-col lg:flex-row gap-12 relative z-10">
+                    <div class="lg:w-5/12">
+                        <div class="flex items-center gap-3 mb-4 text-blue-300">
+                             <div class="px-3 py-1 border border-blue-400 rounded-full text-xs font-bold uppercase tracking-wider">Case Study</div>
+                             <span class="text-sm">長期蹲點研究</span>
+                        </div>
+                        <h3 class="text-3xl font-bold mb-6">從研究者到行動者，<br/>看見土庫的真實難題</h3>
+                        <p class="text-slate-300 leading-relaxed mb-6 text-lg">
+                            在長期蹲點研究的土庫商圈個案中，我不僅是<span class="text-white font-bold border-b border-blue-500 pb-0.5">研究者</span>更是<span class="text-white font-bold border-b border-blue-500 pb-0.5">行動者</span>。
+                        </p>
+                        <p class="text-slate-400 leading-relaxed">
+                            透過深入場域與 AI 數位診斷，我們完成了先前的基礎研究，成功釐清並定義出阻礙商圈發展的三大結構性痛點。這些發現，是我們開發智能諮詢機器人的核心依據。
+                        </p>
+                    </div>
+
+                    <div class="lg:w-7/12 grid gap-4">
+                        <div class="bg-slate-800 p-5 rounded-xl border-l-4 border-red-500 flex items-start gap-4">
+                            <div class="bg-red-500/10 p-3 rounded-lg text-red-500 shrink-0">
+                                <i data-lucide="map-pin-off" width="24"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-1">01. 交通不便</h4>
+                                <p class="text-slate-400 text-sm">停車指引不明，巷弄動線複雜，導致遊客經常迷路或因找不到車位而放棄停留。</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-800 p-5 rounded-xl border-l-4 border-orange-500 flex items-start gap-4">
+                            <div class="bg-orange-500/10 p-3 rounded-lg text-orange-500 shrink-0">
+                                <i data-lucide="user-x" width="24"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-1">02. 服務斷層</h4>
+                                <p class="text-slate-400 text-sm">在地店家普遍高齡化，面臨嚴重人力短缺。無法即時回應遊客諮詢，造成服務體驗中斷。</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-800 p-5 rounded-xl border-l-4 border-yellow-500 flex items-start gap-4">
+                            <div class="bg-yellow-500/10 p-3 rounded-lg text-yellow-500 shrink-0">
+                                <i data-lucide="file-question" width="24"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-white mb-1">03. 資訊破碎</h4>
+                                <p class="text-slate-400 text-sm">景點與店家資訊散落在不同社群平台，缺乏統一整合。遊客難以獲取完整且即時的旅遊情報。</p>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
             
-            <div class="mt-8 bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-100 flex flex-col md:flex-row gap-12 items-center">
+            <div class="mt-12 bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-100 flex flex-col md:flex-row gap-12 items-center">
                 <div class="flex-1">
                     <h3 class="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-3">
                         <i data-lucide="bot" class="text-blue-600"></i>
                         土庫數位引導指南 / 智能諮詢機器人
                     </h3>
-                    
                     <p class="text-slate-600 mb-6 leading-7">
                         這不僅僅是一個聊天機器人，它是土庫的「24小時數位店長」。解決人力不足的問題，提供遊客即時的導覽資訊。
                     </p>
