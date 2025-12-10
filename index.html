@@ -37,9 +37,9 @@
                 </div>
             </div>
             <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
-                <a href="#vision" class="hover:text-blue-600 transition-colors">計畫願景</a>
-                <a href="#solution" class="hover:text-blue-600 transition-colors">解決方案</a>
+                <a href="#pain-points" class="hover:text-blue-600 transition-colors">真實痛點</a>
                 <a href="#initiative" class="hover:text-blue-600 transition-colors">倡議目標</a>
+                <a href="#solution" class="hover:text-blue-600 transition-colors">技術與成果</a>
                 <a href="#leader" class="hover:text-blue-600 transition-colors">主持人</a>
             </div>
             <button class="bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-blue-600 transition-colors duration-300 shadow-lg shadow-blue-500/20">
@@ -68,8 +68,8 @@
                         結合全端架構與 AI 敏捷開發，為地方導入真正「活著」的數位工具。從土庫出發，實踐技術利他的社會設計。
                     </p>
                     <div class="flex flex-wrap gap-4 pt-4">
-                        <a href="#solution" class="flex items-center gap-2 bg-blue-600 text-white px-8 py-3.5 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/30 transform hover:-translate-y-1">
-                            探索解決方案 <i data-lucide="arrow-right" width="18"></i>
+                        <a href="#pain-points" class="flex items-center gap-2 bg-blue-600 text-white px-8 py-3.5 rounded-xl font-bold hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/30 transform hover:-translate-y-1">
+                            為什麼這麼做？ <i data-lucide="arrow-right" width="18"></i>
                         </a>
                         <a href="#leader" class="flex items-center gap-2 bg-white text-slate-700 border border-slate-200 px-8 py-3.5 rounded-xl font-bold hover:bg-slate-50 transition-all">
                             認識團隊
@@ -167,39 +167,112 @@
         </div>
     </section>
 
-    <section id="leader" class="py-24 bg-slate-900 text-white overflow-hidden relative">
-        <div class="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2940&auto=format&fit=crop')] bg-cover opacity-10 fixed-bg"></div>
-        <div class="container mx-auto px-6 max-w-5xl relative z-10">
-            <div class="flex flex-col md:flex-row items-center gap-12">
-                <div class="w-48 h-48 md:w-64 md:h-64 rounded-full border-4 border-blue-500 overflow-hidden shadow-2xl shrink-0 bg-slate-800 photo-glow relative group">
-                   <img src="2.jpg.png" alt="黃致維 計畫主持人" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
-                </div>
-                <div>
-                    <div class="inline-block bg-blue-600 text-xs font-bold px-3 py-1 rounded-full mb-4">計畫主持人</div>
-                    <h2 class="text-3xl font-bold mb-2">Wes Huang</h2>
-                    <p class="text-blue-300 font-medium mb-6">國立雲林科技大學「在地創生及智能設計」在職專班</p>
-                    
-                    <div class="space-y-6 text-slate-300 leading-relaxed">
-                        <p>
-                            專長於跨領域技術與資源整合。核心優勢在於結合<strong class="text-white">「全端技術底蘊」</strong>與<strong class="text-white">「AI 敏捷開發」</strong>。
-                        </p>
-                        <p>
-                            有別於傳統冗長的開發流程，擅長以人機協作模式快速捕捉場域痛點。不僅能使用 AI 生成，更具備扎實的程式除錯與優化能力，確保系統落地穩定性。
-                        </p>
-                        
-                        <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 mt-6">
-                            <div class="flex items-center gap-3 mb-2 text-yellow-400">
-                                <i data-lucide="globe" width="18"></i>
-                                <span class="text-sm font-bold uppercase tracking-wider">Recent Achievement</span>
-                            </div>
-                            <p class="font-medium text-white">
-                                入圍 2025 Microsoft Agentic AI Hackathon 企業智慧應用實戰賽總決賽
-                            </p>
-                            <p class="text-sm text-slate-400 mt-1">
-                                作品：WesmartAI 圖像生成與創作歷程存證系統
-                            </p>
-                        </div>
+    <section id="pain-points" class="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-blue-600 rounded-full blur-[100px] opacity-20 -mr-16 -mt-16"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-cyan-600 rounded-full blur-[100px] opacity-10 -ml-16 -mb-16"></div>
+
+        <div class="container mx-auto px-6 max-w-6xl relative z-10">
+            <div class="flex flex-col lg:flex-row gap-12">
+               <div class="lg:w-5/12">
+                   <div class="flex items-center gap-3 mb-4 text-blue-300">
+                        <div class="px-3 py-1 border border-blue-400 rounded-full text-xs font-bold uppercase tracking-wider">Case Study</div>
+                        <span class="text-sm">長期蹲點研究</span>
+                   </div>
+                   <h3 class="text-3xl font-bold mb-6">從研究者到行動者，<br/>看見土庫的真實難題</h3>
+                   <p class="text-slate-300 leading-relaxed mb-6 text-lg">
+                       在長期蹲點研究的土庫商圈個案中，我不僅是<span class="text-white font-bold border-b border-blue-500 pb-0.5">研究者</span>更是<span class="text-white font-bold border-b border-blue-500 pb-0.5">行動者</span>。
+                   </p>
+                   <p class="text-slate-400 leading-relaxed">
+                       透過深入場域與 AI 數位診斷，我們完成了先前的基礎研究，成功釐清並定義出阻礙商圈發展的三大結構性痛點。這些發現，是我們開發智能諮詢機器人的核心依據。
+                   </p>
+               </div>
+
+               <div class="lg:w-7/12 grid gap-4">
+                   <div class="bg-slate-800/80 backdrop-blur p-5 rounded-xl border-l-4 border-red-500 flex items-start gap-4 hover:bg-slate-800 transition-colors">
+                       <div class="bg-red-500/10 p-3 rounded-lg text-red-500 shrink-0">
+                           <i data-lucide="map-pin-off" width="24"></i>
+                       </div>
+                       <div>
+                           <h4 class="text-xl font-bold text-white mb-1">01. 交通不便</h4>
+                           <p class="text-slate-400 text-sm">停車指引不明，巷弄動線複雜，導致遊客經常迷路或因找不到車位而放棄停留。</p>
+                       </div>
+                   </div>
+
+                   <div class="bg-slate-800/80 backdrop-blur p-5 rounded-xl border-l-4 border-orange-500 flex items-start gap-4 hover:bg-slate-800 transition-colors">
+                       <div class="bg-orange-500/10 p-3 rounded-lg text-orange-500 shrink-0">
+                           <i data-lucide="user-x" width="24"></i>
+                       </div>
+                       <div>
+                           <h4 class="text-xl font-bold text-white mb-1">02. 服務斷層</h4>
+                           <p class="text-slate-400 text-sm">在地店家普遍高齡化，面臨嚴重人力短缺。無法即時回應遊客諮詢，造成服務體驗中斷。</p>
+                       </div>
+                   </div>
+
+                   <div class="bg-slate-800/80 backdrop-blur p-5 rounded-xl border-l-4 border-yellow-500 flex items-start gap-4 hover:bg-slate-800 transition-colors">
+                       <div class="bg-yellow-500/10 p-3 rounded-lg text-yellow-500 shrink-0">
+                           <i data-lucide="file-question" width="24"></i>
+                       </div>
+                       <div>
+                           <h4 class="text-xl font-bold text-white mb-1">03. 資訊破碎</h4>
+                           <p class="text-slate-400 text-sm">景點與店家資訊散落在不同社群平台，缺乏統一整合。遊客難以獲取完整且即時的旅遊情報。</p>
+                       </div>
+                   </div>
+               </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="initiative" class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="text-center mb-12">
+                <span class="text-blue-600 font-bold tracking-widest text-sm uppercase">INITIATIVE GOALS</span>
+                <h3 class="text-3xl font-bold text-slate-900 mt-2">計畫倡議目標</h3>
+                <p class="text-slate-500 mt-2">「數據民主・技術平權」—打造鄉鎮專屬的數位韌性模型</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all group">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                        <i data-lucide="search"></i>
                     </div>
+                    <div class="text-slate-300 font-mono text-xs mb-1">GOAL.01</div>
+                    <h4 class="font-bold text-lg mb-2 text-slate-900">數據民主化</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        導入全域輿情爬搜，將遊客真實聲音轉化為客觀決策報表。終結盲目試錯，讓「數據」成為溝通語言。
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all group">
+                    <div class="w-12 h-12 bg-cyan-100 text-cyan-600 rounded-lg flex items-center justify-center mb-4 group-hover:bg-cyan-600 group-hover:text-white transition-colors">
+                        <i data-lucide="scale"></i>
+                    </div>
+                    <div class="text-slate-300 font-mono text-xs mb-1">GOAL.02</div>
+                    <h4 class="font-bold text-lg mb-2 text-slate-900">技術平權</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        實證「AI 敏捷開發」，以 1/5 資源突破百萬級開發門檻。建立鄉鎮可無痛複製的低代碼 MVP 模型。
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all group">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                        <i data-lucide="handshake"></i>
+                    </div>
+                    <div class="text-slate-300 font-mono text-xs mb-1">GOAL.03</div>
+                    <h4 class="font-bold text-lg mb-2 text-slate-900">產學共生</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        結合微軟競賽驗證架構，確保系統具備工業級資安與高承載力。拒絕一次性作業，建立專業落地標準。
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all group">
+                    <div class="w-12 h-12 bg-green-100 text-green-600 rounded-lg flex items-center justify-center mb-4 group-hover:bg-green-600 group-hover:text-white transition-colors">
+                        <i data-lucide="leaf"></i>
+                    </div>
+                    <div class="text-slate-300 font-mono text-xs mb-1">GOAL.04</div>
+                    <h4 class="font-bold text-lg mb-2 text-slate-900">綠色永續</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        實踐 Digital for Green，以 Web App 取代印刷與耗材。將無紙化數據轉化為減碳績效，打造 ESG 競爭力。
+                    </p>
                 </div>
             </div>
         </div>
@@ -210,7 +283,11 @@
             <div class="text-center mb-16">
                 <span class="text-blue-600 font-bold tracking-widest text-sm uppercase">Methodology</span>
                 <h2 class="text-4xl font-bold text-slate-900 mt-2">Vibe Coding 敏捷開發流程</h2>
+                <p class="text-slate-500 mt-3">如何解決上述痛點？我們用最先進的 AI 協作模式。</p>
             </div>
+            
+
+[Image of agile software development cycle diagram]
 
             <div class="grid md:grid-cols-3 gap-8">
                 <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-blue-500 hover:-translate-y-2 transition-transform duration-300">
@@ -219,7 +296,7 @@
                     </div>
                     <h3 class="text-xl font-bold mb-3">01. 需求捕捉</h3>
                     <p class="text-slate-600 leading-relaxed text-sm">
-                        深入「濁水沃田間」場域，透過訪談與觀察，定義土庫遊客與高齡商家的真實痛點（如重複性詢問）。
+                        深入場域，定義真實痛點。這確保我們解決的是「真問題」，而非想像出來的需求。
                     </p>
                 </div>
 
@@ -229,7 +306,7 @@
                     </div>
                     <h3 class="text-xl font-bold mb-3">02. 快速迭代</h3>
                     <p class="text-slate-600 leading-relaxed text-sm">
-                        適用 AI 輔助編程 (Vibe Coding)，快速產出 MVP 原型，進行「測試→回饋→修正」循環，確保工具好用、易用。
+                        運用 AI 輔助編程 (Vibe Coding)，快速產出 MVP 原型，進行「測試→回饋→修正」循環，確保工具好用、易用。
                     </p>
                 </div>
 
@@ -239,123 +316,18 @@
                     </div>
                     <h3 class="text-xl font-bold mb-3">03. 穩定交付</h3>
                     <p class="text-slate-600 leading-relaxed text-sm">
-                        主持人親自進行代碼優化與資安檢測，交付工業級穩定的「數位引導指南 / 智能機器人」，並完成技術移轉。
+                        主持人親自進行代碼優化與資安檢測，交付工業級穩定的系統，並完成技術移轉。
                     </p>
                 </div>
             </div>
 
-            <div id="initiative" class="py-20 mt-12 border-t border-slate-200">
-                <div class="text-center mb-12">
-                    <span class="text-blue-600 font-bold tracking-widest text-sm uppercase">INITIATIVE GOALS</span>
-                    <h3 class="text-3xl font-bold text-slate-900 mt-2">計畫倡議目標</h3>
-                    <p class="text-slate-500 mt-2">「數據民主・技術平權」—打造鄉鎮專屬的數位韌性模型</p>
-                </div>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all group">
-                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                            <i data-lucide="search"></i>
-                        </div>
-                        <div class="text-slate-300 font-mono text-xs mb-1">GOAL.01</div>
-                        <h4 class="font-bold text-lg mb-2 text-slate-900">數據民主化</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed">
-                            導入全域輿情爬搜，將遊客真實聲音轉化為客觀決策報表。終結盲目試錯，讓「數據」成為溝通語言。
-                        </p>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all group">
-                        <div class="w-12 h-12 bg-cyan-100 text-cyan-600 rounded-lg flex items-center justify-center mb-4 group-hover:bg-cyan-600 group-hover:text-white transition-colors">
-                            <i data-lucide="scale"></i>
-                        </div>
-                        <div class="text-slate-300 font-mono text-xs mb-1">GOAL.02</div>
-                        <h4 class="font-bold text-lg mb-2 text-slate-900">技術平權</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed">
-                            實證「AI 敏捷開發」，以 1/5 資源突破百萬級開發門檻。建立鄉鎮可無痛複製的低代碼 MVP 模型。
-                        </p>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all group">
-                        <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center mb-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                            <i data-lucide="handshake"></i>
-                        </div>
-                        <div class="text-slate-300 font-mono text-xs mb-1">GOAL.03</div>
-                        <h4 class="font-bold text-lg mb-2 text-slate-900">產學共生</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed">
-                            結合微軟競賽驗證架構，確保系統具備工業級資安與高承載力。拒絕一次性作業，建立專業落地標準。
-                        </p>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-all group">
-                        <div class="w-12 h-12 bg-green-100 text-green-600 rounded-lg flex items-center justify-center mb-4 group-hover:bg-green-600 group-hover:text-white transition-colors">
-                            <i data-lucide="leaf"></i>
-                        </div>
-                        <div class="text-slate-300 font-mono text-xs mb-1">GOAL.04</div>
-                        <h4 class="font-bold text-lg mb-2 text-slate-900">綠色永續</h4>
-                        <p class="text-slate-600 text-sm leading-relaxed">
-                            實踐 Digital for Green，以 Web App 取代印刷與耗材。將無紙化數據轉化為減碳績效，打造 ESG 競爭力。
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="pain-points" class="mt-8 bg-slate-900 rounded-3xl p-8 md:p-12 text-white relative overflow-hidden">
-                 <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full blur-3xl opacity-20 -mr-16 -mt-16"></div>
-                 
-                 <div class="flex flex-col lg:flex-row gap-12 relative z-10">
-                    <div class="lg:w-5/12">
-                        <div class="flex items-center gap-3 mb-4 text-blue-300">
-                             <div class="px-3 py-1 border border-blue-400 rounded-full text-xs font-bold uppercase tracking-wider">Case Study</div>
-                             <span class="text-sm">長期蹲點研究</span>
-                        </div>
-                        <h3 class="text-3xl font-bold mb-6">從研究者到行動者，<br/>看見土庫的真實難題</h3>
-                        <p class="text-slate-300 leading-relaxed mb-6 text-lg">
-                            在長期蹲點研究的土庫商圈個案中，我不僅是<span class="text-white font-bold border-b border-blue-500 pb-0.5">研究者</span>更是<span class="text-white font-bold border-b border-blue-500 pb-0.5">行動者</span>。
-                        </p>
-                        <p class="text-slate-400 leading-relaxed">
-                            透過深入場域與 AI 數位診斷，我們完成了先前的基礎研究，成功釐清並定義出阻礙商圈發展的三大結構性痛點。這些發現，是我們開發智能諮詢機器人的核心依據。
-                        </p>
-                    </div>
-
-                    <div class="lg:w-7/12 grid gap-4">
-                        <div class="bg-slate-800 p-5 rounded-xl border-l-4 border-red-500 flex items-start gap-4">
-                            <div class="bg-red-500/10 p-3 rounded-lg text-red-500 shrink-0">
-                                <i data-lucide="map-pin-off" width="24"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xl font-bold text-white mb-1">01. 交通不便</h4>
-                                <p class="text-slate-400 text-sm">停車指引不明，巷弄動線複雜，導致遊客經常迷路或因找不到車位而放棄停留。</p>
-                            </div>
-                        </div>
-
-                        <div class="bg-slate-800 p-5 rounded-xl border-l-4 border-orange-500 flex items-start gap-4">
-                            <div class="bg-orange-500/10 p-3 rounded-lg text-orange-500 shrink-0">
-                                <i data-lucide="user-x" width="24"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xl font-bold text-white mb-1">02. 服務斷層</h4>
-                                <p class="text-slate-400 text-sm">在地店家普遍高齡化，面臨嚴重人力短缺。無法即時回應遊客諮詢，造成服務體驗中斷。</p>
-                            </div>
-                        </div>
-
-                        <div class="bg-slate-800 p-5 rounded-xl border-l-4 border-yellow-500 flex items-start gap-4">
-                            <div class="bg-yellow-500/10 p-3 rounded-lg text-yellow-500 shrink-0">
-                                <i data-lucide="file-question" width="24"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-xl font-bold text-white mb-1">03. 資訊破碎</h4>
-                                <p class="text-slate-400 text-sm">景點與店家資訊散落在不同社群平台，缺乏統一整合。遊客難以獲取完整且即時的旅遊情報。</p>
-                            </div>
-                        </div>
-                    </div>
-                 </div>
-            </div>
-            
-            <div class="mt-12 bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-100 flex flex-col md:flex-row gap-12 items-center">
+            <div class="mt-20 bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-100 flex flex-col md:flex-row gap-12 items-center">
                 <div class="flex-1">
                     <h3 class="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-3">
                         <i data-lucide="bot" class="text-blue-600"></i>
                         土庫數位引導指南 / 智能諮詢機器人
                     </h3>
+                    
                     <p class="text-slate-600 mb-6 leading-7">
                         這不僅僅是一個聊天機器人，它是土庫的「24小時數位店長」。解決人力不足的問題，提供遊客即時的導覽資訊。
                     </p>
@@ -384,6 +356,44 @@
                             <span class="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></span>
                             <span class="w-2 h-2 bg-blue-500 rounded-full animate-bounce delay-75"></span>
                             <span class="w-2 h-2 bg-blue-500 rounded-full animate-bounce delay-150"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="leader" class="py-24 bg-slate-900 text-white overflow-hidden relative">
+        <div class="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2940&auto=format&fit=crop')] bg-cover opacity-10 fixed-bg"></div>
+        <div class="container mx-auto px-6 max-w-5xl relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="w-48 h-48 md:w-64 md:h-64 rounded-full border-4 border-blue-500 overflow-hidden shadow-2xl shrink-0 bg-slate-800 photo-glow relative group">
+                   <img src="2.jpg.png" alt="黃致維 計畫主持人" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+                </div>
+                <div>
+                    <div class="inline-block bg-blue-600 text-xs font-bold px-3 py-1 rounded-full mb-4">計畫主持人</div>
+                    <h2 class="text-3xl font-bold mb-2">黃致維</h2>
+                    <p class="text-blue-300 font-medium mb-6">國立雲林科技大學「在地創生及智能設計」在職專班</p>
+                    
+                    <div class="space-y-6 text-slate-300 leading-relaxed">
+                        <p>
+                            專長於跨領域技術與資源整合。核心優勢在於結合<strong class="text-white">「全端技術底蘊」</strong>與<strong class="text-white">「AI 敏捷開發」</strong>。
+                        </p>
+                        <p>
+                            有別於傳統冗長的開發流程，擅長以人機協作模式快速捕捉場域痛點。不僅能使用 AI 生成，更具備扎實的程式除錯與優化能力，確保系統落地穩定性。
+                        </p>
+                        
+                        <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 mt-6">
+                            <div class="flex items-center gap-3 mb-2 text-yellow-400">
+                                <i data-lucide="globe" width="18"></i>
+                                <span class="text-sm font-bold uppercase tracking-wider">Recent Achievement</span>
+                            </div>
+                            <p class="font-medium text-white">
+                                入圍 Microsoft Agentic AI Hackathon 企業智慧應用實戰賽總決賽
+                            </p>
+                            <p class="text-sm text-slate-400 mt-1">
+                                作品：WesmartAI 圖像生成與創作歷程存證系統
+                            </p>
                         </div>
                     </div>
                 </div>
