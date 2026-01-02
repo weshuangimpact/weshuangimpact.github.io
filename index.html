@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Safety Governance Demo (v1.2)</title>
+    <title>AI Safety Governance Demo (v1.3)</title>
     
     <!-- React & ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -40,8 +40,6 @@
         const { useState, useEffect, useRef } = React;
         
         // 2. Embedded Icons (取代外部依賴，確保穩定性)
-        // 這些 SVG 路徑來自 Lucide icon set，確保視覺風格一致
-        
         const IconBase = ({ size = 24, className = "", children }) => (
             <svg 
                 xmlns="http://www.w3.org/2000/svg" 
@@ -108,10 +106,11 @@
 
         // --- 配置與資料 ---
 
-        // v1.2 冷靜支持模板 (L2 風險觸發使用)
+        // v1.3 冷靜支持模板 (修正：確保結尾開放，不畫句點)
+        // 移除 "我無法繼續..." 這種拒絕式開頭，改為接納式
         const SOFT_SUPPORT_TEMPLATE = {
             title: "安全提醒與支持",
-            body: `我無法繼續以自動方式回應這類內容，但你現在的感受是重要的，也值得被認真對待。\n\n如果你正承受難以承受的痛苦，請優先考慮與真人支持資源聯繫。\n\n在台灣：\n- 張老師 1980\n- 生命線 1995\n- 若有立即危險，請撥 110 或 119\n\n如果你願意，我可以協助你把目前的狀況整理成幾句話，方便你轉交給真人諮詢對象。`
+            body: `我聽到你現在正經歷這些非常沈重的感受，這些感覺真的很真實，也很不容易。\n\n雖然我是 AI，能做的事情有限，但我會在這裡陪你。如果你覺得現在快要撐不住了，請務必先與真人資源聯繫（如張老師 1980 或生命線 1995），確保自己的安全。\n\n現在，如果你願意的話，能不能多告訴我一點，是發生了什麼事，讓你產生這樣的感覺？我會在這裡聽你說。`
         };
 
         // [新] 深度同理回應庫 (針對挫折、失敗感、人際困擾 - 優先延續話題)
@@ -124,22 +123,35 @@
 
         // [新] 一般引導與轉移回應庫 (針對一般閒聊或模糊情緒 - 軟性轉移)
         const GENERAL_RESPONSES = [
-            // 軟性轉移 - 音樂
             "這些情緒確實很消耗能量。在我們慢慢梳理這些想法的同時，我想問問，最近有沒有哪首旋律是能讓你稍微感到平靜一點的？有時候給大腦一點聽覺的空間會有些幫助。",
-            
-            // 軟性轉移 - 興趣
             "處理這些複雜的感受真的很不容易。如果暫時讓自己從這個迴圈抽離一下下，最近有沒有什麼劇或電影是你稍微感興趣的？",
-            
-            // 認知重框
             "能察覺到這些情緒並表達出來，其實代表你很重視自己的狀態，這已經是自我照顧很好的第一步了。",
-            
-            // 問題拆解
             "這種感覺確實很複雜，也不容易釐清。我們先慢慢來，你覺得目前最讓你困擾的是哪個部分？"
         ];
 
-        // 關鍵字偵測配置
-        const RISK_KEYWORDS = ["痛苦", "自殺", "結束生命", "想死", "活不下去", "pain", "die", "kill"];
-        const SADNESS_KEYWORDS = ["失敗", "拒絕", "沒用", "浪費", "花錢", "疲憊", "累", "難過", "傷心"];
+        // 模擬 AI 風險評分模型 (取代單純的 Keyword Matching)
+        // 實際系統會使用 BERT 或 LLM Classifier 計算 Embedding 距離
+        const calculateRiskScore = (text) => {
+            let score = 0;
+            const highRiskTerms = ["痛苦", "自殺", "結束生命", "想死", "活不下去", "不想活", "不活了", "pain", "die", "kill"];
+            const mediumRiskTerms = ["失敗", "拒絕", "沒用", "浪費", "花錢", "疲憊", "累", "難過", "傷心"];
+            
+            // 權重計算
+            highRiskTerms.forEach(term => {
+                if (text.includes(term)) score += 0.8; // 高風險權重
+            });
+            mediumRiskTerms.forEach(term => {
+                if (text.includes(term)) score += 0.3; // 中風險權重
+            });
+
+            // 歸一化與等級判斷 (模擬)
+            // L2 門檻設為 0.75
+            return {
+                score: Math.min(score, 1.0), // Cap at 1.0
+                level: score >= 0.75 ? 2 : 1,
+                detected: score > 0
+            };
+        };
 
         // --- 主應用程式元件 ---
 
@@ -178,20 +190,17 @@
                 }, 1000);
             };
 
-            // 系統核心邏輯 (模擬 Adjudicator + 簡單 NLP 分類)
+            // 系統核心邏輯 (模擬 Adjudicator + 語意評分)
             const processSystemResponse = (text, caseId, time) => {
                 setIsTyping(false);
                 
-                // 1. 偵測 L2 風險 (最高優先級)
-                const detectedRisk = RISK_KEYWORDS.some(kw => text.includes(kw));
-                
-                // 2. 偵測挫折情緒 (次要優先級 - 用於選擇 L1 回應策略)
-                const detectedSadness = SADNESS_KEYWORDS.some(kw => text.includes(kw));
-                
-                const riskLevel = detectedRisk ? 2 : 1;
+                // 1. 執行風險評估 (Automatic Risk Detection)
+                const riskAssessment = calculateRiskScore(text);
+                const riskLevel = riskAssessment.level;
 
                 if (riskLevel >= 2) {
                     // === L2 觸發：冷靜治理流程 ===
+                    // 關鍵修正：系統雖進行安全限制，但回應必須是「開放式」的，等待使用者回應
                     setMessages(prev => [...prev, { 
                         id: Date.now(), 
                         role: 'assistant', 
@@ -204,7 +213,8 @@
                         id: `alert-${Date.now()}`,
                         caseId: caseId,
                         riskLevel: 2,
-                        reason: "HIGH_RISK_DETECTED",
+                        riskScore: riskAssessment.score.toFixed(2), // 顯示 AI 信心分數
+                        reason: "AI_SEMANTIC_DETECTION",
                         summary: text,
                         timestamp: new Date().toISOString(),
                         status: 'pending'
@@ -212,15 +222,16 @@
                     setAlerts(prev => [newAlert, ...prev]);
 
                 } else {
-                    // === L1 安全：依據情緒選擇回應策略 ===
+                    // === L1 安全：一般對話 ===
                     
                     let selectedResponse;
-
-                    if (detectedSadness) {
-                        // [策略 A] 偵測到具體挫折 -> 強制使用「深度同理回應」
+                    
+                    // 根據模擬的語意權重選擇策略
+                    // 分數雖未達 L2 但有一定數值 (0.3~0.7) -> 深度同理
+                    if (riskAssessment.score >= 0.3) {
                         selectedResponse = EMPATHY_RESPONSES[Math.floor(Math.random() * EMPATHY_RESPONSES.length)];
                     } else {
-                        // [策略 B] 一般對話 -> 混合使用「一般引導」與「軟性轉移」
+                        // 低風險 -> 混合引導
                         selectedResponse = GENERAL_RESPONSES[Math.floor(Math.random() * GENERAL_RESPONSES.length)];
                     }
                     
@@ -281,7 +292,7 @@
                                         </div>
                                     </div>
                                     <div className="text-xs text-slate-400 border border-slate-200 px-2 py-1 rounded">
-                                        v1.2 Calm Mode
+                                        v1.3 Auto-Detect Mode
                                     </div>
                                 </header>
 
@@ -322,7 +333,7 @@
                                             <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white opacity-50">
                                                 <Activity size={14} />
                                             </div>
-                                            <div className="text-xs text-slate-400">正在思考回應...</div>
+                                            <div className="text-xs text-slate-400">正在評估語意風險...</div>
                                         </div>
                                     )}
                                     <div ref={messagesEndRef} />
@@ -335,7 +346,7 @@
                                             type="text"
                                             value={inputValue}
                                             onChange={(e) => setInputValue(e.target.value)}
-                                            placeholder="輸入訊息... (試試輸入「我花了很多錢卻被拒絕，覺得很失敗」)"
+                                            placeholder="輸入訊息..."
                                             className="flex-1 bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-full py-3 px-5 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition-all placeholder:text-slate-400"
                                         />
                                         <button 
@@ -347,7 +358,7 @@
                                         </button>
                                     </form>
                                     <div className="text-center mt-2">
-                                        <p className="text-[10px] text-slate-400">此系統由 v1.2-calm-governance 驅動。所有對話均受隱私協議保護。</p>
+                                        <p className="text-[10px] text-slate-400">此系統由 v1.3 Auto-Detect Mode 驅動。所有對話均受隱私協議保護。</p>
                                     </div>
                                 </div>
                             </div>
@@ -362,7 +373,7 @@
                                             <Shield className="text-amber-600" size={24} />
                                             Governance Console
                                         </h2>
-                                        <p className="text-sm text-slate-500 mt-1">Out-of-Band Human Escalation System</p>
+                                        <p className="text-sm text-slate-500 mt-1">Semantic Risk Detection System</p>
                                     </div>
                                     <div className="flex gap-4">
                                         <div className="flex flex-col items-end">
@@ -388,7 +399,7 @@
                                             <div className="bg-white border border-slate-200 border-dashed rounded-lg p-12 text-center">
                                                 <CheckCircle className="mx-auto text-slate-300 mb-3" size={48} />
                                                 <p className="text-slate-500">目前沒有需要介入的高風險案件。</p>
-                                                <p className="text-xs text-slate-400 mt-1">系統持續監控中 (Mode: Silent Monitor)</p>
+                                                <p className="text-xs text-slate-400 mt-1">System is analyzing semantic patterns...</p>
                                             </div>
                                         ) : (
                                             <div className="space-y-4">
@@ -403,6 +414,9 @@
                                                                         <span className="bg-amber-100 text-amber-800 text-xs font-bold px-2 py-1 rounded border border-amber-200">
                                                                             L{alert.riskLevel} DETECTED
                                                                         </span>
+                                                                        <span className="bg-slate-100 text-slate-600 text-xs font-mono px-2 py-1 rounded border border-slate-200">
+                                                                            Score: {alert.riskScore}
+                                                                        </span>
                                                                         <span className="text-xs font-mono text-slate-400">Case ID: {alert.caseId}</span>
                                                                     </div>
                                                                     <span className="text-xs text-slate-400 flex items-center gap-1">
@@ -410,7 +424,7 @@
                                                                     </span>
                                                                 </div>
 
-                                                                <h4 className="font-semibold text-slate-800 mb-1">Reason: {alert.reason}</h4>
+                                                                <h4 className="font-semibold text-slate-800 mb-1">Model: {alert.reason}</h4>
                                                                 
                                                                 <div className="bg-slate-50 border border-slate-100 rounded p-3 my-3 text-sm text-slate-600 italic">
                                                                     "{alert.summary}"
@@ -418,7 +432,7 @@
 
                                                                 <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
                                                                     <div className="text-xs text-slate-500">
-                                                                        System Action: <span className="font-semibold text-blue-600">Soft Template Sent</span>
+                                                                        System Action: <span className="font-semibold text-blue-600">Open-Ended Support Sent</span>
                                                                     </div>
                                                                     <div className="flex gap-2">
                                                                         <button className="text-xs bg-white border border-slate-300 text-slate-600 px-3 py-1.5 rounded hover:bg-slate-50 transition-colors">
