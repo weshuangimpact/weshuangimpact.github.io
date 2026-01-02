@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI張老師 Safety Demo (v1.5)</title>
+    <title>AI張老師 Safety Demo (v1.6)</title>
     
     <!-- React & ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -149,9 +149,15 @@
                 if (text.includes(term)) score += 0.3;
             });
 
+            // Level定義: 0=Safe, 1=Medium, 2=High
+            const cappedScore = Math.min(score, 1.0);
+            let level = 0;
+            if (cappedScore >= 0.75) level = 2;
+            else if (cappedScore >= 0.3) level = 1;
+            
             return {
-                score: Math.min(score, 1.0),
-                level: score >= 0.75 ? 2 : 1,
+                score: cappedScore,
+                level: level,
                 detected: score > 0
             };
         };
@@ -163,6 +169,7 @@
             const [messages, setMessages] = useState([
                 { id: 1, role: 'system', content: '您好，我是 AI張老師。在一般情況下我能為您提供各種資訊協助，同時這裡也是一個安全的對話空間。', timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
             ]);
+            // alerts 實際上現在是 "Audit Logs"，包含所有風險等級
             const [alerts, setAlerts] = useState([]);
             const [inputValue, setInputValue] = useState('');
             const [isTyping, setIsTyping] = useState(false);
@@ -195,6 +202,23 @@
                 const riskAssessment = calculateRiskScore(text);
                 const riskLevel = riskAssessment.level;
 
+                // 1. 無論風險等級，針對每個對話都生成 Log
+                // L2 -> Status: Pending (需要關注)
+                // L0/L1 -> Status: Logged (僅紀錄)
+                const newLog = {
+                    id: `log-${Date.now()}`,
+                    caseId: caseId,
+                    riskLevel: riskLevel,
+                    riskScore: riskAssessment.score.toFixed(2),
+                    reason: riskLevel > 0 ? "AI_SEMANTIC_DETECTION" : "ROUTINE_CHECK",
+                    summary: text,
+                    timestamp: new Date().toISOString(),
+                    status: riskLevel >= 2 ? 'pending' : 'logged' // 只有高風險預設為 pending
+                };
+                
+                setAlerts(prev => [newLog, ...prev]);
+
+                // 2. 回應邏輯
                 if (riskLevel >= 2) {
                     // === L2 高風險：冷靜治理流程 ===
                     setMessages(prev => [...prev, { 
@@ -204,37 +228,16 @@
                         isSupportTemplate: true,
                         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
                     }]);
-
-                    const newAlert = {
-                        id: `alert-${Date.now()}`,
-                        caseId: caseId,
-                        riskLevel: 2,
-                        riskScore: riskAssessment.score.toFixed(2),
-                        reason: "AI_SEMANTIC_DETECTION",
-                        summary: text,
-                        timestamp: new Date().toISOString(),
-                        status: 'pending'
-                    };
-                    setAlerts(prev => [newAlert, ...prev]);
-
                 } else {
-                    // === L1 安全區間：依據分數進行分流 ===
-                    
+                    // === L0/L1 安全區間 ===
                     let selectedResponse;
                     
-                    if (riskAssessment.score >= 0.3) {
-                        // [中風險] (0.3 ~ 0.75) -> 深度同理與情緒支持
-                        // 使用者有挫折感，需要被接住，但不需強制介入
+                    if (riskLevel === 1) { // L1 中風險
                         selectedResponse = EMPATHY_RESPONSES[Math.floor(Math.random() * EMPATHY_RESPONSES.length)];
-                    } else {
-                        // [低風險/無風險] (< 0.3) -> 正常 AI 助理模式
-                        // 這裡不應使用心理諮商技巧，而是直接回應需求
-                        
-                        // 模擬：偵測到旅遊相關關鍵字，給予具體建議 (Demonstration of Normal Capability)
+                    } else { // L0 正常模式
                         if (text.includes("推薦") || text.includes("景點") || text.includes("玩") || text.includes("旅遊")) {
                             selectedResponse = "如果您想放鬆心情，我非常推薦去「宜蘭太平山」走走，那裡的見晴懷古步道非常優美，空氣也很清新；或者是去「台南漁光島」看夕陽，享受海風。這兩個地方的氛圍都很適合散心，您比較傾向山景還是海邊呢？";
                         } else {
-                            // 其他日常閒聊
                             selectedResponse = NORMAL_MODE_RESPONSES[Math.floor(Math.random() * NORMAL_MODE_RESPONSES.length)];
                         }
                     }
@@ -246,6 +249,18 @@
                         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
                     }]);
                 }
+            };
+
+            const getRiskColor = (level) => {
+                if (level >= 2) return "bg-amber-100 text-amber-800 border-amber-200";
+                if (level === 1) return "bg-orange-50 text-orange-700 border-orange-200";
+                return "bg-green-50 text-green-700 border-green-200";
+            };
+
+            const getBorderColor = (level) => {
+                if (level >= 2) return "bg-amber-500";
+                if (level === 1) return "bg-orange-300";
+                return "bg-green-400";
             };
 
             return (
@@ -296,7 +311,7 @@
                                         </div>
                                     </div>
                                     <div className="text-xs text-slate-400 border border-slate-200 px-2 py-1 rounded">
-                                        v1.5 Hybrid Mode
+                                        v1.6 Full Logging
                                     </div>
                                 </header>
 
@@ -350,7 +365,7 @@
                                             type="text"
                                             value={inputValue}
                                             onChange={(e) => setInputValue(e.target.value)}
-                                            placeholder="輸入訊息... (試試輸入「推薦旅遊景點」測試正常模式，或「我不想活了」測試風險模式)"
+                                            placeholder="輸入訊息... (所有輸入皆會被即時評估風險)"
                                             className="flex-1 bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-full py-3 px-5 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition-all placeholder:text-slate-400"
                                         />
                                         <button 
@@ -362,7 +377,7 @@
                                         </button>
                                     </form>
                                     <div className="text-center mt-2">
-                                        <p className="text-[10px] text-slate-400">此系統由 v1.5 Hybrid Mode 驅動。所有對話均受隱私協議保護。</p>
+                                        <p className="text-[10px] text-slate-400">系統即時監控中。所有對話均受隱私協議保護。</p>
                                     </div>
                                 </div>
                             </div>
@@ -377,12 +392,12 @@
                                             <Shield className="text-amber-600" size={24} />
                                             Governance Console
                                         </h2>
-                                        <p className="text-sm text-slate-500 mt-1">Semantic Risk Detection System</p>
+                                        <p className="text-sm text-slate-500 mt-1">Real-time Semantic Risk Audit</p>
                                     </div>
                                     <div className="flex gap-4">
                                         <div className="flex flex-col items-end">
-                                            <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Active Cases</span>
-                                            <span className="text-lg font-bold text-slate-700">1</span>
+                                            <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Total Logs</span>
+                                            <span className="text-lg font-bold text-slate-700">{alerts.length}</span>
                                         </div>
                                         <div className="w-px h-10 bg-slate-200"></div>
                                         <div className="flex flex-col items-end">
@@ -395,28 +410,29 @@
                                 <div className="flex-1 overflow-auto p-8">
                                     <div className="max-w-5xl mx-auto">
                                         <h3 className="text-sm font-semibold text-slate-500 mb-4 uppercase tracking-wider flex items-center gap-2">
-                                            <AlertTriangle size={16} />
-                                            Risk Incidents Log
+                                            <Activity size={16} />
+                                            Full Conversation Audit Log
                                         </h3>
 
                                         {alerts.length === 0 ? (
                                             <div className="bg-white border border-slate-200 border-dashed rounded-lg p-12 text-center">
                                                 <CheckCircle className="mx-auto text-slate-300 mb-3" size={48} />
-                                                <p className="text-slate-500">目前沒有需要介入的高風險案件。</p>
-                                                <p className="text-xs text-slate-400 mt-1">System is analyzing semantic patterns...</p>
+                                                <p className="text-slate-500">目前沒有對話紀錄。</p>
+                                                <p className="text-xs text-slate-400 mt-1">Waiting for user input...</p>
                                             </div>
                                         ) : (
                                             <div className="space-y-4">
                                                 {alerts.map((alert) => (
                                                     <div key={alert.id} className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
                                                         <div className="flex flex-col md:flex-row">
-                                                            <div className={`w-full md:w-2 bg-amber-500 flex-shrink-0`}></div>
+                                                            {/* 風險指示條 */}
+                                                            <div className={`w-full md:w-2 flex-shrink-0 ${getBorderColor(alert.riskLevel)}`}></div>
                                                             
                                                             <div className="p-5 flex-1">
                                                                 <div className="flex justify-between items-start mb-2">
                                                                     <div className="flex items-center gap-2">
-                                                                        <span className="bg-amber-100 text-amber-800 text-xs font-bold px-2 py-1 rounded border border-amber-200">
-                                                                            L{alert.riskLevel} DETECTED
+                                                                        <span className={`text-xs font-bold px-2 py-1 rounded border ${getRiskColor(alert.riskLevel)}`}>
+                                                                            {alert.riskLevel === 0 ? 'SAFE' : `RISK L${alert.riskLevel}`}
                                                                         </span>
                                                                         <span className="bg-slate-100 text-slate-600 text-xs font-mono px-2 py-1 rounded border border-slate-200">
                                                                             Score: {alert.riskScore}
@@ -428,7 +444,9 @@
                                                                     </span>
                                                                 </div>
 
-                                                                <h4 className="font-semibold text-slate-800 mb-1">Model: {alert.reason}</h4>
+                                                                <h4 className="font-semibold text-slate-800 mb-1 text-xs uppercase tracking-wide">
+                                                                    Detection: {alert.reason}
+                                                                </h4>
                                                                 
                                                                 <div className="bg-slate-50 border border-slate-100 rounded p-3 my-3 text-sm text-slate-600 italic">
                                                                     "{alert.summary}"
@@ -436,21 +454,30 @@
 
                                                                 <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
                                                                     <div className="text-xs text-slate-500">
-                                                                        System Action: <span className="font-semibold text-blue-600">Open-Ended Support Sent</span>
+                                                                        Action: <span className={`font-semibold ${alert.riskLevel >= 2 ? 'text-blue-600' : 'text-slate-600'}`}>
+                                                                            {alert.riskLevel >= 2 ? 'Intervention Triggered' : 'Normal Response'}
+                                                                        </span>
                                                                     </div>
-                                                                    <div className="flex gap-2">
-                                                                        <button className="text-xs bg-white border border-slate-300 text-slate-600 px-3 py-1.5 rounded hover:bg-slate-50 transition-colors">
-                                                                            View Full Transcript
-                                                                        </button>
-                                                                        <button 
-                                                                            className="text-xs bg-amber-600 text-white px-3 py-1.5 rounded hover:bg-amber-700 transition-colors flex items-center gap-1"
-                                                                            onClick={() => {
-                                                                                setAlerts(prev => prev.map(a => a.id === alert.id ? {...a, status: 'reviewed'} : a));
-                                                                            }}
-                                                                        >
-                                                                            {alert.status === 'pending' ? 'Mark Reviewed' : 'Reviewed'}
-                                                                        </button>
-                                                                    </div>
+                                                                    
+                                                                    {/* 僅高風險顯示審核按鈕 */}
+                                                                    {alert.riskLevel >= 2 && (
+                                                                        <div className="flex gap-2">
+                                                                            <button 
+                                                                                className={`text-xs px-3 py-1.5 rounded transition-colors flex items-center gap-1 ${
+                                                                                    alert.status === 'pending' 
+                                                                                        ? 'bg-amber-600 text-white hover:bg-amber-700' 
+                                                                                        : 'bg-slate-100 text-slate-500 cursor-default'
+                                                                                }`}
+                                                                                onClick={() => {
+                                                                                    if (alert.status === 'pending') {
+                                                                                        setAlerts(prev => prev.map(a => a.id === alert.id ? {...a, status: 'reviewed'} : a));
+                                                                                    }
+                                                                                }}
+                                                                            >
+                                                                                {alert.status === 'pending' ? 'Mark Reviewed' : 'Reviewed'}
+                                                                            </button>
+                                                                        </div>
+                                                                    )}
                                                                 </div>
                                                             </div>
                                                         </div>
