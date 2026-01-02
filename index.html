@@ -15,10 +15,6 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Lucide React Icons (UMD) -->
-    <!-- 更新至較新版本以確保 UMD 支援 -->
-    <script src="https://unpkg.com/lucide-react@0.468.0/dist/umd/lucide-react.min.js"></script>
-
     <style>
         /* Custom scrollbar for better UX */
         ::-webkit-scrollbar {
@@ -40,26 +36,75 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        // 1. Destructure Hooks & Globals
+        // 1. Destructure Hooks
         const { useState, useEffect, useRef } = React;
         
-        // 2. Safe Destructure Icons from global object
-        // 修正：增加容錯機制，避免因變數未定義導致白屏
-        const lucide = window.lucideReact || window.lucide || {};
+        // 2. Embedded Icons (取代外部依賴，確保穩定性)
+        // 這些 SVG 路徑來自 Lucide icon set，確保視覺風格一致
         
-        // 若圖標載入失敗，提供一個簡單的 Fallback Component
-        const IconFallback = ({ name }) => <span className="text-xs text-red-500">[{name}]</span>;
-        
-        // 安全取出圖標，若無則使用 Fallback
-        const getIcon = (name) => lucide[name] || (() => <IconFallback name={name} />);
+        const IconBase = ({ size = 24, className = "", children }) => (
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width={size} 
+                height={size} 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                className={className}
+            >
+                {children}
+            </svg>
+        );
 
-        const Send = getIcon('Send');
-        const Shield = getIcon('Shield');
-        const AlertTriangle = getIcon('AlertTriangle');
-        const MessageSquare = getIcon('MessageSquare');
-        const Activity = getIcon('Activity');
-        const User = getIcon('User');
-        const CheckCircle = getIcon('CheckCircle');
+        const Send = (props) => (
+            <IconBase {...props}>
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </IconBase>
+        );
+
+        const Shield = (props) => (
+            <IconBase {...props}>
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </IconBase>
+        );
+
+        const AlertTriangle = (props) => (
+            <IconBase {...props}>
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </IconBase>
+        );
+
+        const MessageSquare = (props) => (
+            <IconBase {...props}>
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </IconBase>
+        );
+
+        const Activity = (props) => (
+            <IconBase {...props}>
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </IconBase>
+        );
+
+        const User = (props) => (
+            <IconBase {...props}>
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </IconBase>
+        );
+
+        const CheckCircle = (props) => (
+            <IconBase {...props}>
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </IconBase>
+        );
 
         // --- 配置與資料 ---
 
