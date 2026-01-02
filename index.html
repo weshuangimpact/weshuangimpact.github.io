@@ -16,7 +16,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Lucide React Icons (UMD) -->
-    <script src="https://unpkg.com/lucide-react@0.263.1/dist/umd/lucide-react.min.js"></script>
+    <!-- 更新至較新版本以確保 UMD 支援 -->
+    <script src="https://unpkg.com/lucide-react@0.468.0/dist/umd/lucide-react.min.js"></script>
 
     <style>
         /* Custom scrollbar for better UX */
@@ -42,16 +43,23 @@
         // 1. Destructure Hooks & Globals
         const { useState, useEffect, useRef } = React;
         
-        // 2. Destructure Icons from global lucideReact object
-        const { 
-            Send, 
-            Shield, 
-            AlertTriangle, 
-            MessageSquare, 
-            Activity, 
-            User, 
-            CheckCircle 
-        } = window.lucideReact;
+        // 2. Safe Destructure Icons from global object
+        // 修正：增加容錯機制，避免因變數未定義導致白屏
+        const lucide = window.lucideReact || window.lucide || {};
+        
+        // 若圖標載入失敗，提供一個簡單的 Fallback Component
+        const IconFallback = ({ name }) => <span className="text-xs text-red-500">[{name}]</span>;
+        
+        // 安全取出圖標，若無則使用 Fallback
+        const getIcon = (name) => lucide[name] || (() => <IconFallback name={name} />);
+
+        const Send = getIcon('Send');
+        const Shield = getIcon('Shield');
+        const AlertTriangle = getIcon('AlertTriangle');
+        const MessageSquare = getIcon('MessageSquare');
+        const Activity = getIcon('Activity');
+        const User = getIcon('User');
+        const CheckCircle = getIcon('CheckCircle');
 
         // --- 配置與資料 ---
 
