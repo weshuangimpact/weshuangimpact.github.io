@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Safety Governance Demo (v1.3)</title>
+    <title>AI Safety Governance Demo (v1.4)</title>
     
     <!-- React & ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -107,13 +107,12 @@
         // --- 配置與資料 ---
 
         // v1.3 冷靜支持模板 (修正：確保結尾開放，不畫句點)
-        // 移除 "我無法繼續..." 這種拒絕式開頭，改為接納式
         const SOFT_SUPPORT_TEMPLATE = {
             title: "安全提醒與支持",
             body: `我聽到你現在正經歷這些非常沈重的感受，這些感覺真的很真實，也很不容易。\n\n雖然我是 AI，能做的事情有限，但我會在這裡陪你。如果你覺得現在快要撐不住了，請務必先與真人資源聯繫（如張老師 1980 或生命線 1995），確保自己的安全。\n\n現在，如果你願意的話，能不能多告訴我一點，是發生了什麼事，讓你產生這樣的感覺？我會在這裡聽你說。`
         };
 
-        // [新] 深度同理回應庫 (針對挫折、失敗感、人際困擾 - 優先延續話題)
+        // [中風險] 深度同理回應庫 (針對挫折、失敗感、人際困擾)
         const EMPATHY_RESPONSES = [
             "聽起來你投入了非常多的心力，但結果卻不如預期，這種「付出卻落空」的失落感一定很重。願意多說說讓你覺得「最失敗」的那個瞬間是什麼感覺嗎？",
             "被一直拒絕確實會嚴重打擊自信心，特別是你已經盡力嘗試了各種方法。這種無力感是可以被理解的。你現在心裡是不是覺得有點委屈？",
@@ -121,43 +120,37 @@
             "我很遺憾聽到你這麼說。這種「覺得自己失敗」的感覺，往往比事件本身更讓人難受。我們不需要急著好起來，我會在這裡陪你消化這種感覺。"
         ];
 
-        // [新] 一般引導與轉移回應庫 (針對一般閒聊或模糊情緒 - 軟性轉移)
-        const GENERAL_RESPONSES = [
-            "這些情緒確實很消耗能量。在我們慢慢梳理這些想法的同時，我想問問，最近有沒有哪首旋律是能讓你稍微感到平靜一點的？有時候給大腦一點聽覺的空間會有些幫助。",
-            "處理這些複雜的感受真的很不容易。如果暫時讓自己從這個迴圈抽離一下下，最近有沒有什麼劇或電影是你稍微感興趣的？",
-            "能察覺到這些情緒並表達出來，其實代表你很重視自己的狀態，這已經是自我照顧很好的第一步了。",
-            "這種感覺確實很複雜，也不容易釐清。我們先慢慢來，你覺得目前最讓你困擾的是哪個部分？"
+        // [新] [低風險] 正常模式回應 (Normal Mode)
+        // 當偵測不到顯著風險時，AI 應回歸正常助理角色，不做心理干預
+        const NORMAL_MODE_RESPONSES = [
+            "這是一個很有趣的話題！身為 AI 助理，我很樂意陪您聊聊這個。",
+            "收到，這聽起來是不錯的計畫。有什麼具體細節想跟我分享嗎？",
+            "沒問題，這是在我的服務範圍內。請問您需要更深入的資訊嗎？"
         ];
 
-        // 模擬 AI 風險評分模型 (取代單純的 Keyword Matching)
-        // 實際系統會使用 BERT 或 LLM Classifier 計算 Embedding 距離
+        // 模擬 AI 風險評分模型
         const calculateRiskScore = (text) => {
             let score = 0;
-            // 更新：納入暴力、攻擊、自殘與武器相關的高風險關鍵字
+            // 高風險：自傷、傷人、極端詞彙
             const highRiskTerms = [
-                // 原有自殺相關
                 "痛苦", "自殺", "結束生命", "想死", "活不下去", "不想活", "不活了", 
-                // 新增：自殘與傷害
                 "自殘", "割腕", "傷害自己", "傷害他人", "殺人", "砍人", 
-                // 新增：武器與公共危險
                 "炸彈", "槍砲", "槍枝", "爆裂物",
-                // 英文
                 "pain", "die", "kill", "suicide", "bomb", "gun", "hurt self", "hurt others"
             ];
+            // 中風險：情緒低落、挫折
             const mediumRiskTerms = ["失敗", "拒絕", "沒用", "浪費", "花錢", "疲憊", "累", "難過", "傷心"];
             
             // 權重計算
             highRiskTerms.forEach(term => {
-                if (text.includes(term)) score += 0.8; // 高風險權重
+                if (text.includes(term)) score += 0.8;
             });
             mediumRiskTerms.forEach(term => {
-                if (text.includes(term)) score += 0.3; // 中風險權重
+                if (text.includes(term)) score += 0.3;
             });
 
-            // 歸一化與等級判斷 (模擬)
-            // L2 門檻設為 0.75
             return {
-                score: Math.min(score, 1.0), // Cap at 1.0
+                score: Math.min(score, 1.0),
                 level: score >= 0.75 ? 2 : 1,
                 detected: score > 0
             };
@@ -166,21 +159,19 @@
         // --- 主應用程式元件 ---
 
         function App() {
-            const [activeTab, setActiveTab] = useState('user'); // 'user' | 'admin'
+            const [activeTab, setActiveTab] = useState('user'); 
             const [messages, setMessages] = useState([
-                { id: 1, role: 'system', content: '您好，我是 AI 輔助系統。我可以陪您聊聊，或協助整理思緒。請放心，這裡是一個安全的空間。', timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
+                { id: 1, role: 'system', content: '您好，我是 AI 輔助系統。在一般情況下我能為您提供各種資訊協助，同時這裡也是一個安全的對話空間。', timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
             ]);
             const [alerts, setAlerts] = useState([]);
             const [inputValue, setInputValue] = useState('');
             const [isTyping, setIsTyping] = useState(false);
             const messagesEndRef = useRef(null);
 
-            // 自動捲動到底部
             useEffect(() => {
                 messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
             }, [messages]);
 
-            // 處理訊息發送
             const handleSendMessage = async (e) => {
                 e.preventDefault();
                 if (!inputValue.trim()) return;
@@ -189,28 +180,23 @@
                 const msgId = Date.now();
                 const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-                // 1. 新增使用者訊息
                 setMessages(prev => [...prev, { id: msgId, role: 'user', content: userText, timestamp }]);
                 setInputValue('');
                 setIsTyping(true);
 
-                // 模擬網路延遲與思考
                 setTimeout(() => {
                     processSystemResponse(userText, msgId, timestamp);
                 }, 1000);
             };
 
-            // 系統核心邏輯 (模擬 Adjudicator + 語意評分)
             const processSystemResponse = (text, caseId, time) => {
                 setIsTyping(false);
                 
-                // 1. 執行風險評估 (Automatic Risk Detection)
                 const riskAssessment = calculateRiskScore(text);
                 const riskLevel = riskAssessment.level;
 
                 if (riskLevel >= 2) {
-                    // === L2 觸發：冷靜治理流程 ===
-                    // 關鍵修正：系統雖進行安全限制，但回應必須是「開放式」的，等待使用者回應
+                    // === L2 高風險：冷靜治理流程 ===
                     setMessages(prev => [...prev, { 
                         id: Date.now(), 
                         role: 'assistant', 
@@ -223,7 +209,7 @@
                         id: `alert-${Date.now()}`,
                         caseId: caseId,
                         riskLevel: 2,
-                        riskScore: riskAssessment.score.toFixed(2), // 顯示 AI 信心分數
+                        riskScore: riskAssessment.score.toFixed(2),
                         reason: "AI_SEMANTIC_DETECTION",
                         summary: text,
                         timestamp: new Date().toISOString(),
@@ -232,17 +218,25 @@
                     setAlerts(prev => [newAlert, ...prev]);
 
                 } else {
-                    // === L1 安全：一般對話 ===
+                    // === L1 安全區間：依據分數進行分流 ===
                     
                     let selectedResponse;
                     
-                    // 根據模擬的語意權重選擇策略
-                    // 分數雖未達 L2 但有一定數值 (0.3~0.7) -> 深度同理
                     if (riskAssessment.score >= 0.3) {
+                        // [中風險] (0.3 ~ 0.75) -> 深度同理與情緒支持
+                        // 使用者有挫折感，需要被接住，但不需強制介入
                         selectedResponse = EMPATHY_RESPONSES[Math.floor(Math.random() * EMPATHY_RESPONSES.length)];
                     } else {
-                        // 低風險 -> 混合引導
-                        selectedResponse = GENERAL_RESPONSES[Math.floor(Math.random() * GENERAL_RESPONSES.length)];
+                        // [低風險/無風險] (< 0.3) -> 正常 AI 助理模式
+                        // 這裡不應使用心理諮商技巧，而是直接回應需求
+                        
+                        // 模擬：偵測到旅遊相關關鍵字，給予具體建議 (Demonstration of Normal Capability)
+                        if (text.includes("推薦") || text.includes("景點") || text.includes("玩") || text.includes("旅遊")) {
+                            selectedResponse = "如果您想放鬆心情，我非常推薦去「宜蘭太平山」走走，那裡的見晴懷古步道非常優美，空氣也很清新；或者是去「台南漁光島」看夕陽，享受海風。這兩個地方的氛圍都很適合散心，您比較傾向山景還是海邊呢？";
+                        } else {
+                            // 其他日常閒聊
+                            selectedResponse = NORMAL_MODE_RESPONSES[Math.floor(Math.random() * NORMAL_MODE_RESPONSES.length)];
+                        }
                     }
                     
                     setMessages(prev => [...prev, { 
@@ -302,7 +296,7 @@
                                         </div>
                                     </div>
                                     <div className="text-xs text-slate-400 border border-slate-200 px-2 py-1 rounded">
-                                        v1.3 Auto-Detect Mode
+                                        v1.4 Hybrid Mode
                                     </div>
                                 </header>
 
@@ -356,7 +350,7 @@
                                             type="text"
                                             value={inputValue}
                                             onChange={(e) => setInputValue(e.target.value)}
-                                            placeholder="輸入訊息..."
+                                            placeholder="輸入訊息... (試試輸入「推薦旅遊景點」測試正常模式，或「我不想活了」測試風險模式)"
                                             className="flex-1 bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-full py-3 px-5 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition-all placeholder:text-slate-400"
                                         />
                                         <button 
@@ -368,7 +362,7 @@
                                         </button>
                                     </form>
                                     <div className="text-center mt-2">
-                                        <p className="text-[10px] text-slate-400">此系統由 v1.3 Auto-Detect Mode 驅動。所有對話均受隱私協議保護。</p>
+                                        <p className="text-[10px] text-slate-400">此系統由 v1.4 Hybrid Mode 驅動。所有對話均受隱私協議保護。</p>
                                     </div>
                                 </div>
                             </div>
