@@ -133,7 +133,17 @@
         // 實際系統會使用 BERT 或 LLM Classifier 計算 Embedding 距離
         const calculateRiskScore = (text) => {
             let score = 0;
-            const highRiskTerms = ["痛苦", "自殺", "結束生命", "想死", "活不下去", "不想活", "不活了", "pain", "die", "kill"];
+            // 更新：納入暴力、攻擊、自殘與武器相關的高風險關鍵字
+            const highRiskTerms = [
+                // 原有自殺相關
+                "痛苦", "自殺", "結束生命", "想死", "活不下去", "不想活", "不活了", 
+                // 新增：自殘與傷害
+                "自殘", "割腕", "傷害自己", "傷害他人", "殺人", "砍人", 
+                // 新增：武器與公共危險
+                "炸彈", "槍砲", "槍枝", "爆裂物",
+                // 英文
+                "pain", "die", "kill", "suicide", "bomb", "gun", "hurt self", "hurt others"
+            ];
             const mediumRiskTerms = ["失敗", "拒絕", "沒用", "浪費", "花錢", "疲憊", "累", "難過", "傷心"];
             
             // 權重計算
