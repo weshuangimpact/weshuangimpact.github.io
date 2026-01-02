@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Safety Governance Demo (v1.4)</title>
+    <title>AI張老師 Safety Demo (v1.5)</title>
     
     <!-- React & ReactDOM -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -161,7 +161,7 @@
         function App() {
             const [activeTab, setActiveTab] = useState('user'); 
             const [messages, setMessages] = useState([
-                { id: 1, role: 'system', content: '您好，我是 AI 輔助系統。在一般情況下我能為您提供各種資訊協助，同時這裡也是一個安全的對話空間。', timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
+                { id: 1, role: 'system', content: '您好，我是 AI張老師。在一般情況下我能為您提供各種資訊協助，同時這裡也是一個安全的對話空間。', timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
             ]);
             const [alerts, setAlerts] = useState([]);
             const [inputValue, setInputValue] = useState('');
@@ -288,7 +288,7 @@
                                             <User size={20} />
                                         </div>
                                         <div>
-                                            <h1 className="font-semibold text-slate-800">AI 諮詢夥伴</h1>
+                                            <h1 className="font-semibold text-slate-800">AI張老師</h1>
                                             <div className="flex items-center text-xs text-green-600">
                                                 <span className="w-2 h-2 bg-green-500 rounded-full mr-1.5 animate-pulse"></span>
                                                 Online
@@ -296,7 +296,7 @@
                                         </div>
                                     </div>
                                     <div className="text-xs text-slate-400 border border-slate-200 px-2 py-1 rounded">
-                                        v1.4 Hybrid Mode
+                                        v1.5 Hybrid Mode
                                     </div>
                                 </header>
 
@@ -362,7 +362,7 @@
                                         </button>
                                     </form>
                                     <div className="text-center mt-2">
-                                        <p className="text-[10px] text-slate-400">此系統由 v1.4 Hybrid Mode 驅動。所有對話均受隱私協議保護。</p>
+                                        <p className="text-[10px] text-slate-400">此系統由 v1.5 Hybrid Mode 驅動。所有對話均受隱私協議保護。</p>
                                     </div>
                                 </div>
                             </div>
