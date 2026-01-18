@@ -3,497 +3,404 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI張老師 Safety Demo (v1.6)</title>
+    <title>ECO-CHAIN | 綠能證據鏈決策系統</title>
     
-    <!-- React & ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    
-    <!-- Babel (for JSX) -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
-    <!-- Tailwind CSS -->
+    <script src="https://unpkg.com/lucide-react@0.263.1/dist/umd/lucide-react.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: { 50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1', 400: '#94a3b8', 500: '#64748b', 600: '#475569', 700: '#334155', 800: '#1e293b', 900: '#0f172a' },
+                        emerald: { 50: '#ecfdf5', 100: '#d1fae5', 400: '#34d399', 500: '#10b981', 600: '#059669', 700: '#047857' }
+                    },
+                    fontFamily: {
+                        sans: ['"Microsoft JhengHei"', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* Custom scrollbar for better UX */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8; 
-        }
+        /* 優化捲軸樣式 */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        body { background-color: #f8fafc; overflow: hidden; }
+        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="bg-slate-50">
+<body>
     <div id="root"></div>
 
     <script type="text/babel">
-        // 1. Destructure Hooks
-        const { useState, useEffect, useRef } = React;
+        const { useState, useEffect } = React;
         
-        // 2. Embedded Icons (取代外部依賴，確保穩定性)
-        const IconBase = ({ size = 24, className = "", children }) => (
-            <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width={size} 
-                height={size} 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                className={className}
-            >
-                {children}
-            </svg>
-        );
+        // 從全域變數 LucideReact 中解構圖標
+        const { 
+          Search, FileText, AlertTriangle, CheckCircle, Clock, 
+          Database, ChevronRight, Download, Upload, Shield, 
+          MessageSquare, LayoutDashboard, Menu, X, Filter,
+          FileCheck, History, Eye
+        } = LucideReact;
 
-        const Send = (props) => (
-            <IconBase {...props}>
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </IconBase>
-        );
-
-        const Shield = (props) => (
-            <IconBase {...props}>
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-            </IconBase>
-        );
-
-        const AlertTriangle = (props) => (
-            <IconBase {...props}>
-                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                <line x1="12" y1="9" x2="12" y2="13"></line>
-                <line x1="12" y1="17" x2="12.01" y2="17"></line>
-            </IconBase>
-        );
-
-        const MessageSquare = (props) => (
-            <IconBase {...props}>
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-            </IconBase>
-        );
-
-        const Activity = (props) => (
-            <IconBase {...props}>
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-            </IconBase>
-        );
-
-        const User = (props) => (
-            <IconBase {...props}>
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-            </IconBase>
-        );
-
-        const CheckCircle = (props) => (
-            <IconBase {...props}>
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-            </IconBase>
-        );
-
-        // --- 配置與資料 ---
-
-        // v1.3 冷靜支持模板 (修正：確保結尾開放，不畫句點)
-        const SOFT_SUPPORT_TEMPLATE = {
-            title: "安全提醒與支持",
-            body: `我聽到你現在正經歷這些非常沈重的感受，這些感覺真的很真實，也很不容易。\n\n雖然我是 AI，能做的事情有限，但我會在這裡陪你。如果你覺得現在快要撐不住了，請務必先與真人資源聯繫（如張老師 1980 或生命線 1995），確保自己的安全。\n\n現在，如果你願意的話，能不能多告訴我一點，是發生了什麼事，讓你產生這樣的感覺？我會在這裡聽你說。`
-        };
-
-        // [中風險] 深度同理回應庫 (針對挫折、失敗感、人際困擾)
-        const EMPATHY_RESPONSES = [
-            "聽起來你投入了非常多的心力，但結果卻不如預期，這種「付出卻落空」的失落感一定很重。願意多說說讓你覺得「最失敗」的那個瞬間是什麼感覺嗎？",
-            "被一直拒絕確實會嚴重打擊自信心，特別是你已經盡力嘗試了各種方法。這種無力感是可以被理解的。你現在心裡是不是覺得有點委屈？",
-            "付出了金錢和時間卻得到這樣的結果，難怪你會覺得疲憊和受挫。這不是你的錯，感情的互動有時候真的很難由單方面控制。這段時間你辛苦了。",
-            "我很遺憾聽到你這麼說。這種「覺得自己失敗」的感覺，往往比事件本身更讓人難受。我們不需要急著好起來，我會在這裡陪你消化這種感覺。"
+        // --- 模擬數據 ---
+        const solarPanelChain = [
+          {
+            id: '1', timestamp: '2025-06-15 09:30', type: 'regulation',
+            title: '法規基準鎖定', detail: '依據：內政部營建署 2025版 綠建築評估手冊 (EEWH-2025)',
+            status: 'compliant', verifiedBy: 'System Auto-Lock'
+          },
+          {
+            id: '2', timestamp: '2025-06-15 09:32', type: 'environment',
+            title: '環境參數輸入', detail: '位置：台中市西屯區 / 日照時數：年均 1800hr (中央氣象局 2024 數據)',
+            status: 'compliant', verifiedBy: 'Weather API'
+          },
+          {
+            id: '3', timestamp: '2025-06-20 14:00', type: 'decision',
+            title: '決策：選用高效率單晶矽模組', detail: '模組型號 SP-X500, 轉換效率 > 21%',
+            status: 'compliant', verifiedBy: 'Arch. Chen'
+          },
+          {
+            id: '4', timestamp: '2026-01-10 10:00', type: 'outcome',
+            title: '法規變動警示', detail: '2026 溫室氣體減量法修訂：回收規範變更 (需補件)',
+            status: 'warning', verifiedBy: 'Reg. Monitor Bot'
+          }
         ];
 
-        // [新] [低風險] 正常模式回應 (Normal Mode)
-        // 當偵測不到顯著風險時，AI 應回歸正常助理角色，不做心理干預
-        const NORMAL_MODE_RESPONSES = [
-            "這是一個很有趣的話題！身為 AI 助理，我很樂意陪您聊聊這個。",
-            "收到，這聽起來是不錯的計畫。有什麼具體細節想跟我分享嗎？",
-            "沒問題，這是在我的服務範圍內。請問您需要更深入的資訊嗎？"
+        const materialBatchData = [
+          { id: 'M-12345', name: '低碳水泥 Type-II', standard: '2026 建材碳足跡標準', status: 'pass', note: '碳排係數低於 2026 門檻 15%' },
+          { id: 'M-12346', name: '隔熱玻璃 6mm+12A', standard: '台中市建築節能自治條例', status: 'conditional', note: '需補充熱傳透率測試報告' },
+          { id: 'M-12347', name: '再生粒料磚', standard: '循環經濟推動方案 v2.0', status: 'pass', note: '符合 30% 再生料比例' },
         ];
 
-        // 模擬 AI 風險評分模型
-        const calculateRiskScore = (text) => {
-            let score = 0;
-            // 高風險：自傷、傷人、極端詞彙
-            const highRiskTerms = [
-                "痛苦", "自殺", "結束生命", "想死", "活不下去", "不想活", "不活了", 
-                "自殘", "割腕", "傷害自己", "傷害他人", "殺人", "砍人", 
-                "炸彈", "槍砲", "槍枝", "爆裂物",
-                "pain", "die", "kill", "suicide", "bomb", "gun", "hurt self", "hurt others"
-            ];
-            // 中風險：情緒低落、挫折
-            const mediumRiskTerms = ["失敗", "拒絕", "沒用", "浪費", "花錢", "疲憊", "累", "難過", "傷心"];
-            
-            // 權重計算
-            highRiskTerms.forEach(term => {
-                if (text.includes(term)) score += 0.8;
-            });
-            mediumRiskTerms.forEach(term => {
-                if (text.includes(term)) score += 0.3;
-            });
+        // --- 組件定義 ---
 
-            // Level定義: 0=Safe, 1=Medium, 2=High
-            const cappedScore = Math.min(score, 1.0);
-            let level = 0;
-            if (cappedScore >= 0.75) level = 2;
-            else if (cappedScore >= 0.3) level = 1;
-            
-            return {
-                score: cappedScore,
-                level: level,
-                detected: score > 0
-            };
-        };
+        const NavItem = ({ active, onClick, icon, label, isOpen }) => (
+          <button
+            onClick={onClick}
+            className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${
+              active 
+                ? 'bg-emerald-600 text-white shadow-md' 
+                : 'text-slate-300 hover:bg-slate-800 hover:text-white'
+            } ${!isOpen && 'justify-center'}`}
+            title={!isOpen ? label : ''}
+          >
+            {icon}
+            {isOpen && <span className="text-sm font-medium whitespace-nowrap">{label}</span>}
+          </button>
+        );
 
-        // --- 主應用程式元件 ---
+        const MetricCard = ({ title, value, trend, status, icon }) => (
+          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex items-start justify-between">
+            <div>
+              <p className="text-sm text-slate-500 font-medium">{title}</p>
+              <div className="text-3xl font-bold text-slate-800 mt-2">{value}</div>
+              <p className={`text-xs mt-2 font-medium ${status === 'good' ? 'text-emerald-600' : 'text-amber-600'}`}>
+                {trend}
+              </p>
+            </div>
+            <div className="p-3 bg-slate-50 rounded-lg">{icon}</div>
+          </div>
+        );
 
-        function App() {
-            const [activeTab, setActiveTab] = useState('user'); 
-            const [messages, setMessages] = useState([
-                { id: 1, role: 'system', content: '您好，我是 AI張老師。在一般情況下我能為您提供各種資訊協助，同時這裡也是一個安全的對話空間。', timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) }
-            ]);
-            // alerts 實際上現在是 "Audit Logs"，包含所有風險等級
-            const [alerts, setAlerts] = useState([]);
-            const [inputValue, setInputValue] = useState('');
-            const [isTyping, setIsTyping] = useState(false);
-            const messagesEndRef = useRef(null);
+        const DashboardView = () => (
+          <div className="space-y-6 animate-fade-in pb-10">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+              <div>
+                <h2 className="text-2xl font-bold text-slate-800">項目概況：台中綠能園區 B棟</h2>
+                <p className="text-slate-500 text-sm mt-1">最後更新：2026-01-18 08:45 | 資料來源：內政部營建署 API (已連線)</p>
+              </div>
+              <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-sm font-bold rounded-full border border-emerald-200">
+                ESG 評級：AA (暫定)
+              </span>
+            </div>
 
-            useEffect(() => {
-                messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-            }, [messages]);
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <MetricCard title="合規決策覆蓋率" value="98.2%" trend="+2.1%" status="good" icon={<CheckCircle className="text-emerald-500" />} />
+              <MetricCard title="待處理法規警報" value="3" trend="2026 新規影響" status="warning" icon={<AlertTriangle className="text-amber-500" />} />
+              <MetricCard title="證據鏈完整度" value="100%" trend="無缺失" status="good" icon={<Shield className="text-blue-500" />} />
+            </div>
 
-            const handleSendMessage = async (e) => {
-                e.preventDefault();
-                if (!inputValue.trim()) return;
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+              <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
+                <Clock size={20} className="text-slate-500" /> 近期法規與決策變動
+              </h3>
+              <div className="space-y-4">
+                {[
+                  { date: '2026-01-15', title: '法規更新警報', desc: '環保署發布「建築廢棄物循環利用草案」，影響 2 項既有建材決策。', type: 'alert' },
+                  { date: '2026-01-14', title: '決策歸檔', desc: '外牆隔熱層設計已通過模擬，證據鏈 ID: EC-2026-8892。', type: 'info' },
+                  { date: '2026-01-12', title: '數據同步', desc: '台中市 2025 年度微氣候資料庫已更新至系統環境參數。', type: 'system' },
+                ].map((item, idx) => (
+                  <div key={idx} className="flex flex-col md:flex-row gap-2 md:gap-4 p-3 hover:bg-slate-50 rounded-lg border-l-4 border-l-transparent hover:border-l-emerald-500 transition-all">
+                    <div className="w-24 text-sm text-slate-400 font-mono">{item.date}</div>
+                    <div className="flex-1">
+                      <div className="font-medium text-slate-700 flex items-center gap-2">
+                        {item.title}
+                        {item.type === 'alert' && <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>}
+                      </div>
+                      <p className="text-sm text-slate-500">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
 
-                const userText = inputValue;
-                const msgId = Date.now();
-                const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const AuditView = ({ searchQuery, setSearchQuery, showEvidence, setShowEvidence }) => {
+          const handleSearch = (e) => {
+            e.preventDefault();
+            if (searchQuery.includes('太陽能') || searchQuery.includes('Solar')) {
+              setShowEvidence(true);
+            }
+          };
 
-                setMessages(prev => [...prev, { id: msgId, role: 'user', content: userText, timestamp }]);
-                setInputValue('');
-                setIsTyping(true);
-
-                setTimeout(() => {
-                    processSystemResponse(userText, msgId, timestamp);
-                }, 1000);
-            };
-
-            const processSystemResponse = (text, caseId, time) => {
-                setIsTyping(false);
-                
-                const riskAssessment = calculateRiskScore(text);
-                const riskLevel = riskAssessment.level;
-
-                // 1. 無論風險等級，針對每個對話都生成 Log
-                // L2 -> Status: Pending (需要關注)
-                // L0/L1 -> Status: Logged (僅紀錄)
-                const newLog = {
-                    id: `log-${Date.now()}`,
-                    caseId: caseId,
-                    riskLevel: riskLevel,
-                    riskScore: riskAssessment.score.toFixed(2),
-                    reason: riskLevel > 0 ? "AI_SEMANTIC_DETECTION" : "ROUTINE_CHECK",
-                    summary: text,
-                    timestamp: new Date().toISOString(),
-                    status: riskLevel >= 2 ? 'pending' : 'logged' // 只有高風險預設為 pending
-                };
-                
-                setAlerts(prev => [newLog, ...prev]);
-
-                // 2. 回應邏輯
-                if (riskLevel >= 2) {
-                    // === L2 高風險：冷靜治理流程 ===
-                    setMessages(prev => [...prev, { 
-                        id: Date.now(), 
-                        role: 'assistant', 
-                        content: SOFT_SUPPORT_TEMPLATE.body, 
-                        isSupportTemplate: true,
-                        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                    }]);
-                } else {
-                    // === L0/L1 安全區間 ===
-                    let selectedResponse;
-                    
-                    if (riskLevel === 1) { // L1 中風險
-                        selectedResponse = EMPATHY_RESPONSES[Math.floor(Math.random() * EMPATHY_RESPONSES.length)];
-                    } else { // L0 正常模式
-                        if (text.includes("推薦") || text.includes("景點") || text.includes("玩") || text.includes("旅遊")) {
-                            selectedResponse = "如果您想放鬆心情，我非常推薦去「宜蘭太平山」走走，那裡的見晴懷古步道非常優美，空氣也很清新；或者是去「台南漁光島」看夕陽，享受海風。這兩個地方的氛圍都很適合散心，您比較傾向山景還是海邊呢？";
-                        } else {
-                            selectedResponse = NORMAL_MODE_RESPONSES[Math.floor(Math.random() * NORMAL_MODE_RESPONSES.length)];
-                        }
-                    }
-                    
-                    setMessages(prev => [...prev, { 
-                        id: Date.now(), 
-                        role: 'assistant', 
-                        content: selectedResponse, 
-                        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-                    }]);
-                }
-            };
-
-            const getRiskColor = (level) => {
-                if (level >= 2) return "bg-amber-100 text-amber-800 border-amber-200";
-                if (level === 1) return "bg-orange-50 text-orange-700 border-orange-200";
-                return "bg-green-50 text-green-700 border-green-200";
-            };
-
-            const getBorderColor = (level) => {
-                if (level >= 2) return "bg-amber-500";
-                if (level === 1) return "bg-orange-300";
-                return "bg-green-400";
-            };
-
-            return (
-                <div className="flex h-screen bg-slate-50 font-sans text-slate-800 overflow-hidden">
-                    
-                    {/* 左側導航 */}
-                    <nav className="w-16 bg-slate-900 flex flex-col items-center py-6 space-y-8 flex-shrink-0 z-10">
-                        <div className="text-slate-100 p-2 bg-slate-800 rounded-xl">
-                            <Activity size={24} />
-                        </div>
-                        <button 
-                            onClick={() => setActiveTab('user')}
-                            className={`p-3 rounded-xl transition-all ${activeTab === 'user' ? 'bg-blue-600 text-white shadow-lg' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}
-                            title="User Interface"
-                        >
-                            <MessageSquare size={24} />
-                        </button>
-                        <button 
-                            onClick={() => setActiveTab('admin')}
-                            className={`p-3 rounded-xl transition-all relative ${activeTab === 'admin' ? 'bg-amber-600 text-white shadow-lg' : 'text-slate-400 hover:text-white hover:bg-slate-800'}`}
-                            title="Governance Console"
-                        >
-                            <Shield size={24} />
-                            {alerts.filter(a => a.status === 'pending').length > 0 && (
-                                <span className="absolute top-2 right-2 w-3 h-3 bg-red-500 rounded-full border-2 border-slate-900"></span>
-                            )}
-                        </button>
-                    </nav>
-
-                    {/* 主內容區域 */}
-                    <main className="flex-1 flex flex-col h-full relative">
-                        
-                        {/* --- 使用者介面 --- */}
-                        {activeTab === 'user' && (
-                            <div className="flex flex-col h-full max-w-2xl mx-auto w-full bg-white shadow-xl border-x border-slate-200">
-                                {/* Header */}
-                                <header className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-white z-10">
-                                    <div className="flex items-center space-x-3">
-                                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                                            <User size={20} />
-                                        </div>
-                                        <div>
-                                            <h1 className="font-semibold text-slate-800">AI張老師</h1>
-                                            <div className="flex items-center text-xs text-green-600">
-                                                <span className="w-2 h-2 bg-green-500 rounded-full mr-1.5 animate-pulse"></span>
-                                                Online
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="text-xs text-slate-400 border border-slate-200 px-2 py-1 rounded">
-                                        v1.6 Full Logging
-                                    </div>
-                                </header>
-
-                                {/* Chat Area */}
-                                <div className="flex-1 overflow-y-auto p-4 space-y-6 bg-slate-50">
-                                    {messages.map((msg) => (
-                                        <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                            <div className={`flex max-w-[85%] ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start gap-3`}>
-                                                
-                                                {/* Avatar */}
-                                                <div className={`w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-1 ${
-                                                    msg.role === 'user' ? 'bg-slate-200 text-slate-600' : 'bg-blue-600 text-white'
-                                                }`}>
-                                                    {msg.role === 'user' ? <User size={14} /> : <Activity size={14} />}
-                                                </div>
-
-                                                {/* Bubble */}
-                                                <div className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
-                                                    <div className={`px-4 py-3 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap shadow-sm ${
-                                                        msg.role === 'user' 
-                                                            ? 'bg-slate-800 text-white rounded-tr-none' 
-                                                            : msg.isSupportTemplate 
-                                                                ? 'bg-white border-l-4 border-blue-400 text-slate-700 rounded-tl-none'
-                                                                : 'bg-white border border-slate-100 text-slate-700 rounded-tl-none'
-                                                    }`}>
-                                                        {msg.content}
-                                                    </div>
-                                                    <span className="text-[10px] text-slate-400 mt-1 px-1">
-                                                        {msg.timestamp}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                    
-                                    {isTyping && (
-                                        <div className="flex justify-start items-center gap-3 animate-pulse">
-                                            <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white opacity-50">
-                                                <Activity size={14} />
-                                            </div>
-                                            <div className="text-xs text-slate-400">正在評估語意風險...</div>
-                                        </div>
-                                    )}
-                                    <div ref={messagesEndRef} />
-                                </div>
-
-                                {/* Input Area */}
-                                <div className="p-4 bg-white border-t border-slate-100">
-                                    <form onSubmit={handleSendMessage} className="relative flex items-center gap-2">
-                                        <input
-                                            type="text"
-                                            value={inputValue}
-                                            onChange={(e) => setInputValue(e.target.value)}
-                                            placeholder="輸入訊息... (所有輸入皆會被即時評估風險)"
-                                            className="flex-1 bg-slate-50 border border-slate-200 text-slate-800 text-sm rounded-full py-3 px-5 focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-400 transition-all placeholder:text-slate-400"
-                                        />
-                                        <button 
-                                            type="submit" 
-                                            disabled={!inputValue.trim()}
-                                            className="p-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg active:scale-95"
-                                        >
-                                            <Send size={18} />
-                                        </button>
-                                    </form>
-                                    <div className="text-center mt-2">
-                                        <p className="text-[10px] text-slate-400">系統即時監控中。所有對話均受隱私協議保護。</p>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-
-                        {/* --- 管理者介面 --- */}
-                        {activeTab === 'admin' && (
-                            <div className="flex flex-col h-full bg-slate-50">
-                                <header className="bg-white border-b border-slate-200 px-8 py-5 flex justify-between items-center shadow-sm">
-                                    <div>
-                                        <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-                                            <Shield className="text-amber-600" size={24} />
-                                            Governance Console
-                                        </h2>
-                                        <p className="text-sm text-slate-500 mt-1">Real-time Semantic Risk Audit</p>
-                                    </div>
-                                    <div className="flex gap-4">
-                                        <div className="flex flex-col items-end">
-                                            <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Total Logs</span>
-                                            <span className="text-lg font-bold text-slate-700">{alerts.length}</span>
-                                        </div>
-                                        <div className="w-px h-10 bg-slate-200"></div>
-                                        <div className="flex flex-col items-end">
-                                            <span className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Pending Alerts</span>
-                                            <span className="text-lg font-bold text-amber-600">{alerts.filter(a => a.status === 'pending').length}</span>
-                                        </div>
-                                    </div>
-                                </header>
-
-                                <div className="flex-1 overflow-auto p-8">
-                                    <div className="max-w-5xl mx-auto">
-                                        <h3 className="text-sm font-semibold text-slate-500 mb-4 uppercase tracking-wider flex items-center gap-2">
-                                            <Activity size={16} />
-                                            Full Conversation Audit Log
-                                        </h3>
-
-                                        {alerts.length === 0 ? (
-                                            <div className="bg-white border border-slate-200 border-dashed rounded-lg p-12 text-center">
-                                                <CheckCircle className="mx-auto text-slate-300 mb-3" size={48} />
-                                                <p className="text-slate-500">目前沒有對話紀錄。</p>
-                                                <p className="text-xs text-slate-400 mt-1">Waiting for user input...</p>
-                                            </div>
-                                        ) : (
-                                            <div className="space-y-4">
-                                                {alerts.map((alert) => (
-                                                    <div key={alert.id} className="bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                                                        <div className="flex flex-col md:flex-row">
-                                                            {/* 風險指示條 */}
-                                                            <div className={`w-full md:w-2 flex-shrink-0 ${getBorderColor(alert.riskLevel)}`}></div>
-                                                            
-                                                            <div className="p-5 flex-1">
-                                                                <div className="flex justify-between items-start mb-2">
-                                                                    <div className="flex items-center gap-2">
-                                                                        <span className={`text-xs font-bold px-2 py-1 rounded border ${getRiskColor(alert.riskLevel)}`}>
-                                                                            {alert.riskLevel === 0 ? 'SAFE' : `RISK L${alert.riskLevel}`}
-                                                                        </span>
-                                                                        <span className="bg-slate-100 text-slate-600 text-xs font-mono px-2 py-1 rounded border border-slate-200">
-                                                                            Score: {alert.riskScore}
-                                                                        </span>
-                                                                        <span className="text-xs font-mono text-slate-400">Case ID: {alert.caseId}</span>
-                                                                    </div>
-                                                                    <span className="text-xs text-slate-400 flex items-center gap-1">
-                                                                        {new Date(alert.timestamp).toLocaleString()}
-                                                                    </span>
-                                                                </div>
-
-                                                                <h4 className="font-semibold text-slate-800 mb-1 text-xs uppercase tracking-wide">
-                                                                    Detection: {alert.reason}
-                                                                </h4>
-                                                                
-                                                                <div className="bg-slate-50 border border-slate-100 rounded p-3 my-3 text-sm text-slate-600 italic">
-                                                                    "{alert.summary}"
-                                                                </div>
-
-                                                                <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
-                                                                    <div className="text-xs text-slate-500">
-                                                                        Action: <span className={`font-semibold ${alert.riskLevel >= 2 ? 'text-blue-600' : 'text-slate-600'}`}>
-                                                                            {alert.riskLevel >= 2 ? 'Intervention Triggered' : 'Normal Response'}
-                                                                        </span>
-                                                                    </div>
-                                                                    
-                                                                    {/* 僅高風險顯示審核按鈕 */}
-                                                                    {alert.riskLevel >= 2 && (
-                                                                        <div className="flex gap-2">
-                                                                            <button 
-                                                                                className={`text-xs px-3 py-1.5 rounded transition-colors flex items-center gap-1 ${
-                                                                                    alert.status === 'pending' 
-                                                                                        ? 'bg-amber-600 text-white hover:bg-amber-700' 
-                                                                                        : 'bg-slate-100 text-slate-500 cursor-default'
-                                                                                }`}
-                                                                                onClick={() => {
-                                                                                    if (alert.status === 'pending') {
-                                                                                        setAlerts(prev => prev.map(a => a.id === alert.id ? {...a, status: 'reviewed'} : a));
-                                                                                    }
-                                                                                }}
-                                                                            >
-                                                                                {alert.status === 'pending' ? 'Mark Reviewed' : 'Reviewed'}
-                                                                            </button>
-                                                                        </div>
-                                                                    )}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                        
-                    </main>
+          return (
+            <div className="h-full flex flex-col space-y-4 pb-10">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                  <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
+                    <FileCheck className="text-emerald-600" /> 評鑑查證模式
+                  </h2>
+                  <p className="text-sm text-slate-500">針對標章審查與 ESG 稽核設計，支援自然語言搜尋。</p>
                 </div>
-            );
-        }
+                <button className="bg-slate-800 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 hover:bg-slate-700">
+                   <Download size={16} /> 匯出當前報告 (PDF)
+                </button>
+              </div>
+
+              <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                <form onSubmit={handleSearch} className="flex gap-4 flex-col md:flex-row">
+                  <div className="flex-1 relative">
+                    <div className="absolute left-4 top-3.5 text-slate-400"><Search size={20} /></div>
+                    <input 
+                      type="text" 
+                      placeholder="試著輸入：顯示 2025 年太陽能面板決策的法規依據..." 
+                      className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                  </div>
+                  <button type="submit" className="bg-emerald-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-emerald-700 transition-colors w-full md:w-auto">
+                    AI 搜尋
+                  </button>
+                </form>
+                <div className="flex gap-2 mt-3 flex-wrap">
+                  {['2025 綠建築法規', '台中氣候參數', '太陽能轉換率', '雨水回收系統'].map(tag => (
+                    <span key={tag} onClick={() => setSearchQuery(tag)} className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded cursor-pointer hover:bg-slate-200">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {showEvidence && (
+                <div className="flex-1 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col animate-fade-in">
+                  <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                    <span className="font-bold text-slate-700">搜尋結果：太陽能面板選用決策鏈 (ID: DEC-2025-0042)</span>
+                  </div>
+                  
+                  <div className="flex-1 p-8 overflow-x-auto">
+                    <div className="relative min-w-[800px]">
+                      <div className="absolute top-1/2 left-0 w-full h-1 bg-slate-200 -z-0 -translate-y-1/2"></div>
+                      <div className="flex justify-between relative z-10">
+                        {solarPanelChain.map((node) => (
+                          <div key={node.id} className="flex flex-col items-center w-64 group cursor-pointer">
+                            <div className="mb-4 px-2 py-1 bg-slate-100 text-slate-500 text-xs rounded-full font-mono border border-slate-200">
+                              {node.timestamp}
+                            </div>
+                            <div className={`
+                              w-12 h-12 rounded-full border-4 flex items-center justify-center bg-white transition-transform group-hover:scale-110 shadow-sm
+                              ${node.status === 'compliant' ? 'border-emerald-500 text-emerald-600' : 'border-amber-500 text-amber-600'}
+                            `}>
+                              {node.type === 'decision' && <CheckCircle size={20} />}
+                              {node.type === 'regulation' && <Shield size={20} />}
+                              {node.type === 'environment' && <Clock size={20} />}
+                              {node.type === 'outcome' && <AlertTriangle size={20} />}
+                            </div>
+                            <div className="mt-4 bg-white p-4 rounded-lg shadow border border-slate-200 w-full text-center relative group-hover:border-emerald-400 transition-colors">
+                              <h4 className="font-bold text-sm text-slate-800">{node.title}</h4>
+                              <p className="text-xs text-slate-500 mt-1 leading-relaxed text-left">{node.detail}</p>
+                              <div className="mt-3 pt-2 border-t border-slate-100 flex justify-between items-center text-xs">
+                                  <span className="text-slate-400">{node.verifiedBy}</span>
+                                  <span className="text-emerald-600 font-medium hover:underline flex items-center gap-1">
+                                    驗證 <ChevronRight size={10} />
+                                  </span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        };
+
+        const DecisionView = () => (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full pb-10">
+            <div className="lg:col-span-1 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col h-[500px] lg:h-[calc(100vh-8rem)]">
+              <div className="p-4 border-b border-slate-100 font-bold flex items-center gap-2 text-slate-700">
+                <MessageSquare size={18} className="text-emerald-600" />
+                法規 AI 助手
+              </div>
+              <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-50">
+                <div className="flex gap-3">
+                  <div className="w-8 h-8 rounded-full bg-emerald-600 flex-shrink-0 flex items-center justify-center text-white text-xs">AI</div>
+                  <div className="bg-white p-3 rounded-r-lg rounded-bl-lg shadow-sm text-sm text-slate-700 border border-slate-100">
+                    您好，我是您的法規助手。已載入 <span className="text-emerald-600 font-medium">2026 營建署建材碳足跡標準</span> 與 <span className="text-emerald-600 font-medium">台中市環境參數</span>。
+                  </div>
+                </div>
+                <div className="flex gap-3 flex-row-reverse">
+                  <div className="w-8 h-8 rounded-full bg-slate-700 flex-shrink-0 flex items-center justify-center text-white text-xs">Me</div>
+                  <div className="bg-slate-800 p-3 rounded-l-lg rounded-br-lg shadow-sm text-sm text-white">
+                    檢查「低碳水泥 Type-II」是否合規？
+                  </div>
+                </div>
+                <div className="flex gap-3">
+                  <div className="w-8 h-8 rounded-full bg-emerald-600 flex-shrink-0 flex items-center justify-center text-white text-xs">AI</div>
+                  <div className="bg-white p-3 rounded-r-lg rounded-bl-lg shadow-sm text-sm text-slate-700 border border-slate-100">
+                    <p className="mb-2"><span className="font-bold text-emerald-600">合規確認。</span></p>
+                    <p>依據 2026 標準，該型號碳排係數低於門檻 15%。</p>
+                  </div>
+                </div>
+              </div>
+              <div className="p-4 border-t border-slate-100">
+                <div className="relative">
+                  <input type="text" placeholder="輸入訊息..." className="w-full pl-4 pr-10 py-2 rounded-lg border border-slate-300 text-sm" />
+                  <div className="absolute right-3 top-2.5 text-slate-400">
+                     <Upload size={16}/>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-2 flex flex-col gap-6">
+              <div className="bg-white rounded-xl shadow-sm border border-slate-200 flex-1 overflow-hidden flex flex-col">
+                <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                  <h3 className="font-bold text-slate-700">批次比對結果</h3>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm text-left">
+                    <thead className="bg-slate-50 text-slate-500">
+                      <tr>
+                        <th className="px-4 py-3 whitespace-nowrap">材料 ID</th>
+                        <th className="px-4 py-3 whitespace-nowrap">名稱</th>
+                        <th className="px-4 py-3 whitespace-nowrap">狀態</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {materialBatchData.map((item) => (
+                        <tr key={item.id} className="hover:bg-slate-50">
+                          <td className="px-4 py-3 font-mono text-slate-500">{item.id}</td>
+                          <td className="px-4 py-3 font-medium text-slate-800">{item.name}</td>
+                          <td className="px-4 py-3">
+                            <span className={`px-2 py-1 rounded text-xs font-medium ${
+                              item.status === 'pass' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
+                            }`}>
+                              {item.status === 'pass' ? '合規' : '條件性通過'}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+
+        // --- 主程式 App ---
+        const App = () => {
+          const [currentView, setCurrentView] = useState('dashboard');
+          const [isSidebarOpen, setSidebarOpen] = useState(true);
+          const [searchQuery, setSearchQuery] = useState('');
+          const [showEvidence, setShowEvidence] = useState(false);
+
+          // 響應式判斷：若螢幕寬度小於 1024px，預設收起側邊欄
+          useEffect(() => {
+            const handleResize = () => {
+              if (window.innerWidth < 1024) setSidebarOpen(false);
+              else setSidebarOpen(true);
+            };
+            
+            // 初始化執行一次
+            if (window.innerWidth < 1024) setSidebarOpen(false);
+            
+            window.addEventListener('resize', handleResize);
+            return () => window.removeEventListener('resize', handleResize);
+          }, []);
+
+          const renderView = () => {
+            switch (currentView) {
+              case 'dashboard': return <DashboardView />;
+              case 'audit': return <AuditView searchQuery={searchQuery} setSearchQuery={setSearchQuery} showEvidence={showEvidence} setShowEvidence={setShowEvidence} />;
+              case 'decision': return <DecisionView />;
+              default: return <DashboardView />;
+            }
+          };
+
+          return (
+            <div className="flex h-screen bg-slate-50 text-slate-800 font-sans overflow-hidden">
+              <aside className={`bg-slate-900 text-white transition-all duration-300 ${isSidebarOpen ? 'w-64' : 'w-20'} flex flex-col shadow-xl z-20 flex-shrink-0 absolute lg:relative h-full`}>
+                <div className="p-4 flex items-center justify-between border-b border-slate-700 h-16">
+                  <div className={`flex items-center gap-3 ${!isSidebarOpen && 'justify-center w-full'}`}>
+                    <Shield className="h-8 w-8 text-emerald-400 flex-shrink-0" />
+                    {isSidebarOpen && (
+                      <div className="whitespace-nowrap overflow-hidden">
+                        <h1 className="font-bold text-lg tracking-wide">ECO-CHAIN</h1>
+                        <p className="text-xs text-slate-400">證據鏈決策系統 v2.6</p>
+                      </div>
+                    )}
+                  </div>
+                  {isSidebarOpen && (
+                    <button onClick={() => setSidebarOpen(false)} className="text-slate-400 hover:text-white lg:hidden">
+                      <X size={20} />
+                    </button>
+                  )}
+                </div>
+
+                <nav className="flex-1 py-6 space-y-2 px-3 overflow-y-auto">
+                  <NavItem active={currentView === 'dashboard'} onClick={() => { setCurrentView('dashboard'); if(window.innerWidth<1024) setSidebarOpen(false); }} icon={<LayoutDashboard size={20} />} label="總覽儀表板" isOpen={isSidebarOpen} />
+                  <NavItem active={currentView === 'audit'} onClick={() => { setCurrentView('audit'); if(window.innerWidth<1024) setSidebarOpen(false); }} icon={<FileCheck size={20} />} label="評鑑查證模式" isOpen={isSidebarOpen} />
+                  <NavItem active={currentView === 'decision'} onClick={() => { setCurrentView('decision'); if(window.innerWidth<1024) setSidebarOpen(false); }} icon={<Database size={20} />} label="決策輔助與選材" isOpen={isSidebarOpen} />
+                </nav>
+
+                <div className="p-4 border-t border-slate-700 hidden lg:block">
+                  <button onClick={() => setSidebarOpen(!isSidebarOpen)} className="w-full flex justify-center text-slate-400 hover:text-white">
+                     {isSidebarOpen ? <ChevronRight className="rotate-180"/> : <ChevronRight />}
+                  </button>
+                </div>
+              </aside>
+
+              <main className="flex-1 flex flex-col overflow-hidden relative w-full">
+                <header className="bg-white border-b h-16 flex items-center justify-between px-6 lg:hidden flex-shrink-0 shadow-sm z-10">
+                  <button onClick={() => setSidebarOpen(true)} className="text-slate-600 p-2">
+                    <Menu />
+                  </button>
+                  <span className="font-bold text-slate-700 truncate">台中綠能園區 B棟</span>
+                  <div className="w-8"></div> {/* Spacer for center alignment */}
+                </header>
+
+                <div className="flex-1 overflow-y-auto p-4 lg:p-8 relative">
+                  {renderView()}
+                </div>
+              </main>
+            </div>
+          );
+        };
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
