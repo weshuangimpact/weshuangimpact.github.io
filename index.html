@@ -587,6 +587,33 @@
         </div>
     </div>
 
+    <!-- Modal: 發送催收通知 (新增) -->
+    <div id="notification-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="section-header">
+                <h2>🔔 發送缺件提醒通知 (致顧問)</h2>
+                <button class="btn btn-sm btn-outline" onclick="closeNotificationModal()">✖</button>
+            </div>
+            <div style="padding: 20px;">
+                <div class="form-group">
+                    <label>通知管道：</label>
+                    <div class="checkbox-group">
+                        <label><input type="radio" name="notifyType" value="email" checked onchange="updateNotifyPreview()"> Email (電子郵件)</label>
+                        <label><input type="radio" name="notifyType" value="sms" onchange="updateNotifyPreview()"> SMS (簡訊)</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>自動生成內容預覽：</label>
+                    <textarea id="notify-preview" class="form-control" rows="10" readonly style="background-color: #f8f9fa; color: #333; font-family: monospace;"></textarea>
+                </div>
+                <div style="text-align: right; margin-top: 15px;">
+                    <button class="btn btn-outline" onclick="closeNotificationModal()">取消</button>
+                    <button class="btn btn-primary" onclick="sendNotification()">🚀 確認發送</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal: PDF 預覽模擬視窗 -->
     <div id="pdf-preview-modal" class="modal-overlay hidden">
         <div class="modal-content" style="height: 80vh; display: flex; flex-direction: column;">
@@ -795,7 +822,10 @@
                         <td>${site.type}</td>
                         <td>${statusBadge}</td>
                         <td>
-                            <button class="btn btn-outline btn-sm" onclick="showAdminSiteDetail(${site.id})">🔍 詳情 ${complianceDot}</button>
+                            <div style="display:flex; gap:5px;">
+                                <button class="btn btn-outline btn-sm" onclick="showAdminSiteDetail(${site.id})">🔍 詳情 ${complianceDot}</button>
+                                <button class="btn btn-danger btn-sm" style="background-color: white; color: var(--danger-color); border-color: var(--danger-color);" onclick="openNotificationModal(${site.id})">🔔 催收</button>
+                            </div>
                         </td>
                     </tr>
                 `;
@@ -890,6 +920,75 @@
 
         function closeAdminDetail() {
             document.getElementById('admin-site-detail').classList.add('hidden');
+        }
+
+        // ==========================================
+        // 3.5 Notification Logic (Updated for Consultant)
+        // ==========================================
+        let currentNotifySiteId = null;
+
+        function openNotificationModal(siteId) {
+            currentNotifySiteId = siteId;
+            updateNotifyPreview();
+            document.getElementById('notification-modal').classList.remove('hidden');
+        }
+
+        function closeNotificationModal() {
+            document.getElementById('notification-modal').classList.add('hidden');
+            currentNotifySiteId = null;
+        }
+
+        function updateNotifyPreview() {
+            if (!currentNotifySiteId) return;
+
+            const site = appState.sites.find(s => s.id === currentNotifySiteId);
+            const notifyType = document.querySelector('input[name="notifyType"]:checked').value;
+            const reports = appState.reports.filter(r => r.siteId === currentNotifySiteId);
+            const nurses = site.nurses.join('、'); // Get assigned nurses
+            
+            // Find missing items
+            let missingList = [];
+            reports.forEach(r => {
+                r.items.forEach(i => {
+                    if (!i.hasFile) {
+                        missingList.push(`- 日期 ${r.date}：${i.content}`);
+                    }
+                });
+            });
+
+            let content = "";
+            
+            if (missingList.length === 0) {
+                content = "目前該單位無缺件項目，無需發送催收通知。";
+            } else {
+                if (notifyType === 'email') {
+                    content = `【內部待辦提醒】臨場服務紀錄缺件跟催 - ${site.name}\n\n`;
+                    content += `致 顧問人員 ${nurses} 您好：\n\n`;
+                    content += `系統檢核顯示，您負責的服務單位「${site.name}」尚有以下臨場服務紀錄附件未上傳。\n`;
+                    content += `請協助聯繫該單位或儘速完成資料補正，以備評鑑查核。\n\n`;
+                    content += `待補件清單如下：\n${missingList.join('\n')}\n\n`;
+                    content += `勞工健康顧問管理系統 敬上\n${new Date().toISOString().split('T')[0]}`;
+                } else {
+                    // SMS format (shorter)
+                    content = `[系統通知] 顧問 ${nurses} 您好，您服務的「${site.name}」尚有 ${missingList.length} 筆紀錄缺附件，請協助跟催補正。`;
+                }
+            }
+
+            document.getElementById('notify-preview').value = content;
+        }
+
+        function sendNotification() {
+            const content = document.getElementById('notify-preview').value;
+            const notifyType = document.querySelector('input[name="notifyType"]:checked').value;
+            
+            if (content.includes("無缺件項目")) {
+                alert("目前無缺件，無需發送。");
+                return;
+            }
+
+            const typeName = notifyType === 'email' ? 'Email' : '簡訊';
+            alert(`✅ 發送成功！\n\n已透過 ${typeName} 將催收通知發送給指派顧問。\n\n內容摘要：\n${content.substring(0, 50)}...`);
+            closeNotificationModal();
         }
 
         // ==========================================
