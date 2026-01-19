@@ -3,431 +3,910 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ECO-CHAIN | 綠能證據鏈決策系統</title>
-    
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        slate: { 50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1', 400: '#94a3b8', 500: '#64748b', 600: '#475569', 700: '#334155', 800: '#1e293b', 900: '#0f172a' },
-                        emerald: { 50: '#ecfdf5', 100: '#d1fae5', 400: '#34d399', 500: '#10b981', 600: '#059669', 700: '#047857' }
-                    },
-                    fontFamily: {
-                        sans: ['"Microsoft JhengHei"', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <title>職業安全衛生顧問機構 - 文件管理與評鑑支援系統</title>
     <style>
-        /* 優化捲軸樣式 */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        body { background-color: #f8fafc; overflow: hidden; }
-        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        :root {
+            --primary-color: #0056b3; /* 政府藍 */
+            --primary-dark: #004494;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --border-color: #dee2e6;
+            --text-color: #333;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 15px;
+        }
+
+        /* --- 頂部導覽列 --- */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .system-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .role-switcher {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.15);
+            padding: 5px 15px;
+            border-radius: 4px;
+        }
+
+        select#role-select {
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: 1px solid #fff;
+            font-size: 0.95rem;
+            background: white;
+            color: #333;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* --- 主要內容區塊 --- */
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            min-height: 80vh;
+        }
+
+        .view-section {
+            display: none; /* 預設隱藏 */
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- 儀表板卡片 --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .stat-card h3 { margin: 0 0 10px 0; color: var(--secondary-color); font-size: 0.9rem; }
+        .stat-card .number { font-size: 2rem; font-weight: bold; color: var(--text-color); }
+        .stat-card.green { border-left-color: var(--success-color); }
+        .stat-card.yellow { border-left-color: var(--warning-color); }
+        .stat-card.red { border-left-color: var(--danger-color); }
+
+        /* --- 通用容器與表格 --- */
+        .card-container {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .section-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f8f9fa;
+        }
+
+        .section-header h2 { margin: 0; font-size: 1.1rem; color: var(--primary-color); font-weight: bold; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
+        }
+
+        th {
+            background-color: #e9ecef;
+            color: #495057;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        tr:hover { background-color: #f1f3f5; }
+
+        /* --- 狀態標籤 --- */
+        .badge {
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .badge-success { background-color: #d4edda; color: #155724; }
+        .badge-warning { background-color: #fff3cd; color: #856404; }
+        .badge-danger { background-color: #f8d7da; color: #721c24; }
+        .badge-secondary { background-color: #e2e3e5; color: #383d41; }
+
+        /* --- 按鈕樣式 --- */
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+        .btn:hover { opacity: 0.9; }
+        .btn-sm { padding: 4px 10px; font-size: 0.8rem; }
+        .btn-primary { background-color: var(--primary-color); color: white; }
+        .btn-outline { border: 1px solid var(--primary-color); background: white; color: var(--primary-color); }
+        .btn-outline:hover { background: #e7f1ff; }
+        .btn-danger { background-color: var(--danger-color); color: white; }
+        .btn-success { background-color: var(--success-color); color: white; }
+
+        /* --- 樹狀結構 (Tree View) --- */
+        .tree-view { padding: 1.5rem; }
+        .tree-node {
+            margin-left: 20px;
+            border-left: 2px solid #e9ecef;
+            padding-left: 15px;
+            margin-bottom: 10px;
+        }
+        .tree-header {
+            font-weight: bold;
+            padding: 8px 12px;
+            background: #f1f3f5;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 4px;
+        }
+        .missing-item {
+            border: 1px solid #f5c6cb;
+            background: #fff5f5;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 4px;
+            color: #721c24;
+        }
+
+        /* --- 表單樣式 --- */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem;
+        }
+        .form-group { margin-bottom: 1rem; }
+        .form-group.full-width { grid-column: span 2; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #495057; }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0,86,179,0.25);
+        }
+        
+        /* Checkbox Group */
+        .checkbox-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding: 8px 0;
+        }
+        .checkbox-group label {
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        /* --- 角色提示條 --- */
+        .role-alert {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 12px 20px;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #ffeeba;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Helper Classes */
+        .hidden { display: none !important; }
+        .text-muted { color: #6c757d; font-size: 0.9em; }
+
+        /* Modal 模擬 (使用全屏覆蓋) */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            padding: 0;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
 <body>
-    <div id="root"></div>
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
+    <header>
+        <div class="system-title">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <span>職安顧問雲端管理平台</span>
+        </div>
+        <div class="role-switcher">
+            <label for="role-select">👤 當前視角：</label>
+            <select id="role-select" onchange="switchRole(this.value)">
+                <option value="nurse">前端職護人員 (案場端)</option>
+                <option value="admin" selected>總公司管理員 (Admin)</option>
+                <option value="inspector">評鑑模式 (唯讀)</option>
+            </select>
+        </div>
+    </header>
 
-        // --- 內嵌 SVG 圖標元件 (解決 CDN 載入失敗問題) ---
-        // 這些元件直接定義在檔案內，確保穩定性
-        const IconBase = ({ children, ...props }) => (
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>{children}</svg>
-        );
+    <main>
+        <!-- 角色提示 -->
+        <div id="role-alert" class="role-alert"></div>
 
-        const Icons = {
-            Search: (p) => <IconBase {...p}><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></IconBase>,
-            FileText: (p) => <IconBase {...p}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></IconBase>,
-            AlertTriangle: (p) => <IconBase {...p}><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></IconBase>,
-            CheckCircle: (p) => <IconBase {...p}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></IconBase>,
-            Clock: (p) => <IconBase {...p}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></IconBase>,
-            Database: (p) => <IconBase {...p}><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s 9-1.34 9-3V5"/></IconBase>,
-            ChevronRight: (p) => <IconBase {...p}><path d="m9 18 6-6-6-6"/></IconBase>,
-            Download: (p) => <IconBase {...p}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></IconBase>,
-            Upload: (p) => <IconBase {...p}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></IconBase>,
-            Shield: (p) => <IconBase {...p}><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></IconBase>,
-            MessageSquare: (p) => <IconBase {...p}><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></IconBase>,
-            LayoutDashboard: (p) => <IconBase {...p}><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></IconBase>,
-            Menu: (p) => <IconBase {...p}><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></IconBase>,
-            X: (p) => <IconBase {...p}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></IconBase>,
-            Filter: (p) => <IconBase {...p}><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></IconBase>,
-            FileCheck: (p) => <IconBase {...p}><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></IconBase>,
-            History: (p) => <IconBase {...p}><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></IconBase>,
-            Eye: (p) => <IconBase {...p}><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></IconBase>,
-        };
-
-        // 解構圖標以便直接使用
-        const { 
-          Search, FileText, AlertTriangle, CheckCircle, Clock, 
-          Database, ChevronRight, Download, Upload, Shield, 
-          MessageSquare, LayoutDashboard, Menu, X, Filter,
-          FileCheck, History, Eye
-        } = Icons;
-
-        // --- 模擬數據 ---
-        const solarPanelChain = [
-          {
-            id: '1', timestamp: '2025-06-15 09:30', type: 'regulation',
-            title: '法規基準鎖定', detail: '依據：內政部營建署 2025版 綠建築評估手冊 (EEWH-2025)',
-            status: 'compliant', verifiedBy: 'System Auto-Lock'
-          },
-          {
-            id: '2', timestamp: '2025-06-15 09:32', type: 'environment',
-            title: '環境參數輸入', detail: '位置：台中市西屯區 / 日照時數：年均 1800hr (中央氣象局 2024 數據)',
-            status: 'compliant', verifiedBy: 'Weather API'
-          },
-          {
-            id: '3', timestamp: '2025-06-20 14:00', type: 'decision',
-            title: '決策：選用高效率單晶矽模組', detail: '模組型號 SP-X500, 轉換效率 > 21%',
-            status: 'compliant', verifiedBy: 'Arch. Chen'
-          },
-          {
-            id: '4', timestamp: '2026-01-10 10:00', type: 'outcome',
-            title: '法規變動警示', detail: '2026 溫室氣體減量法修訂：回收規範變更 (需補件)',
-            status: 'warning', verifiedBy: 'Reg. Monitor Bot'
-          }
-        ];
-
-        const materialBatchData = [
-          { id: 'M-12345', name: '低碳水泥 Type-II', standard: '2026 建材碳足跡標準', status: 'pass', note: '碳排係數低於 2026 門檻 15%' },
-          { id: 'M-12346', name: '隔熱玻璃 6mm+12A', standard: '台中市建築節能自治條例', status: 'conditional', note: '需補充熱傳透率測試報告' },
-          { id: 'M-12347', name: '再生粒料磚', standard: '循環經濟推動方案 v2.0', status: 'pass', note: '符合 30% 再生料比例' },
-        ];
-
-        // --- 組件定義 ---
-
-        const NavItem = ({ active, onClick, icon, label, isOpen }) => (
-          <button
-            onClick={onClick}
-            className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${
-              active 
-                ? 'bg-emerald-600 text-white shadow-md' 
-                : 'text-slate-300 hover:bg-slate-800 hover:text-white'
-            } ${!isOpen && 'justify-center'}`}
-            title={!isOpen ? label : ''}
-          >
-            {icon}
-            {isOpen && <span className="text-sm font-medium whitespace-nowrap">{label}</span>}
-          </button>
-        );
-
-        const MetricCard = ({ title, value, trend, status, icon }) => (
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 flex items-start justify-between">
-            <div>
-              <p className="text-sm text-slate-500 font-medium">{title}</p>
-              <div className="text-3xl font-bold text-slate-800 mt-2">{value}</div>
-              <p className={`text-xs mt-2 font-medium ${status === 'good' ? 'text-emerald-600' : 'text-amber-600'}`}>
-                {trend}
-              </p>
-            </div>
-            <div className="p-3 bg-slate-50 rounded-lg">{icon}</div>
-          </div>
-        );
-
-        const DashboardView = () => (
-          <div className="space-y-6 animate-fade-in pb-10">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
-              <div>
-                <h2 className="text-2xl font-bold text-slate-800">項目概況：台中綠能園區 B棟</h2>
-                <p className="text-slate-500 text-sm mt-1">最後更新：2026-01-18 08:45 | 資料來源：內政部營建署 API (已連線)</p>
-              </div>
-              <span className="px-3 py-1 bg-emerald-100 text-emerald-700 text-sm font-bold rounded-full border border-emerald-200">
-                ESG 評級：AA (暫定)
-              </span>
+        <!-- ======================= -->
+        <!-- 1. 總公司管理員介面 -->
+        <!-- ======================= -->
+        <section id="view-admin" class="view-section active">
+            
+            <!-- 管理數據儀表板 -->
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <h3>管理案場總數</h3>
+                    <div class="number" id="admin-stat-total">0</div>
+                </div>
+                <div class="stat-card green">
+                    <h3>文件合規 (Pass)</h3>
+                    <div class="number" id="admin-stat-green">0</div>
+                </div>
+                <div class="stat-card yellow">
+                    <h3>部分缺失 (Warning)</h3>
+                    <div class="number" id="admin-stat-yellow">0</div>
+                </div>
+                <div class="stat-card red">
+                    <h3>嚴重缺失 (Fail)</h3>
+                    <div class="number" id="admin-stat-red">0</div>
+                </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <MetricCard title="合規決策覆蓋率" value="98.2%" trend="+2.1%" status="good" icon={<CheckCircle className="text-emerald-500" />} />
-              <MetricCard title="待處理法規警報" value="3" trend="2026 新規影響" status="warning" icon={<AlertTriangle className="text-amber-500" />} />
-              <MetricCard title="證據鏈完整度" value="100%" trend="無缺失" status="good" icon={<Shield className="text-blue-500" />} />
-            </div>
-
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-              <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
-                <Clock size={20} className="text-slate-500" /> 近期法規與決策變動
-              </h3>
-              <div className="space-y-4">
-                {[
-                  { date: '2026-01-15', title: '法規更新警報', desc: '環保署發布「建築廢棄物循環利用草案」，影響 2 項既有建材決策。', type: 'alert' },
-                  { date: '2026-01-14', title: '決策歸檔', desc: '外牆隔熱層設計已通過模擬，證據鏈 ID: EC-2026-8892。', type: 'info' },
-                  { date: '2026-01-12', title: '數據同步', desc: '台中市 2025 年度微氣候資料庫已更新至系統環境參數。', type: 'system' },
-                ].map((item, idx) => (
-                  <div key={idx} className="flex flex-col md:flex-row gap-2 md:gap-4 p-3 hover:bg-slate-50 rounded-lg border-l-4 border-l-transparent hover:border-l-emerald-500 transition-all">
-                    <div className="w-24 text-sm text-slate-400 font-mono">{item.date}</div>
-                    <div className="flex-1">
-                      <div className="font-medium text-slate-700 flex items-center gap-2">
-                        {item.title}
-                        {item.type === 'alert' && <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>}
-                      </div>
-                      <p className="text-sm text-slate-500">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-
-        const AuditView = ({ searchQuery, setSearchQuery, showEvidence, setShowEvidence }) => {
-          const handleSearch = (e) => {
-            e.preventDefault();
-            if (searchQuery.includes('太陽能') || searchQuery.includes('Solar')) {
-              setShowEvidence(true);
-            }
-          };
-
-          return (
-            <div className="h-full flex flex-col space-y-4 pb-10">
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div>
-                  <h2 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
-                    <FileCheck className="text-emerald-600" /> 評鑑查證模式
-                  </h2>
-                  <p className="text-sm text-slate-500">針對標章審查與 ESG 稽核設計，支援自然語言搜尋。</p>
+            <!-- 案場管理列表 -->
+            <div class="card-container">
+                <div class="section-header">
+                    <h2>🏢 案場維護與管理</h2>
+                    <button class="btn btn-primary" onclick="openAdminSiteForm()">＋ 新增合約案場</button>
                 </div>
-                <button className="bg-slate-800 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2 hover:bg-slate-700">
-                   <Download size={16} /> 匯出當前報告 (PDF)
-                </button>
-              </div>
-
-              <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <form onSubmit={handleSearch} className="flex gap-4 flex-col md:flex-row">
-                  <div className="flex-1 relative">
-                    <div className="absolute left-4 top-3.5 text-slate-400"><Search size={20} /></div>
-                    <input 
-                      type="text" 
-                      placeholder="試著輸入：顯示 2025 年太陽能面板決策的法規依據..." 
-                      className="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                  </div>
-                  <button type="submit" className="bg-emerald-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-emerald-700 transition-colors w-full md:w-auto">
-                    AI 搜尋
-                  </button>
-                </form>
-                <div className="flex gap-2 mt-3 flex-wrap">
-                  {['2025 綠建築法規', '台中氣候參數', '太陽能轉換率', '雨水回收系統'].map(tag => (
-                    <span key={tag} onClick={() => setSearchQuery(tag)} className="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded cursor-pointer hover:bg-slate-200">
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {showEvidence && (
-                <div className="flex-1 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col animate-fade-in">
-                  <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                    <span className="font-bold text-slate-700">搜尋結果：太陽能面板選用決策鏈 (ID: DEC-2025-0042)</span>
-                  </div>
-                  
-                  <div className="flex-1 p-8 overflow-x-auto">
-                    <div className="relative min-w-[800px]">
-                      <div className="absolute top-1/2 left-0 w-full h-1 bg-slate-200 -z-0 -translate-y-1/2"></div>
-                      <div className="flex justify-between relative z-10">
-                        {solarPanelChain.map((node) => (
-                          <div key={node.id} className="flex flex-col items-center w-64 group cursor-pointer">
-                            <div className="mb-4 px-2 py-1 bg-slate-100 text-slate-500 text-xs rounded-full font-mono border border-slate-200">
-                              {node.timestamp}
-                            </div>
-                            <div className={`
-                              w-12 h-12 rounded-full border-4 flex items-center justify-center bg-white transition-transform group-hover:scale-110 shadow-sm
-                              ${node.status === 'compliant' ? 'border-emerald-500 text-emerald-600' : 'border-amber-500 text-amber-600'}
-                            `}>
-                              {node.type === 'decision' && <CheckCircle size={20} />}
-                              {node.type === 'regulation' && <Shield size={20} />}
-                              {node.type === 'environment' && <Clock size={20} />}
-                              {node.type === 'outcome' && <AlertTriangle size={20} />}
-                            </div>
-                            <div className="mt-4 bg-white p-4 rounded-lg shadow border border-slate-200 w-full text-center relative group-hover:border-emerald-400 transition-colors">
-                              <h4 className="font-bold text-sm text-slate-800">{node.title}</h4>
-                              <p className="text-xs text-slate-500 mt-1 leading-relaxed text-left">{node.detail}</p>
-                              <div className="mt-3 pt-2 border-t border-slate-100 flex justify-between items-center text-xs">
-                                  <span className="text-slate-400">{node.verifiedBy}</span>
-                                  <span className="text-emerald-600 font-medium hover:underline flex items-center gap-1">
-                                    驗證 <ChevronRight size={10} />
-                                  </span>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          );
-        };
-
-        const DecisionView = () => (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full pb-10">
-            <div className="lg:col-span-1 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col h-[500px] lg:h-[calc(100vh-8rem)]">
-              <div className="p-4 border-b border-slate-100 font-bold flex items-center gap-2 text-slate-700">
-                <MessageSquare size={18} className="text-emerald-600" />
-                法規 AI 助手
-              </div>
-              <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-50">
-                <div className="flex gap-3">
-                  <div className="w-8 h-8 rounded-full bg-emerald-600 flex-shrink-0 flex items-center justify-center text-white text-xs">AI</div>
-                  <div className="bg-white p-3 rounded-r-lg rounded-bl-lg shadow-sm text-sm text-slate-700 border border-slate-100">
-                    您好，我是您的法規助手。已載入 <span className="text-emerald-600 font-medium">2026 營建署建材碳足跡標準</span> 與 <span className="text-emerald-600 font-medium">台中市環境參數</span>。
-                  </div>
-                </div>
-                <div className="flex gap-3 flex-row-reverse">
-                  <div className="w-8 h-8 rounded-full bg-slate-700 flex-shrink-0 flex items-center justify-center text-white text-xs">Me</div>
-                  <div className="bg-slate-800 p-3 rounded-l-lg rounded-br-lg shadow-sm text-sm text-white">
-                    檢查「低碳水泥 Type-II」是否合規？
-                  </div>
-                </div>
-                <div className="flex gap-3">
-                  <div className="w-8 h-8 rounded-full bg-emerald-600 flex-shrink-0 flex items-center justify-center text-white text-xs">AI</div>
-                  <div className="bg-white p-3 rounded-r-lg rounded-bl-lg shadow-sm text-sm text-slate-700 border border-slate-100">
-                    <p className="mb-2"><span className="font-bold text-emerald-600">合規確認。</span></p>
-                    <p>依據 2026 標準，該型號碳排係數低於門檻 15%。</p>
-                  </div>
-                </div>
-              </div>
-              <div className="p-4 border-t border-slate-100">
-                <div className="relative">
-                  <input type="text" placeholder="輸入訊息..." className="w-full pl-4 pr-10 py-2 rounded-lg border border-slate-300 text-sm" />
-                  <div className="absolute right-3 top-2.5 text-slate-400">
-                     <Upload size={16}/>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-2 flex flex-col gap-6">
-              <div className="bg-white rounded-xl shadow-sm border border-slate-200 flex-1 overflow-hidden flex flex-col">
-                <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
-                  <h3 className="font-bold text-slate-700">批次比對結果</h3>
-                </div>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm text-left">
-                    <thead className="bg-slate-50 text-slate-500">
-                      <tr>
-                        <th className="px-4 py-3 whitespace-nowrap">材料 ID</th>
-                        <th className="px-4 py-3 whitespace-nowrap">名稱</th>
-                        <th className="px-4 py-3 whitespace-nowrap">狀態</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100">
-                      {materialBatchData.map((item) => (
-                        <tr key={item.id} className="hover:bg-slate-50">
-                          <td className="px-4 py-3 font-mono text-slate-500">{item.id}</td>
-                          <td className="px-4 py-3 font-medium text-slate-800">{item.name}</td>
-                          <td className="px-4 py-3">
-                            <span className={`px-2 py-1 rounded text-xs font-medium ${
-                              item.status === 'pass' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'
-                            }`}>
-                              {item.status === 'pass' ? '合規' : '條件性通過'}
-                            </span>
-                          </td>
+                <table id="admin-site-table">
+                    <thead>
+                        <tr>
+                            <th>案場名稱 / 統編</th>
+                            <th>合約期間</th>
+                            <th>指派人員</th>
+                            <th>服務類型</th>
+                            <th>狀態</th>
+                            <th>操作</th>
                         </tr>
-                      ))}
+                    </thead>
+                    <tbody>
+                        <!-- JS Render -->
                     </tbody>
-                  </table>
-                </div>
-              </div>
+                </table>
             </div>
-          </div>
-        );
 
-        // --- 主程式 App ---
-        const App = () => {
-          const [currentView, setCurrentView] = useState('dashboard');
-          const [isSidebarOpen, setSidebarOpen] = useState(true);
-          const [searchQuery, setSearchQuery] = useState('');
-          const [showEvidence, setShowEvidence] = useState(false);
-
-          useEffect(() => {
-            const handleResize = () => {
-              if (window.innerWidth < 1024) setSidebarOpen(false);
-              else setSidebarOpen(true);
-            };
-            
-            if (window.innerWidth < 1024) setSidebarOpen(false);
-            
-            window.addEventListener('resize', handleResize);
-            return () => window.removeEventListener('resize', handleResize);
-          }, []);
-
-          const renderView = () => {
-            switch (currentView) {
-              case 'dashboard': return <DashboardView />;
-              case 'audit': return <AuditView searchQuery={searchQuery} setSearchQuery={setSearchQuery} showEvidence={showEvidence} setShowEvidence={setShowEvidence} />;
-              case 'decision': return <DecisionView />;
-              default: return <DashboardView />;
-            }
-          };
-
-          return (
-            <div className="flex h-screen bg-slate-50 text-slate-800 font-sans overflow-hidden">
-              <aside className={`bg-slate-900 text-white transition-all duration-300 ${isSidebarOpen ? 'w-64' : 'w-20'} flex flex-col shadow-xl z-20 flex-shrink-0 absolute lg:relative h-full`}>
-                <div className="p-4 flex items-center justify-between border-b border-slate-700 h-16">
-                  <div className={`flex items-center gap-3 ${!isSidebarOpen && 'justify-center w-full'}`}>
-                    <Shield className="h-8 w-8 text-emerald-400 flex-shrink-0" />
-                    {isSidebarOpen && (
-                      <div className="whitespace-nowrap overflow-hidden">
-                        <h1 className="font-bold text-lg tracking-wide">ECO-CHAIN</h1>
-                        <p className="text-xs text-slate-400">證據鏈決策系統 v2.6</p>
-                      </div>
-                    )}
-                  </div>
-                  {isSidebarOpen && (
-                    <button onClick={() => setSidebarOpen(false)} className="text-slate-400 hover:text-white lg:hidden">
-                      <X size={20} />
-                    </button>
-                  )}
+            <!-- 案場詳情 (隱藏區塊) -->
+            <div id="admin-site-detail" class="card-container hidden">
+                <div class="section-header" style="background: #e7f1ff;">
+                    <h2 id="detail-title">案場詳情</h2>
+                    <button class="btn btn-outline btn-sm" onclick="closeAdminDetail()">✖ 關閉詳情</button>
                 </div>
-
-                <nav className="flex-1 py-6 space-y-2 px-3 overflow-y-auto">
-                  <NavItem active={currentView === 'dashboard'} onClick={() => { setCurrentView('dashboard'); if(window.innerWidth<1024) setSidebarOpen(false); }} icon={<LayoutDashboard size={20} />} label="總覽儀表板" isOpen={isSidebarOpen} />
-                  <NavItem active={currentView === 'audit'} onClick={() => { setCurrentView('audit'); if(window.innerWidth<1024) setSidebarOpen(false); }} icon={<FileCheck size={20} />} label="評鑑查證模式" isOpen={isSidebarOpen} />
-                  <NavItem active={currentView === 'decision'} onClick={() => { setCurrentView('decision'); if(window.innerWidth<1024) setSidebarOpen(false); }} icon={<Database size={20} />} label="決策輔助與選材" isOpen={isSidebarOpen} />
-                </nav>
-
-                <div className="p-4 border-t border-slate-700 hidden lg:block">
-                  <button onClick={() => setSidebarOpen(!isSidebarOpen)} className="w-full flex justify-center text-slate-400 hover:text-white">
-                     {isSidebarOpen ? <ChevronRight className="rotate-180"/> : <ChevronRight />}
-                  </button>
+                <div class="tree-view" id="detail-content">
+                    <!-- JS Render Tree -->
                 </div>
-              </aside>
-
-              <main className="flex-1 flex flex-col overflow-hidden relative w-full">
-                <header className="bg-white border-b h-16 flex items-center justify-between px-6 lg:hidden flex-shrink-0 shadow-sm z-10">
-                  <button onClick={() => setSidebarOpen(true)} className="text-slate-600 p-2">
-                    <Menu />
-                  </button>
-                  <span className="font-bold text-slate-700 truncate">台中綠能園區 B棟</span>
-                  <div className="w-8"></div>
-                </header>
-
-                <div className="flex-1 overflow-y-auto p-4 lg:p-8 relative">
-                  {renderView()}
-                </div>
-              </main>
             </div>
-          );
+        </section>
+
+        <!-- ======================= -->
+        <!-- 2. 前端職護人員介面 -->
+        <!-- ======================= -->
+        <section id="view-nurse" class="view-section">
+            <div class="card-container">
+                <div class="section-header">
+                    <h2>🏥 我的派駐案場</h2>
+                    <span class="text-muted">僅顯示您被指派的服務案場</span>
+                </div>
+                <table id="nurse-site-table">
+                    <thead>
+                        <tr>
+                            <th>案場名稱</th>
+                            <th>服務類型</th>
+                            <th>最近一次訪視</th>
+                            <th>待辦事項</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- JS Render -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 職護填報區 (隱藏) -->
+            <div id="nurse-report-form" class="card-container hidden">
+                <div class="section-header" style="background: #fff3cd;">
+                    <h2 id="nurse-report-title">📝 臨場服務紀錄填報</h2>
+                    <button class="btn btn-outline btn-sm" onclick="closeNurseReport()">取消返回</button>
+                </div>
+                <div style="padding: 20px;">
+                    <div class="form-group">
+                        <label>診斷書/紀錄日期：</label>
+                        <input type="date" class="form-control" id="report-date" value="2023-10-20">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>改善建議與附件上傳：</label>
+                        <div id="suggestion-container" style="border:1px solid #eee; padding:10px; border-radius:4px; background:#fafafa;">
+                            <!-- 動態項目 -->
+                        </div>
+                        <button class="btn btn-outline btn-sm" style="margin-top:10px;" onclick="addSuggestionRow()">＋ 新增改善建議</button>
+                    </div>
+
+                    <div style="margin-top:20px; text-align:right; border-top:1px solid #eee; padding-top:15px;">
+                        <button class="btn btn-primary" onclick="submitNurseReport()">💾 提交紀錄並上傳</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================= -->
+        <!-- 3. 專任負責人介面 -->
+        <!-- ======================= -->
+        <section id="view-inspector" class="view-section">
+            <div class="card-container">
+                <div class="section-header">
+                    <h2>🔍 評鑑模式總覽 (唯讀)</h2>
+                    <button class="btn btn-success" onclick="exportData()">📤 匯出查核用資料 (Demo)</button>
+                </div>
+                <table id="inspector-table">
+                    <thead>
+                        <tr>
+                            <th>案場名稱</th>
+                            <th>合約狀態</th>
+                            <th>合規率</th>
+                            <th>缺失數</th>
+                            <th>最後更新</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- JS Render -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal: 新增/編輯案場 (Admin Only) -->
+    <div id="admin-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="section-header">
+                <h2>🏢 新增/編輯 案場資料</h2>
+                <button class="btn btn-sm btn-outline" onclick="closeAdminModal()">✖</button>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>案場名稱 <span style="color:red">*</span></label>
+                    <input type="text" id="site-name" class="form-control" placeholder="例如：台積電中科廠">
+                </div>
+                <div class="form-group">
+                    <label>統一編號 / 識別碼</label>
+                    <input type="text" id="site-taxid" class="form-control" placeholder="12345678">
+                </div>
+                <div class="form-group">
+                    <label>服務類型</label>
+                    <select id="site-type" class="form-control">
+                        <option value="臨場服務">臨場服務 (醫師/護理師)</option>
+                        <option value="特約專案">特約專案</option>
+                        <option value="輔導改善">輔導改善計畫</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>案場狀態</label>
+                    <select id="site-status" class="form-control">
+                        <option value="active">🟢 進行中</option>
+                        <option value="closed">🔴 已結案</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>合約開始日</label>
+                    <input type="date" id="site-start" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>合約結束日</label>
+                    <input type="date" id="site-end" class="form-control">
+                </div>
+                <div class="form-group full-width">
+                    <label>指派職護人員 (可多選)</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="nurse" value="陳小美"> 陳小美 (護理師)</label>
+                        <label><input type="checkbox" name="nurse" value="張志明"> 張志明 (職衛師)</label>
+                        <label><input type="checkbox" name="nurse" value="李春嬌"> 李春嬌 (職衛師)</label>
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label>備註說明</label>
+                    <textarea id="site-remark" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <div style="padding: 1.5rem; background:#f8f9fa; text-align:right; border-top:1px solid #eee;">
+                <button class="btn btn-outline" onclick="closeAdminModal()">取消</button>
+                <button class="btn btn-primary" onclick="saveSite()">確認儲存</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // 1. Mock Data & State Management
+        // ==========================================
+        const appState = {
+            role: 'admin', // 當前角色
+            sites: [
+                { 
+                    id: 1, 
+                    name: "科技園區 A 廠 (電子業)", 
+                    taxId: "80123456",
+                    type: "臨場服務",
+                    contractStart: "2023-01-01",
+                    contractEnd: "2023-12-31",
+                    nurses: ["陳小美"],
+                    status: "active",
+                    lastUpdate: "2023-10-15"
+                },
+                { 
+                    id: 2, 
+                    name: "傳產加工 B 廠 (金屬)", 
+                    taxId: "22334455",
+                    type: "輔導改善",
+                    contractStart: "2023-06-01",
+                    contractEnd: "2024-05-31",
+                    nurses: ["張志明"],
+                    status: "active",
+                    lastUpdate: "2023-10-12"
+                }
+            ],
+            reports: [
+                {
+                    id: 101, siteId: 1, date: "2023-10-01", author: "陳小美",
+                    items: [
+                        { content: "堆高機未落實每日檢查", hasFile: true },
+                        { content: "化學品清單未更新", hasFile: false } // 缺失
+                    ]
+                },
+                {
+                    id: 102, siteId: 2, date: "2023-09-28", author: "張志明",
+                    items: [
+                        { content: "特作健檢分級管理異常", hasFile: false } // 缺失
+                    ]
+                }
+            ]
         };
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+        // 模擬當前登入的職護名稱 (用於濾網)
+        const CURRENT_NURSE_NAME = "陳小美"; 
+
+        // ==========================================
+        // 2. Initialization & Role Switching
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            switchRole('admin');
+        });
+
+        function switchRole(role) {
+            appState.role = role;
+            
+            // UI Toggle
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            const alertBox = document.getElementById('role-alert');
+            
+            if (role === 'admin') {
+                document.getElementById('view-admin').classList.add('active');
+                alertBox.innerHTML = "<strong>👨‍💼 總公司管理員</strong>：您擁有最高權限，可新增、編輯案場合約，並檢視所有缺失。";
+                alertBox.className = "role-alert"; // Reset color
+                renderAdminView();
+            } else if (role === 'nurse') {
+                document.getElementById('view-nurse').classList.add('active');
+                alertBox.innerHTML = `<strong>👩‍⚕️ 前端職護 (${CURRENT_NURSE_NAME})</strong>：您僅能檢視被指派的案場，並進行訪視紀錄填報。`;
+                alertBox.style.backgroundColor = "#d1ecf1";
+                alertBox.style.color = "#0c5460";
+                alertBox.style.borderColor = "#bee5eb";
+                renderNurseView();
+            } else if (role === 'inspector') {
+                document.getElementById('view-inspector').classList.add('active');
+                alertBox.innerHTML = "<strong>🧐 評鑑模式</strong>：唯讀模式，僅供外部委員或主管查核使用。";
+                alertBox.style.backgroundColor = "#e2e3e5";
+                alertBox.style.color = "#383d41";
+                alertBox.style.borderColor = "#d6d8db";
+                renderInspectorView();
+            }
+        }
+
+        // ==========================================
+        // 3. Admin Logic (CRUD)
+        // ==========================================
+        function renderAdminView() {
+            // 1. Update Stats
+            let total = appState.sites.length;
+            let green = 0, yellow = 0, red = 0;
+
+            appState.sites.forEach(site => {
+                const status = getSiteComplianceStatus(site.id);
+                if(status === 'green') green++;
+                else if(status === 'yellow') yellow++;
+                else red++;
+            });
+
+            document.getElementById('admin-stat-total').innerText = total;
+            document.getElementById('admin-stat-green').innerText = green;
+            document.getElementById('admin-stat-yellow').innerText = yellow;
+            document.getElementById('admin-stat-red').innerText = red;
+
+            // 2. Render Table
+            const tbody = document.querySelector('#admin-site-table tbody');
+            tbody.innerHTML = '';
+
+            appState.sites.forEach(site => {
+                const statusBadge = site.status === 'active' 
+                    ? '<span class="badge badge-success">進行中</span>' 
+                    : '<span class="badge badge-secondary">已結案</span>';
+                
+                const compliance = getSiteComplianceStatus(site.id);
+                const complianceDot = compliance === 'red' ? '🔴' : (compliance === 'yellow' ? '🟡' : '🟢');
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td>
+                            <div><strong>${site.name}</strong></div>
+                            <small class="text-muted">統編: ${site.taxId}</small>
+                        </td>
+                        <td>
+                            <small>${site.contractStart} ~</small><br>
+                            <small>${site.contractEnd}</small>
+                        </td>
+                        <td>${site.nurses.join(', ')}</td>
+                        <td>${site.type}</td>
+                        <td>${statusBadge}</td>
+                        <td>
+                            <button class="btn btn-outline btn-sm" onclick="showAdminSiteDetail(${site.id})">🔍 詳情 ${complianceDot}</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Add Site Modal
+        function openAdminSiteForm() {
+            document.getElementById('admin-modal').classList.remove('hidden');
+            // 清空表單
+            document.getElementById('site-name').value = '';
+            document.getElementById('site-taxid').value = '';
+            document.getElementById('site-start').value = '';
+            document.getElementById('site-end').value = '';
+            document.querySelectorAll('input[name="nurse"]').forEach(cb => cb.checked = false);
+        }
+
+        function closeAdminModal() {
+            document.getElementById('admin-modal').classList.add('hidden');
+        }
+
+        function saveSite() {
+            const name = document.getElementById('site-name').value;
+            if(!name) { alert('請輸入案場名稱'); return; }
+
+            const nurses = Array.from(document.querySelectorAll('input[name="nurse"]:checked')).map(cb => cb.value);
+
+            const newSite = {
+                id: Date.now(),
+                name: name,
+                taxId: document.getElementById('site-taxid').value || 'N/A',
+                type: document.getElementById('site-type').value,
+                status: document.getElementById('site-status').value,
+                contractStart: document.getElementById('site-start').value || '2024-01-01',
+                contractEnd: document.getElementById('site-end').value || '2024-12-31',
+                nurses: nurses.length > 0 ? nurses : ['未指派'],
+                lastUpdate: new Date().toISOString().split('T')[0]
+            };
+
+            appState.sites.push(newSite);
+            closeAdminModal();
+            renderAdminView();
+            alert('✅ 案場已新增成功');
+        }
+
+        // Site Detail View
+        function showAdminSiteDetail(siteId) {
+            const site = appState.sites.find(s => s.id === siteId);
+            const siteReports = appState.reports.filter(r => r.siteId === siteId);
+            
+            document.getElementById('admin-site-detail').classList.remove('hidden');
+            document.getElementById('detail-title').innerHTML = `🔍 ${site.name} <small style="font-weight:normal; font-size:0.8em">(${site.type})</small>`;
+            
+            const container = document.getElementById('detail-content');
+            container.innerHTML = '';
+
+            if(siteReports.length === 0) {
+                container.innerHTML = '<p class="text-muted" style="text-align:center; padding:20px;">尚無文件紀錄</p>';
+                return;
+            }
+
+            siteReports.forEach(report => {
+                let itemsHtml = '';
+                report.items.forEach(item => {
+                    const isMissing = !item.hasFile;
+                    itemsHtml += `
+                        <div class="tree-node ${isMissing ? 'missing-item' : ''}">
+                            <div style="display:flex; justify-content:space-between;">
+                                <span>${isMissing ? '⚠️' : '✅'} ${item.content}</span>
+                                <span class="badge ${isMissing ? 'badge-danger' : 'badge-success'}">
+                                    ${isMissing ? '缺附件' : '已上傳'}
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                container.innerHTML += `
+                    <div style="margin-bottom:20px;">
+                        <div class="tree-header">
+                            <span>📄 ${report.date} 服務紀錄</span>
+                            <small>填報人: ${report.author}</small>
+                        </div>
+                        ${itemsHtml}
+                    </div>
+                `;
+            });
+            
+            // Scroll to detail
+            document.getElementById('admin-site-detail').scrollIntoView({behavior: "smooth"});
+        }
+
+        function closeAdminDetail() {
+            document.getElementById('admin-site-detail').classList.add('hidden');
+        }
+
+        // ==========================================
+        // 4. Nurse Logic
+        // ==========================================
+        let currentNurseSiteId = null;
+
+        function renderNurseView() {
+            const tbody = document.querySelector('#nurse-site-table tbody');
+            tbody.innerHTML = '';
+
+            // 關鍵邏輯：只顯示指派給目前職護的案場
+            const mySites = appState.sites.filter(site => site.nurses.includes(CURRENT_NURSE_NAME));
+
+            if(mySites.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px;">無指派案場</td></tr>';
+                return;
+            }
+
+            mySites.forEach(site => {
+                const missingCount = getSiteMissingCount(site.id);
+                const statusHtml = missingCount > 0 
+                    ? `<span class="badge badge-danger">尚有 ${missingCount} 筆待補件</span>`
+                    : `<span class="badge badge-success">資料完整</span>`;
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${site.name}</strong></td>
+                        <td>${site.type}</td>
+                        <td>${site.lastUpdate}</td>
+                        <td>${statusHtml}</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" onclick="openNurseReportForm(${site.id})">✏️ 填報/上傳</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function openNurseReportForm(siteId) {
+            currentNurseSiteId = siteId;
+            const site = appState.sites.find(s => s.id === siteId);
+            
+            document.getElementById('nurse-report-form').classList.remove('hidden');
+            document.getElementById('nurse-report-title').innerText = `📝 ${site.name} - 新增紀錄`;
+            document.getElementById('nurse-site-table').parentElement.classList.add('hidden'); // Hide list
+            
+            // Reset
+            document.getElementById('suggestion-container').innerHTML = '';
+            addSuggestionRow();
+        }
+
+        function closeNurseReport() {
+            document.getElementById('nurse-report-form').classList.add('hidden');
+            document.getElementById('nurse-site-table').parentElement.classList.remove('hidden');
+        }
+
+        function addSuggestionRow() {
+            const div = document.createElement('div');
+            div.className = 'tree-node';
+            div.style.background = '#fff';
+            div.style.padding = '10px';
+            div.style.marginBottom = '10px';
+            
+            div.innerHTML = `
+                <input type="text" class="form-control item-input" placeholder="改善建議事項 (例如: 消防栓前堆放雜物...)" style="margin-bottom:5px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <label style="font-size:0.9rem; cursor:pointer;">
+                        <input type="checkbox" class="file-check"> 已包含照片佐證
+                    </label>
+                    <button class="btn btn-outline btn-sm" style="color:#dc3545; border-color:#dc3545;" onclick="this.parentElement.parentElement.remove()">刪除</button>
+                </div>
+            `;
+            document.getElementById('suggestion-container').appendChild(div);
+        }
+
+        function submitNurseReport() {
+            const date = document.getElementById('report-date').value;
+            const rows = document.querySelectorAll('#suggestion-container .tree-node');
+            
+            if(rows.length === 0) { alert('請至少新增一項建議'); return; }
+
+            const newItems = [];
+            rows.forEach(row => {
+                const content = row.querySelector('.item-input').value;
+                if(content) {
+                    const hasFile = row.querySelector('.file-check').checked;
+                    newItems.push({ content, hasFile });
+                }
+            });
+
+            // Update Mock DB
+            appState.reports.push({
+                id: Date.now(),
+                siteId: currentNurseSiteId,
+                date: date,
+                author: CURRENT_NURSE_NAME,
+                items: newItems
+            });
+
+            // Update Site Time
+            const site = appState.sites.find(s => s.id === currentNurseSiteId);
+            site.lastUpdate = new Date().toISOString().split('T')[0];
+
+            alert('✅ 紀錄已提交，資料已同步至總公司。');
+            closeNurseReport();
+            renderNurseView();
+        }
+
+        // ==========================================
+        // 5. Inspector & Utilities
+        // ==========================================
+        function renderInspectorView() {
+            const tbody = document.querySelector('#inspector-table tbody');
+            tbody.innerHTML = '';
+
+            appState.sites.forEach(site => {
+                const status = getSiteComplianceStatus(site.id);
+                const missing = getSiteMissingCount(site.id);
+                
+                let complianceText = '100%';
+                if(status === 'yellow') complianceText = '85%';
+                if(status === 'red') complianceText = '60%';
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${site.name}</td>
+                        <td>${site.status === 'active' ? '🟢 履約中' : '⚪ 已結案'}</td>
+                        <td>
+                            <div style="width:100px; background:#e9ecef; height:6px; border-radius:3px; display:inline-block; vertical-align:middle; margin-right:5px;">
+                                <div style="width:${complianceText}; background:var(--primary-color); height:100%;"></div>
+                            </div>
+                            ${complianceText}
+                        </td>
+                        <td style="color:${missing > 0 ? 'red' : 'green'}">${missing} 項缺失</td>
+                        <td>${site.lastUpdate}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        function exportData() {
+            alert('系統提示：\n\n已將當前所有案場的查核數據匯出為 CSV 格式。\n(此為 Demo 模擬功能)');
+        }
+
+        // Helper: Calculate Status
+        function getSiteMissingCount(siteId) {
+            const reports = appState.reports.filter(r => r.siteId === siteId);
+            return reports.reduce((acc, r) => acc + r.items.filter(i => !i.hasFile).length, 0);
+        }
+
+        function getSiteComplianceStatus(siteId) {
+            const missing = getSiteMissingCount(siteId);
+            if (missing >= 2) return 'red';
+            if (missing > 0) return 'yellow';
+            return 'green';
+        }
+
     </script>
 </body>
 </html>
