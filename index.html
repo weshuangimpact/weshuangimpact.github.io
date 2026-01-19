@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>職業安全衛生顧問機構 - 文件管理與評鑑支援系統</title>
+    <title>勞工健康顧問管理系統 - 臨場服務與評鑑支援平台</title>
     <style>
         :root {
-            --primary-color: #0056b3; /* 政府藍 */
+            --primary-color: #0056b3; /* 專業藍 */
             --primary-dark: #004494;
             --secondary-color: #6c757d;
             --success-color: #28a745;
@@ -174,6 +174,7 @@
         .badge-warning { background-color: #fff3cd; color: #856404; }
         .badge-danger { background-color: #f8d7da; color: #721c24; }
         .badge-secondary { background-color: #e2e3e5; color: #383d41; }
+        .badge-info { background-color: #d1ecf1; color: #0c5460; }
 
         /* --- 按鈕樣式 --- */
         .btn {
@@ -274,6 +275,68 @@
             gap: 10px;
         }
 
+        /* --- 評鑑模式專用樣式 (Inspector) --- */
+        .inspector-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            background-color: #e9ecef;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .accordion-header {
+            padding: 15px 20px;
+            background: #fff;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+        .accordion-header:hover { background: #f8f9fa; }
+        .accordion-header.active { background: #f1f3f5; border-left: 4px solid var(--primary-color); }
+
+        .accordion-content {
+            display: none;
+            padding: 20px;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+        .accordion-content.show { display: block; }
+
+        .report-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .report-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        .inspector-item-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        .inspector-item-row:last-child { border-bottom: none; }
+        .inspector-item-row.missing { color: var(--danger-color); font-weight: 500; }
+
         /* Helper Classes */
         .hidden { display: none !important; }
         .text-muted { color: #6c757d; font-size: 0.9em; }
@@ -307,14 +370,14 @@
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
             </svg>
-            <span>職安顧問雲端管理平台</span>
+            <span>健康顧問臨場服務管理平台</span>
         </div>
         <div class="role-switcher">
             <label for="role-select">👤 當前視角：</label>
             <select id="role-select" onchange="switchRole(this.value)">
-                <option value="nurse">前端職護人員 (案場端)</option>
-                <option value="admin" selected>總公司管理員 (Admin)</option>
-                <option value="inspector">評鑑模式 (唯讀)</option>
+                <option value="nurse">顧問人員（護理／醫事人員）</option>
+                <option value="admin" selected>顧問機構管理人員</option>
+                <option value="inspector">評鑑準備模式 (唯讀)</option>
             </select>
         </div>
     </header>
@@ -331,19 +394,19 @@
             <!-- 管理數據儀表板 -->
             <div class="dashboard-grid">
                 <div class="stat-card">
-                    <h3>管理案場總數</h3>
+                    <h3>服務事業單位總數</h3>
                     <div class="number" id="admin-stat-total">0</div>
                 </div>
                 <div class="stat-card green">
-                    <h3>文件合規 (Pass)</h3>
+                    <h3>紀錄完整 (Pass)</h3>
                     <div class="number" id="admin-stat-green">0</div>
                 </div>
                 <div class="stat-card yellow">
-                    <h3>部分缺失 (Warning)</h3>
+                    <h3>待補件 (Warning)</h3>
                     <div class="number" id="admin-stat-yellow">0</div>
                 </div>
                 <div class="stat-card red">
-                    <h3>嚴重缺失 (Fail)</h3>
+                    <h3>未完成/缺件嚴重</h3>
                     <div class="number" id="admin-stat-red">0</div>
                 </div>
             </div>
@@ -351,15 +414,15 @@
             <!-- 案場管理列表 -->
             <div class="card-container">
                 <div class="section-header">
-                    <h2>🏢 案場維護與管理</h2>
-                    <button class="btn btn-primary" onclick="openAdminSiteForm()">＋ 新增合約案場</button>
+                    <h2>🏢 事業單位維護與管理</h2>
+                    <button class="btn btn-primary" onclick="openAdminSiteForm()">＋ 新增服務合約</button>
                 </div>
                 <table id="admin-site-table">
                     <thead>
                         <tr>
-                            <th>案場名稱 / 統編</th>
+                            <th>事業單位名稱 / 統編</th>
                             <th>合約期間</th>
-                            <th>指派人員</th>
+                            <th>指派顧問</th>
                             <th>服務類型</th>
                             <th>狀態</th>
                             <th>操作</th>
@@ -374,7 +437,7 @@
             <!-- 案場詳情 (隱藏區塊) -->
             <div id="admin-site-detail" class="card-container hidden">
                 <div class="section-header" style="background: #e7f1ff;">
-                    <h2 id="detail-title">案場詳情</h2>
+                    <h2 id="detail-title">服務單位詳情</h2>
                     <button class="btn btn-outline btn-sm" onclick="closeAdminDetail()">✖ 關閉詳情</button>
                 </div>
                 <div class="tree-view" id="detail-content">
@@ -389,15 +452,15 @@
         <section id="view-nurse" class="view-section">
             <div class="card-container">
                 <div class="section-header">
-                    <h2>🏥 我的派駐案場</h2>
-                    <span class="text-muted">僅顯示您被指派的服務案場</span>
+                    <h2>🏥 負責服務事業單位</h2>
+                    <span class="text-muted">僅顯示您被指派之臨場服務單位</span>
                 </div>
                 <table id="nurse-site-table">
                     <thead>
                         <tr>
-                            <th>案場名稱</th>
+                            <th>事業單位名稱</th>
                             <th>服務類型</th>
-                            <th>最近一次訪視</th>
+                            <th>最近一次服務</th>
                             <th>待辦事項</th>
                             <th>操作</th>
                         </tr>
@@ -416,48 +479,50 @@
                 </div>
                 <div style="padding: 20px;">
                     <div class="form-group">
-                        <label>診斷書/紀錄日期：</label>
-                        <input type="date" class="form-control" id="report-date" value="2023-10-20">
+                        <label>臨場服務日期：</label>
+                        <input type="date" class="form-control" id="report-date" value="2024-10-20">
                     </div>
                     
                     <div class="form-group">
-                        <label>改善建議與附件上傳：</label>
+                        <label>健康指導建議與佐證資料：</label>
                         <div id="suggestion-container" style="border:1px solid #eee; padding:10px; border-radius:4px; background:#fafafa;">
                             <!-- 動態項目 -->
                         </div>
-                        <button class="btn btn-outline btn-sm" style="margin-top:10px;" onclick="addSuggestionRow()">＋ 新增改善建議</button>
+                        <button class="btn btn-outline btn-sm" style="margin-top:10px;" onclick="addSuggestionRow()">＋ 新增建議事項</button>
                     </div>
 
                     <div style="margin-top:20px; text-align:right; border-top:1px solid #eee; padding-top:15px;">
-                        <button class="btn btn-primary" onclick="submitNurseReport()">💾 提交紀錄並上傳</button>
+                        <button class="btn btn-primary" onclick="submitNurseReport()">💾 提交紀錄並存檔</button>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- ======================= -->
-        <!-- 3. 專任負責人介面 -->
+        <!-- 3. 專任負責人介面 (Inspector View) -->
         <!-- ======================= -->
         <section id="view-inspector" class="view-section">
             <div class="card-container">
-                <div class="section-header">
-                    <h2>🔍 評鑑模式總覽 (唯讀)</h2>
-                    <button class="btn btn-success" onclick="exportData()">📤 匯出查核用資料 (Demo)</button>
+                <!-- 頂部工具列：年度選擇 -->
+                <div class="inspector-toolbar">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <h2 style="margin:0; font-size:1.1rem; color:var(--text-color);">🔍 評鑑準備模式</h2>
+                        <span class="badge badge-info">唯讀權限</span>
+                    </div>
+                    <div>
+                        <label for="inspector-year" style="font-weight:bold; margin-right:5px;">評鑑年度：</label>
+                        <select id="inspector-year" class="form-control" style="width:auto; display:inline-block;" onchange="renderInspectorView(this.value)">
+                            <option value="2024">2024 年度</option>
+                            <option value="2023">2023 年度</option>
+                        </select>
+                        <button class="btn btn-success btn-sm" style="margin-left:10px;" onclick="exportData()">📥 匯出年度服務紀錄彙整</button>
+                    </div>
                 </div>
-                <table id="inspector-table">
-                    <thead>
-                        <tr>
-                            <th>案場名稱</th>
-                            <th>合約狀態</th>
-                            <th>合規率</th>
-                            <th>缺失數</th>
-                            <th>最後更新</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- JS Render -->
-                    </tbody>
-                </table>
+
+                <!-- Accordion 容器 -->
+                <div id="inspector-accordion-container">
+                    <!-- JS Render Accordion -->
+                </div>
             </div>
         </section>
 
@@ -467,12 +532,12 @@
     <div id="admin-modal" class="modal-overlay hidden">
         <div class="modal-content">
             <div class="section-header">
-                <h2>🏢 新增/編輯 案場資料</h2>
+                <h2>🏢 新增/編輯 事業單位合約資料</h2>
                 <button class="btn btn-sm btn-outline" onclick="closeAdminModal()">✖</button>
             </div>
             <div class="form-grid">
                 <div class="form-group">
-                    <label>案場名稱 <span style="color:red">*</span></label>
+                    <label>事業單位名稱 <span style="color:red">*</span></label>
                     <input type="text" id="site-name" class="form-control" placeholder="例如：台積電中科廠">
                 </div>
                 <div class="form-group">
@@ -482,13 +547,13 @@
                 <div class="form-group">
                     <label>服務類型</label>
                     <select id="site-type" class="form-control">
-                        <option value="臨場服務">臨場服務 (醫師/護理師)</option>
+                        <option value="臨場服務">臨場服務 (醫師/護理人員)</option>
                         <option value="特約專案">特約專案</option>
                         <option value="輔導改善">輔導改善計畫</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>案場狀態</label>
+                    <label>合約狀態</label>
                     <select id="site-status" class="form-control">
                         <option value="active">🟢 進行中</option>
                         <option value="closed">🔴 已結案</option>
@@ -503,7 +568,7 @@
                     <input type="date" id="site-end" class="form-control">
                 </div>
                 <div class="form-group full-width">
-                    <label>指派職護人員 (可多選)</label>
+                    <label>指派顧問人員 (可多選)</label>
                     <div class="checkbox-group">
                         <label><input type="checkbox" name="nurse" value="陳小美"> 陳小美 (護理師)</label>
                         <label><input type="checkbox" name="nurse" value="張志明"> 張志明 (職衛師)</label>
@@ -535,10 +600,10 @@
                     taxId: "80123456",
                     type: "臨場服務",
                     contractStart: "2023-01-01",
-                    contractEnd: "2023-12-31",
+                    contractEnd: "2024-12-31",
                     nurses: ["陳小美"],
                     status: "active",
-                    lastUpdate: "2023-10-15"
+                    lastUpdate: "2024-03-15"
                 },
                 { 
                     id: 2, 
@@ -549,23 +614,51 @@
                     contractEnd: "2024-05-31",
                     nurses: ["張志明"],
                     status: "active",
-                    lastUpdate: "2023-10-12"
+                    lastUpdate: "2024-02-20"
+                },
+                { 
+                    id: 3, 
+                    name: "物流中心 C 廠", 
+                    taxId: "55667788",
+                    type: "臨場服務",
+                    contractStart: "2024-01-01",
+                    contractEnd: "2024-12-31",
+                    nurses: ["李春嬌"],
+                    status: "active",
+                    lastUpdate: "2024-01-10"
                 }
             ],
             reports: [
+                // 2023 Data
                 {
-                    id: 101, siteId: 1, date: "2023-10-01", author: "陳小美",
+                    id: 101, siteId: 1, year: 2023, date: "2023-10-01", author: "陳小美",
                     items: [
-                        { content: "堆高機未落實每日檢查", hasFile: true },
-                        { content: "化學品清單未更新", hasFile: false } // 缺失
+                        { content: "急救人員證照已過期", hasFile: true },
+                        { content: "化學品健康危害評估未更新", hasFile: false } // 缺失
                     ]
                 },
                 {
-                    id: 102, siteId: 2, date: "2023-09-28", author: "張志明",
+                    id: 102, siteId: 2, year: 2023, date: "2023-09-28", author: "張志明",
                     items: [
-                        { content: "特作健檢分級管理異常", hasFile: false } // 缺失
+                        { content: "特作健檢分級管理紀錄異常", hasFile: false } // 缺失
+                    ]
+                },
+                // 2024 Data
+                {
+                    id: 201, siteId: 1, year: 2024, date: "2024-03-15", author: "陳小美",
+                    items: [
+                        { content: "四大計畫之執行紀錄不全", hasFile: true },
+                        { content: "噪音作業區聽力保護具佩戴指導紀錄缺漏", hasFile: true }
+                    ]
+                },
+                {
+                    id: 202, siteId: 2, year: 2024, date: "2024-02-20", author: "張志明",
+                    items: [
+                        { content: "有機溶劑作業人員健檢結果分析未完成", hasFile: false }, // 缺失
+                        { content: "呼吸防護計畫未落實執行", hasFile: true }
                     ]
                 }
+                // Site 3 (id:3) 在 2024 年尚無紀錄
             ]
         };
 
@@ -588,23 +681,26 @@
             
             if (role === 'admin') {
                 document.getElementById('view-admin').classList.add('active');
-                alertBox.innerHTML = "<strong>👨‍💼 總公司管理員</strong>：您擁有最高權限，可新增、編輯案場合約，並檢視所有缺失。";
-                alertBox.className = "role-alert"; // Reset color
+                alertBox.innerHTML = "<strong>👨‍💼 顧問機構管理人員</strong>：您擁有最高權限，可新增、編輯事業單位合約，並檢視所有待補正事項。";
+                alertBox.className = "role-alert"; 
                 renderAdminView();
             } else if (role === 'nurse') {
                 document.getElementById('view-nurse').classList.add('active');
-                alertBox.innerHTML = `<strong>👩‍⚕️ 前端職護 (${CURRENT_NURSE_NAME})</strong>：您僅能檢視被指派的案場，並進行訪視紀錄填報。`;
+                alertBox.innerHTML = `<strong>👩‍⚕️ 顧問人員 (${CURRENT_NURSE_NAME})</strong>：您僅能檢視被指派的事業單位，並進行臨場服務紀錄填報。`;
                 alertBox.style.backgroundColor = "#d1ecf1";
                 alertBox.style.color = "#0c5460";
                 alertBox.style.borderColor = "#bee5eb";
                 renderNurseView();
             } else if (role === 'inspector') {
                 document.getElementById('view-inspector').classList.add('active');
-                alertBox.innerHTML = "<strong>🧐 評鑑模式</strong>：唯讀模式，僅供外部委員或主管查核使用。";
+                alertBox.innerHTML = "<strong>🧐 評鑑準備模式</strong>：唯讀模式，僅供內部彙整或主管機關查核展示使用。";
                 alertBox.style.backgroundColor = "#e2e3e5";
                 alertBox.style.color = "#383d41";
                 alertBox.style.borderColor = "#d6d8db";
-                renderInspectorView();
+                
+                // 初始化評鑑視圖，預設 2024
+                document.getElementById('inspector-year').value = "2024";
+                renderInspectorView("2024");
             }
         }
 
@@ -612,12 +708,12 @@
         // 3. Admin Logic (CRUD)
         // ==========================================
         function renderAdminView() {
-            // 1. Update Stats
+            // 1. Update Stats (Global)
             let total = appState.sites.length;
             let green = 0, yellow = 0, red = 0;
 
             appState.sites.forEach(site => {
-                const status = getSiteComplianceStatus(site.id);
+                const status = getSiteComplianceStatus(site.id); // 计算全年度
                 if(status === 'green') green++;
                 else if(status === 'yellow') yellow++;
                 else red++;
@@ -678,7 +774,7 @@
 
         function saveSite() {
             const name = document.getElementById('site-name').value;
-            if(!name) { alert('請輸入案場名稱'); return; }
+            if(!name) { alert('請輸入事業單位名稱'); return; }
 
             const nurses = Array.from(document.querySelectorAll('input[name="nurse"]:checked')).map(cb => cb.value);
 
@@ -697,7 +793,7 @@
             appState.sites.push(newSite);
             closeAdminModal();
             renderAdminView();
-            alert('✅ 案場已新增成功');
+            alert('✅ 服務合約已新增成功');
         }
 
         // Site Detail View
@@ -712,7 +808,7 @@
             container.innerHTML = '';
 
             if(siteReports.length === 0) {
-                container.innerHTML = '<p class="text-muted" style="text-align:center; padding:20px;">尚無文件紀錄</p>';
+                container.innerHTML = '<p class="text-muted" style="text-align:center; padding:20px;">尚無服務紀錄</p>';
                 return;
             }
 
@@ -725,7 +821,7 @@
                             <div style="display:flex; justify-content:space-between;">
                                 <span>${isMissing ? '⚠️' : '✅'} ${item.content}</span>
                                 <span class="badge ${isMissing ? 'badge-danger' : 'badge-success'}">
-                                    ${isMissing ? '缺附件' : '已上傳'}
+                                    ${isMissing ? '待補件' : '已歸檔'}
                                 </span>
                             </div>
                         </div>
@@ -735,8 +831,8 @@
                 container.innerHTML += `
                     <div style="margin-bottom:20px;">
                         <div class="tree-header">
-                            <span>📄 ${report.date} 服務紀錄</span>
-                            <small>填報人: ${report.author}</small>
+                            <span>📄 ${report.date} 服務紀錄 (${report.year})</span>
+                            <small>顧問人員: ${report.author}</small>
                         </div>
                         ${itemsHtml}
                     </div>
@@ -764,15 +860,15 @@
             const mySites = appState.sites.filter(site => site.nurses.includes(CURRENT_NURSE_NAME));
 
             if(mySites.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px;">無指派案場</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px;">無指派服務單位</td></tr>';
                 return;
             }
 
             mySites.forEach(site => {
                 const missingCount = getSiteMissingCount(site.id);
                 const statusHtml = missingCount > 0 
-                    ? `<span class="badge badge-danger">尚有 ${missingCount} 筆待補件</span>`
-                    : `<span class="badge badge-success">資料完整</span>`;
+                    ? `<span class="badge badge-danger">有 ${missingCount} 項待補附件</span>`
+                    : `<span class="badge badge-success">紀錄完整</span>`;
 
                 tbody.innerHTML += `
                     <tr>
@@ -781,7 +877,7 @@
                         <td>${site.lastUpdate}</td>
                         <td>${statusHtml}</td>
                         <td>
-                            <button class="btn btn-primary btn-sm" onclick="openNurseReportForm(${site.id})">✏️ 填報/上傳</button>
+                            <button class="btn btn-primary btn-sm" onclick="openNurseReportForm(${site.id})">✏️ 新增服務紀錄</button>
                         </td>
                     </tr>
                 `;
@@ -793,7 +889,7 @@
             const site = appState.sites.find(s => s.id === siteId);
             
             document.getElementById('nurse-report-form').classList.remove('hidden');
-            document.getElementById('nurse-report-title').innerText = `📝 ${site.name} - 新增紀錄`;
+            document.getElementById('nurse-report-title').innerText = `📝 ${site.name} - 新增服務紀錄`;
             document.getElementById('nurse-site-table').parentElement.classList.add('hidden'); // Hide list
             
             // Reset
@@ -814,10 +910,10 @@
             div.style.marginBottom = '10px';
             
             div.innerHTML = `
-                <input type="text" class="form-control item-input" placeholder="改善建議事項 (例如: 消防栓前堆放雜物...)" style="margin-bottom:5px;">
+                <input type="text" class="form-control item-input" placeholder="請輸入健康指導/改善建議事項..." style="margin-bottom:5px;">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                     <label style="font-size:0.9rem; cursor:pointer;">
-                        <input type="checkbox" class="file-check"> 已包含照片佐證
+                        <input type="checkbox" class="file-check"> 已包含照片/佐證資料
                     </label>
                     <button class="btn btn-outline btn-sm" style="color:#dc3545; border-color:#dc3545;" onclick="this.parentElement.parentElement.remove()">刪除</button>
                 </div>
@@ -826,7 +922,7 @@
         }
 
         function submitNurseReport() {
-            const date = document.getElementById('report-date').value;
+            const dateStr = document.getElementById('report-date').value;
             const rows = document.querySelectorAll('#suggestion-container .tree-node');
             
             if(rows.length === 0) { alert('請至少新增一項建議'); return; }
@@ -840,11 +936,15 @@
                 }
             });
 
+            // Parse year from date string (YYYY-MM-DD)
+            const year = parseInt(dateStr.split('-')[0]);
+
             // Update Mock DB
             appState.reports.push({
                 id: Date.now(),
                 siteId: currentNurseSiteId,
-                date: date,
+                year: year,
+                date: dateStr,
                 author: CURRENT_NURSE_NAME,
                 items: newItems
             });
@@ -853,48 +953,124 @@
             const site = appState.sites.find(s => s.id === currentNurseSiteId);
             site.lastUpdate = new Date().toISOString().split('T')[0];
 
-            alert('✅ 紀錄已提交，資料已同步至總公司。');
+            alert('✅ 紀錄已提交，資料已存檔同步。');
             closeNurseReport();
             renderNurseView();
         }
 
         // ==========================================
-        // 5. Inspector & Utilities
+        // 5. Inspector View (評鑑模式) Logic
         // ==========================================
-        function renderInspectorView() {
-            const tbody = document.querySelector('#inspector-table tbody');
-            tbody.innerHTML = '';
+        
+        function renderInspectorView(selectedYear) {
+            const container = document.getElementById('inspector-accordion-container');
+            container.innerHTML = '';
+            
+            const year = parseInt(selectedYear);
 
             appState.sites.forEach(site => {
-                const status = getSiteComplianceStatus(site.id);
-                const missing = getSiteMissingCount(site.id);
+                // Filter reports by site AND selected year
+                const yearReports = appState.reports.filter(r => r.siteId === site.id && r.year === year);
                 
-                let complianceText = '100%';
-                if(status === 'yellow') complianceText = '85%';
-                if(status === 'red') complianceText = '60%';
+                // Sort by date desc
+                yearReports.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-                tbody.innerHTML += `
-                    <tr>
-                        <td>${site.name}</td>
-                        <td>${site.status === 'active' ? '🟢 履約中' : '⚪ 已結案'}</td>
-                        <td>
-                            <div style="width:100px; background:#e9ecef; height:6px; border-radius:3px; display:inline-block; vertical-align:middle; margin-right:5px;">
-                                <div style="width:${complianceText}; background:var(--primary-color); height:100%;"></div>
+                // Calculate status for THIS year only
+                let statusHtml = '';
+                let statusClass = '';
+                let missingCount = 0;
+
+                if (yearReports.length === 0) {
+                    statusHtml = '<span class="badge badge-secondary" style="background:#e2e3e5; color:#666;">無服務紀錄</span>';
+                    statusClass = 'no-record';
+                } else {
+                    missingCount = yearReports.reduce((acc, r) => acc + r.items.filter(i => !i.hasFile).length, 0);
+                    if (missingCount >= 2) {
+                        statusHtml = '<span class="badge badge-danger">建議事項尚未補齊附件 (2+)</span>';
+                        statusClass = 'red';
+                    } else if (missingCount > 0) {
+                        statusHtml = '<span class="badge badge-warning">建議事項尚未補齊附件</span>';
+                        statusClass = 'yellow';
+                    } else {
+                        statusHtml = '<span class="badge badge-success">紀錄完整</span>';
+                        statusClass = 'green';
+                    }
+                }
+
+                // Generate Content
+                let contentHtml = '';
+                if (yearReports.length === 0) {
+                    contentHtml = `<p class="text-muted" style="text-align:center;">該年度（${year}）未提供勞工健康服務。</p>`;
+                } else {
+                    yearReports.forEach(report => {
+                        let itemsList = '';
+                        report.items.forEach(item => {
+                            const icon = item.hasFile ? '✅' : '⚠️';
+                            const itemClass = item.hasFile ? '' : 'missing';
+                            const fileText = item.hasFile ? '附件已備' : '建議事項尚未補齊附件';
+                            itemsList += `
+                                <div class="inspector-item-row ${itemClass}">
+                                    <span>${icon} ${item.content}</span>
+                                    <span style="font-size:0.85em;">${fileText}</span>
+                                </div>
+                            `;
+                        });
+
+                        contentHtml += `
+                            <div class="report-card">
+                                <div class="report-meta">
+                                    <span>📄 臨場服務紀錄：${report.date}</span>
+                                    <span>顧問人員：${report.author}</span>
+                                </div>
+                                <div>${itemsList}</div>
                             </div>
-                            ${complianceText}
-                        </td>
-                        <td style="color:${missing > 0 ? 'red' : 'green'}">${missing} 項缺失</td>
-                        <td>${site.lastUpdate}</td>
-                    </tr>
+                        `;
+                    });
+                }
+
+                // Append Accordion Item
+                const accordionId = `acc-${site.id}`;
+                container.innerHTML += `
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleInspectorAccordion('${accordionId}')">
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <strong>${site.name}</strong>
+                                ${statusHtml}
+                            </div>
+                            <span style="color:#aaa;">▼</span>
+                        </div>
+                        <div id="${accordionId}" class="accordion-content">
+                            ${contentHtml}
+                        </div>
+                    </div>
                 `;
             });
         }
 
-        function exportData() {
-            alert('系統提示：\n\n已將當前所有案場的查核數據匯出為 CSV 格式。\n(此為 Demo 模擬功能)');
+        function toggleInspectorAccordion(id) {
+            const content = document.getElementById(id);
+            const header = content.previousElementSibling;
+            
+            // Toggle current
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                header.classList.remove('active');
+            } else {
+                // Close others (optional, keep open allows comparison)
+                document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('show'));
+                document.querySelectorAll('.accordion-header').forEach(el => el.classList.remove('active'));
+                
+                content.classList.add('show');
+                header.classList.add('active');
+            }
         }
 
-        // Helper: Calculate Status
+        function exportData() {
+            const year = document.getElementById('inspector-year').value;
+            alert(`系統提示：\n\n已將 ${year} 年度依年度彙整之服務紀錄與附件匯出為 CSV 格式。\n(此為 Demo 模擬功能)`);
+        }
+
+        // Helper: Calculate Status (Global / All time for Admin)
         function getSiteMissingCount(siteId) {
             const reports = appState.reports.filter(r => r.siteId === siteId);
             return reports.reduce((acc, r) => acc + r.items.filter(i => !i.hasFile).length, 0);
