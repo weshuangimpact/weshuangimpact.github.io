@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>附表八 勞工健康服務執行紀錄表</title>
+    <title>勞工健康服務執行紀錄表</title>
     
     <!-- 1. 引入 Tailwind CSS (樣式框架) -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -54,6 +54,11 @@
             .img-uploader { display: none !important; }
             .img-delete-btn { display: none !important; }
             .img-caption-input { border: none !important; background: transparent !important; padding: 0 !important; }
+            
+            /* 隱藏 placeholder */
+            input::placeholder, textarea::placeholder {
+                color: transparent !important;
+            }
         }
     </style>
 </head>
@@ -93,6 +98,10 @@
 
         const App = () => {
             const initialData = {
+                // 新增：公司名稱與頂部日期
+                companyName: '',
+                top_year: '', top_month: '', top_day: '',
+
                 deptName: '',
                 worker_admin: false, worker_admin_male: '', worker_admin_female: '',
                 worker_site: false, worker_site_male: '', worker_site_female: '',
@@ -120,7 +129,7 @@
             const [lastSavedTime, setLastSavedTime] = useState(null);
 
             useEffect(() => {
-                const saved = localStorage.getItem('healthRecordDraft_v6'); 
+                const saved = localStorage.getItem('healthRecordDraft_v7'); 
                 if (saved) {
                     try {
                         const parsed = JSON.parse(saved);
@@ -136,7 +145,7 @@
                         }
                         
                         setFormData(parsed);
-                        const time = localStorage.getItem('healthRecordTime_v6');
+                        const time = localStorage.getItem('healthRecordTime_v7');
                         if (time) setLastSavedTime(time);
                     } catch (e) { console.error("讀取失敗", e); }
                 }
@@ -216,9 +225,9 @@
             const handleSaveDraft = () => {
                 setIsSaving(true);
                 try {
-                    localStorage.setItem('healthRecordDraft_v6', JSON.stringify(formData));
+                    localStorage.setItem('healthRecordDraft_v7', JSON.stringify(formData));
                     const now = new Date().toLocaleString('zh-TW');
-                    localStorage.setItem('healthRecordTime_v6', now);
+                    localStorage.setItem('healthRecordTime_v7', now);
                     setLastSavedTime(now);
                 } catch (e) {
                     alert("儲存失敗：資料量過大（通常是圖片過多）。");
@@ -229,8 +238,8 @@
             const handleClear = () => {
                 if(window.confirm('確定要清除所有內容與暫存檔嗎？')) {
                     setFormData(initialData);
-                    localStorage.removeItem('healthRecordDraft_v6');
-                    localStorage.removeItem('healthRecordTime_v6');
+                    localStorage.removeItem('healthRecordDraft_v7');
+                    localStorage.removeItem('healthRecordTime_v7');
                     setLastSavedTime(null);
                 }
             };
@@ -240,7 +249,7 @@
                 element.classList.add('generating-pdf');
                 const opt = {
                     margin:       10,
-                    filename:     `附表八_勞工健康服務執行紀錄_${formData.exec_year || '113'}年.pdf`,
+                    filename:     `附表八_${formData.companyName || '公司'}_勞工健康服務執行紀錄_${formData.top_year || '113'}年.pdf`,
                     image:        { type: 'jpeg', quality: 0.98 },
                     html2canvas:  { scale: 2, useCORS: true, logging: false },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -275,7 +284,7 @@
                     <div className="no-print max-w-[210mm] mx-auto mb-6 bg-white p-4 rounded-lg shadow flex flex-wrap justify-between items-center gap-4 sticky top-0 z-50 border-b-2 border-blue-500">
                         <div>
                             <h1 className="text-xl font-bold text-gray-800 flex items-center">
-                                <span className="mr-2"><IconFileText /></span> 附表八 填寫系統 (完整項目版)
+                                <span className="mr-2"><IconFileText /></span> 附表八 填寫系統 (公司/日期版)
                             </h1>
                             {lastSavedTime && <p className="text-xs text-gray-500 mt-1">上次存檔：{lastSavedTime}</p>}
                         </div>
@@ -288,7 +297,27 @@
 
                     {/* A4 預覽區 */}
                     <div id="print-area" className="max-w-[210mm] mx-auto bg-white shadow-2xl p-[15mm] min-h-[297mm] relative leading-snug box-border text-black">
-                        <div className="text-center mb-4"><h2 className="text-xl font-bold mb-4 tracking-widest">附表八  勞工健康服務執行紀錄表</h2></div>
+                        
+                        {/* 頂部標題與日期區 (修改處) */}
+                        <div className="text-center mb-6">
+                            <input 
+                                type="text" 
+                                name="companyName" 
+                                value={formData.companyName} 
+                                onChange={handleChange} 
+                                className="w-full text-2xl font-bold text-center outline-none bg-transparent placeholder-gray-300 mb-2" 
+                                placeholder="請輸入事業單位名稱"
+                            />
+                            <h2 className="text-xl font-bold tracking-widest mb-2">附表八  勞工健康服務執行紀錄表</h2>
+                            
+                            {/* 新增執行日期欄位 */}
+                            <div className="flex justify-end items-center text-sm font-bold">
+                                <span>執行日期：</span>
+                                <input type="text" name="top_year" value={formData.top_year} onChange={handleChange} className="w-10 border-b border-black text-center outline-none bg-transparent" />年
+                                <input type="text" name="top_month" value={formData.top_month} onChange={handleChange} className="w-8 border-b border-black text-center outline-none bg-transparent" />月
+                                <input type="text" name="top_day" value={formData.top_day} onChange={handleChange} className="w-8 border-b border-black text-center outline-none bg-transparent" />日
+                            </div>
+                        </div>
 
                         <div className="border-2 border-black">
                             <div className={`${borderB} bg-gray-200 p-1 font-bold text-sm print:bg-gray-100`}>一、作業場所基本資料</div>
