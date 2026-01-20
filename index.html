@@ -5,17 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>勞工健康服務執行紀錄表</title>
     
-    <!-- 1. 引入 Tailwind CSS (樣式框架) -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- 2. 引入 React 核心 -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     
-    <!-- 3. 引入 Babel -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
-    <!-- 4. 引入 PDF 生成工具 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
@@ -24,7 +20,30 @@
         body { font-family: 'Noto Sans TC', sans-serif; }
         .font-kai { font-family: "DFKai-SB", "BiauKai", "標楷體", serif; }
 
-        /* 列印與 PDF 樣式優化 */
+        /* --- PDF 生成狀態 (generating-pdf) 的強制樣式 --- */
+        /* 這些樣式只會在按下「下載PDF」時生效 */
+        
+        /* 隱藏輸入元件，改顯示純文字內容 (解決文字被截斷問題) */
+        .generating-pdf textarea.printable-textarea { display: none !important; }
+        .generating-pdf div.printable-content { display: block !important; white-space: pre-wrap; word-wrap: break-word; }
+        
+        /* 隱藏不必要的按鈕與圖示 */
+        .generating-pdf .no-print,
+        .generating-pdf .btn-action,
+        .generating-pdf .img-uploader,
+        .generating-pdf .img-delete-btn { display: none !important; }
+        
+        /* 強制顯示被勾選的項目 */
+        .generating-pdf .print-only-checked { display: block !important; }
+        
+        /* 移除輸入框邊框，讓 PDF 看起來像正式文件 */
+        .generating-pdf input { border: none !important; background: transparent !important; }
+        .generating-pdf input[type="date"], 
+        .generating-pdf input[type="time"] { border: none !important; }
+
+        /* ----------------------------------------------------------- */
+
+        /* 原有的列印樣式 (保留給 Ctrl+P 使用) */
         @media print {
             body { background: white; padding: 0; }
             #root > div { padding: 0 !important; background: white !important; }
@@ -32,63 +51,32 @@
                 box-shadow: none !important; 
                 margin: 0 !important; 
                 width: 100% !important; 
-                max-width: none !important;
-                padding: 10mm 15mm !important; /* 調整列印時的內距 */
+                padding: 0 !important; 
             }
             .no-print { display: none !important; }
-            
-            /* 強制背景與顏色列印 */
-            * {
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-            }
-
-            /* 勾選清單控制 */
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
             .print-checkbox { display: none; }
             .print-only-checked { display: block; }
-            
-            /* 隱藏刪除按鈕與新增按鈕 */
             .btn-action { display: none !important; }
-            
-            /* 圖片上傳區隱藏 */
             .img-uploader { display: none !important; }
             .img-delete-btn { display: none !important; }
-            .img-caption-input { 
-                border: none !important; 
-                background: transparent !important; 
-                padding: 0 !important; 
-                text-align: center !important;
-            }
+            .img-caption-input { border: none !important; padding: 0 !important; text-align: center !important; }
+            input::placeholder, textarea::placeholder { color: transparent !important; }
             
-            /* 隱藏 placeholder */
-            input::placeholder, textarea::placeholder {
-                color: transparent !important;
-            }
-
-            /* 日期時間選擇器在列印時隱藏外框 */
-            input[type="date"], input[type="time"] {
-                border: none;
-                background: transparent;
-            }
-
-            /* 關鍵修正：Textarea 在列印時隱藏，改顯示 div
-               這能確保文字內容自動撐開高度，不會被截斷
-            */
-            textarea.printable-textarea {
-                display: none !important;
-            }
-            div.printable-content {
-                display: block !important;
-                white-space: pre-wrap; /* 保留換行 */
-                word-wrap: break-word;
-                min-height: 20px;
-            }
+            /* Textarea 在列印模式的切換 */
+            textarea.printable-textarea { display: none !important; }
+            div.printable-content { display: block !important; white-space: pre-wrap; word-wrap: break-word; }
         }
 
-        /* 螢幕顯示時隱藏替代用的 div */
-        div.printable-content {
-            display: none;
-        }
+        /* 預設螢幕顯示時隱藏替代用的 div */
+        div.printable-content { display: none; }
+        
+        /* 確保圖片在分頁時不被切斷 */
+        .page-break-inside-avoid { break-inside: avoid; }
+        
+        /* 動畫效果 */
+        @keyframes fade-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fade-in 0.2s ease-out; }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -125,7 +113,7 @@
             "13 訂定勞工健康管理方案，據以辦理，每年評估成效及檢討。"
         ];
 
-        // --- 可列印的 Textarea 元件 (解決文字截斷問題) ---
+        // --- 可列印的 Textarea 元件 ---
         const PrintableTextarea = ({ name, value, onChange, className, placeholder, rows = 3 }) => {
             return (
                 <div className="w-full h-full relative">
@@ -284,25 +272,48 @@
                 }
             };
 
+            // --- 修正後的 PDF 下載函數 ---
             const handleDownloadPDF = () => {
                 const element = document.getElementById('print-area');
+                
+                // 1. 強制捲動到頂部，避免 html2canvas 截圖偏移造成上方空白
+                window.scrollTo(0, 0);
+                
+                // 2. 加入 class 以觸發 CSS 變化 (Textarea -> Div)
                 element.classList.add('generating-pdf');
                 
                 const dateStr = formData.execDate || '日期未填';
                 
                 const opt = {
-                    margin:       5, // 修正1: 減少邊距避免頂部空白過大
+                    margin:       [10, 10, 10, 10], // 設定上下左右邊距
                     filename:     `${formData.companyName || '公司'}_勞工健康服務執行紀錄_${dateStr}.pdf`,
                     image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, useCORS: true, logging: false },
+                    html2canvas:  { 
+                        scale: 2, 
+                        useCORS: true, 
+                        logging: false,
+                        scrollY: 0,  // 重要：強制 canvas 從 y=0 開始截取，消除頂部空白
+                        windowWidth: document.documentElement.scrollWidth
+                    },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
+
                 if (window.html2pdf) {
-                    window.html2pdf().set(opt).from(element).save().then(() => {
-                        element.classList.remove('generating-pdf');
-                    });
+                    window.html2pdf()
+                        .set(opt)
+                        .from(element)
+                        .save()
+                        .then(() => {
+                            // 生成結束後移除 class，恢復編輯模式
+                            element.classList.remove('generating-pdf');
+                        })
+                        .catch(err => {
+                            console.error("PDF 生成失敗:", err);
+                            element.classList.remove('generating-pdf');
+                        });
                 } else {
                     alert("PDF 模組尚未載入完成");
+                    element.classList.remove('generating-pdf');
                 }
             };
 
@@ -468,7 +479,6 @@
 
                             <div className={`${borderB} p-2`}>
                                 <div className="font-bold mb-1 text-sm">二、作業場所與勞動條件概況：工作流程(製程)、工作型態與時間、人員及危害特性概述</div>
-                                {/* 修正2: 使用 PrintableTextarea 確保文字完整顯示 */}
                                 <PrintableTextarea 
                                     name="conditions_overview" 
                                     value={formData.conditions_overview} 
@@ -503,7 +513,6 @@
                                     </div>
                                     <div className="p-2 flex flex-col">
                                         <span className="font-bold mb-1 text-sm">(二) 發現問題</span>
-                                        {/* 修正2: 使用 PrintableTextarea */}
                                         <PrintableTextarea 
                                             name="problems_found" 
                                             value={formData.problems_found} 
@@ -536,7 +545,6 @@
                                             <div key={img.id} className="border border-gray-300 p-2 rounded relative page-break-inside-avoid flex flex-col items-center">
                                                 <button onClick={() => handleRemoveImage(img.id)} className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-600 no-print img-delete-btn">×</button>
                                                 
-                                                {/* 修正3: 圖名改放在上方並置中 */}
                                                 <div className="w-full flex items-center justify-center mb-2">
                                                     <span className="font-bold text-sm whitespace-nowrap mr-1">圖{index + 1}：</span>
                                                     <input 
@@ -583,7 +591,6 @@
                                         ，簽章：<input type="text" name="sup_sign" value={formData.sup_sign} onChange={handleChange} className="w-24 border-b border-black outline-none text-center font-kai text-lg bg-transparent" />
                                     </div>
                                     
-                                    {/* 修正4: 底部執行日期格式，單行置中對齊，不分散 */}
                                     <div className="w-full text-center mt-6 font-bold text-base tracking-widest flex justify-center items-center">
                                         <span>執行日期：____年____月____日 時間：____時____分 迄 ____時____分</span>
                                     </div>
@@ -595,15 +602,6 @@
                     <div className="max-w-[210mm] mx-auto mt-4 text-center text-gray-500 text-xs no-print">
                         附註：依照法規規定，紀錄應保存三年以上。
                     </div>
-
-                    <style>{`
-                        .generating-pdf .no-print { display: none !important; }
-                        .generating-pdf .print-only-checked { display: block !important; }
-                        .generating-pdf .btn-action { display: none !important; }
-                        .page-break-inside-avoid { break-inside: avoid; }
-                        @keyframes fade-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-                        .animate-fade-in { animation: fade-in 0.2s ease-out; }
-                    `}</style>
                 </div>
             );
         };
