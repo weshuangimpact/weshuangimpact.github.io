@@ -140,7 +140,7 @@
                 companyName: '',
                 // 頂部日期
                 execDate: '', startTime: '', endTime: '',
-                // 底部日期 (獨立)
+                // 底部日期 (獨立，不聯動)
                 bottomExecDate: '', bottomStartTime: '', bottomEndTime: '',
                 
                 deptName: '',
@@ -164,7 +164,7 @@
             const [lastSavedTime, setLastSavedTime] = useState(null);
 
             useEffect(() => {
-                const saved = localStorage.getItem('healthRecordDraft_v12'); 
+                const saved = localStorage.getItem('healthRecordDraft_v13'); 
                 if (saved) {
                     try {
                         const parsed = JSON.parse(saved);
@@ -174,7 +174,7 @@
                             parsed.job_special_items = [{ id: Date.now(), cat: '', count: '' }];
                         }
                         setFormData(prev => ({ ...prev, ...parsed }));
-                        const time = localStorage.getItem('healthRecordTime_v12');
+                        const time = localStorage.getItem('healthRecordTime_v13');
                         if (time) setLastSavedTime(time);
                     } catch (e) { console.error("讀取失敗", e); }
                 }
@@ -233,9 +233,9 @@
             const handleSaveDraft = () => {
                 setIsSaving(true);
                 try {
-                    localStorage.setItem('healthRecordDraft_v12', JSON.stringify(formData));
+                    localStorage.setItem('healthRecordDraft_v13', JSON.stringify(formData));
                     const now = new Date().toLocaleString('zh-TW');
-                    localStorage.setItem('healthRecordTime_v12', now);
+                    localStorage.setItem('healthRecordTime_v13', now);
                     setLastSavedTime(now);
                 } catch (e) {
                     alert("儲存失敗：資料量過大。");
@@ -246,8 +246,8 @@
             const handleClear = () => {
                 if(window.confirm('確定要清除所有內容與暫存檔嗎？')) {
                     setFormData(initialData);
-                    localStorage.removeItem('healthRecordDraft_v12');
-                    localStorage.removeItem('healthRecordTime_v12');
+                    localStorage.removeItem('healthRecordDraft_v13');
+                    localStorage.removeItem('healthRecordTime_v13');
                     setLastSavedTime(null);
                 }
             };
@@ -270,7 +270,6 @@
                         scrollY: 0,
                         windowWidth: document.documentElement.scrollWidth
                     },
-                    // 使用 css 和 legacy 模式來處理分頁，避免將文字整塊裁切
                     pagebreak:    { mode: ['css', 'legacy'] },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
@@ -306,12 +305,12 @@
                 return { h: h || '____', m: m || '____' };
             };
 
-            // 頂部日期
+            // 頂部日期計算
             const topDateComps = formatDateComponents(formData.execDate);
             const topStartComps = formatTimeComponents(formData.startTime);
             const topEndComps = formatTimeComponents(formData.endTime);
 
-            // 底部日期 (獨立)
+            // 底部日期計算
             const bottomDateComps = formatDateComponents(formData.bottomExecDate);
             const bottomStartComps = formatTimeComponents(formData.bottomStartTime);
             const bottomEndComps = formatTimeComponents(formData.bottomEndTime);
@@ -349,7 +348,7 @@
                         </div>
                     </div>
 
-                    {/* A4 文件區 (確保頂部無空白) */}
+                    {/* A4 文件區 */}
                     <div id="print-area" className="max-w-[210mm] mx-auto bg-white shadow-2xl p-[15mm] pt-0 min-h-[297mm] relative leading-snug box-border text-black">
                         
                         {/* 頂部 */}
@@ -519,7 +518,7 @@
                                 <PrintableTextarea name="tracking" value={formData.tracking} onChange={handleChange} className="resize-none bg-transparent w-full" rows={4} />
                             </div>
 
-                            {/* 第六項：使用 avoid-break 避免頁尾被裁切 */}
+                            {/* 第六項 */}
                             <div className="p-4 avoid-break">
                                 <div className="font-bold mb-4 text-unified-title">六、執行人員及日期（僅就當次實際執行者簽章）：</div>
                                 
@@ -539,40 +538,23 @@
                                         <input type="text" name="sup_sign" value={formData.sup_sign} onChange={handleChange} className="w-32 border-b border-black outline-none text-center text-unified bg-transparent" />
                                     </div>
 
-                                    {/* 底部日期：獨立輸入 (複製自頂部程式碼，但使用 bottom* 變數) */}
-                                    <div className="mt-6 font-bold text-xl tracking-widest flex items-center flex-wrap avoid-break">
-                                        <span className="mr-2">執行日期：</span>
-                                        
-                                        <input 
-                                            type="date" 
-                                            name="bottomExecDate" 
-                                            value={formData.bottomExecDate} 
-                                            onChange={handleChange} 
-                                            className="border-b border-black text-center outline-none bg-transparent cursor-pointer screen-input font-bold text-xl w-40" 
-                                        />
-                                        <span className="print-text border-b border-black px-2 mx-1">{bottomDateComps.y} 年 {bottomDateComps.m} 月 {bottomDateComps.d} 日</span>
-
-                                        <span className="mx-2">時間：</span>
-                                        
-                                        <input 
-                                            type="time" 
-                                            name="bottomStartTime" 
-                                            value={formData.bottomStartTime} 
-                                            onChange={handleChange} 
-                                            className="border-b border-black text-center outline-none bg-transparent cursor-pointer screen-input font-bold text-xl w-24" 
-                                        />
-                                        <span className="print-text border-b border-black px-2 mx-1">{bottomStartComps.h} : {bottomStartComps.m}</span>
-
-                                        <span className="mx-2">迄</span>
-                                        
-                                        <input 
-                                            type="time" 
-                                            name="bottomEndTime" 
-                                            value={formData.bottomEndTime} 
-                                            onChange={handleChange} 
-                                            className="border-b border-black text-center outline-none bg-transparent cursor-pointer screen-input font-bold text-xl w-24" 
-                                        />
-                                        <span className="print-text border-b border-black px-2 mx-1">{bottomEndComps.h} : {bottomEndComps.m}</span>
+                                    {/* 底部日期區塊 - 完全複製自頂部結構，僅更換綁定變數 */}
+                                    <div className="flex justify-center items-center text-unified font-bold gap-2 flex-wrap p-2 rounded print:bg-transparent print:p-0 mt-6 avoid-break">
+                                        <div className="flex items-center">
+                                            <span className="whitespace-nowrap">執行日期：</span>
+                                            <input type="date" name="bottomExecDate" value={formData.bottomExecDate} onChange={handleChange} className="border-b border-black text-center outline-none bg-transparent cursor-pointer screen-input" />
+                                            <span className="print-text border-b border-black px-2">{bottomDateComps.y} 年 {bottomDateComps.m} 月 {bottomDateComps.d} 日</span>
+                                        </div>
+                                        <div className="flex items-center">
+                                            <span className="whitespace-nowrap ml-4">時間：</span>
+                                            <input type="time" name="bottomStartTime" value={formData.bottomStartTime} onChange={handleChange} className="border-b border-black text-center outline-none bg-transparent cursor-pointer screen-input" />
+                                            <span className="print-text border-b border-black px-2">{bottomStartComps.h} : {bottomStartComps.m}</span>
+                                            
+                                            <span className="mx-2">迄</span>
+                                            
+                                            <input type="time" name="bottomEndTime" value={formData.bottomEndTime} onChange={handleChange} className="border-b border-black text-center outline-none bg-transparent cursor-pointer screen-input" />
+                                            <span className="print-text border-b border-black px-2">{bottomEndComps.h} : {bottomEndComps.m}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
