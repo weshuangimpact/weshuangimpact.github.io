@@ -21,21 +21,25 @@
         .font-kai { font-family: "DFKai-SB", "BiauKai", "標楷體", serif; }
 
         /* --- PDF 生成狀態強制樣式 --- */
+        /* 隱藏輸入框，顯示純文字 Div */
         .generating-pdf textarea.printable-textarea { display: none !important; }
         .generating-pdf div.printable-content { display: block !important; white-space: pre-wrap; word-wrap: break-word; }
         
+        /* 隱藏操作按鈕 */
         .generating-pdf .no-print,
         .generating-pdf .btn-action,
         .generating-pdf .img-uploader,
         .generating-pdf .img-delete-btn { display: none !important; }
         
+        /* 顯示勾選項目 */
         .generating-pdf .print-only-checked { display: block !important; }
         
+        /* 移除輸入框邊框 */
         .generating-pdf input { border: none !important; background: transparent !important; }
         .generating-pdf input[type="date"], 
         .generating-pdf input[type="time"] { border: none !important; }
 
-        /* --- 列印模式樣式 --- */
+        /* --- 列印模式樣式 (Ctrl+P) --- */
         @media print {
             body { background: white; padding: 0; }
             #root > div { padding: 0 !important; background: white !important; }
@@ -59,8 +63,12 @@
             div.printable-content { display: block !important; white-space: pre-wrap; word-wrap: break-word; }
         }
 
+        /* 預設隱藏替代用的 div */
         div.printable-content { display: none; }
-        .page-break-inside-avoid { break-inside: avoid; }
+        
+        /* 避免圖片或區塊在分頁時被切斷 */
+        .page-break-inside-avoid { break-inside: avoid; page-break-inside: avoid; }
+        
         @keyframes fade-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade-in { animation: fade-in 0.2s ease-out; }
     </style>
@@ -129,7 +137,6 @@
                 job_special_items: [{id: 1, cat: '', count: ''}], 
                 conditions_overview: '',
                 execution_checklist: [],
-                execution_other_text: '',
                 problems_found: '',
                 measures: '',
                 measure_images: [], 
@@ -275,6 +282,8 @@
                         scrollY: 0,
                         windowWidth: document.documentElement.scrollWidth
                     },
+                    // 修正 1: 設定分頁模式為 avoid-all，盡量避免切斷文字
+                    pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
@@ -295,6 +304,29 @@
             const borderB = "border-b border-black";
             const inputClass = "w-full bg-transparent outline-none";
 
+            // --- 日期格式化工具 (用於底部連動) ---
+            const formatDateComponents = (dateString) => {
+                if (!dateString) return { y: '____', m: '____', d: '____' };
+                const date = new Date(dateString);
+                if (isNaN(date.getTime())) return { y: '____', m: '____', d: '____' };
+                return {
+                    y: date.getFullYear(),
+                    m: String(date.getMonth() + 1).padStart(2, '0'),
+                    d: String(date.getDate()).padStart(2, '0')
+                };
+            };
+
+            const formatTimeComponents = (timeString) => {
+                if (!timeString) return { h: '____', m: '____' };
+                const [h, m] = timeString.split(':');
+                return { h: h || '____', m: m || '____' };
+            };
+
+            const dateComps = formatDateComponents(formData.execDate);
+            const startComps = formatTimeComponents(formData.startTime);
+            const endComps = formatTimeComponents(formData.endTime);
+
+
             const SignatureField = ({ label, nameKey }) => (
                 <div className="flex items-center w-full mb-2">
                     <label className="flex items-center cursor-pointer select-none whitespace-nowrap mr-2">
@@ -308,7 +340,7 @@
             return (
                 <div className="min-h-screen p-4 font-sans text-gray-800">
                     
-                    {/* 操作工具列 */}
+                    {/* 工具列 */}
                     <div className="no-print max-w-[210mm] mx-auto mb-6 bg-white p-4 rounded-lg shadow flex flex-wrap justify-between items-center gap-4 sticky top-0 z-50 border-b-2 border-blue-500">
                         <div>
                             <h1 className="text-xl font-bold text-gray-800 flex items-center">
@@ -326,7 +358,7 @@
                     {/* A4 預覽區 */}
                     <div id="print-area" className="max-w-[210mm] mx-auto bg-white shadow-2xl p-[15mm] min-h-[297mm] relative leading-snug box-border text-black">
                         
-                        {/* 標題與日期 */}
+                        {/* 頂部標題與日期 */}
                         <div className="text-center mb-6">
                             <input 
                                 type="text" 
@@ -353,6 +385,7 @@
                         </div>
 
                         <div className="border-2 border-black">
+                            {/* 表格內容保持不變 */}
                             <div className={`${borderB} bg-gray-200 p-1 font-bold text-sm print:bg-gray-100`}>一、作業場所基本資料</div>
                             
                             <div className={`grid grid-cols-12 ${borderB}`}>
@@ -382,7 +415,6 @@
                                         </label>
                                         <input type="text" name="job_general_count" value={formData.job_general_count} onChange={handleChange} className="w-20 border-b border-gray-400 text-center outline-none bg-transparent" />
                                     </div>
-                                    
                                     <div className="flex flex-col gap-2">
                                         <div className="flex items-center">
                                             <label className="flex items-center cursor-pointer select-none font-bold">
@@ -395,7 +427,6 @@
                                                 </button>
                                             )}
                                         </div>
-
                                         {formData.job_special && formData.job_special_items.map((item, index) => (
                                             <div key={item.id} className="flex items-center flex-wrap gap-2 pl-6 animate-fade-in">
                                                 <span className="text-sm text-gray-500 select-none">{index + 1}.</span>
@@ -415,23 +446,13 @@
                                 </div>
                             </div>
 
-                            {/* 第二項：改為滿寬度 */}
                             <div className={`${borderB} p-2`}>
                                 <div className="font-bold mb-1 text-sm">二、作業場所與勞動條件概況：工作流程(製程)、工作型態與時間、人員及危害特性概述</div>
-                                <PrintableTextarea 
-                                    name="conditions_overview" 
-                                    value={formData.conditions_overview} 
-                                    onChange={handleChange} 
-                                    className="resize-none bg-transparent p-1 w-full"
-                                    rows={4}
-                                />
+                                <PrintableTextarea name="conditions_overview" value={formData.conditions_overview} onChange={handleChange} className="resize-none bg-transparent p-1 w-full" rows={4} />
                             </div>
 
-                            {/* 第三項：結構調整，改為上下堆疊，使「發現問題」能滿版寬 */}
                             <div className={`${borderB}`}>
                                 <div className={`p-2 font-bold ${borderB} bg-gray-50 print:bg-gray-50 text-sm`}>三、臨場健康服務執行情形(本規則第九條至第十三條事項)：</div>
-                                
-                                {/* 3-1 辦理事項 (Checklist) */}
                                 <div className="p-2 border-b border-black">
                                     <span className="font-bold mb-2 text-sm block">(一) 辦理事項</span>
                                     <div className="flex flex-col gap-1 no-print max-h-[200px] overflow-y-auto border border-gray-200 p-1 mb-2">
@@ -441,32 +462,22 @@
                                                 <span>{item}</span>
                                             </label>
                                         ))}
-                                        <textarea name="execution_other_text" value={formData.execution_other_text} onChange={handleChange} className="mt-2 w-full p-1 border border-gray-300 rounded text-sm h-16 outline-none resize-none" placeholder="(其他補充文字...)" />
                                     </div>
                                     <div className="hidden print-only-checked text-sm space-y-1">
-                                        {formData.execution_checklist.length === 0 && !formData.execution_other_text ? <span className="text-gray-300"></span> : 
+                                        {formData.execution_checklist.length === 0 ? <span className="text-gray-300"></span> : 
                                             <ul className="list-disc pl-4 space-y-1">
                                                 {formData.execution_checklist.map((item, idx) => <li key={idx}>{item}</li>)}
-                                                {formData.execution_other_text && <li className="list-none mt-2 whitespace-pre-wrap">{formData.execution_other_text}</li>}
                                             </ul>
                                         }
                                     </div>
                                 </div>
 
-                                {/* 3-2 發現問題 (Textarea) - 現在是滿版寬度 */}
                                 <div className="p-2 min-h-[150px]">
                                     <span className="font-bold mb-1 text-sm block">(二) 發現問題</span>
-                                    <PrintableTextarea 
-                                        name="problems_found" 
-                                        value={formData.problems_found} 
-                                        onChange={handleChange} 
-                                        className="resize-none bg-transparent w-full"
-                                        rows={8}
-                                    />
+                                    <PrintableTextarea name="problems_found" value={formData.problems_found} onChange={handleChange} className="resize-none bg-transparent w-full" rows={8} />
                                 </div>
                             </div>
 
-                            {/* 第四項：滿寬度 */}
                             <div className={`${borderB} p-2 min-h-[120px]`}>
                                 <div className="flex justify-between items-center mb-1">
                                     <div className="font-bold text-sm">四、建議採行措施：(針對發現問題所採行之措施)</div>
@@ -475,13 +486,9 @@
                                         <input type="file" multiple accept="image/*" onChange={handleImageUpload} className="hidden" />
                                     </label>
                                 </div>
-                                <PrintableTextarea 
-                                    name="measures" 
-                                    value={formData.measures} 
-                                    onChange={handleChange} 
-                                    className="resize-none bg-transparent mb-2 w-full" 
-                                    rows={4}
-                                />
+                                <PrintableTextarea name="measures" value={formData.measures} onChange={handleChange} className="resize-none bg-transparent mb-2 w-full" rows={4} />
+                                
+                                {/* 修正 2: 圖片固定大小與 object-fit */}
                                 {formData.measure_images && formData.measure_images.length > 0 && (
                                     <div className="grid grid-cols-2 gap-6 mt-4">
                                         {formData.measure_images.map((img, index) => (
@@ -499,28 +506,23 @@
                                                         style={{ textAlign: 'center' }}
                                                     />
                                                 </div>
-
-                                                <img src={img.src} alt={`圖${index + 1}`} className="w-full h-auto object-contain max-h-[200px]" />
+                                                
+                                                {/* 圖片容器：固定高度，並使用 object-contain */}
+                                                <div className="w-full h-64 bg-gray-50 flex items-center justify-center overflow-hidden">
+                                                    <img src={img.src} alt={`圖${index + 1}`} className="max-w-full max-h-full object-contain" />
+                                                </div>
                                             </div>
                                         ))}
                                     </div>
                                 )}
                             </div>
 
-                            {/* 第五項：滿寬度 */}
                             <div className={`${borderB} p-2 min-h-[120px]`}>
                                 <div className="font-bold mb-1 text-sm">五、對於前次建議改善事項之追蹤辦理情形：</div>
-                                <PrintableTextarea 
-                                    name="tracking" 
-                                    value={formData.tracking} 
-                                    onChange={handleChange} 
-                                    className="resize-none bg-transparent w-full"
-                                    rows={4}
-                                />
+                                <PrintableTextarea name="tracking" value={formData.tracking} onChange={handleChange} className="resize-none bg-transparent w-full" rows={4} />
                             </div>
 
-                            {/* 第六項：簽章與頁尾 */}
-                            <div className="p-2">
+                            <div className="p-2 page-break-inside-avoid">
                                 <div className="font-bold mb-2 text-sm">六、執行人員及日期(僅就當次實際執行者簽章)</div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 mb-4 pl-2 text-sm">
                                     <SignatureField label="勞工健康服務之醫師，簽章：" nameKey="sign_doc" />
@@ -536,8 +538,9 @@
                                         ，簽章：<input type="text" name="sup_sign" value={formData.sup_sign} onChange={handleChange} className="w-24 border-b border-black outline-none text-center font-kai text-lg bg-transparent" />
                                     </div>
                                     
+                                    {/* 修正 3: 底部執行日期自動聯動 (移除輸入框，改為純文字顯示) */}
                                     <div className="w-full text-center mt-6 font-bold text-base tracking-widest flex justify-center items-center">
-                                        <span>執行日期：____年____月____日 時間：____時____分 迄 ____時____分</span>
+                                        <span>執行日期： {dateComps.y} 年 {dateComps.m} 月 {dateComps.d} 日 時間： {startComps.h} 時 {startComps.m} 分 迄 {endComps.h} 時 {endComps.m} 分</span>
                                     </div>
                                 </div>
                             </div>
