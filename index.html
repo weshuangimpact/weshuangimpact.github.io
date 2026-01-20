@@ -59,6 +59,12 @@
             input::placeholder, textarea::placeholder {
                 color: transparent !important;
             }
+
+            /* 日期時間選擇器在列印時隱藏外框，只顯示數值 (嘗試最佳化，但部分瀏覽器仍會顯示icon) */
+            input[type="date"], input[type="time"] {
+                border: none;
+                background: transparent;
+            }
         }
     </style>
 </head>
@@ -98,9 +104,11 @@
 
         const App = () => {
             const initialData = {
-                // 新增：公司名稱與頂部日期
+                // 公司與日期時間 (修改)
                 companyName: '',
-                top_year: '', top_month: '', top_day: '',
+                execDate: '', // YYYY-MM-DD
+                startTime: '', // HH:mm
+                endTime: '',   // HH:mm
 
                 deptName: '',
                 worker_admin: false, worker_admin_male: '', worker_admin_female: '',
@@ -119,9 +127,7 @@
                 measure_images: [], 
                 tracking: '',
                 sign_doc: false, sign_nurse: false, sign_related: false, sign_osha: false, sign_hr: false,
-                sup_dept_name: '', sup_title: '', sup_sign: '',
-                time_start_h: '', time_start_m: '', time_end_h: '', time_end_m: '',
-                exec_year: '', exec_month: '', exec_day: ''
+                sup_dept_name: '', sup_title: '', sup_sign: ''
             };
 
             const [formData, setFormData] = useState(initialData);
@@ -129,7 +135,7 @@
             const [lastSavedTime, setLastSavedTime] = useState(null);
 
             useEffect(() => {
-                const saved = localStorage.getItem('healthRecordDraft_v7'); 
+                const saved = localStorage.getItem('healthRecordDraft_v8'); 
                 if (saved) {
                     try {
                         const parsed = JSON.parse(saved);
@@ -145,7 +151,7 @@
                         }
                         
                         setFormData(parsed);
-                        const time = localStorage.getItem('healthRecordTime_v7');
+                        const time = localStorage.getItem('healthRecordTime_v8');
                         if (time) setLastSavedTime(time);
                     } catch (e) { console.error("讀取失敗", e); }
                 }
@@ -225,9 +231,9 @@
             const handleSaveDraft = () => {
                 setIsSaving(true);
                 try {
-                    localStorage.setItem('healthRecordDraft_v7', JSON.stringify(formData));
+                    localStorage.setItem('healthRecordDraft_v8', JSON.stringify(formData));
                     const now = new Date().toLocaleString('zh-TW');
-                    localStorage.setItem('healthRecordTime_v7', now);
+                    localStorage.setItem('healthRecordTime_v8', now);
                     setLastSavedTime(now);
                 } catch (e) {
                     alert("儲存失敗：資料量過大（通常是圖片過多）。");
@@ -238,8 +244,8 @@
             const handleClear = () => {
                 if(window.confirm('確定要清除所有內容與暫存檔嗎？')) {
                     setFormData(initialData);
-                    localStorage.removeItem('healthRecordDraft_v7');
-                    localStorage.removeItem('healthRecordTime_v7');
+                    localStorage.removeItem('healthRecordDraft_v8');
+                    localStorage.removeItem('healthRecordTime_v8');
                     setLastSavedTime(null);
                 }
             };
@@ -247,10 +253,13 @@
             const handleDownloadPDF = () => {
                 const element = document.getElementById('print-area');
                 element.classList.add('generating-pdf');
+                
+                // 檔名日期處理
+                const dateStr = formData.execDate || '日期未填';
+                
                 const opt = {
                     margin:       10,
-                    // 修改：移除檔名中的「附表八」
-                    filename:     `${formData.companyName || '公司'}_勞工健康服務執行紀錄_${formData.top_year || '113'}年.pdf`,
+                    filename:     `${formData.companyName || '公司'}_勞工健康服務執行紀錄_${dateStr}.pdf`,
                     image:        { type: 'jpeg', quality: 0.98 },
                     html2canvas:  { scale: 2, useCORS: true, logging: false },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -285,8 +294,7 @@
                     <div className="no-print max-w-[210mm] mx-auto mb-6 bg-white p-4 rounded-lg shadow flex flex-wrap justify-between items-center gap-4 sticky top-0 z-50 border-b-2 border-blue-500">
                         <div>
                             <h1 className="text-xl font-bold text-gray-800 flex items-center">
-                                {/* 修改：標題移除「附表八」 */}
-                                <span className="mr-2"><IconFileText /></span> 勞工健康服務執行紀錄表 填寫系統 (公司/日期版)
+                                <span className="mr-2"><IconFileText /></span> 勞工健康服務執行紀錄表 填寫系統
                             </h1>
                             {lastSavedTime && <p className="text-xs text-gray-500 mt-1">上次存檔：{lastSavedTime}</p>}
                         </div>
@@ -310,15 +318,38 @@
                                 className="w-full text-2xl font-bold text-center outline-none bg-transparent placeholder-gray-300 mb-2" 
                                 placeholder="請輸入事業單位名稱"
                             />
-                            {/* 修改：移除「附表八」三個字 */}
-                            <h2 className="text-xl font-bold tracking-widest mb-2">勞工健康服務執行紀錄表</h2>
+                            <h2 className="text-xl font-bold tracking-widest mb-4">勞工健康服務執行紀錄表</h2>
                             
-                            {/* 新增執行日期欄位 */}
-                            <div className="flex justify-end items-center text-sm font-bold">
-                                <span>執行日期：</span>
-                                <input type="text" name="top_year" value={formData.top_year} onChange={handleChange} className="w-10 border-b border-black text-center outline-none bg-transparent" />年
-                                <input type="text" name="top_month" value={formData.top_month} onChange={handleChange} className="w-8 border-b border-black text-center outline-none bg-transparent" />月
-                                <input type="text" name="top_day" value={formData.top_day} onChange={handleChange} className="w-8 border-b border-black text-center outline-none bg-transparent" />日
+                            {/* 新增執行日期與時間選擇器 (置中合併) */}
+                            <div className="flex justify-center items-center text-sm font-bold gap-2 flex-wrap bg-gray-50 p-2 rounded print:bg-transparent print:p-0">
+                                <div className="flex items-center">
+                                    <span className="whitespace-nowrap">執行日期：</span>
+                                    <input 
+                                        type="date" 
+                                        name="execDate" 
+                                        value={formData.execDate} 
+                                        onChange={handleChange} 
+                                        className="border-b border-black text-center outline-none bg-transparent cursor-pointer font-sans" 
+                                    />
+                                </div>
+                                <div className="flex items-center">
+                                    <span className="whitespace-nowrap ml-4">時間：</span>
+                                    <input 
+                                        type="time" 
+                                        name="startTime" 
+                                        value={formData.startTime} 
+                                        onChange={handleChange} 
+                                        className="border-b border-black text-center outline-none bg-transparent cursor-pointer" 
+                                    />
+                                    <span className="mx-2">迄</span>
+                                    <input 
+                                        type="time" 
+                                        name="endTime" 
+                                        value={formData.endTime} 
+                                        onChange={handleChange} 
+                                        className="border-b border-black text-center outline-none bg-transparent cursor-pointer" 
+                                    />
+                                </div>
                             </div>
                         </div>
 
@@ -347,14 +378,12 @@
                                 <div className="col-span-10 p-2 space-y-2">
                                     <div className="flex items-center gap-2"><span>一般作業：人數：</span><input type="text" name="job_general_count" value={formData.job_general_count} onChange={handleChange} className="w-20 border-b border-gray-400 text-center outline-none bg-transparent" /></div>
                                     
-                                    {/* 特別危害健康作業 - 多筆動態區域 */}
                                     <div className="flex flex-col gap-2">
                                         <div className="flex items-center">
                                             <label className="flex items-center cursor-pointer select-none font-bold">
                                                 <input type="checkbox" name="job_special" checked={formData.job_special} onChange={handleChange} className="w-4 h-4 mr-1 accent-black"/>
                                                 特別危害健康作業：
                                             </label>
-                                            {/* 新增按鈕 (列印時隱藏) */}
                                             {formData.job_special && (
                                                 <button onClick={addSpecialJob} className="ml-2 bg-blue-100 text-blue-600 rounded-full w-5 h-5 flex items-center justify-center hover:bg-blue-200 btn-action" title="新增一列">
                                                     <IconPlus />
@@ -382,7 +411,6 @@
                                                     placeholder=""
                                                 />
                                                 <span className="mr-1">人</span>
-                                                {/* 刪除按鈕 (列印時隱藏) */}
                                                 {formData.job_special_items.length > 1 && (
                                                     <button onClick={() => removeSpecialJob(item.id)} className="text-red-400 hover:text-red-600 btn-action ml-1">
                                                         <IconTrash />
@@ -474,11 +502,10 @@
                                         ，主管職稱：<input type="text" name="sup_title" value={formData.sup_title} onChange={handleChange} className="w-24 border-b border-black outline-none text-center bg-transparent" />
                                         ，簽章：<input type="text" name="sup_sign" value={formData.sup_sign} onChange={handleChange} className="w-24 border-b border-black outline-none text-center font-kai text-lg bg-transparent" />
                                     </div>
-                                    <div className="flex items-center w-full sm:w-auto mt-2 sm:mt-0 ml-auto">
-                                        執行日期：
-                                        <input type="text" name="exec_year" value={formData.exec_year} onChange={handleChange} className="w-12 border-b border-black text-center outline-none bg-transparent" />年
-                                        <input type="text" name="exec_month" value={formData.exec_month} onChange={handleChange} className="w-8 border-b border-black text-center outline-none bg-transparent" />月
-                                        <input type="text" name="exec_day" value={formData.exec_day} onChange={handleChange} className="w-8 border-b border-black text-center outline-none bg-transparent" />日
+                                    
+                                    {/* 修正：底部日期欄位改為手寫預留空間 */}
+                                    <div className="w-full text-center mt-6 font-bold text-base tracking-widest">
+                                        執行日期：　　　年　　月　　日　　時間：　　時　　分　迄　　時　　分
                                     </div>
                                 </div>
                             </div>
