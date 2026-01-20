@@ -17,29 +17,27 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
         
-        body { font-family: 'Noto Sans TC', sans-serif; }
-        .font-kai { font-family: "DFKai-SB", "BiauKai", "標楷體", serif; }
+        /* 全局強制標楷體 */
+        body, input, textarea, div { 
+            font-family: "DFKai-SB", "BiauKai", "標楷體", serif !important; 
+        }
 
         /* --- PDF 生成狀態強制樣式 --- */
-        /* 隱藏輸入框，顯示純文字 Div */
         .generating-pdf textarea.printable-textarea { display: none !important; }
         .generating-pdf div.printable-content { display: block !important; white-space: pre-wrap; word-wrap: break-word; }
         
-        /* 隱藏操作按鈕 */
         .generating-pdf .no-print,
         .generating-pdf .btn-action,
         .generating-pdf .img-uploader,
         .generating-pdf .img-delete-btn { display: none !important; }
         
-        /* 顯示勾選項目 */
         .generating-pdf .print-only-checked { display: block !important; }
         
-        /* 移除輸入框邊框 */
         .generating-pdf input { border: none !important; background: transparent !important; }
         .generating-pdf input[type="date"], 
         .generating-pdf input[type="time"] { border: none !important; }
 
-        /* --- 列印模式樣式 (Ctrl+P) --- */
+        /* --- 列印模式樣式 --- */
         @media print {
             body { background: white; padding: 0; }
             #root > div { padding: 0 !important; background: white !important; }
@@ -66,11 +64,15 @@
         /* 預設隱藏替代用的 div */
         div.printable-content { display: none; }
         
-        /* 避免圖片或區塊在分頁時被切斷 */
-        .page-break-inside-avoid { break-inside: avoid; page-break-inside: avoid; }
+        /* 避免不可分割的元件（如圖片、單行簽名）被切斷，但允許大區塊內部分頁 */
+        .avoid-break { break-inside: avoid; page-break-inside: avoid; }
         
         @keyframes fade-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade-in { animation: fade-in 0.2s ease-out; }
+        
+        /* 統一字體大小設定 */
+        .text-unified { font-size: 16px; line-height: 1.5; }
+        .text-unified-title { font-size: 18px; font-weight: bold; }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -114,11 +116,11 @@
                         name={name} 
                         value={value} 
                         onChange={onChange} 
-                        className={`printable-textarea w-full block ${className}`} 
+                        className={`printable-textarea w-full block ${className} text-unified`} 
                         placeholder={placeholder}
                         rows={rows}
                     />
-                    <div className={`printable-content w-full ${className} border-none`}>
+                    <div className={`printable-content w-full ${className} border-none text-unified`}>
                         {value}
                     </div>
                 </div>
@@ -150,22 +152,17 @@
             const [lastSavedTime, setLastSavedTime] = useState(null);
 
             useEffect(() => {
-                const saved = localStorage.getItem('healthRecordDraft_v9'); 
+                const saved = localStorage.getItem('healthRecordDraft_v10'); 
                 if (saved) {
                     try {
                         const parsed = JSON.parse(saved);
                         if (!Array.isArray(parsed.execution_checklist)) parsed.execution_checklist = [];
                         if (!Array.isArray(parsed.measure_images)) parsed.measure_images = [];
-                        
                         if (!parsed.job_special_items || !Array.isArray(parsed.job_special_items)) {
-                            parsed.job_special_items = [{
-                                id: Date.now(),
-                                cat: parsed.job_special_cat || '',
-                                count: parsed.job_special_count || ''
-                            }];
+                            parsed.job_special_items = [{ id: Date.now(), cat: '', count: '' }];
                         }
                         setFormData(prev => ({ ...prev, ...parsed }));
-                        const time = localStorage.getItem('healthRecordTime_v9');
+                        const time = localStorage.getItem('healthRecordTime_v10');
                         if (time) setLastSavedTime(time);
                     } catch (e) { console.error("讀取失敗", e); }
                 }
@@ -186,26 +183,15 @@
             };
 
             const addSpecialJob = () => {
-                setFormData(prev => ({
-                    ...prev,
-                    job_special_items: [...prev.job_special_items, { id: Date.now(), cat: '', count: '' }]
-                }));
+                setFormData(prev => ({ ...prev, job_special_items: [...prev.job_special_items, { id: Date.now(), cat: '', count: '' }] }));
             };
 
             const removeSpecialJob = (id) => {
-                setFormData(prev => ({
-                    ...prev,
-                    job_special_items: prev.job_special_items.filter(item => item.id !== id)
-                }));
+                setFormData(prev => ({ ...prev, job_special_items: prev.job_special_items.filter(item => item.id !== id) }));
             };
 
             const updateSpecialJob = (id, field, value) => {
-                setFormData(prev => ({
-                    ...prev,
-                    job_special_items: prev.job_special_items.map(item => 
-                        item.id === id ? { ...item, [field]: value } : item
-                    )
-                }));
+                setFormData(prev => ({ ...prev, job_special_items: prev.job_special_items.map(item => item.id === id ? { ...item, [field]: value } : item) }));
             };
 
             const handleImageUpload = (e) => {
@@ -214,14 +200,7 @@
                     if (file.type.match('image.*')) {
                         const reader = new FileReader();
                         reader.onload = (ev) => {
-                            setFormData(prev => ({
-                                ...prev,
-                                measure_images: [...(prev.measure_images || []), {
-                                    id: Date.now() + Math.random(),
-                                    src: ev.target.result,
-                                    title: ''
-                                }]
-                            }));
+                            setFormData(prev => ({ ...prev, measure_images: [...(prev.measure_images || []), { id: Date.now() + Math.random(), src: ev.target.result, title: '' }] }));
                         };
                         reader.readAsDataURL(file);
                     }
@@ -230,10 +209,7 @@
             };
 
             const handleImageTitleChange = (id, newTitle) => {
-                setFormData(prev => ({
-                    ...prev,
-                    measure_images: prev.measure_images.map(img => img.id === id ? { ...img, title: newTitle } : img)
-                }));
+                setFormData(prev => ({ ...prev, measure_images: prev.measure_images.map(img => img.id === id ? { ...img, title: newTitle } : img) }));
             };
 
             const handleRemoveImage = (id) => {
@@ -245,12 +221,12 @@
             const handleSaveDraft = () => {
                 setIsSaving(true);
                 try {
-                    localStorage.setItem('healthRecordDraft_v9', JSON.stringify(formData));
+                    localStorage.setItem('healthRecordDraft_v10', JSON.stringify(formData));
                     const now = new Date().toLocaleString('zh-TW');
-                    localStorage.setItem('healthRecordTime_v9', now);
+                    localStorage.setItem('healthRecordTime_v10', now);
                     setLastSavedTime(now);
                 } catch (e) {
-                    alert("儲存失敗：資料量過大（通常是圖片過多）。");
+                    alert("儲存失敗：資料量過大。");
                 }
                 setTimeout(() => setIsSaving(false), 500);
             };
@@ -258,8 +234,8 @@
             const handleClear = () => {
                 if(window.confirm('確定要清除所有內容與暫存檔嗎？')) {
                     setFormData(initialData);
-                    localStorage.removeItem('healthRecordDraft_v9');
-                    localStorage.removeItem('healthRecordTime_v9');
+                    localStorage.removeItem('healthRecordDraft_v10');
+                    localStorage.removeItem('healthRecordTime_v10');
                     setLastSavedTime(null);
                 }
             };
@@ -272,7 +248,7 @@
                 const dateStr = formData.execDate || '日期未填';
                 
                 const opt = {
-                    margin:       [10, 10, 10, 10],
+                    margin:       [10, 15, 10, 15],
                     filename:     `${formData.companyName || '公司'}_勞工健康服務執行紀錄_${dateStr}.pdf`,
                     image:        { type: 'jpeg', quality: 0.98 },
                     html2canvas:  { 
@@ -282,8 +258,8 @@
                         scrollY: 0,
                         windowWidth: document.documentElement.scrollWidth
                     },
-                    // 修正 1: 設定分頁模式為 avoid-all，盡量避免切斷文字
-                    pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] },
+                    // 修改重點：移除 'avoid-all'，改用 css 類別控制，允許文字內容分頁
+                    pagebreak:    { mode: ['css', 'legacy'] },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
 
@@ -300,11 +276,7 @@
                 }
             };
 
-            const cellLabel = "bg-gray-100 border-r border-black p-2 flex items-center justify-center font-bold text-sm text-center";
-            const borderB = "border-b border-black";
-            const inputClass = "w-full bg-transparent outline-none";
-
-            // --- 日期格式化工具 (用於底部連動) ---
+            // --- 日期格式化工具 ---
             const formatDateComponents = (dateString) => {
                 if (!dateString) return { y: '____', m: '____', d: '____' };
                 const date = new Date(dateString);
@@ -326,16 +298,21 @@
             const startComps = formatTimeComponents(formData.startTime);
             const endComps = formatTimeComponents(formData.endTime);
 
-
-            const SignatureField = ({ label, nameKey }) => (
-                <div className="flex items-center w-full mb-2">
-                    <label className="flex items-center cursor-pointer select-none whitespace-nowrap mr-2">
-                        <input type="checkbox" name={nameKey} checked={formData[nameKey]} onChange={handleChange} className="w-4 h-4 mr-2 accent-black print:hidden"/>
-                        <span>{label}</span>
+            // --- 垂直簽名欄元件 ---
+            const SignatureRow = ({ label, nameKey }) => (
+                <div className="flex items-center w-full mb-3 avoid-break">
+                    <label className="flex items-center cursor-pointer select-none whitespace-nowrap mr-3 min-w-[300px]">
+                        <input type="checkbox" name={nameKey} checked={formData[nameKey]} onChange={handleChange} className="w-5 h-5 mr-3 accent-black print:hidden"/>
+                        <span className="text-unified font-bold">{formData[nameKey] ? '■' : '□'} {label}</span>
                     </label>
-                    {formData[nameKey] && <div className="border-b border-black flex-1 h-6"></div>}
+                    <div className="border-b border-black flex-1 h-8"></div>
                 </div>
             );
+
+            // 通用樣式
+            const cellLabel = "bg-gray-100 border-r border-black p-2 flex items-center justify-center font-bold text-unified text-center";
+            const borderB = "border-b border-black";
+            const inputClass = "w-full bg-transparent outline-none text-unified";
 
             return (
                 <div className="min-h-screen p-4 font-sans text-gray-800">
@@ -344,7 +321,7 @@
                     <div className="no-print max-w-[210mm] mx-auto mb-6 bg-white p-4 rounded-lg shadow flex flex-wrap justify-between items-center gap-4 sticky top-0 z-50 border-b-2 border-blue-500">
                         <div>
                             <h1 className="text-xl font-bold text-gray-800 flex items-center">
-                                <span className="mr-2"><IconFileText /></span> 勞工健康服務執行紀錄表 填寫系統
+                                <span className="mr-2"><IconFileText /></span> 勞工健康服務執行紀錄表
                             </h1>
                             {lastSavedTime && <p className="text-xs text-gray-500 mt-1">上次存檔：{lastSavedTime}</p>}
                         </div>
@@ -355,10 +332,10 @@
                         </div>
                     </div>
 
-                    {/* A4 預覽區 */}
+                    {/* A4 文件區 */}
                     <div id="print-area" className="max-w-[210mm] mx-auto bg-white shadow-2xl p-[15mm] min-h-[297mm] relative leading-snug box-border text-black">
                         
-                        {/* 頂部標題與日期 */}
+                        {/* 頂部 */}
                         <div className="text-center mb-6">
                             <input 
                                 type="text" 
@@ -368,12 +345,12 @@
                                 className="w-full text-2xl font-bold text-center outline-none bg-transparent placeholder-gray-300 mb-2" 
                                 placeholder="請輸入事業單位名稱"
                             />
-                            <h2 className="text-xl font-bold tracking-widest mb-4">勞工健康服務執行紀錄表</h2>
+                            <h2 className="text-2xl font-bold tracking-widest mb-4">勞工健康服務執行紀錄表</h2>
                             
-                            <div className="flex justify-center items-center text-sm font-bold gap-2 flex-wrap bg-gray-50 p-2 rounded print:bg-transparent print:p-0">
+                            <div className="flex justify-center items-center text-unified font-bold gap-2 flex-wrap bg-gray-50 p-2 rounded print:bg-transparent print:p-0">
                                 <div className="flex items-center">
                                     <span className="whitespace-nowrap">執行日期：</span>
-                                    <input type="date" name="execDate" value={formData.execDate} onChange={handleChange} className="border-b border-black text-center outline-none bg-transparent cursor-pointer font-sans" />
+                                    <input type="date" name="execDate" value={formData.execDate} onChange={handleChange} className="border-b border-black text-center outline-none bg-transparent cursor-pointer" />
                                 </div>
                                 <div className="flex items-center">
                                     <span className="whitespace-nowrap ml-4">時間：</span>
@@ -385,8 +362,7 @@
                         </div>
 
                         <div className="border-2 border-black">
-                            {/* 表格內容保持不變 */}
-                            <div className={`${borderB} bg-gray-200 p-1 font-bold text-sm print:bg-gray-100`}>一、作業場所基本資料</div>
+                            <div className={`${borderB} bg-gray-200 p-1 font-bold text-unified-title print:bg-gray-100`}>一、作業場所基本資料</div>
                             
                             <div className={`grid grid-cols-12 ${borderB}`}>
                                 <div className={`col-span-2 ${cellLabel}`}>部門名稱</div>
@@ -395,11 +371,11 @@
 
                             <div className={`grid grid-cols-12 ${borderB}`}>
                                 <div className={`col-span-2 ${cellLabel} row-span-2`}>作業人員<br/>與人數</div>
-                                <div className={`col-span-10 ${borderB} flex items-center p-2 flex-wrap gap-2`}>
+                                <div className={`col-span-10 ${borderB} flex items-center p-2 flex-wrap gap-2 text-unified`}>
                                     <label className="flex items-center cursor-pointer mr-2 select-none"><input type="checkbox" name="worker_admin" checked={formData.worker_admin} onChange={handleChange} className="w-4 h-4 mr-1 accent-black"/>行政人員：</label>
                                     <span className="mr-1">男</span><input type="number" name="worker_admin_male" value={formData.worker_admin_male} onChange={handleChange} className="w-12 border-b border-gray-400 text-center outline-none bg-transparent" /><span className="mr-1">人；女</span><input type="number" name="worker_admin_female" value={formData.worker_admin_female} onChange={handleChange} className="w-12 border-b border-gray-400 text-center outline-none bg-transparent" /><span>人</span>
                                 </div>
-                                <div className="col-span-10 flex items-center p-2 flex-wrap gap-2">
+                                <div className="col-span-10 flex items-center p-2 flex-wrap gap-2 text-unified">
                                     <label className="flex items-center cursor-pointer mr-2 select-none"><input type="checkbox" name="worker_site" checked={formData.worker_site} onChange={handleChange} className="w-4 h-4 mr-1 accent-black"/>現場操作人員：</label>
                                     <span className="mr-1">男</span><input type="number" name="worker_site_male" value={formData.worker_site_male} onChange={handleChange} className="w-12 border-b border-gray-400 text-center outline-none bg-transparent" /><span className="mr-1">人；女</span><input type="number" name="worker_site_female" value={formData.worker_site_female} onChange={handleChange} className="w-12 border-b border-gray-400 text-center outline-none bg-transparent" /><span>人</span>
                                 </div>
@@ -407,7 +383,7 @@
 
                             <div className={`grid grid-cols-12 ${borderB}`}>
                                 <div className={`col-span-2 ${cellLabel}`}>作業類別</div>
-                                <div className="col-span-10 p-2 space-y-2">
+                                <div className="col-span-10 p-2 space-y-2 text-unified">
                                     <div className="flex items-center gap-2">
                                         <label className="flex items-center cursor-pointer select-none">
                                             <input type="checkbox" name="job_general" checked={formData.job_general} onChange={handleChange} className="w-4 h-4 mr-1 accent-black"/>
@@ -429,7 +405,7 @@
                                         </div>
                                         {formData.job_special && formData.job_special_items.map((item, index) => (
                                             <div key={item.id} className="flex items-center flex-wrap gap-2 pl-6 animate-fade-in">
-                                                <span className="text-sm text-gray-500 select-none">{index + 1}.</span>
+                                                <span className="text-gray-500 select-none">{index + 1}.</span>
                                                 <span className="whitespace-nowrap">類別：</span>
                                                 <input type="text" value={item.cat} onChange={(e) => updateSpecialJob(item.id, 'cat', e.target.value)} className="flex-1 min-w-[100px] border-b border-gray-400 outline-none bg-transparent" />
                                                 <span className="whitespace-nowrap">人數：</span>
@@ -447,40 +423,40 @@
                             </div>
 
                             <div className={`${borderB} p-2`}>
-                                <div className="font-bold mb-1 text-sm">二、作業場所與勞動條件概況：工作流程(製程)、工作型態與時間、人員及危害特性概述</div>
+                                <div className="font-bold mb-1 text-unified-title">二、作業場所與勞動條件概況：工作流程(製程)、工作型態與時間、人員及危害特性概述</div>
                                 <PrintableTextarea name="conditions_overview" value={formData.conditions_overview} onChange={handleChange} className="resize-none bg-transparent p-1 w-full" rows={4} />
                             </div>
 
                             <div className={`${borderB}`}>
-                                <div className={`p-2 font-bold ${borderB} bg-gray-50 print:bg-gray-50 text-sm`}>三、臨場健康服務執行情形(本規則第九條至第十三條事項)：</div>
+                                <div className={`p-2 font-bold ${borderB} bg-gray-50 print:bg-gray-50 text-unified-title`}>三、臨場健康服務執行情形(本規則第九條至第十三條事項)：</div>
                                 <div className="p-2 border-b border-black">
-                                    <span className="font-bold mb-2 text-sm block">(一) 辦理事項</span>
-                                    <div className="flex flex-col gap-1 no-print max-h-[200px] overflow-y-auto border border-gray-200 p-1 mb-2">
+                                    <span className="font-bold mb-2 text-unified-title block">(一) 辦理事項</span>
+                                    <div className="flex flex-col gap-1 no-print max-h-[250px] overflow-y-auto border border-gray-200 p-1 mb-2">
                                         {LEGAL_ITEMS.map((item, idx) => (
-                                            <label key={idx} className="flex items-start cursor-pointer hover:bg-gray-50 p-1 rounded text-sm">
+                                            <label key={idx} className="flex items-start cursor-pointer hover:bg-gray-50 p-1 rounded text-unified">
                                                 <input type="checkbox" checked={formData.execution_checklist.includes(item)} onChange={() => handleChecklistChange(item)} className="mt-1 mr-2 flex-shrink-0 accent-blue-600" />
                                                 <span>{item}</span>
                                             </label>
                                         ))}
                                     </div>
-                                    <div className="hidden print-only-checked text-sm space-y-1">
+                                    <div className="hidden print-only-checked text-unified space-y-1">
                                         {formData.execution_checklist.length === 0 ? <span className="text-gray-300"></span> : 
-                                            <ul className="list-disc pl-4 space-y-1">
-                                                {formData.execution_checklist.map((item, idx) => <li key={idx}>{item}</li>)}
+                                            <ul className="list-disc pl-5 space-y-1">
+                                                {formData.execution_checklist.map((item, idx) => <li key={idx} className="avoid-break">{item}</li>)}
                                             </ul>
                                         }
                                     </div>
                                 </div>
 
                                 <div className="p-2 min-h-[150px]">
-                                    <span className="font-bold mb-1 text-sm block">(二) 發現問題</span>
+                                    <span className="font-bold mb-1 text-unified-title block">(二) 發現問題</span>
                                     <PrintableTextarea name="problems_found" value={formData.problems_found} onChange={handleChange} className="resize-none bg-transparent w-full" rows={8} />
                                 </div>
                             </div>
 
                             <div className={`${borderB} p-2 min-h-[120px]`}>
                                 <div className="flex justify-between items-center mb-1">
-                                    <div className="font-bold text-sm">四、建議採行措施：(針對發現問題所採行之措施)</div>
+                                    <div className="font-bold text-unified-title">四、建議採行措施：(針對發現問題所採行之措施)</div>
                                     <label className="no-print cursor-pointer bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 rounded text-xs flex items-center img-uploader">
                                         <IconImage /> <span className="ml-1">插入附圖</span>
                                         <input type="file" multiple accept="image/*" onChange={handleImageUpload} className="hidden" />
@@ -488,26 +464,24 @@
                                 </div>
                                 <PrintableTextarea name="measures" value={formData.measures} onChange={handleChange} className="resize-none bg-transparent mb-2 w-full" rows={4} />
                                 
-                                {/* 修正 2: 圖片固定大小與 object-fit */}
                                 {formData.measure_images && formData.measure_images.length > 0 && (
                                     <div className="grid grid-cols-2 gap-6 mt-4">
                                         {formData.measure_images.map((img, index) => (
-                                            <div key={img.id} className="border border-gray-300 p-2 rounded relative page-break-inside-avoid flex flex-col items-center">
+                                            <div key={img.id} className="border border-gray-300 p-2 rounded relative avoid-break flex flex-col items-center">
                                                 <button onClick={() => handleRemoveImage(img.id)} className="absolute top-1 right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-600 no-print img-delete-btn">×</button>
                                                 
                                                 <div className="w-full flex items-center justify-center mb-2">
-                                                    <span className="font-bold text-sm whitespace-nowrap mr-1">圖{index + 1}：</span>
+                                                    <span className="font-bold text-sm whitespace-nowrap mr-1 text-unified">圖{index + 1}：</span>
                                                     <input 
                                                         type="text" 
                                                         value={img.title} 
                                                         onChange={(e) => handleImageTitleChange(img.id, e.target.value)}
-                                                        className="border-b border-gray-300 outline-none text-sm img-caption-input text-center flex-1"
+                                                        className="border-b border-gray-300 outline-none text-sm img-caption-input text-center flex-1 text-unified"
                                                         placeholder="請輸入圖名"
                                                         style={{ textAlign: 'center' }}
                                                     />
                                                 </div>
                                                 
-                                                {/* 圖片容器：固定高度，並使用 object-contain */}
                                                 <div className="w-full h-64 bg-gray-50 flex items-center justify-center overflow-hidden">
                                                     <img src={img.src} alt={`圖${index + 1}`} className="max-w-full max-h-full object-contain" />
                                                 </div>
@@ -518,28 +492,33 @@
                             </div>
 
                             <div className={`${borderB} p-2 min-h-[120px]`}>
-                                <div className="font-bold mb-1 text-sm">五、對於前次建議改善事項之追蹤辦理情形：</div>
+                                <div className="font-bold mb-1 text-unified-title">五、對於前次建議改善事項之追蹤辦理情形：</div>
                                 <PrintableTextarea name="tracking" value={formData.tracking} onChange={handleChange} className="resize-none bg-transparent w-full" rows={4} />
                             </div>
 
-                            <div className="p-2 page-break-inside-avoid">
-                                <div className="font-bold mb-2 text-sm">六、執行人員及日期(僅就當次實際執行者簽章)</div>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2 mb-4 pl-2 text-sm">
-                                    <SignatureField label="勞工健康服務之醫師，簽章：" nameKey="sign_doc" />
-                                    <SignatureField label="勞工健康服務之護理人員，簽章：" nameKey="sign_nurse" />
-                                    <SignatureField label="勞工健康服務相關人員，簽章：" nameKey="sign_related" />
-                                    <SignatureField label="職業安全衛生人員，簽章：" nameKey="sign_osha" />
-                                    <SignatureField label="人力資源管理人員，簽章：" nameKey="sign_hr" />
-                                </div>
-                                <div className="border-t border-dashed border-gray-400 pt-4 mt-2 flex flex-wrap items-end gap-4 text-sm">
-                                    <div className="flex items-center flex-wrap gap-y-2">
-                                        部門名稱：<input type="text" name="sup_dept_name" value={formData.sup_dept_name} onChange={handleChange} className="w-24 border-b border-black outline-none text-center bg-transparent" />
-                                        ，主管職稱：<input type="text" name="sup_title" value={formData.sup_title} onChange={handleChange} className="w-24 border-b border-black outline-none text-center bg-transparent" />
-                                        ，簽章：<input type="text" name="sup_sign" value={formData.sup_sign} onChange={handleChange} className="w-24 border-b border-black outline-none text-center font-kai text-lg bg-transparent" />
-                                    </div>
+                            {/* 第六項：簽章欄位改為垂直排列 */}
+                            <div className="p-4 avoid-break">
+                                <div className="font-bold mb-4 text-unified-title">六、執行人員及日期（僅就當次實際執行者簽章）：</div>
+                                
+                                <div className="flex flex-col space-y-4 pl-2">
+                                    <SignatureRow label="勞工健康服務之醫師，簽章：" nameKey="sign_doc" />
+                                    <SignatureRow label="勞工健康服務之護理人員，簽章：" nameKey="sign_nurse" />
+                                    <SignatureRow label="勞工健康服務相關人員，簽章：" nameKey="sign_related" />
+                                    <SignatureRow label="職業安全衛生人員，簽章：" nameKey="sign_osha" />
+                                    <SignatureRow label="人力資源管理人員，簽章：" nameKey="sign_hr" />
                                     
-                                    {/* 修正 3: 底部執行日期自動聯動 (移除輸入框，改為純文字顯示) */}
-                                    <div className="w-full text-center mt-6 font-bold text-base tracking-widest flex justify-center items-center">
+                                    {/* 部門名稱行 */}
+                                    <div className="flex items-center flex-wrap gap-y-2 mt-2 avoid-break">
+                                        <span className="font-bold text-unified">■ 部門名稱：</span>
+                                        <input type="text" name="sup_dept_name" value={formData.sup_dept_name} onChange={handleChange} className="w-24 border-b border-black outline-none text-center bg-transparent text-unified" />
+                                        <span className="font-bold text-unified mx-2">，主管職稱：</span>
+                                        <input type="text" name="sup_title" value={formData.sup_title} onChange={handleChange} className="w-24 border-b border-black outline-none text-center bg-transparent text-unified" />
+                                        <span className="font-bold text-unified mx-2">，簽章：</span>
+                                        <input type="text" name="sup_sign" value={formData.sup_sign} onChange={handleChange} className="w-32 border-b border-black outline-none text-center text-unified bg-transparent" />
+                                    </div>
+
+                                    {/* 執行日期行 */}
+                                    <div className="mt-6 font-bold text-xl tracking-widest flex items-center avoid-break">
                                         <span>執行日期： {dateComps.y} 年 {dateComps.m} 月 {dateComps.d} 日 時間： {startComps.h} 時 {startComps.m} 分 迄 {endComps.h} 時 {endComps.m} 分</span>
                                     </div>
                                 </div>
