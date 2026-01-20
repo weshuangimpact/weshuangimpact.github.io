@@ -74,8 +74,14 @@
         div.printable-content { display: none; }
         .print-text { display: none; }
         
-        /* 避免不可分割的元件被切斷 */
+        /* 避免不可分割的元件被切斷 (圖片、簽名) */
         .avoid-break { break-inside: avoid; page-break-inside: avoid; }
+
+        /* --- 表格分頁設定 --- */
+        /* 讓表格本體可以被切分到下一頁 */
+        table { page-break-inside: auto; }
+        /* 但是每一列 (Row) 必須保持完整，不能從文字中間切開 */
+        tr { page-break-inside: avoid; break-inside: avoid; }
         
         @keyframes fade-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade-in { animation: fade-in 0.2s ease-out; }
@@ -172,7 +178,7 @@
                 problems_found: '',
                 measures: '',
                 measure_images: [], 
-                measure_tables: [], // 表格陣列 {id, data[][], caption}
+                measure_tables: [], 
                 tracking: '',
                 sign_doc: false, sign_nurse: false, sign_related: false, sign_osha: false, sign_hr: false,
                 sup_dept_name: '', sup_title: '', sup_sign: ''
@@ -182,12 +188,11 @@
             const [isSaving, setIsSaving] = useState(false);
             const [lastSavedTime, setLastSavedTime] = useState(null);
             
-            // 表格建立器的狀態
             const [tableRows, setTableRows] = useState(2);
             const [tableCols, setTableCols] = useState(2);
 
             useEffect(() => {
-                const saved = localStorage.getItem('healthRecordDraft_v15'); 
+                const saved = localStorage.getItem('healthRecordDraft_v16'); 
                 if (saved) {
                     try {
                         const parsed = JSON.parse(saved);
@@ -198,7 +203,7 @@
                             parsed.job_special_items = [{ id: Date.now(), cat: '', count: '' }];
                         }
                         setFormData(prev => ({ ...prev, ...parsed }));
-                        const time = localStorage.getItem('healthRecordTime_v15');
+                        const time = localStorage.getItem('healthRecordTime_v16');
                         if (time) setLastSavedTime(time);
                     } catch (e) { console.error("讀取失敗", e); }
                 }
@@ -218,7 +223,6 @@
                 });
             };
 
-            // ... (一般功能函數)
             const addSpecialJob = () => {
                 setFormData(prev => ({ ...prev, job_special_items: [...prev.job_special_items, { id: Date.now(), cat: '', count: '' }] }));
             };
@@ -258,7 +262,7 @@
                 const newTable = {
                     id: Date.now(),
                     data: newData,
-                    caption: "" // 新增：表格備註欄位
+                    caption: "" 
                 };
                 setFormData(prev => ({
                     ...prev,
@@ -279,7 +283,6 @@
                 }));
             };
 
-            // 新增：更新表格下方的備註
             const handleUpdateTableCaption = (tableId, value) => {
                 setFormData(prev => ({
                     ...prev,
@@ -302,9 +305,9 @@
             const handleSaveDraft = () => {
                 setIsSaving(true);
                 try {
-                    localStorage.setItem('healthRecordDraft_v15', JSON.stringify(formData));
+                    localStorage.setItem('healthRecordDraft_v16', JSON.stringify(formData));
                     const now = new Date().toLocaleString('zh-TW');
-                    localStorage.setItem('healthRecordTime_v15', now);
+                    localStorage.setItem('healthRecordTime_v16', now);
                     setLastSavedTime(now);
                 } catch (e) {
                     alert("儲存失敗：資料量過大。");
@@ -315,8 +318,8 @@
             const handleClear = () => {
                 if(window.confirm('確定要清除所有內容與暫存檔嗎？')) {
                     setFormData(initialData);
-                    localStorage.removeItem('healthRecordDraft_v15');
-                    localStorage.removeItem('healthRecordTime_v15');
+                    localStorage.removeItem('healthRecordDraft_v16');
+                    localStorage.removeItem('healthRecordTime_v16');
                     setLastSavedTime(null);
                 }
             };
@@ -356,7 +359,6 @@
                 }
             };
 
-            // --- 日期格式化工具 ---
             const formatDateComponents = (dateString) => {
                 if (!dateString) return { y: '____', m: '____', d: '____' };
                 const date = new Date(dateString);
@@ -374,12 +376,10 @@
                 return { h: h || '____', m: m || '____' };
             };
 
-            // 頂部日期
             const topDateComps = formatDateComponents(formData.execDate);
             const topStartComps = formatTimeComponents(formData.startTime);
             const topEndComps = formatTimeComponents(formData.endTime);
 
-            // 底部日期 (獨立)
             const bottomDateComps = formatDateComponents(formData.bottomExecDate);
             const bottomStartComps = formatTimeComponents(formData.bottomStartTime);
             const bottomEndComps = formatTimeComponents(formData.bottomEndTime);
@@ -394,7 +394,6 @@
                 </div>
             );
 
-            // 通用樣式
             const cellLabel = "bg-gray-100 border-r border-black p-2 flex items-center justify-center font-bold text-unified text-center";
             const borderB = "border-b border-black";
             const inputClass = "w-full bg-transparent outline-none text-unified";
@@ -402,7 +401,6 @@
             return (
                 <div className="min-h-screen p-4 font-sans text-gray-800">
                     
-                    {/* 工具列 */}
                     <div className="no-print max-w-[210mm] mx-auto mb-6 bg-white p-4 rounded-lg shadow flex flex-wrap justify-between items-center gap-4 sticky top-0 z-50 border-b-2 border-blue-500">
                         <div>
                             <h1 className="text-xl font-bold text-gray-800 flex items-center">
@@ -417,10 +415,8 @@
                         </div>
                     </div>
 
-                    {/* A4 文件區 */}
                     <div id="print-area" className="max-w-[210mm] mx-auto bg-white shadow-2xl p-[15mm] pt-0 min-h-[297mm] relative leading-snug box-border text-black">
                         
-                        {/* 頂部 */}
                         <div className="text-center mb-4 mt-4">
                             <input 
                                 type="text" 
@@ -442,9 +438,7 @@
                                     <span className="whitespace-nowrap ml-4">時間：</span>
                                     <input type="time" name="startTime" value={formData.startTime} onChange={handleChange} className="border-b border-black text-center outline-none bg-transparent cursor-pointer screen-input" />
                                     <span className="print-text border-b border-black px-2">{topStartComps.h} : {topStartComps.m}</span>
-                                    
                                     <span className="mx-2">迄</span>
-                                    
                                     <input type="time" name="endTime" value={formData.endTime} onChange={handleChange} className="border-b border-black text-center outline-none bg-transparent cursor-pointer screen-input" />
                                     <span className="print-text border-b border-black px-2">{topEndComps.h} : {topEndComps.m}</span>
                                 </div>
@@ -452,7 +446,7 @@
                         </div>
 
                         <div className="border-2 border-black">
-                            {/* 表格內容 */}
+                            {/* ... 第一至第三部分省略，與之前相同 ... */}
                             <div className={`${borderB} bg-gray-200 p-1 font-bold text-unified-title print:bg-gray-100`}>一、作業場所基本資料</div>
                             
                             <div className={`grid grid-cols-12 ${borderB}`}>
@@ -515,7 +509,6 @@
 
                             <div className={`${borderB} p-2`}>
                                 <div className="font-bold mb-1 text-unified-title">二、作業場所與勞動條件概況：工作流程(製程)、工作型態與時間、人員及危害特性概述</div>
-                                {/* 使用全域自動長高 Textarea */}
                                 <PrintableTextarea name="conditions_overview" value={formData.conditions_overview} onChange={handleChange} className="resize-none bg-transparent p-1 w-full" rows={4} />
                             </div>
 
@@ -542,7 +535,6 @@
 
                                 <div className="p-2 min-h-[150px]">
                                     <span className="font-bold mb-1 text-unified-title block">(二) 發現問題</span>
-                                    {/* 使用全域自動長高 Textarea */}
                                     <PrintableTextarea name="problems_found" value={formData.problems_found} onChange={handleChange} className="resize-none bg-transparent w-full" rows={8} />
                                 </div>
                             </div>
@@ -553,7 +545,6 @@
                                     <div className="font-bold text-unified-title">四、建議採行措施：(針對發現問題所採行之措施)</div>
                                     
                                     <div className="flex gap-2 items-center table-creator">
-                                        {/* 表格建立工具 */}
                                         <div className="flex items-center bg-gray-100 rounded px-2 py-1 text-xs">
                                             <input type="number" min="1" value={tableRows} onChange={e => setTableRows(e.target.value)} className="w-8 border-b border-gray-400 text-center outline-none bg-transparent" title="列數"/>
                                             <span className="mx-1">x</span>
@@ -570,12 +561,11 @@
                                     </div>
                                 </div>
                                 
-                                {/* 使用全域自動長高 Textarea */}
                                 <PrintableTextarea name="measures" value={formData.measures} onChange={handleChange} className="resize-none bg-transparent mb-2 w-full" rows={4} />
                                 
-                                {/* 顯示插入的表格 */}
                                 {formData.measure_tables && formData.measure_tables.map((table) => (
-                                    <div key={table.id} className="relative my-4 avoid-break">
+                                    <div key={table.id} className="relative my-4">
+                                        {/* 移除 avoid-break，允許跨頁 */}
                                         <button onClick={() => handleRemoveTable(table.id)} className="absolute -top-3 -right-3 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-600 no-print img-delete-btn z-10">×</button>
                                         
                                         <table className="w-full border-collapse border border-black mb-2">
@@ -584,7 +574,6 @@
                                                     <tr key={rIndex}>
                                                         {row.map((cellData, cIndex) => (
                                                             <td key={cIndex} className="border border-black p-1 align-top min-h-[40px]">
-                                                                {/* 表格內使用自動長高 Textarea */}
                                                                 <PrintableTextarea 
                                                                     name={`table-${table.id}-${rIndex}-${cIndex}`}
                                                                     value={cellData}
@@ -599,8 +588,7 @@
                                             </tbody>
                                         </table>
                                         
-                                        {/* 新增：表格下方的備註欄位 (自動長高，靠左) */}
-                                        <div className="w-full">
+                                        <div className="w-full avoid-break">
                                             <PrintableTextarea 
                                                 name={`table-caption-${table.id}`}
                                                 value={table.caption || ''}
@@ -642,7 +630,6 @@
 
                             <div className={`${borderB} p-2 min-h-[120px]`}>
                                 <div className="font-bold mb-1 text-unified-title">五、對於前次建議改善事項之追蹤辦理情形：</div>
-                                {/* 使用全域自動長高 Textarea */}
                                 <PrintableTextarea name="tracking" value={formData.tracking} onChange={handleChange} className="resize-none bg-transparent w-full" rows={4} />
                             </div>
 
@@ -666,7 +653,7 @@
                                         <input type="text" name="sup_sign" value={formData.sup_sign} onChange={handleChange} className="w-32 border-b border-black outline-none text-center text-unified bg-transparent" />
                                     </div>
 
-                                    {/* 底部日期區塊 - 完全複製自頂部結構，僅更換綁定變數 */}
+                                    {/* 底部日期區塊 */}
                                     <div className="flex justify-center items-center text-unified font-bold gap-2 flex-wrap p-2 rounded print:bg-transparent print:p-0 mt-6 avoid-break">
                                         <div className="flex items-center">
                                             <span className="whitespace-nowrap">執行日期：</span>
@@ -677,9 +664,7 @@
                                             <span className="whitespace-nowrap ml-4">時間：</span>
                                             <input type="time" name="bottomStartTime" value={formData.bottomStartTime} onChange={handleChange} className="border-b border-black text-center outline-none bg-transparent cursor-pointer screen-input" />
                                             <span className="print-text border-b border-black px-2">{bottomStartComps.h} : {bottomStartComps.m}</span>
-                                            
                                             <span className="mx-2">迄</span>
-                                            
                                             <input type="time" name="bottomEndTime" value={formData.bottomEndTime} onChange={handleChange} className="border-b border-black text-center outline-none bg-transparent cursor-pointer screen-input" />
                                             <span className="print-text border-b border-black px-2">{bottomEndComps.h} : {bottomEndComps.m}</span>
                                         </div>
