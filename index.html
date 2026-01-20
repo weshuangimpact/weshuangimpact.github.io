@@ -18,7 +18,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap');
         
         /* 全局強制標楷體 */
-        body, input, textarea, div { 
+        body, input, textarea, div, span { 
             font-family: "DFKai-SB", "BiauKai", "標楷體", serif !important; 
         }
 
@@ -31,11 +31,13 @@
         .generating-pdf .img-uploader,
         .generating-pdf .img-delete-btn { display: none !important; }
         
+        /* PDF 模式下，隱藏螢幕用的 Input，顯示列印用的純文字 Span */
+        .generating-pdf .screen-input { display: none !important; }
+        .generating-pdf .print-text { display: inline-block !important; }
+        
         .generating-pdf .print-only-checked { display: block !important; }
         
         .generating-pdf input { border: none !important; background: transparent !important; }
-        .generating-pdf input[type="date"], 
-        .generating-pdf input[type="time"] { border: none !important; }
 
         /* --- 列印模式樣式 --- */
         @media print {
@@ -45,7 +47,10 @@
                 box-shadow: none !important; 
                 margin: 0 !important; 
                 width: 100% !important; 
-                padding: 0 !important; 
+                padding-top: 0 !important; /* 修正 1: 移除頂部內距 */
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                padding-bottom: 0 !important;
             }
             .no-print { display: none !important; }
             * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
@@ -55,22 +60,25 @@
             .img-uploader { display: none !important; }
             .img-delete-btn { display: none !important; }
             .img-caption-input { border: none !important; padding: 0 !important; text-align: center !important; }
-            input::placeholder, textarea::placeholder { color: transparent !important; }
             
+            /* 列印時隱藏 Input 改顯示文字 */
+            .screen-input { display: none !important; }
+            .print-text { display: inline-block !important; }
+
             textarea.printable-textarea { display: none !important; }
             div.printable-content { display: block !important; white-space: pre-wrap; word-wrap: break-word; }
         }
 
-        /* 預設隱藏替代用的 div */
+        /* 預設隱藏替代用的 div/span */
         div.printable-content { display: none; }
+        .print-text { display: none; }
         
-        /* 避免不可分割的元件（如圖片、單行簽名）被切斷，但允許大區塊內部分頁 */
+        /* 避免不可分割的元件被切斷 */
         .avoid-break { break-inside: avoid; page-break-inside: avoid; }
         
         @keyframes fade-in { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade-in { animation: fade-in 0.2s ease-out; }
         
-        /* 統一字體大小設定 */
         .text-unified { font-size: 16px; line-height: 1.5; }
         .text-unified-title { font-size: 18px; font-weight: bold; }
     </style>
@@ -152,7 +160,7 @@
             const [lastSavedTime, setLastSavedTime] = useState(null);
 
             useEffect(() => {
-                const saved = localStorage.getItem('healthRecordDraft_v10'); 
+                const saved = localStorage.getItem('healthRecordDraft_v11'); 
                 if (saved) {
                     try {
                         const parsed = JSON.parse(saved);
@@ -162,7 +170,7 @@
                             parsed.job_special_items = [{ id: Date.now(), cat: '', count: '' }];
                         }
                         setFormData(prev => ({ ...prev, ...parsed }));
-                        const time = localStorage.getItem('healthRecordTime_v10');
+                        const time = localStorage.getItem('healthRecordTime_v11');
                         if (time) setLastSavedTime(time);
                     } catch (e) { console.error("讀取失敗", e); }
                 }
@@ -221,9 +229,9 @@
             const handleSaveDraft = () => {
                 setIsSaving(true);
                 try {
-                    localStorage.setItem('healthRecordDraft_v10', JSON.stringify(formData));
+                    localStorage.setItem('healthRecordDraft_v11', JSON.stringify(formData));
                     const now = new Date().toLocaleString('zh-TW');
-                    localStorage.setItem('healthRecordTime_v10', now);
+                    localStorage.setItem('healthRecordTime_v11', now);
                     setLastSavedTime(now);
                 } catch (e) {
                     alert("儲存失敗：資料量過大。");
@@ -234,8 +242,8 @@
             const handleClear = () => {
                 if(window.confirm('確定要清除所有內容與暫存檔嗎？')) {
                     setFormData(initialData);
-                    localStorage.removeItem('healthRecordDraft_v10');
-                    localStorage.removeItem('healthRecordTime_v10');
+                    localStorage.removeItem('healthRecordDraft_v11');
+                    localStorage.removeItem('healthRecordTime_v11');
                     setLastSavedTime(null);
                 }
             };
@@ -258,7 +266,6 @@
                         scrollY: 0,
                         windowWidth: document.documentElement.scrollWidth
                     },
-                    // 修改重點：移除 'avoid-all'，改用 css 類別控制，允許文字內容分頁
                     pagebreak:    { mode: ['css', 'legacy'] },
                     jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
                 };
@@ -276,7 +283,7 @@
                 }
             };
 
-            // --- 日期格式化工具 ---
+            // --- 日期格式化工具 (用於列印顯示) ---
             const formatDateComponents = (dateString) => {
                 if (!dateString) return { y: '____', m: '____', d: '____' };
                 const date = new Date(dateString);
@@ -298,7 +305,6 @@
             const startComps = formatTimeComponents(formData.startTime);
             const endComps = formatTimeComponents(formData.endTime);
 
-            // --- 垂直簽名欄元件 ---
             const SignatureRow = ({ label, nameKey }) => (
                 <div className="flex items-center w-full mb-3 avoid-break">
                     <label className="flex items-center cursor-pointer select-none whitespace-nowrap mr-3 min-w-[300px]">
@@ -332,11 +338,11 @@
                         </div>
                     </div>
 
-                    {/* A4 文件區 */}
-                    <div id="print-area" className="max-w-[210mm] mx-auto bg-white shadow-2xl p-[15mm] min-h-[297mm] relative leading-snug box-border text-black">
+                    {/* A4 文件區 (修正 1: 移除 padding-top, 確保頂部無空白) */}
+                    <div id="print-area" className="max-w-[210mm] mx-auto bg-white shadow-2xl p-[15mm] pt-0 min-h-[297mm] relative leading-snug box-border text-black">
                         
                         {/* 頂部 */}
-                        <div className="text-center mb-6">
+                        <div className="text-center mb-4 mt-4">
                             <input 
                                 type="text" 
                                 name="companyName" 
@@ -350,18 +356,27 @@
                             <div className="flex justify-center items-center text-unified font-bold gap-2 flex-wrap bg-gray-50 p-2 rounded print:bg-transparent print:p-0">
                                 <div className="flex items-center">
                                     <span className="whitespace-nowrap">執行日期：</span>
-                                    <input type="date" name="execDate" value={formData.execDate} onChange={handleChange} className="border-b border-black text-center outline-none bg-transparent cursor-pointer" />
+                                    <input type="date" name="execDate" value={formData.execDate} onChange={handleChange} className="border-b border-black text-center outline-none bg-transparent cursor-pointer screen-input" />
+                                    {/* 列印用日期文字 */}
+                                    <span className="print-text border-b border-black px-2">{dateComps.y} 年 {dateComps.m} 月 {dateComps.d} 日</span>
                                 </div>
                                 <div className="flex items-center">
                                     <span className="whitespace-nowrap ml-4">時間：</span>
-                                    <input type="time" name="startTime" value={formData.startTime} onChange={handleChange} className="border-b border-black text-center outline-none bg-transparent cursor-pointer" />
+                                    <input type="time" name="startTime" value={formData.startTime} onChange={handleChange} className="border-b border-black text-center outline-none bg-transparent cursor-pointer screen-input" />
+                                    {/* 列印用開始時間文字 */}
+                                    <span className="print-text border-b border-black px-2">{startComps.h} : {startComps.m}</span>
+                                    
                                     <span className="mx-2">迄</span>
-                                    <input type="time" name="endTime" value={formData.endTime} onChange={handleChange} className="border-b border-black text-center outline-none bg-transparent cursor-pointer" />
+                                    
+                                    <input type="time" name="endTime" value={formData.endTime} onChange={handleChange} className="border-b border-black text-center outline-none bg-transparent cursor-pointer screen-input" />
+                                    {/* 列印用結束時間文字 */}
+                                    <span className="print-text border-b border-black px-2">{endComps.h} : {endComps.m}</span>
                                 </div>
                             </div>
                         </div>
 
                         <div className="border-2 border-black">
+                            {/* 表格內容 */}
                             <div className={`${borderB} bg-gray-200 p-1 font-bold text-unified-title print:bg-gray-100`}>一、作業場所基本資料</div>
                             
                             <div className={`grid grid-cols-12 ${borderB}`}>
@@ -496,7 +511,7 @@
                                 <PrintableTextarea name="tracking" value={formData.tracking} onChange={handleChange} className="resize-none bg-transparent w-full" rows={4} />
                             </div>
 
-                            {/* 第六項：簽章欄位改為垂直排列 */}
+                            {/* 第六項 */}
                             <div className="p-4 avoid-break">
                                 <div className="font-bold mb-4 text-unified-title">六、執行人員及日期（僅就當次實際執行者簽章）：</div>
                                 
@@ -507,7 +522,6 @@
                                     <SignatureRow label="職業安全衛生人員，簽章：" nameKey="sign_osha" />
                                     <SignatureRow label="人力資源管理人員，簽章：" nameKey="sign_hr" />
                                     
-                                    {/* 部門名稱行 */}
                                     <div className="flex items-center flex-wrap gap-y-2 mt-2 avoid-break">
                                         <span className="font-bold text-unified">■ 部門名稱：</span>
                                         <input type="text" name="sup_dept_name" value={formData.sup_dept_name} onChange={handleChange} className="w-24 border-b border-black outline-none text-center bg-transparent text-unified" />
@@ -517,9 +531,46 @@
                                         <input type="text" name="sup_sign" value={formData.sup_sign} onChange={handleChange} className="w-32 border-b border-black outline-none text-center text-unified bg-transparent" />
                                     </div>
 
-                                    {/* 執行日期行 */}
-                                    <div className="mt-6 font-bold text-xl tracking-widest flex items-center avoid-break">
-                                        <span>執行日期： {dateComps.y} 年 {dateComps.m} 月 {dateComps.d} 日 時間： {startComps.h} 時 {startComps.m} 分 迄 {endComps.h} 時 {endComps.m} 分</span>
+                                    {/* 修正 2: 底部執行日期/時間與頂部完全聯動，螢幕可選，列印顯示文字 */}
+                                    <div className="mt-6 font-bold text-xl tracking-widest flex items-center flex-wrap avoid-break">
+                                        <span className="mr-2">執行日期：</span>
+                                        
+                                        {/* 日期 Input (螢幕用) */}
+                                        <input 
+                                            type="date" 
+                                            name="execDate" 
+                                            value={formData.execDate} 
+                                            onChange={handleChange} 
+                                            className="border-b border-black text-center outline-none bg-transparent cursor-pointer screen-input font-bold text-xl w-40" 
+                                        />
+                                        {/* 日期 Text (列印用) */}
+                                        <span className="print-text border-b border-black px-2 mx-1">{dateComps.y} 年 {dateComps.m} 月 {dateComps.d} 日</span>
+
+                                        <span className="mx-2">時間：</span>
+                                        
+                                        {/* 開始時間 Input (螢幕用) */}
+                                        <input 
+                                            type="time" 
+                                            name="startTime" 
+                                            value={formData.startTime} 
+                                            onChange={handleChange} 
+                                            className="border-b border-black text-center outline-none bg-transparent cursor-pointer screen-input font-bold text-xl w-24" 
+                                        />
+                                        {/* 開始時間 Text (列印用) */}
+                                        <span className="print-text border-b border-black px-2 mx-1">{startComps.h} 時 {startComps.m} 分</span>
+
+                                        <span className="mx-2">迄</span>
+                                        
+                                        {/* 結束時間 Input (螢幕用) */}
+                                        <input 
+                                            type="time" 
+                                            name="endTime" 
+                                            value={formData.endTime} 
+                                            onChange={handleChange} 
+                                            className="border-b border-black text-center outline-none bg-transparent cursor-pointer screen-input font-bold text-xl w-24" 
+                                        />
+                                        {/* 結束時間 Text (列印用) */}
+                                        <span className="print-text border-b border-black px-2 mx-1">{endComps.h} 時 {endComps.m} 分</span>
                                     </div>
                                 </div>
                             </div>
