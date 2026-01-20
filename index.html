@@ -113,6 +113,7 @@
                 deptName: '',
                 worker_admin: false, worker_admin_male: '', worker_admin_female: '',
                 worker_site: false, worker_site_male: '', worker_site_female: '',
+                job_general: false, // 新增：一般作業勾選
                 job_general_count: '',
                 
                 // 特別危害健康作業
@@ -150,7 +151,7 @@
                             }];
                         }
                         
-                        setFormData(parsed);
+                        setFormData(prev => ({ ...prev, ...parsed }));
                         const time = localStorage.getItem('healthRecordTime_v8');
                         if (time) setLastSavedTime(time);
                     } catch (e) { console.error("讀取失敗", e); }
@@ -376,7 +377,20 @@
                             <div className={`grid grid-cols-12 ${borderB}`}>
                                 <div className={`col-span-2 ${cellLabel}`}>作業類別</div>
                                 <div className="col-span-10 p-2 space-y-2">
-                                    <div className="flex items-center gap-2"><span>一般作業：人數：</span><input type="text" name="job_general_count" value={formData.job_general_count} onChange={handleChange} className="w-20 border-b border-gray-400 text-center outline-none bg-transparent" /></div>
+                                    {/* 修改：一般作業加入勾選格 */}
+                                    <div className="flex items-center gap-2">
+                                        <label className="flex items-center cursor-pointer select-none">
+                                            <input 
+                                                type="checkbox" 
+                                                name="job_general" 
+                                                checked={formData.job_general} 
+                                                onChange={handleChange} 
+                                                className="w-4 h-4 mr-1 accent-black"
+                                            />
+                                            <span>一般作業：人數：</span>
+                                        </label>
+                                        <input type="text" name="job_general_count" value={formData.job_general_count} onChange={handleChange} className="w-20 border-b border-gray-400 text-center outline-none bg-transparent" />
+                                    </div>
                                     
                                     <div className="flex flex-col gap-2">
                                         <div className="flex items-center">
