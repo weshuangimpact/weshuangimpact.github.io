@@ -17,8 +17,8 @@
         
         /* 說明卡 */
         .master-info-card {
-            background-color: #e0e7ff; /* Indigo-100 */
-            border-left: 5px solid #4338ca; /* Indigo-700 */
+            background-color: #e0e7ff;
+            border-left: 5px solid #4338ca;
             color: #312e81;
             padding: 1.25rem;
             margin-bottom: 1.5rem;
@@ -34,20 +34,38 @@
         /* 狀態標籤 */
         .status-active { background-color: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem; }
         .status-inactive { background-color: #f3f4f6; color: #4b5563; border: 1px solid #d1d5db; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem; }
+
+        /* Modal 分頁樣式 */
+        .nav-tabs .nav-link.active {
+            font-weight: bold;
+            color: #4f46e5;
+            border-top: 3px solid #4f46e5;
+        }
+        .form-section-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+        }
     </style>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 權限驗證：僅 Admin 可進入 (或未來新增文管角色)
+            // 權限驗證：Admin 與 User (文管) 皆可進入
             const role = sessionStorage.getItem('currentUserRole');
-            if (role !== 'admin') {
-                alert('權限不足：此頁面僅限管理人員存取。');
+            if (!role || role === 'medical') {
+                alert('權限不足：此頁面僅限管理人員與文管人員存取。');
                 window.location.href = 'dashboard.html';
                 return;
             }
             document.body.style.display = 'block';
-            const userName = sessionStorage.getItem('currentUserName') || 'Admin';
-            document.getElementById('user-display').innerHTML = `<small>Admin: ${userName}</small>`;
+            const userName = sessionStorage.getItem('currentUserName') || 'User';
+            document.getElementById('user-display').innerHTML = `<small>${role === 'admin' ? 'Admin' : '文管'}: ${userName}</small>`;
         });
     </script>
 </head>
@@ -77,8 +95,8 @@
 
         <div class="master-info-card shadow-sm">
             <strong><i class="fas fa-sitemap me-2"></i>系統運作核心 (Source of Truth)</strong><br>
-            此頁面為系統的資料源頭。文管人員需在此建立客戶的「統一編號」、「公司名稱」與「合約期間」。<br>
-            建立完成後，顧問於 <a href="index1.html" class="fw-bold text-decoration-none" style="color: #4338ca;">[顧問資料上傳]</a> 輸入統編時，系統才能自動帶出基本資料；AI 機器人亦依據此處設定進行歸檔與勾稽。
+            此頁面為系統資料源頭。請依據客戶實際狀況完整建立資料，包含人員結構、製程特性與合約資訊。<br>
+            建立後，顧問在 <a href="index1.html" class="fw-bold text-decoration-none" style="color: #4338ca;">[顧問資料上傳]</a> 輸入統編，系統將自動帶入此處設定之「作業場所」與「勞動條件」概況，大幅節省重複作業時間。
         </div>
 
         <div class="card border-0 shadow-sm mb-4">
@@ -87,7 +105,7 @@
                     <div class="col-md-4">
                         <div class="input-group">
                             <span class="input-group-text bg-white border-end-0"><i class="fas fa-search text-muted"></i></span>
-                            <input type="text" class="form-control border-start-0" placeholder="搜尋公司名稱或統編...">
+                            <input type="text" class="form-control border-start-0" placeholder="搜尋公司名稱、統編或合約編號...">
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -109,9 +127,10 @@
                             <tr>
                                 <th class="ps-4">統一編號</th>
                                 <th>事業單位名稱</th>
-                                <th>負責顧問 (主責)</th>
-                                <th>勞工人數</th>
-                                <th>風險等級</th>
+                                <th>合約編號</th>
+                                <th>聯絡人</th>
+                                <th>負責顧問</th>
+                                <th>認證</th>
                                 <th>合約期間</th>
                                 <th>狀態</th>
                                 <th class="text-end pe-4">操作</th>
@@ -121,9 +140,10 @@
                             <tr>
                                 <td class="ps-4 font-monospace">12345678</td>
                                 <td class="fw-bold">ABCDEF有限公司</td>
-                                <td><div class="d-flex align-items-center"><div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width:24px;height:24px;font-size:10px;">王</div>王大明 醫師</div></td>
-                                <td>110 人</td>
-                                <td><span class="badge bg-danger">高風險</span></td>
+                                <td class="small text-muted">CT-2024-001</td>
+                                <td>陳經理 (0912-345678)</td>
+                                <td><div class="d-flex align-items-center"><div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width:24px;height:24px;font-size:10px;">王</div>王大明</div></td>
+                                <td><span class="badge bg-secondary">無</span></td>
                                 <td class="small text-muted">2024/01/01 ~ 2025/12/31</td>
                                 <td><span class="status-active">合約中</span></td>
                                 <td class="text-end pe-4">
@@ -134,24 +154,12 @@
                             <tr>
                                 <td class="ps-4 font-monospace">87654321</td>
                                 <td class="fw-bold">XYZ 物流中心</td>
-                                <td><div class="d-flex align-items-center"><div class="bg-success text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width:24px;height:24px;font-size:10px;">林</div>林美秀 護理師</div></td>
-                                <td>45 人</td>
-                                <td><span class="badge bg-warning text-dark">中風險</span></td>
+                                <td class="small text-muted">CT-2024-008</td>
+                                <td>林小姐 (02-23456789)</td>
+                                <td><div class="d-flex align-items-center"><div class="bg-success text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width:24px;height:24px;font-size:10px;">林</div>林美秀</div></td>
+                                <td><span class="badge bg-success">ISO 45001</span></td>
                                 <td class="small text-muted">2024/06/01 ~ 2025/05/31</td>
                                 <td><span class="status-active">合約中</span></td>
-                                <td class="text-end pe-4">
-                                    <button class="btn btn-sm btn-outline-secondary me-1"><i class="fas fa-pen"></i></button>
-                                    <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="ps-4 font-monospace">22334455</td>
-                                <td class="fw-bold">TopTech 電子</td>
-                                <td><div class="d-flex align-items-center"><div class="bg-info text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width:24px;height:24px;font-size:10px;">張</div>張志明 職衛師</div></td>
-                                <td>300 人</td>
-                                <td><span class="badge bg-danger">高風險</span></td>
-                                <td class="small text-muted">2023/01/01 ~ 2023/12/31</td>
-                                <td><span class="status-inactive">已過期</span></td>
                                 <td class="text-end pe-4">
                                     <button class="btn btn-sm btn-outline-secondary me-1"><i class="fas fa-pen"></i></button>
                                     <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
@@ -164,68 +172,190 @@
         </div>
     </div>
 
-    <div class="modal fade" id="createModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade" id="createModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header bg-dark text-white">
-                    <h5 class="modal-title"><i class="fas fa-plus-circle me-2"></i>新增事業單位資料</h5>
+                    <h5 class="modal-title"><i class="fas fa-edit me-2"></i>事業單位資料維護</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body p-4">
-                    <form>
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">統一編號 <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" placeholder="請輸入 8 碼統編">
+                <div class="modal-body p-0">
+                    
+                    <ul class="nav nav-tabs px-4 pt-3 bg-light" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button">1. 基本與合約</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="workplace-tab" data-bs-toggle="tab" data-bs-target="#workplace" type="button">2. 作業場所資料</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="condition-tab" data-bs-toggle="tab" data-bs-target="#condition" type="button">3. 勞動條件概況</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content p-4" id="myTabContent">
+                        
+                        <div class="tab-pane fade show active" id="basic">
+                            <h6 class="form-section-title mt-0">公司基本資料</h6>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label fw-bold">統一編號 <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="8碼統編">
+                                </div>
+                                <div class="col-md-8">
+                                    <label class="form-label fw-bold">事業單位名稱 <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="完整登記名稱">
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">公司地址</label>
+                                    <input type="text" class="form-control" placeholder="營業登記地址">
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">事業單位名稱 <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" placeholder="完整公司登記名稱">
+
+                            <h6 class="form-section-title">聯絡窗口</h6>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">聯絡人姓名</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">聯絡電話</label>
+                                    <input type="text" class="form-control" placeholder="市話或手機">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Email (通知用)</label>
+                                    <input type="email" class="form-control">
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label">勞工人數</label>
-                                <input type="number" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">行業類別</label>
-                                <select class="form-select">
-                                    <option>電子零組件製造業</option>
-                                    <option>食品製造業</option>
-                                    <option>倉儲運輸業</option>
-                                    <option>營造業</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">風險等級 (依職安法)</label>
-                                <select class="form-select">
-                                    <option>第一類 (高風險)</option>
-                                    <option>第二類 (中風險)</option>
-                                    <option>第三類 (低風險)</option>
-                                </select>
-                            </div>
-                            <div class="col-12"><hr class="text-muted"></div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-bold">指派負責顧問 (醫師/護理師)</label>
-                                <select class="form-select">
-                                    <option>王大明 醫師</option>
-                                    <option>李雅婷 護理師</option>
-                                    <option>張志明 職衛師</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">合約起始日</label>
-                                <input type="date" class="form-control">
-                            </div>
-                            <div class="col-md-3">
-                                <label class="form-label">合約結束日</label>
-                                <input type="date" class="form-control">
+
+                            <h6 class="form-section-title">合約與認證</h6>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">合約編號</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">合約起始日</label>
+                                    <input type="date" class="form-control">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">合約結束日</label>
+                                    <input type="date" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-bold">指派負責顧問</label>
+                                    <select class="form-select">
+                                        <option>王大明 醫師</option>
+                                        <option>李雅婷 護理師</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">管理系統認證 (ISO)</label>
+                                    <div class="d-flex gap-3 mt-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="iso45001">
+                                            <label class="form-check-label" for="iso45001">ISO 45001</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="iso14001">
+                                            <label class="form-check-label" for="iso14001">ISO 14001</label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </form>
+
+                        <div class="tab-pane fade" id="workplace">
+                            <h6 class="form-section-title mt-0">基本概況</h6>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">廠區/部門名稱</label>
+                                    <input type="text" class="form-control" placeholder="例如：台南廠">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">行業類別</label>
+                                    <select class="form-select">
+                                        <option>電子零組件製造業</option>
+                                        <option>食品製造業</option>
+                                        <option>倉儲運輸業</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <h6 class="form-section-title">勞工人數結構</h6>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <div class="card bg-light border-0">
+                                        <div class="card-body">
+                                            <h6 class="card-title text-muted small fw-bold">行政人員</h6>
+                                            <div class="row">
+                                                <div class="col-6"><label class="small">男</label><input type="number" class="form-control form-control-sm" placeholder="人"></div>
+                                                <div class="col-6"><label class="small">女</label><input type="number" class="form-control form-control-sm" placeholder="人"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card bg-light border-0">
+                                        <div class="card-body">
+                                            <h6 class="card-title text-muted small fw-bold">現場操作人員</h6>
+                                            <div class="row">
+                                                <div class="col-6"><label class="small">男</label><input type="number" class="form-control form-control-sm" placeholder="人"></div>
+                                                <div class="col-6"><label class="small">女</label><input type="number" class="form-control form-control-sm" placeholder="人"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h6 class="form-section-title">特別危害健康作業人數</h6>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">1. 高溫作業 (人)</label>
+                                    <input type="number" class="form-control">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">2. 噪音作業 (人)</label>
+                                    <input type="number" class="form-control">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">3. 游離輻射 (人)</label>
+                                    <input type="number" class="form-control">
+                                </div>
+                                </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="condition">
+                            <h6 class="form-section-title mt-0">作業細節描述</h6>
+                            
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">1. 工作流程 (製程)</label>
+                                <textarea class="form-control" rows="3" placeholder="例如：整經漿紗->織布->脫漿->成布加工..."></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">2. 工作型態與時間</label>
+                                <textarea class="form-control" rows="2" placeholder="例如：行政人員常日班，產線人員輪值三班。"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">3. 人員及危害特性概述</label>
+                                <textarea class="form-control" rows="3" placeholder="例如：潛在工作危害特性：高溫、噪音、人因性危害..."></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">備註事項</label>
+                                <textarea class="form-control" rows="2"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary" onclick="alert('新增成功！資料已寫入資料庫。')">儲存資料</button>
+                    <button type="button" class="btn btn-primary fw-bold px-4" onclick="alert('新增成功！資料已寫入資料庫。')">
+                        <i class="fas fa-save me-2"></i>儲存資料
+                    </button>
                 </div>
             </div>
         </div>
