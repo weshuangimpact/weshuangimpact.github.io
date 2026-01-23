@@ -8,68 +8,66 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <style>
-        :root {
-            --primary-bg: #f4f6f9;
-        }
+        :root { --primary-bg: #f4f6f9; }
         body {
             background-color: var(--primary-bg);
             font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
-            display: none; /* Auth Guard */
+            display: none; /* Auth Guard: 預設隱藏 */
         }
-
-        /* PDCA 說明字卡 [引用 source: 15-20] */
         .demo-info-card {
-            background-color: #fffbeb;
-            border-left: 4px solid #f59e0b;
-            color: #92400e;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            border-radius: 0.375rem;
-            font-size: 0.9rem;
-            line-height: 1.6;
+            background-color: #fffbeb; border-left: 4px solid #f59e0b; color: #92400e; padding: 1rem; margin-bottom: 1.5rem; border-radius: 0.375rem; font-size: 0.9rem;
         }
-
-        /* 文件卡片樣式 */
-        .doc-card {
-            transition: all 0.2s ease;
-            border: 1px solid #e2e8f0;
-        }
-        .doc-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            border-color: #3b82f6;
-        }
+        .doc-card { transition: all 0.2s ease; border: 1px solid #e2e8f0; position: relative; }
+        .doc-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.08); border-color: #3b82f6; }
+        .icon-box { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 1.5rem; }
+        .icon-word { background-color: #e3f2fd; color: #1976d2; }
+        .icon-pdf { background-color: #ffebee; color: #d32f2f; }
         
-        /* 文件圖示背景 */
-        .icon-box {
-            width: 50px;
-            height: 50px;
+        /* 刪除按鈕樣式 (右上角) */
+        .btn-delete-card {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #dc3545;
+            background: rgba(255,255,255,0.8);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
-            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            z-index: 10;
         }
-        .icon-word { background-color: #e3f2fd; color: #1976d2; }
-        .icon-pdf { background-color: #ffebee; color: #d32f2f; }
-        .icon-ppt { background-color: #fff3e0; color: #f57c00; }
-        
-        /* 標籤分類 */
-        .category-badge {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            background-color: #f1f5f9;
-            color: #64748b;
-            font-weight: 600;
-        }
+        .btn-delete-card:hover { background: #dc3545; color: white; }
     </style>
 
     <script>
-        const role = sessionStorage.getItem('currentUserRole');
-        if (!role) {
-            window.location.href = 'login.html';
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. 顯示頁面
+            document.body.style.display = 'block';
+            
+            // 2. 取得使用者資訊
+            const role = sessionStorage.getItem('currentUserRole'); // admin, medical, general
+            const userName = sessionStorage.getItem('currentUserName') || 'Guest';
+            document.getElementById('user-display').innerHTML = `<small>${userName}</small>`;
+
+            // 3. 權限控管邏輯 (Permission Logic)
+            // 需求：
+            // - admin: 全部 (不隱藏)
+            // - user (general): 全部 (不隱藏)
+            // - nurse (medical): 只能預覽/下載 (需隱藏上傳與刪除)
+            
+            if (role === 'medical') {
+                // 隱藏所有帶有 'restricted-action' class 的元素
+                const restrictedElements = document.querySelectorAll('.restricted-action');
+                restrictedElements.forEach(el => {
+                    el.style.display = 'none';
+                });
+            }
+        });
     </script>
 </head>
 <body>
@@ -91,39 +89,22 @@
                 <h2 class="fw-bold text-dark"><i class="fas fa-folder-open me-2 text-primary"></i>文件管理與資源中心</h2>
                 <p class="text-muted mb-0">標準化表單下載、法規資料庫與教育訓練教材</p>
             </div>
-            <div class="input-group" style="width: 300px;">
-                <span class="input-group-text bg-white border-end-0"><i class="fas fa-search text-muted"></i></span>
-                <input type="text" class="form-control border-start-0" placeholder="搜尋文件名稱...">
+            
+            <div class="d-flex gap-3">
+                <div class="input-group">
+                    <span class="input-group-text bg-white border-end-0"><i class="fas fa-search text-muted"></i></span>
+                    <input type="text" class="form-control border-start-0" placeholder="搜尋文件...">
+                </div>
+
+                <button class="btn btn-primary fw-bold text-nowrap restricted-action" onclick="alert('開啟上傳視窗 (Demo)')">
+                    <i class="fas fa-cloud-upload-alt me-2"></i>上傳文件
+                </button>
             </div>
         </div>
 
-        <div class="demo-info-card">
-            <i class="fas fa-book me-2"></i>
-            <strong>PDCA 設計理念：Standardization (標準化) —— 資源支持體系</strong><br>
-            此模組提供執行 PDCA 循環所需的「標準工具」。從 Plan (計畫) 階段的合約與法規、Do (執行) 階段的公版紀錄表，到 Act (行動) 階段的教育訓練教材。統一的表單格式能確保資料結構一致，是通過評鑑與合規的基礎。
-        </div>
-
         <ul class="nav nav-pills mb-4" id="pills-tab" role="tablist">
-            <li class="nav-item">
-                <button class="nav-link active fw-bold" id="pills-forms-tab" data-bs-toggle="pill" data-bs-target="#pills-forms">
-                    <i class="fas fa-clipboard-list me-2"></i>法定必備表單
-                </button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link fw-bold" id="pills-plans-tab" data-bs-toggle="pill" data-bs-target="#pills-plans">
-                    <i class="fas fa-project-diagram me-2"></i>四大計畫與 SOP
-                </button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link fw-bold" id="pills-training-tab" data-bs-toggle="pill" data-bs-target="#pills-training">
-                    <i class="fas fa-chalkboard-teacher me-2"></i>教育訓練教材
-                </button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link fw-bold" id="pills-legal-tab" data-bs-toggle="pill" data-bs-target="#pills-legal">
-                    <i class="fas fa-balance-scale me-2"></i>法規與合約
-                </button>
-            </li>
+            <li class="nav-item"><button class="nav-link active fw-bold" data-bs-toggle="pill" data-bs-target="#pills-forms">法定必備表單</button></li>
+            <li class="nav-item"><button class="nav-link fw-bold" data-bs-toggle="pill" data-bs-target="#pills-plans">四大計畫與 SOP</button></li>
         </ul>
 
         <div class="tab-content" id="pills-tabContent">
@@ -133,20 +114,22 @@
                     
                     <div class="col-md-6 col-xl-4">
                         <div class="card doc-card h-100 bg-white">
+                            <button class="btn-delete-card restricted-action" onclick="confirmDelete(this)" title="刪除文件">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+
                             <div class="card-body">
                                 <div class="d-flex justify-content-between mb-3">
                                     <div class="icon-box icon-pdf"><i class="fas fa-file-signature"></i></div>
                                     <span class="badge bg-warning text-dark align-self-start">必備</span>
                                 </div>
                                 <h6 class="fw-bold mb-1">勞工健康服務執行紀錄表 (範例)</h6>
-                                <p class="text-muted small mb-3">依據 ABCDEF 有限公司 2024 年度實務紀錄製作，包含高溫、噪音危害與適性評估範例。</p>
+                                <p class="text-muted small mb-3">依據 ABCDEF 有限公司 2024 年度實務紀錄製作。</p>
                                 <div class="d-flex gap-2 mt-auto">
-                                    <button class="btn btn-sm btn-outline-primary flex-fill" onclick="previewExampleDoc()">
-                                        <i class="fas fa-eye me-1"></i>預覽內容
-                                    </button>
+                                    <button class="btn btn-sm btn-outline-primary flex-fill" onclick="previewExampleDoc()"><i class="fas fa-eye me-1"></i>預覽</button>
                                     <div class="btn-group flex-fill">
-                                        <button class="btn btn-sm btn-outline-secondary" onclick="alert('下載 PDF')"><i class="fas fa-file-pdf"></i></button>
-                                        <button class="btn btn-sm btn-outline-secondary" onclick="alert('下載 Word')"><i class="fas fa-file-word"></i></button>
+                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-file-pdf"></i></button>
+                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-file-word"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -155,16 +138,18 @@
 
                     <div class="col-md-6 col-xl-4">
                         <div class="card doc-card h-100 bg-white">
+                            <button class="btn-delete-card restricted-action" onclick="confirmDelete(this)"><i class="fas fa-trash-alt"></i></button>
+
                             <div class="card-body">
                                 <div class="d-flex justify-content-between mb-3">
                                     <div class="icon-box icon-word"><i class="far fa-file-alt"></i></div>
                                     <span class="badge bg-success bg-opacity-10 text-success align-self-start">最新版</span>
                                 </div>
                                 <h6 class="fw-bold mb-1">勞工健康服務執行紀錄表 (空白公版)</h6>
-                                <p class="text-muted small mb-3">符合職安署最新公告格式，適用於一般臨場服務紀錄。</p>
+                                <p class="text-muted small mb-3">符合職安署最新公告格式。</p>
                                 <div class="d-flex gap-2 mt-auto">
-                                    <button class="btn btn-sm btn-outline-primary flex-fill" onclick="openPreview('blank_record.png')"><i class="fas fa-eye me-1"></i>預覽</button>
-                                    <button class="btn btn-sm btn-outline-secondary flex-fill" onclick="alert('下載 Word')"><i class="fas fa-download me-1"></i>下載</button>
+                                    <button class="btn btn-sm btn-outline-primary flex-fill"><i class="fas fa-eye me-1"></i>預覽</button>
+                                    <button class="btn btn-sm btn-outline-secondary flex-fill"><i class="fas fa-download me-1"></i>下載</button>
                                 </div>
                             </div>
                         </div>
@@ -172,44 +157,14 @@
 
                     <div class="col-md-6 col-xl-4">
                         <div class="card doc-card h-100 bg-white">
+                            <button class="btn-delete-card restricted-action" onclick="confirmDelete(this)"><i class="fas fa-trash-alt"></i></button>
+
                             <div class="card-body">
                                 <div class="d-flex justify-content-between mb-3">
                                     <div class="icon-box icon-word"><i class="fas fa-user-md"></i></div>
                                 </div>
                                 <h6 class="fw-bold mb-1">9-3 健檢異常追蹤管理表</h6>
-                                <p class="text-muted small mb-3">用於記錄二級以上管理名單之面談、衛教與就醫追蹤情形。</p>
-                                <div class="d-flex gap-2 mt-auto">
-                                    <button class="btn btn-sm btn-outline-primary flex-fill"><i class="fas fa-eye me-1"></i>預覽</button>
-                                    <button class="btn btn-sm btn-outline-secondary flex-fill"><i class="fas fa-download me-1"></i>下載</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-xl-4">
-                        <div class="card doc-card h-100 bg-white">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between mb-3">
-                                    <div class="icon-box icon-word"><i class="fas fa-baby-carriage"></i></div>
-                                </div>
-                                <h6 class="fw-bold mb-1">9-4 母性健康保護評估表</h6>
-                                <p class="text-muted small mb-3">妊娠及分娩後未滿一年女性勞工專用，含風險評估與醫師面談紀錄。</p>
-                                <div class="d-flex gap-2 mt-auto">
-                                    <button class="btn btn-sm btn-outline-primary flex-fill"><i class="fas fa-eye me-1"></i>預覽</button>
-                                    <button class="btn btn-sm btn-outline-secondary flex-fill"><i class="fas fa-download me-1"></i>下載</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-xl-4">
-                        <div class="card doc-card h-100 bg-white">
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between mb-3">
-                                    <div class="icon-box icon-word"><i class="fas fa-search-location"></i></div>
-                                </div>
-                                <h6 class="fw-bold mb-1">11-1 工作場所危害辨識檢核表</h6>
-                                <p class="text-muted small mb-3">包含物理性、化學性、人因工程及生物性危害因子之辨識表單。</p>
+                                <p class="text-muted small mb-3">用於記錄二級以上管理名單之追蹤情形。</p>
                                 <div class="d-flex gap-2 mt-auto">
                                     <button class="btn btn-sm btn-outline-primary flex-fill"><i class="fas fa-eye me-1"></i>預覽</button>
                                     <button class="btn btn-sm btn-outline-secondary flex-fill"><i class="fas fa-download me-1"></i>下載</button>
@@ -220,129 +175,8 @@
 
                 </div>
             </div>
-
-            <div class="tab-pane fade" id="pills-plans">
-                <div class="row g-3">
-                    <div class="col-12">
-                        <div class="alert alert-info border-info d-flex align-items-center">
-                            <i class="fas fa-info-circle me-3 fs-4"></i>
-                            <div>
-                                <strong>評鑑重點提示：</strong> 四大計畫（人因、異常負荷、不法侵害、母性保護）務必依據公司規模訂定並留存執行紀錄。
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-3">
-                                <div>
-                                    <div class="fw-bold"><i class="fas fa-file-contract text-primary me-2"></i>人因性危害預防計畫書 (範本)</div>
-                                    <small class="text-muted">含肌肉骨骼症狀調查表 (KIM/NMQ)</small>
-                                </div>
-                                <button class="btn btn-sm btn-outline-dark"><i class="fas fa-download"></i></button>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-3">
-                                <div>
-                                    <div class="fw-bold"><i class="fas fa-file-contract text-primary me-2"></i>異常工作負荷促發疾病預防計畫書</div>
-                                    <small class="text-muted">含過勞量表與工時評估表</small>
-                                </div>
-                                <button class="btn btn-sm btn-outline-dark"><i class="fas fa-download"></i></button>
-                            </a>
-                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center p-3">
-                                <div>
-                                    <div class="fw-bold"><i class="fas fa-file-contract text-primary me-2"></i>執行職務遭受不法侵害預防計畫書</div>
-                                    <small class="text-muted">含風險評估與通報流程圖</small>
-                                </div>
-                                <button class="btn btn-sm btn-outline-dark"><i class="fas fa-download"></i></button>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-6">
-                        <div class="card h-100">
-                            <div class="card-header bg-light fw-bold">標準作業程序 (SOP)</div>
-                            <div class="card-body">
-                                <ul class="list-unstyled mb-0">
-                                    <li class="mb-3 border-bottom pb-2">
-                                        <div class="d-flex justify-content-between">
-                                            <span><i class="fas fa-tasks text-secondary me-2"></i>緊急傷病處理流程 SOP</span>
-                                            <a href="#" class="text-decoration-none"><i class="fas fa-download"></i></a>
-                                        </div>
-                                    </li>
-                                    <li class="mb-3 border-bottom pb-2">
-                                        <div class="d-flex justify-content-between">
-                                            <span><i class="fas fa-tasks text-secondary me-2"></i>健康檢查分級管理流程 SOP</span>
-                                            <a href="#" class="text-decoration-none"><i class="fas fa-download"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="d-flex justify-content-between">
-                                            <span><i class="fas fa-tasks text-secondary me-2"></i>訪視作業標準程序 SOP</span>
-                                            <a href="#" class="text-decoration-none"><i class="fas fa-download"></i></a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            
             </div>
-
-            <div class="tab-pane fade" id="pills-training">
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <div class="card doc-card">
-                            <div class="card-body text-center p-4">
-                                <div class="icon-box icon-ppt mx-auto mb-3 rounded-circle" style="width: 60px; height: 60px;"><i class="fas fa-file-powerpoint"></i></div>
-                                <h6 class="fw-bold">年度勞工健康教育簡報</h6>
-                                <p class="text-muted small">主題：三高預防與健康飲食 (2025版)</p>
-                                <button class="btn btn-sm btn-primary w-100">下載 PPT</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card doc-card">
-                            <div class="card-body text-center p-4">
-                                <div class="icon-box icon-ppt mx-auto mb-3 rounded-circle" style="width: 60px; height: 60px;"><i class="fas fa-file-powerpoint"></i></div>
-                                <h6 class="fw-bold">人因危害預防教育訓練</h6>
-                                <p class="text-muted small">主題：正確搬運姿勢與伸展操</p>
-                                <button class="btn btn-sm btn-primary w-100">下載 PPT</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card doc-card">
-                            <div class="card-body text-center p-4">
-                                <div class="icon-box bg-secondary bg-opacity-10 text-secondary mx-auto mb-3 rounded-circle" style="width: 60px; height: 60px;"><i class="fas fa-video"></i></div>
-                                <h6 class="fw-bold">急救人員複訓影片</h6>
-                                <p class="text-muted small">CPR+AED 操作示範 (連結)</p>
-                                <button class="btn btn-sm btn-outline-dark w-100">前往觀看</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-pane fade" id="pills-legal">
-                <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action p-3">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1 fw-bold text-dark"><i class="fas fa-gavel me-2"></i>勞工健康保護規則 (最新修正版)</h6>
-                            <small class="text-muted">2024/01 更新</small>
-                        </div>
-                        <p class="mb-1 small text-muted">包含附表一至附表十之完整法規文本。</p>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action p-3">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-1 fw-bold text-dark"><i class="fas fa-file-contract me-2"></i>臨場健康服務委託合約書 (公版)</h6>
-                            <small class="text-muted">版本 V3.0</small>
-                        </div>
-                        <p class="mb-1 small text-muted">適用於特約醫護人員服務契約簽訂。</p>
-                    </a>
-                </div>
-            </div>
-
-        </div>
     </div>
 
     <div class="modal fade" id="previewModal" tabindex="-1">
@@ -353,12 +187,7 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body bg-light">
-                    <div id="previewContent" class="bg-white shadow-sm p-5 mx-auto" style="max-width: 800px; min-height: 1000px;">
-                        </div>
-                </div>
-                <div class="modal-footer bg-white">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
-                    <button type="button" class="btn btn-primary"><i class="fas fa-download me-2"></i>下載此文件</button>
+                    <div id="previewContent" class="bg-white shadow-sm p-5 mx-auto" style="max-width: 800px; min-height: 1000px;"></div>
                 </div>
             </div>
         </div>
@@ -367,92 +196,34 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.body.style.display = 'block';
-            const userName = sessionStorage.getItem('currentUserName') || 'User';
-            document.getElementById('user-display').innerHTML = `<small>User: ${userName}</small>`;
-        });
+        // 刪除確認功能
+        function confirmDelete(btn) {
+            if(confirm('確定要刪除此文件嗎？(此操作無法復原)')) {
+                // 視覺上移除卡片
+                const card = btn.closest('.col-md-6');
+                card.style.opacity = '0';
+                setTimeout(() => card.remove(), 300);
+            }
+        }
 
-        // 預覽功能：帶入真實資料 [引用 source: 227-282]
+        // 預覽範例功能 (保留原有的 PDF 模擬內容)
         function previewExampleDoc() {
             const modal = new bootstrap.Modal(document.getElementById('previewModal'));
             document.getElementById('previewTitle').innerText = '預覽：勞工健康服務執行紀錄表 (範例).pdf';
-            
             const content = `
                 <div style="font-family: 'DFKai-SB', 'BiauKai', serif; color: #333;">
                     <h3 class="text-center fw-bold mb-4" style="text-decoration: underline;">ABCDEF有限公司<br>勞工健康服務執行紀錄表</h3>
-                    
-                    <div class="d-flex justify-content-between mb-3 fw-bold">
-                        <span>執行日期: 2024年01月01日</span>
-                        <span>時間: 09:00 迄 12:00</span>
-                    </div>
-
-                    <h5 class="fw-bold border-bottom border-dark pb-2 mb-3">一、作業場所基本資料</h5>
+                    <div class="d-flex justify-content-between mb-3 fw-bold"><span>執行日期: 2024年01月01日</span><span>時間: 09:00 迄 12:00</span></div>
                     <table class="table table-bordered border-dark text-center align-middle mb-4">
-                        <tr>
-                            <td class="bg-light fw-bold" width="150">部門名稱</td>
-                            <td colspan="3">台南廠</td>
-                        </tr>
-                        <tr>
-                            <td class="bg-light fw-bold">勞工人數</td>
-                            <td colspan="3">行政人員: 50人 (男30/女20) ; 現場操作: 60人 (男40/女20)</td>
-                        </tr>
-                        <tr>
-                            <td class="bg-light fw-bold">特別危害</td>
-                            <td colspan="3" class="text-start ps-3">
-                                1. 高溫作業: 5人<br>
-                                2. 噪音作業: 20人
-                            </td>
-                        </tr>
+                        <tr><td class="bg-light fw-bold" width="150">部門名稱</td><td colspan="3">台南廠</td></tr>
+                        <tr><td class="bg-light fw-bold">勞工人數</td><td colspan="3">行政人員: 50人 (男30/女20) ; 現場操作: 60人 (男40/女20)</td></tr>
+                        <tr><td class="bg-light fw-bold">特別危害</td><td colspan="3" class="text-start ps-3">1. 高溫作業: 5人<br>2. 噪音作業: 20人</td></tr>
                     </table>
-
-                    <h5 class="fw-bold border-bottom border-dark pb-2 mb-3">二、辦理事項與發現問題 (9-3~13)</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><strong>• 9-3 健檢異常追蹤：</strong>辦理健康檢查結果異常者之追蹤管理及健康指導。</li>
-                        <li class="mb-2"><strong>• 11-1 危害辨識：</strong>品質檢驗部驗纖課、驗布課現場訪視。</li>
-                        <li class="mb-2"><strong>• 發現問題：</strong>異常工作負荷促發疾病1人、人因性肌肉骨骼危害1人、母性健康保護1人、職場不法侵害1人。</li>
-                    </ul>
-
-                    <h5 class="fw-bold border-bottom border-dark pb-2 mb-3">三、建議採行措施</h5>
-                    <div class="border border-dark p-3 mb-4">
-                        <p class="mb-2"><strong>1. 呼吸防護計畫：</strong>針對使用 N95 口罩人員，應定期實施密合度測試 (Fit Test)。</p>
-                        <p class="mb-2"><strong>2. 個案管理 (蔡○)：</strong>傷病後復配工，建議髖關節復健運動，目前可回復從事傷病前工作內容，自主健康管理結案。</p>
-                        <p class="mb-0"><strong>3. 職場不法侵害 (黃○)：</strong>建議避免月加班工時 >60 小時，並預約 EAP 心理諮商。</p>
-                    </div>
-
-                    <div class="mt-5 d-flex justify-content-between">
-                        <div>
-                            <span class="fw-bold">醫護人員簽章：</span>
-                            <span class="ms-2" style="font-family: cursive;">李雅婷</span>
-                        </div>
-                        <div>
-                            <span class="fw-bold">職安人員簽章：</span>
-                            <span class="ms-2" style="font-family: cursive;">王大明</span>
-                        </div>
-                        <div>
-                            <span class="fw-bold">部門主管簽章：</span>
-                            <span class="ms-2" style="font-family: cursive;">陳部長</span>
-                        </div>
-                    </div>
+                    <h5 class="fw-bold border-bottom border-dark pb-2 mb-3">二、辦理事項與發現問題</h5>
+                    <ul class="list-unstyled"><li class="mb-2"><strong>• 9-3 健檢異常追蹤：</strong>辦理健康檢查結果異常者之追蹤管理及健康指導。</li></ul>
                 </div>
             `;
-            
             document.getElementById('previewContent').innerHTML = content;
-            modal.show();
-        }
-
-        function openPreview(filename) {
-            // 通用預覽 (模擬)
-            const modal = new bootstrap.Modal(document.getElementById('previewModal'));
-            document.getElementById('previewTitle').innerText = '預覽：' + filename;
-            document.getElementById('previewContent').innerHTML = `
-                <div class="text-center py-5">
-                    <i class="fas fa-file-alt fa-5x text-secondary mb-4"></i>
-                    <h4>此為文件預覽區</h4>
-                    <p class="text-muted">顯示檔案：${filename}</p>
-                    <p>實際系統將整合 PDF.js 進行渲染。</p>
-                </div>
-            `;
             modal.show();
         }
     </script>
