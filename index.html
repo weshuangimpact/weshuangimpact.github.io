@@ -2,176 +2,28 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>系統登入 | 職業安全衛生評鑑資料管理系統</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>系統載入中...</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap');
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: #f1f5f9;
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 24px 24px;
-        }
-        .login-container { animation: fadeInUp 0.5s ease-out; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* 說明字卡樣式 */
-        .info-card {
-            background-color: #fffbeb; 
-            border-left: 4px solid #f59e0b;
-            color: #92400e;
-        }
-        .info-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 0.5rem;
-            font-size: 0.85rem;
-        }
-        .info-label {
-            font-weight: 700;
-            min-width: 80px;
-            color: #b45309;
-        }
+        /* 避免畫面閃爍，隱藏內容 */
+        body { display: none; }
     </style>
-</head>
-<body class="flex items-center justify-center min-h-screen p-4">
-
-    <div class="login-container w-full max-w-4xl flex flex-col md:flex-row bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
-        
-        <!-- 左側：系統品牌區 -->
-        <div class="md:w-1/2 bg-slate-900 text-white p-10 flex flex-col justify-center relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-            <div class="relative z-10">
-                <div class="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-blue-600 mb-6 shadow-lg">
-                    <i class="fa-solid fa-shield-halved text-3xl"></i>
-                </div>
-                <h1 class="text-3xl font-bold mb-2 tracking-wide">職業安全衛生<br>評鑑資料管理系統</h1>
-                <p class="text-slate-400 text-sm tracking-wider uppercase mb-8">OSH Evaluation Management System</p>
-                <div class="space-y-4">
-                    <div class="flex items-center text-sm text-slate-300">
-                        <i class="fa-solid fa-check-circle text-emerald-400 mr-3"></i> PDCA 動態循環管理
-                    </div>
-                    <div class="flex items-center text-sm text-slate-300">
-                        <i class="fa-solid fa-check-circle text-emerald-400 mr-3"></i> AI 智能輔助歸檔
-                    </div>
-                    <div class="flex items-center text-sm text-slate-300">
-                        <i class="fa-solid fa-check-circle text-emerald-400 mr-3"></i> 數位化合規稽核
-                    </div>
-                </div>
-            </div>
-            <div class="mt-auto pt-10 text-xs text-slate-500">
-                &copy; 2026 OSH System v3.5 | Demo Version
-            </div>
-        </div>
-
-        <!-- 右側：登入表單與說明 -->
-        <div class="md:w-1/2 p-10 bg-white flex flex-col justify-center">
-            
-            <h2 class="text-2xl font-bold text-slate-800 mb-6 flex items-center">
-                使用者登入 <span class="ml-2 text-xs font-normal text-slate-400 bg-slate-100 px-2 py-1 rounded">身份驗證</span>
-            </h2>
-
-            <!-- Demo 帳號說明字卡 -->
-            <div class="info-card p-4 rounded-lg mb-6 shadow-sm">
-                <h3 class="font-bold text-sm mb-3 flex items-center">
-                    <i class="fa-solid fa-circle-info mr-2"></i> Demo 預設帳號權限說明
-                </h3>
-                <div class="space-y-2">
-                    <div class="info-item">
-                        <span class="info-label">管理者</span>
-                        <span>帳號: <b>admin</b> / 密碼: 123456<br><span class="text-xs text-slate-500">權限: 全功能存取 (index2, 3, 4, 5)</span></span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">顧問/職護</span>
-                        <span>帳號: <b>advisor</b> / 密碼: 123456<br><span class="text-xs text-slate-500">權限: 僅限上傳與補件 (index2, 5)</span></span>
-                    </div>
-                    <div class="info-item">
-                        <span class="info-label">文管經理</span>
-                        <span>帳號: <b>dms</b> / 密碼: 123456<br><span class="text-xs text-slate-500">權限: 評鑑查詢與文管 (index4, 5)</span></span>
-                    </div>
-                </div>
-            </div>
-
-            <form onsubmit="handleLogin(event)" class="space-y-5">
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1">帳號 Account</label>
-                    <input type="text" id="username" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="請輸入帳號" value="admin">
-                </div>
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1">密碼 Password</label>
-                    <input type="password" id="password" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="請輸入密碼" value="123456">
-                </div>
-                
-                <div id="error-msg" class="hidden text-red-500 text-sm font-bold flex items-center bg-red-50 p-2 rounded">
-                    <i class="fa-solid fa-triangle-exclamation mr-2"></i> 帳號或密碼錯誤
-                </div>
-
-                <button type="submit" id="loginBtn" class="w-full bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 rounded-lg shadow-md transition-all transform active:scale-[0.98] flex justify-center items-center">
-                    登入系統 <i class="fa-solid fa-arrow-right ml-2"></i>
-                </button>
-            </form>
-        </div>
-    </div>
-
     <script>
-        // 定義使用者資料庫與權限
-        // permissions 對應: 
-        // 2: index2.html (顧問上傳)
-        // 3: index3.html (管理者總覽)
-        // 4: index4.html (評鑑機器人)
-        // 5: index5.html (文管機器人)
-        const USER_DB = {
-            'admin': { pwd: '123456', name: '系統管理員', role: 'admin', permissions: [2, 3, 4, 5] },
-            'advisor': { pwd: '123456', name: '職安顧問', role: 'advisor', permissions: [2, 5] },
-            'dms': { pwd: '123456', name: '文管經理', role: 'dms', permissions: [4, 5] }
-        };
+        (function() {
+            // 1. 檢查 Session 中是否有 'currentUserRole' (這是我們在 login.html 設定的)
+            const role = sessionStorage.getItem('currentUserRole');
 
-        function handleLogin(e) {
-            e.preventDefault();
-            
-            const userIn = document.getElementById('username').value.trim();
-            const passIn = document.getElementById('password').value.trim();
-            const btn = document.getElementById('loginBtn');
-            const errorMsg = document.getElementById('error-msg');
-
-            // 重置狀態
-            errorMsg.classList.add('hidden');
-            
-            // 驗證邏輯
-            if (USER_DB[userIn] && USER_DB[userIn].pwd === passIn) {
-                // 1. UI Loading
-                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin mr-2"></i> 驗證權限中...';
-                btn.disabled = true;
-                btn.classList.add('opacity-75', 'cursor-wait');
-
-                // 2. 儲存 Session (模擬後端 Session)
-                const userData = USER_DB[userIn];
-                sessionStorage.setItem('osh_user', JSON.stringify({
-                    id: userIn,
-                    name: userData.name,
-                    role: userData.role,
-                    permissions: userData.permissions
-                }));
-
-                // 3. 導向儀表板 (模擬延遲)
-                setTimeout(() => {
-                    // 注意：這裡將導向到下一步的儀表板頁面
-                    window.location.href = 'index1.html'; 
-                }, 800);
-
+            // 2. 路由邏輯判斷
+            if (!role) {
+                // A. 若無身分紀錄 -> 強制跳轉至登入頁
+                window.location.href = 'login.html';
             } else {
-                // 登入失敗
-                errorMsg.classList.remove('hidden');
-                // 簡單抖動效果
-                const card = document.querySelector('.login-container');
-                card.style.transform = 'translateX(5px)';
-                setTimeout(() => card.style.transform = 'translateX(0)', 100);
-                setTimeout(() => card.style.transform = 'translateX(-5px)', 200);
-                setTimeout(() => card.style.transform = 'translateX(0)', 300);
+                // B. 若已有身分紀錄 -> 跳轉至儀表板 (原 index1.html)
+                // 建議您將 index1.html 改名為 dashboard.html，若不改名則填入 index1.html
+                window.location.href = 'index1.html'; 
             }
-        }
+        })();
     </script>
-</body>
+</head>
+<body>
+    </body>
 </html>
