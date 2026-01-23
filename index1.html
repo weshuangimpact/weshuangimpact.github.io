@@ -109,7 +109,7 @@
                 <div class="demo-info-card">
                     <i class="fas fa-compass me-2"></i>
                     <strong>PDCA 設計理念：Plan (計畫) —— 基準確立與歷史繼承</strong><br>
-                    系統透過「統編」與「年度」自動調閱歷史歸檔，建立當次服務的「基準線（Baseline）」。
+                    系統透過「統編」與「年度」自動調閱歷史歸檔，建立當次服務的「基準線（Baseline）」。這不僅減少重複 Key-in，更確保了資料結構與法規邏輯的一致性。
                 </div>
 
                 <div class="bg-light p-4 rounded mb-4 border">
@@ -140,8 +140,10 @@
 
                     <div class="demo-info-card">
                         <i class="fas fa-pen-nib me-2"></i>
-                        <strong>PDCA 設計理念：Do (執行) —— 現場實況校正</strong><br>
-                        當現場狀況（如員工人數變動、新增製程）與歷史基準不符時，顧問必須透過「資料更新」功能進行修正。這些修正後的數據經確認後，將成為最新的「現況紀錄」。
+                        <strong>PDCA 設計理念：Do (執行) —— 現場實況校正與進度管理</strong><br>
+                        此階段包含兩大核心任務：<br>
+                        1. <strong>實況校正</strong>：修正與歷史基準不符之現場狀況（如製程變更、人數異動）。<br>
+                        2. <strong>進度回報</strong>：<span class="text-danger fw-bold">「上傳已用印之評鑑資料」即視為「工作進度完工證明」</span>。系統將自動把此動作連結至「管理者總覽」，將該專案狀態由「進行中」更新為「資料齊備」，實現自動化進度管理。
                     </div>
 
                     <div class="alert alert-warning d-flex justify-content-between align-items-center" role="alert">
@@ -235,8 +237,9 @@
                         <h5 class="step-title">Step 2：臨場服務項目 (法規檢核)</h5>
                         
                         <div class="tracking-info-card">
-                            <i class="fas fa-link me-2"></i><strong>系統連動通知：</strong>
-                            只要您在此處勾選辦理事項（9-1 ~ 13），系統將自動把這些項目列入「管理者總覽 (Check)」介面中的「各事業單位評鑑資料完成度總覽」進行缺口追蹤。請務必據實勾選，以確保合規性。
+                            <i class="fas fa-link me-2"></i><strong>系統自動化連動通知：</strong><br>
+                            1. <strong>勾選項目</strong>：將同步至管理者介面，定義該年度的「應辦事項範疇」。<br>
+                            2. <strong>Step 3 上傳文件</strong>：此動作將被系統視為「結案訊號」，直接觸發管理者總覽的進度條更新 (由 進行中 -> 完成)。
                         </div>
 
                         <div class="card border border-primary bg-primary bg-opacity-10 mb-3">
@@ -287,15 +290,15 @@
                         <h5 class="step-title">Step 3：簽核文件上傳</h5>
                         <div class="border-2 border-dashed border-secondary rounded p-5 text-center bg-light" style="cursor: pointer;" onclick="alert('開啟檔案選擇器 (Demo)')">
                             <i class="fas fa-cloud-arrow-up fa-3x text-secondary mb-3"></i>
-                            <h6 class="fw-bold text-secondary">點擊上傳 PDF 文件</h6>
-                            <small class="text-muted">請上傳已用印之正式文件以供評鑑佐證 (Max: 10MB)</small>
+                            <h6 class="fw-bold text-secondary">點擊上傳已用印之 PDF 文件</h6>
+                            <small class="text-muted">此動作將同步通知管理者並更新專案狀態 (Max: 10MB)</small>
                         </div>
                     </div>
 
                     <div class="d-flex justify-content-end mt-4 pt-3 border-top">
                         <button class="btn btn-secondary me-2" onclick="location.reload()">取消重置</button>
-                        <button class="btn btn-primary px-4 fw-bold shadow" onclick="alert('上傳成功！資料已寫入資料庫，並同步更新管理者總覽。')">
-                            <i class="fas fa-paper-plane me-2"></i>確認提交 (Plan/Do)
+                        <button class="btn btn-primary px-4 fw-bold shadow" onclick="alert('上傳成功！資料已寫入資料庫，管理者總覽狀態已更新為「資料齊備」。')">
+                            <i class="fas fa-paper-plane me-2"></i>確認完工並提交
                         </button>
                     </div>
 
