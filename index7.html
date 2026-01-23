@@ -39,10 +39,12 @@
 
         /* 新增資料的高亮動畫 */
         .new-row-highlight {
-            animation: highlightRow 2s ease-out;
+            animation: highlightRow 3s ease-out;
+            background-color: #fef3c7; /* 初始黃色高亮 */
         }
         @keyframes highlightRow {
-            0% { background-color: #fef3c7; } /* Yellow-100 */
+            0% { background-color: #fffbeb; }
+            50% { background-color: #fef3c7; } 
             100% { background-color: transparent; }
         }
 
@@ -337,7 +339,7 @@
             document.getElementById('importInput').click();
         }
 
-        // 2. 模擬匯入流程 (使用 參考範例1 的數據)
+        // 2. 模擬匯入流程 (使用 參考範例1.pdf 的數據)
         function simulateImportProcess() {
             const input = document.getElementById('importInput');
             if (input.files && input.files[0]) {
@@ -348,19 +350,21 @@
                     // 隱藏 Loading
                     document.getElementById('loadingOverlay').style.display = 'none';
                     
-                    // 3. 動態新增一列 (使用 0000公司 數據)
+                    // 3. 動態新增一列 (模擬 0000公司 匯入)
                     const tbody = document.querySelector('#clientTable tbody');
                     const newRow = document.createElement('tr');
+                    
+                    // 加入動畫 Class
                     newRow.className = 'new-row-highlight animate__animated animate__fadeInUp'; 
                     
-                    [cite_start]// 根據 [參考範例1.pdf] 填入數據 [cite: 59, 60]
-                    // 統編模擬: 00001234
-                    // 人數: 行政 20+30, 現場 40+20 = 110
+                    // 根據 [參考範例1.pdf] 填入數據 [cite: 59, 60]
+                    // 公司名: 0000公司 -> 模擬為 0000科技有限公司
+                    // 日期: 2022/01/01
                     newRow.innerHTML = `
                         <td class="ps-4 font-monospace">00001234</td>
                         <td class="fw-bold">0000科技有限公司 <span class="badge bg-primary bg-opacity-10 text-primary ms-2" style="font-size: 0.7rem;">New</span></td>
                         <td class="small text-muted">待補登</td>
-                        <td>系統帶入</td>
+                        <td>陳廠長 (系統帶入)</td>
                         <td><div class="d-flex align-items-center"><div class="bg-secondary text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width:24px;height:24px;font-size:10px;">待</div>指派中</div></td>
                         <td><i class="fas fa-file-pdf text-danger" title="來源文件：勞工健康服務執行紀錄表_參考範例1.pdf"></i></td>
                         <td class="small text-muted">2022/01/01 ~ 2022/12/31</td>
@@ -379,7 +383,7 @@
                     // 捲動到底部
                     newRow.scrollIntoView({ behavior: 'smooth' });
 
-                }, 1500); 
+                }, 1500); // 模擬運算時間
             }
         }
     </script>
