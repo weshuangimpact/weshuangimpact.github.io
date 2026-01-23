@@ -150,6 +150,23 @@
                 </div>
             </div>
 
+            <div class="col-xl-3 col-md-6" id="card-index5">
+                <div class="card dashboard-card bg-white" onclick="window.location.href='index5.html'">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5 class="card-title fw-bold">文件資源中心</h5>
+                                <span class="badge bg-secondary bg-opacity-10 text-secondary mb-2" style="color: #6610f2 !important; background-color: #e0cffc !important;">Standard</span>
+                                <div class="text-muted small">公版表單、合約、教材</div>
+                            </div>
+                            <div class="icon-wrapper bg-secondary bg-opacity-10 text-secondary" style="color: #6610f2 !important; background-color: #e0cffc !important;">
+                                <i class="fas fa-folder-open"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -174,15 +191,17 @@
             // 取得各卡片元素
             const cardManager = document.getElementById('card-index2'); // 管理者總覽
             const cardEval = document.getElementById('card-index3');    // 評鑑機器人
+            
+            // index5 (文件資源中心) 對所有人開放，因此無需隱藏邏輯
 
-            // 一般使用者 (User)：只能看 上傳(index1) 和 AI(index4)
+            // 一般使用者 (User)：只能看 上傳(index1), AI(index4), 資源(index5)
             if (userRole === 'general') {
                 if(cardManager) cardManager.style.display = 'none';
                 if(cardEval) cardEval.style.display = 'none';
             }
             
-            // 醫護人員 (Nurse)：通常需要看全部，或視情況隱藏高階管理功能
-            // 這裡假設醫護人員可以看評鑑，但不能看純管理者總覽(視您需求而定，此處暫設為可見)
+            // 醫護人員 (Nurse)：
+            // 假設醫護人員可以看評鑑，但不能看純管理者總覽
             // if (userRole === 'medical') { ... } 
         });
 
