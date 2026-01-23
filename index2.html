@@ -17,7 +17,7 @@
             display: none; /* Auth Guard */
         }
 
-        /* PDCA 說明字卡樣式 [引用 source: 15-20] */
+        /* PDCA 說明字卡樣式 */
         .demo-info-card {
             background-color: #fffbeb;
             border-left: 4px solid #f59e0b;
@@ -29,7 +29,7 @@
             line-height: 1.6;
         }
 
-        /* 待辦卡片互動效果 [引用 source: 113] */
+        /* 待辦卡片互動效果 */
         .task-card {
             cursor: pointer;
             transition: all 0.3s ease;
@@ -46,7 +46,29 @@
             border-left-color: #6f42c1; /* Purple for manual */
         }
 
-        /* 審查輸入框樣式 [引用 source: 11-14] */
+        /* 行事曆時間軸樣式 (New) */
+        .timeline-item {
+            border-left: 2px solid #dee2e6;
+            padding-left: 1.5rem;
+            padding-bottom: 1.5rem;
+            position: relative;
+        }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-marker {
+            position: absolute;
+            left: -0.4rem;
+            top: 0;
+            width: 0.8rem;
+            height: 0.8rem;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 2px solid #0d6efd;
+        }
+        .timeline-marker.danger { border-color: #dc3545; background-color: #dc3545; }
+        .timeline-marker.warning { border-color: #ffc107; background-color: #ffc107; }
+        .timeline-marker.success { border-color: #198754; }
+
+        /* 審查輸入框樣式 */
         .review-input-locked {
             background-color: transparent;
             border: none;
@@ -67,7 +89,7 @@
 
     <script>
         const role = sessionStorage.getItem('currentUserRole');
-        // 嚴格限制：僅 Admin 或 Medical 可進入，一般 User 踢除
+        // 嚴格限制：僅 Admin 或 Medical 可進入
         if (!role || role === 'general') {
             alert('權限不足：此頁面僅供管理人員訪問');
             window.location.href = 'dashboard.html';
@@ -91,7 +113,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h2 class="fw-bold text-dark"><i class="fas fa-chart-pie me-2 text-success"></i>管理者總覽</h2>
-                <p class="text-muted mb-0">Check & Act 階段：績效查核與歸檔審查</p>
+                <p class="text-muted mb-0">Check & Act 階段：績效查核、歸檔審查與時程控管</p>
             </div>
             <div>
                 <span class="badge bg-success bg-opacity-10 text-success fs-6 me-2">可評鑑: 12</span>
@@ -101,10 +123,11 @@
 
         <div class="demo-info-card">
             <i class="fas fa-gavel me-2"></i>
-            <strong>PDCA 設計理念：Check & Act (查核與行動) —— 缺口管理與歸檔審查</strong><br>
-            此介面包含兩大核心功能：<br>
-            1. <strong>缺口分析 (Check)</strong>：即時比對法規要求與執行現況，以紅燈標示缺件。<br>
-            2. <strong>歸檔審查 (Act)</strong>：針對文管機器人傳送的待辦項目進行「人機協作」審核。管理者可預覽原始文件並修正 AI 判讀結果，確保每一筆寫入資料庫的紀錄皆符合合規標準（Gatekeeping）。
+            <strong>PDCA 設計理念：Check & Act (查核與行動) —— 整合指揮中心</strong><br>
+            此介面整合三大核心管理功能：<br>
+            1. <strong>缺口分析 (Check)</strong>：即時比對法規要求，紅燈標示缺件。<br>
+            2. <strong>歸檔審查 (Act)</strong>：人機協作審核 AI 辨識資料，確保資料庫品質 (Gatekeeping)。<br>
+            3. <strong>法規排程 (Time Management)</strong>：<span class="text-danger fw-bold">NEW!</span> 自動監控法定申報、證照複訓與臨場服務日期，提供主動式預警。
         </div>
 
         <div class="mb-5">
@@ -115,7 +138,6 @@
             </h5>
 
             <div class="row g-4" id="notification-list">
-                
                 <div class="col-md-4">
                     <div class="card shadow-sm task-card bg-white" onclick="openArchivingReview('ABCDEF有限公司', '2024', '9-2 適性評估')">
                         <div class="card-body">
@@ -134,7 +156,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-md-4">
                     <div class="card shadow-sm task-card bg-white" onclick="openArchivingReview('XYZ物流中心', '2024', '9-3 異常追蹤')">
                         <div class="card-body">
@@ -153,7 +174,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="col-md-4">
                     <div class="card shadow-sm task-card priority-manual bg-white" onclick="openArchivingReview('TopTech電子', '2025', '11-1 危害辨識')">
                         <div class="card-body">
@@ -172,7 +192,88 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
 
+        <div class="row g-4 mb-5">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 fw-bold text-dark"><i class="far fa-calendar-alt me-2 text-primary"></i>法規作業行事曆</h5>
+                        <select class="form-select form-select-sm" style="width: auto;">
+                            <option>2026年 1月</option>
+                            <option>2026年 2月</option>
+                        </select>
+                    </div>
+                    <div class="card-body">
+                        <div class="ps-2">
+                            <div class="timeline-item">
+                                <div class="timeline-marker danger"></div>
+                                <div class="d-flex justify-content-between mb-1">
+                                    <h6 class="fw-bold text-danger mb-0">急救人員證照複訓 (3人)</h6>
+                                    <small class="text-danger fw-bold">已逾期 (1/15)</small>
+                                </div>
+                                <p class="text-muted small mb-2">王小明、李大華、張三 證照效期已過，請盡速安排。</p>
+                                <button class="btn btn-sm btn-outline-danger" onclick="alert('已發送通知信給相關人員')">發送催辦通知</button>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-marker warning"></div>
+                                <div class="d-flex justify-content-between mb-1">
+                                    <h6 class="fw-bold text-dark mb-0">第四季 職安衛委員會會議</h6>
+                                    <small class="text-warning fw-bold text-dark">剩餘 3 天 (1/26)</small>
+                                </div>
+                                <p class="text-muted small mb-0">地點：第一會議室。主席：總經理。需準備：上季檢討報告。</p>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-marker success"></div>
+                                <div class="d-flex justify-content-between mb-1">
+                                    <h6 class="fw-bold text-dark mb-0">職醫臨場服務 (1月場次)</h6>
+                                    <small class="text-muted">預定 1/30</small>
+                                </div>
+                                <p class="text-muted small mb-0">預約人數：5人。重點：過勞量表異常訪談。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm h-100 bg-light">
+                    <div class="card-header bg-transparent border-0 py-3">
+                        <h5 class="mb-0 fw-bold text-dark"><i class="fas fa-bell me-2 text-warning"></i>合規預警看板</h5>
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="alert alert-danger bg-white border-danger mb-3 shadow-sm">
+                            <div class="d-flex align-items-center mb-1">
+                                <i class="fas fa-exclamation-circle text-danger me-2"></i>
+                                <strong class="text-danger">立即處理</strong>
+                            </div>
+                            <small class="d-block text-muted mb-2">ABCDEF有限公司「母性保護計畫」尚未更新至最新法規版本。</small>
+                            <a href="#" class="btn btn-danger btn-sm w-100 py-0" style="font-size: 0.8rem;">前往更新計畫</a>
+                        </div>
+
+                        <div class="alert alert-warning bg-white border-warning mb-3 shadow-sm">
+                            <div class="d-flex align-items-center mb-1">
+                                <i class="fas fa-clock text-warning me-2"></i>
+                                <strong class="text-dark">即將到期</strong>
+                            </div>
+                            <small class="d-block text-muted">年度健康檢查報告分析 (法規要求: 1/31 前完成)。</small>
+                        </div>
+
+                        <div class="d-flex justify-content-between text-center mt-4">
+                            <div class="w-50 border-end">
+                                <h3 class="fw-bold text-dark mb-0">98%</h3>
+                                <small class="text-muted">本月合規率</small>
+                            </div>
+                            <div class="w-50">
+                                <h3 class="fw-bold text-success mb-0">0</h3>
+                                <small class="text-muted">重大缺失</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -302,28 +403,24 @@
             document.getElementById('user-display').innerHTML = `<small>管理者: ${userName}</small>`;
         });
 
-        // 1. 開啟審查 Modal [引用 source: 212]
-        let currentReviewCard = null; // 紀錄目前點擊的是哪張卡片
-        let archivingModal; // Bootstrap Modal 實例
+        // 1. 開啟審查 Modal
+        let currentReviewCard = null; 
+        let archivingModal; 
 
         function openArchivingReview(company, year, category) {
-            // 儲存來源卡片以便歸檔後刪除 (視覺效果)
             currentReviewCard = event.currentTarget;
-
             document.getElementById('review-company').value = company;
             document.getElementById('review-year').value = year;
             document.getElementById('review-category').value = category;
-
-            // 重置編輯狀態
+            
             isReviewEditing = false;
             updateReviewFieldsState();
 
-            // 顯示 Modal
             archivingModal = new bootstrap.Modal(document.getElementById('archivingModal'));
             archivingModal.show();
         }
 
-        // 2. 編輯模式切換邏輯 [引用 source: 216-222]
+        // 2. 編輯模式切換
         let isReviewEditing = false;
         function toggleArchivingEdit() {
             isReviewEditing = !isReviewEditing;
@@ -358,20 +455,16 @@
             }
         }
 
-        // 3. 確認歸檔 [引用 source: 222]
+        // 3. 確認歸檔
         function confirmArchiving() {
             alert('系統訊息：\n\n已成功歸檔！\n資料已寫入正式資料庫並產生稽核紀錄。');
             
-            // 隱藏 Modal
             const modalEl = document.getElementById('archivingModal');
             const modal = bootstrap.Modal.getInstance(modalEl);
             modal.hide();
 
-            // 視覺上移除該卡片 (Demo效果)
             if(currentReviewCard) {
                 currentReviewCard.closest('.col-md-4').style.display = 'none';
-                
-                // 更新數字
                 const badge = document.querySelector('.badge.bg-danger.bg-opacity-10');
                 if(badge) badge.textContent = "2 筆待辦";
             }
