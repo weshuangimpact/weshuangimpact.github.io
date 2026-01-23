@@ -17,7 +17,7 @@
             display: none; /* Auth Guard */
         }
 
-        /* PDCA 說明字卡樣式 [引用 source: 15-20] */
+        /* PDCA 說明字卡樣式 */
         .demo-info-card {
             background-color: #fffbeb;
             border-left: 4px solid #f59e0b;
@@ -29,12 +29,9 @@
             line-height: 1.6;
         }
 
-        /* 搜尋框樣式優化 */
-        .search-container {
-            transition: all 0.5s ease;
-        }
+        /* 搜尋框樣式 */
         .search-input-group {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             border-radius: 0.5rem;
             overflow: hidden;
         }
@@ -47,7 +44,20 @@
             box-shadow: inset 0 0 0 2px #3b82f6;
         }
 
-        /* 報告區塊動畫 [引用 source: 6-8] */
+        /* 人員列表樣式 (New) */
+        .consultant-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            transition: all 0.3s;
+            background: white;
+        }
+        .consultant-card:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* 動畫 */
         .fade-in-up {
             animation: fadeInUp 0.5s ease-out forwards;
         }
@@ -56,7 +66,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 文件列表樣式 [引用 source: 168] */
+        /* 文件列表樣式 */
         .file-item {
             cursor: pointer;
             transition: all 0.2s;
@@ -93,42 +103,105 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h2 class="fw-bold text-dark"><i class="fas fa-magnifying-glass-chart me-2 text-primary"></i>評鑑支援 AI 智慧助理</h2>
-                <p class="text-muted mb-0">Evaluation 階段：智慧稽核與佐證資料調閱</p>
+                <p class="text-muted mb-0">Evaluation 階段：智慧稽核、資格勾稽與佐證調閱</p>
             </div>
         </div>
 
         <div class="demo-info-card">
             <i class="fas fa-clipboard-check me-2"></i>
-            <strong>PDCA 設計理念：Evaluation (評鑑) —— 智慧稽核與證據串聯</strong><br>
-            此模組作為最終評鑑的支援工具，透過 NLP 自然語言處理技術，讓外部評鑑委員或內部稽核人員能使用「口語化指令」快速撈取佐證資料。系統自動串聯前述 Plan (計畫)、Do (執行) 與 Check (查核) 的歷程數據，瞬間生成視覺化合規報告，大幅縮短評鑑準備時間並提升公信力。
+            <strong>PDCA 設計理念：Evaluation (評鑑) —— 智慧稽核與人員資格勾稽</strong><br>
+            此模組整合「資料搜索」與「人員履歷」兩大功能：<br>
+            1. <strong>NLP 智慧搜索</strong>：透過自然語言快速撈取佐證資料。<br>
+            2. <strong>資格履歷串聯</strong>：直接串聯職安署認可資料庫，點選顧問姓名即可一鍵生成該人員負責之「所有服務案件履歷」，確保人力配置符合法規要求且無超量服務之虞。
         </div>
 
-        <div id="search-view" class="py-5">
+        <div id="search-view" class="py-4">
             <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-6 text-center">
-                    
+                <div class="col-lg-8 text-center mb-5">
                     <div class="bg-primary bg-opacity-10 d-inline-block rounded-circle p-4 mb-4">
                         <i class="fas fa-robot fa-4x text-primary"></i>
                     </div>
-                    
                     <h3 class="fw-bold text-dark mb-3">評鑑資料查詢助手</h3>
-                    <p class="text-muted mb-4">請輸入關鍵字以調閱評鑑佐證資料。系統將自動彙整 Plan-Do-Check 歷程。</p>
+                    <p class="text-muted mb-4">請輸入關鍵字，或從下方列表中點選顧問以調閱其服務履歷。</p>
 
-                    <div class="search-input-group d-flex mb-4">
+                    <div class="search-input-group d-flex mb-3">
                         <span class="input-group-text bg-white border-0 ps-3"><i class="fas fa-search text-muted"></i></span>
                         <input type="text" id="search-input" class="form-control" 
                                value="ABC 公司 2025 年臨場健康服務評鑑資料" 
                                placeholder="例如：台積電 113年 聽力保護計畫執行紀錄">
-                        <button class="btn btn-primary px-4 fw-bold" onclick="performSearch()">
+                        <button class="btn btn-primary px-4 fw-bold" onclick="performSearch('NLP', '')">
                             查詢調閱
                         </button>
                     </div>
+                </div>
+            </div>
 
-                    <div class="d-flex justify-content-center gap-3 text-muted small">
-                        <span><i class="fas fa-history me-1"></i> 最近查詢：台積電 113年</span>
-                        <span><i class="fas fa-filter me-1"></i> 查詢分類：臨場服務</span>
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-white py-3 border-bottom">
+                            <h6 class="mb-0 fw-bold text-dark"><i class="fas fa-user-tie me-2 text-success"></i>認可顧問/醫護人員 快速索引</h6>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="list-group list-group-flush">
+                                
+                                <div class="list-group-item p-4 consultant-card border-bottom">
+                                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-light rounded-circle p-3 me-3 text-center" style="width: 60px; height: 60px;">
+                                                <i class="fas fa-user-md fa-lg text-secondary"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="fw-bold mb-1">陳國華 <span class="badge bg-success bg-opacity-10 text-success ms-1" style="font-size: 0.7rem;">勞工健康服務醫師</span></h5>
+                                                <small class="text-muted d-block">認可證號：職醫字第 112005 號</small>
+                                                <small class="text-success"><i class="fas fa-check-circle me-1"></i>認可效期：2023/01/01 ~ 2026/12/31</small>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-outline-primary btn-sm" onclick="performSearch('Person', '陳國華醫師')">
+                                            <i class="fas fa-folder-open me-2"></i>調閱服務案件 (2案)
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="list-group-item p-4 consultant-card border-bottom">
+                                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-light rounded-circle p-3 me-3 text-center" style="width: 60px; height: 60px;">
+                                                <i class="fas fa-user-nurse fa-lg text-secondary"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="fw-bold mb-1">林美秀 <span class="badge bg-info bg-opacity-10 text-info ms-1" style="font-size: 0.7rem;">勞工健康服務護理人員</span></h5>
+                                                <small class="text-muted d-block">認可證號：台南護字第 008899 號</small>
+                                                <small class="text-success"><i class="fas fa-check-circle me-1"></i>認可效期：2024/06/01 ~ 2027/05/31</small>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-outline-primary btn-sm" onclick="performSearch('Person', '林美秀護理師')">
+                                            <i class="fas fa-folder-open me-2"></i>調閱服務案件 (2案)
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="list-group-item p-4 consultant-card">
+                                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-light rounded-circle p-3 me-3 text-center" style="width: 60px; height: 60px;">
+                                                <i class="fas fa-hard-hat fa-lg text-secondary"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="fw-bold mb-1">張志明 <span class="badge bg-warning bg-opacity-10 text-warning text-dark ms-1" style="font-size: 0.7rem;">職業衛生管理師</span></h5>
+                                                <small class="text-muted d-block">認可證號：職安衛字第 223344 號</small>
+                                                <small class="text-success"><i class="fas fa-check-circle me-1"></i>認可效期：2022/01/01 ~ 2025/12/31</small>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-outline-primary btn-sm" onclick="performSearch('Person', '張志明職衛師')">
+                                            <i class="fas fa-folder-open me-2"></i>調閱服務案件 (1案)
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -137,141 +210,29 @@
             
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <button onclick="resetSearch()" class="btn btn-link text-decoration-none text-secondary ps-0">
-                    <i class="fas fa-arrow-left me-2"></i>返回重新查詢
+                    <i class="fas fa-arrow-left me-2"></i>返回查詢頁面
                 </button>
                 <span class="badge bg-success bg-opacity-10 text-success border border-success px-3 py-2 rounded-pill">
-                    <i class="fas fa-check-circle me-1"></i> 查詢完成
+                    <i class="fas fa-check-circle me-1"></i> 資料彙整完成
                 </span>
             </div>
 
             <div class="card border-0 shadow-lg overflow-hidden">
                 <div class="card-header bg-light border-bottom p-4 d-flex justify-content-between align-items-start">
                     <div>
-                        <h4 class="fw-bold text-dark mb-1">臨場健康服務執行績效與評鑑報告</h4>
-                        <small class="text-muted">資料來源：OHSMS 系統歸檔資料庫 | 報告產出時間：<span id="report-date">2026/01/23</span></small>
+                        <h4 class="fw-bold text-dark mb-1" id="report-title">臨場健康服務執行績效報告</h4>
+                        <small class="text-muted">資料來源：OHSMS 系統歸檔資料庫 | 產出時間：<span id="report-date"></span></small>
                     </div>
                     <button class="btn btn-outline-secondary btn-sm bg-white" onclick="window.print()">
-                        <i class="fas fa-print me-2"></i>列印報告
+                        <i class="fas fa-print me-2"></i>列印
                     </button>
                 </div>
 
                 <div class="card-body p-4 p-lg-5">
-                    <div class="row g-5">
-                        
-                        <div class="col-lg-8">
-                            
-                            <div class="mb-5">
-                                <h5 class="fw-bold text-primary border-start border-4 border-primary ps-3 mb-3">案件基本資訊</h5>
-                                <div class="bg-light p-4 rounded border">
-                                    <div class="row g-3">
-                                        <div class="col-md-6">
-                                            <small class="text-muted d-block mb-1">事業單位名稱</small>
-                                            <strong class="text-dark fs-5">ABC 精密機械股份有限公司</strong>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <small class="text-muted d-block mb-1">統一編號</small>
-                                            <strong class="text-dark">12345678</strong>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <small class="text-muted d-block mb-1">服務年度</small>
-                                            <strong class="text-dark">2025 年度 (民國 114 年)</strong>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <small class="text-muted d-block mb-1">顧問／職護人員</small>
-                                            <strong class="text-dark"><i class="fas fa-user-nurse me-1"></i> 李雅婷 護理師</strong>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h5 class="fw-bold text-primary border-start border-4 border-primary ps-3 mb-3">臨場健康服務項目 (法規合規檢核)</h5>
-                                <div class="table-responsive border rounded">
-                                    <table class="table table-hover mb-0 align-middle">
-                                        <thead class="bg-light text-secondary">
-                                            <tr>
-                                                <th class="ps-4">條號</th>
-                                                <th>執行項目</th>
-                                                <th>狀態</th>
-                                                <th class="pe-4">備註</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="ps-4 fw-bold">9-1</td>
-                                                <td>勞工體格(健康)檢查結果分析與評估</td>
-                                                <td><span class="badge bg-success bg-opacity-10 text-success rounded-pill">已完成</span></td>
-                                                <td class="pe-4 small text-muted">分級管理資料已建檔</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="ps-4 fw-bold">9-2</td>
-                                                <td>勞工適性工作評估與配置建議</td>
-                                                <td><span class="badge bg-success bg-opacity-10 text-success rounded-pill">已完成</span></td>
-                                                <td class="pe-4 small text-muted">已完成復工評估 2 案</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="ps-4 fw-bold">9-3</td>
-                                                <td>健康檢查異常追蹤與健康指導</td>
-                                                <td><span class="badge bg-success bg-opacity-10 text-success rounded-pill">已完成</span></td>
-                                                <td class="pe-4 small text-muted">面談紀錄完整</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="ps-4 fw-bold">11-1</td>
-                                                <td>辨識與評估工作場所危害因子</td>
-                                                <td><span class="badge bg-warning bg-opacity-10 text-warning text-dark rounded-pill">進行中</span></td>
-                                                <td class="pe-4 small text-muted">噪音測點規劃中</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                    
+                    <div id="report-content">
                         </div>
 
-                        <div class="col-lg-4">
-                            <h5 class="fw-bold text-primary border-start border-4 border-primary ps-3 mb-3">佐證文件調閱</h5>
-                            <div class="d-flex flex-column gap-3">
-                                
-                                <div class="file-item p-3 rounded bg-white d-flex align-items-center" onclick="openPdfModal('2025_9-1_執行紀錄表.pdf')">
-                                    <div class="bg-danger bg-opacity-10 text-danger p-3 rounded me-3">
-                                        <i class="fas fa-file-pdf fa-lg"></i>
-                                    </div>
-                                    <div>
-                                        <div class="fw-bold text-dark small">2025_9-1_執行紀錄表.pdf</div>
-                                        <div class="text-muted" style="font-size: 0.75rem;">已用印歸檔 • 2.4 MB</div>
-                                    </div>
-                                </div>
-
-                                <div class="file-item p-3 rounded bg-white d-flex align-items-center" onclick="openPdfModal('2025_9-2_適性評估報告.pdf')">
-                                    <div class="bg-danger bg-opacity-10 text-danger p-3 rounded me-3">
-                                        <i class="fas fa-file-pdf fa-lg"></i>
-                                    </div>
-                                    <div>
-                                        <div class="fw-bold text-dark small">2025_9-2_適性評估報告.pdf</div>
-                                        <div class="text-muted" style="font-size: 0.75rem;">已用印歸檔 • 1.8 MB</div>
-                                    </div>
-                                </div>
-
-                                <div class="file-item p-3 rounded bg-white d-flex align-items-center" onclick="openPdfModal('2025_訪視照片集.pdf')">
-                                    <div class="bg-danger bg-opacity-10 text-danger p-3 rounded me-3">
-                                        <i class="fas fa-file-pdf fa-lg"></i>
-                                    </div>
-                                    <div>
-                                        <div class="fw-bold text-dark small">2025_訪視照片集.pdf</div>
-                                        <div class="text-muted" style="font-size: 0.75rem;">附件 • 5.2 MB</div>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="mt-4 p-3 bg-light rounded border border-warning">
-                                <h6 class="fw-bold text-dark small"><i class="fas fa-exclamation-circle text-warning me-2"></i>評鑑小幫手</h6>
-                                <p class="text-muted mb-0 small" style="line-height: 1.4;">
-                                    系統偵測到「11-1 危害辨識」項目附件尚未齊全，建議提醒職護人員於 3 日內補齊，以免影響評鑑分數。
-                                </p>
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
             </div>
         </div>
@@ -299,55 +260,149 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // 初始化
         document.addEventListener('DOMContentLoaded', function() {
             document.body.style.display = 'block';
             const userName = sessionStorage.getItem('currentUserName') || 'User';
             document.getElementById('user-display').innerHTML = `<small>User: ${userName}</small>`;
-            
-            // 設定報告日期
             const today = new Date();
             document.getElementById('report-date').textContent = today.toLocaleDateString('zh-TW');
         });
 
-        // 1. 執行搜尋 [引用 source: 207]
-        function performSearch() {
-            const input = document.getElementById('search-input').value.trim();
-            if(input === "") {
-                alert("請輸入查詢關鍵字");
-                return;
-            }
-
+        // 執行搜尋 (支援 NLP 搜尋 與 人員履歷搜尋)
+        function performSearch(type, keyword) {
+            
             // 模擬 Loading
             const btn = document.querySelector('#search-view button');
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>資料彙整中...';
-            btn.disabled = true;
-
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>AI 運算中...';
+            
             setTimeout(() => {
-                // 切換視圖
+                // 1. 切換視圖
                 document.getElementById('search-view').style.display = 'none';
                 document.getElementById('report-view').style.display = 'block';
-                
-                // 恢復按鈕
                 btn.innerHTML = originalText;
-                btn.disabled = false;
-            }, 1000);
+
+                // 2. 根據類型生成內容
+                const contentDiv = document.getElementById('report-content');
+                const title = document.getElementById('report-title');
+
+                if (type === 'Person') {
+                    // === 人員履歷模式 (模擬 1-2 個案件) ===
+                    title.textContent = `顧問履歷與案件清單：${keyword}`;
+                    
+                    let casesHtml = '';
+                    
+                    // 根據人名模擬不同案件
+                    if (keyword.includes('陳國華')) {
+                        casesHtml = `
+                            ${generateCaseCard('ABC 精密機械 (電子業)', '2025', '114001', '正常服務中')}
+                            ${generateCaseCard('XYZ 物流中心 (倉儲業)', '2025', '114008', '正常服務中')}
+                        `;
+                    } else if (keyword.includes('林美秀')) {
+                        casesHtml = `
+                            ${generateCaseCard('TopTech 電子 (科技業)', '2025', '114012', '正常服務中')}
+                            ${generateCaseCard('味全食品 (食品業)', '2024', '113055', '已結案')}
+                        `;
+                    } else {
+                        casesHtml = `
+                            ${generateCaseCard('長榮建設 (營造業)', '2025', '114022', '正常服務中')}
+                        `;
+                    }
+
+                    contentDiv.innerHTML = `
+                        <div class="alert alert-info border-info d-flex align-items-center mb-4">
+                            <i class="fas fa-info-circle me-3 fs-4"></i>
+                            <div>
+                                <strong>AI 分析結果：</strong> 該人員資格符合職安法規定，且目前承攬案件量未超過法定上限 (臨場服務頻率正常)。
+                            </div>
+                        </div>
+                        <h5 class="fw-bold text-dark mb-3">負責案件列表</h5>
+                        ${casesHtml}
+                    `;
+
+                } else {
+                    // === 原有的 NLP 公司搜尋模式 (範例資料) ===
+                    title.textContent = '臨場健康服務執行績效報告';
+                    contentDiv.innerHTML = `
+                        <div class="row g-5">
+                            <div class="col-lg-8">
+                                <div class="mb-5">
+                                    <h5 class="fw-bold text-primary border-start border-4 border-primary ps-3 mb-3">案件基本資訊</h5>
+                                    <div class="bg-light p-4 rounded border">
+                                        <div class="row g-3">
+                                            <div class="col-md-6"><small class="text-muted d-block mb-1">事業單位</small><strong class="text-dark">ABC 精密機械</strong></div>
+                                            <div class="col-md-6"><small class="text-muted d-block mb-1">統編</small><strong class="text-dark">12345678</strong></div>
+                                            <div class="col-md-6"><small class="text-muted d-block mb-1">年度</small><strong class="text-dark">2025</strong></div>
+                                            <div class="col-md-6"><small class="text-muted d-block mb-1">人員</small><strong class="text-dark">李雅婷 護理師</strong></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 class="fw-bold text-primary border-start border-4 border-primary ps-3 mb-3">法規合規檢核</h5>
+                                    <table class="table table-hover border">
+                                        <thead class="bg-light"><tr><th class="ps-3">項目</th><th>狀態</th></tr></thead>
+                                        <tbody>
+                                            <tr><td class="ps-3">9-1 健檢分析</td><td><span class="badge bg-success bg-opacity-10 text-success">完成</span></td></tr>
+                                            <tr><td class="ps-3">9-2 適性評估</td><td><span class="badge bg-success bg-opacity-10 text-success">完成</span></td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <h5 class="fw-bold text-primary border-start border-4 border-primary ps-3 mb-3">佐證文件</h5>
+                                ${generateFileItem('2025_9-1_執行紀錄.pdf')}
+                                ${generateFileItem('2025_訪視照片.pdf')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+            }, 800);
         }
 
-        // 2. 重置搜尋 [引用 source: 208]
+        // 輔助函式：生成案件卡片 HTML
+        function generateCaseCard(companyName, year, caseId, status) {
+            return `
+                <div class="card mb-3 shadow-sm border-start border-4 border-primary">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="card-title fw-bold text-dark mb-1">${companyName}</h5>
+                                <div class="text-muted small">
+                                    <span class="me-3"><i class="far fa-calendar me-1"></i>${year} 年度</span>
+                                    <span><i class="fas fa-hashtag me-1"></i>案號：${caseId}</span>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <span class="badge bg-success bg-opacity-10 text-success mb-2">${status}</span>
+                                <br>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="alert('跳轉至該案件詳細資料')">查看詳情</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 輔助函式：生成文件項目 HTML
+        function generateFileItem(filename) {
+            return `
+                <div class="file-item p-3 rounded bg-white d-flex align-items-center mb-2" onclick="openPdfModal('${filename}')">
+                    <div class="bg-danger bg-opacity-10 text-danger p-2 rounded me-3"><i class="fas fa-file-pdf"></i></div>
+                    <div class="fw-bold text-dark small">${filename}</div>
+                </div>
+            `;
+        }
+
         function resetSearch() {
             document.getElementById('report-view').style.display = 'none';
             document.getElementById('search-view').style.display = 'block';
         }
 
-        // 3. 開啟 PDF Modal [引用 source: 223]
         function openPdfModal(filename) {
             document.getElementById('pdfFileName').textContent = filename;
             document.getElementById('pdfModalTitle').textContent = "預覽：" + filename;
-            
-            const myModal = new bootstrap.Modal(document.getElementById('pdfModal'));
-            myModal.show();
+            new bootstrap.Modal(document.getElementById('pdfModal')).show();
         }
     </script>
 </body>
