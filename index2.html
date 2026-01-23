@@ -1,1 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者總覽 (Check/Act) | OHSMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-bg: #f4f6f9;
+        }
+        body {
+            background-color: var(--primary-bg);
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            display: none; /* Auth Guard */
+        }
 
+        /* PDCA 說明字卡樣式 [引用 source: 15-20] */
+        .demo-info-card {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            color: #92400e;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* 待辦卡片互動效果 [引用 source: 113] */
+        .task-card {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid #0d6efd;
+        }
+        .task-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+        .task-card.priority-high {
+            border-left-color: #dc3545; /* Red for high priority */
+        }
+        .task-card.priority-manual {
+            border-left-color: #6f42c1; /* Purple for manual */
+        }
+
+        /* 審查輸入框樣式 [引用 source: 11-14] */
+        .review-input-locked {
+            background-color: transparent;
+            border: none;
+            font-weight: bold;
+            color: #1e293b;
+            width: 100%;
+            pointer-events: none;
+        }
+        .review-input-unlocked {
+            background-color: white;
+            border: 1px solid #3b82f6;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            width: 100%;
+            pointer-events: auto;
+        }
+    </style>
+
+    <script>
+        const role = sessionStorage.getItem('currentUserRole');
+        // 嚴格限制：僅 Admin 或 Medical 可進入，一般 User 踢除
+        if (!role || role === 'general') {
+            alert('權限不足：此頁面僅供管理人員訪問');
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 mb-4">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="dashboard.html"><i class="fas fa-shield-alt me-2"></i>OHSMS</a>
+            <div class="d-flex align-items-center">
+                <span class="text-light me-3" id="user-display"></span>
+                <a href="dashboard.html" class="btn btn-outline-light btn-sm"><i class="fas fa-arrow-left me-1"></i> 返回儀表板</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container pb-5">
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold text-dark"><i class="fas fa-chart-pie me-2 text-success"></i>管理者總覽</h2>
+                <p class="text-muted mb-0">Check & Act 階段：績效查核與歸檔審查</p>
+            </div>
+            <div>
+                <span class="badge bg-success bg-opacity-10 text-success fs-6 me-2">可評鑑: 12</span>
+                <span class="badge bg-danger bg-opacity-10 text-danger fs-6">未完成: 3</span>
+            </div>
+        </div>
+
+        <div class="demo-info-card">
+            <i class="fas fa-gavel me-2"></i>
+            <strong>PDCA 設計理念：Check & Act (查核與行動) —— 缺口管理與歸檔審查</strong><br>
+            此介面包含兩大核心功能：<br>
+            1. <strong>缺口分析 (Check)</strong>：即時比對法規要求與執行現況，以紅燈標示缺件。<br>
+            2. <strong>歸檔審查 (Act)</strong>：針對文管機器人傳送的待辦項目進行「人機協作」審核。管理者可預覽原始文件並修正 AI 判讀結果，確保每一筆寫入資料庫的紀錄皆符合合規標準（Gatekeeping）。
+        </div>
+
+        <div class="mb-5">
+            <h5 class="fw-bold text-dark mb-3 d-flex align-items-center">
+                <span class="badge bg-danger rounded-pill me-2" style="width: 10px; height: 10px; padding: 0;">&nbsp;</span>
+                待歸檔資料通知
+                <span class="badge bg-danger bg-opacity-10 text-danger ms-2 rounded-pill small">3 筆待辦</span>
+            </h5>
+
+            <div class="row g-4" id="notification-list">
+                
+                <div class="col-md-4">
+                    <div class="card shadow-sm task-card bg-white" onclick="openArchivingReview('ABCDEF有限公司', '2024', '9-2 適性評估')">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="badge bg-primary bg-opacity-10 text-primary">AI 建議</span>
+                                <small class="text-muted">10 分鐘前</small>
+                            </div>
+                            <h5 class="card-title fw-bold text-dark">ABCDEF有限公司</h5>
+                            <div class="text-muted small mt-2">
+                                <div class="mb-1"><i class="far fa-calendar me-2"></i>2024 年度</div>
+                                <div><i class="fas fa-tag me-2"></i>9-2 適性評估</div>
+                            </div>
+                            <div class="border-top mt-3 pt-3 text-center text-primary fw-bold small">
+                                點擊進行審查與歸檔 <i class="fas fa-arrow-right ms-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card shadow-sm task-card bg-white" onclick="openArchivingReview('XYZ物流中心', '2024', '9-3 異常追蹤')">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="badge bg-primary bg-opacity-10 text-primary">AI 建議</span>
+                                <small class="text-muted">2 小時前</small>
+                            </div>
+                            <h5 class="card-title fw-bold text-dark">XYZ物流中心</h5>
+                            <div class="text-muted small mt-2">
+                                <div class="mb-1"><i class="far fa-calendar me-2"></i>2024 年度</div>
+                                <div><i class="fas fa-tag me-2"></i>9-3 異常追蹤</div>
+                            </div>
+                            <div class="border-top mt-3 pt-3 text-center text-primary fw-bold small">
+                                點擊進行審查與歸檔 <i class="fas fa-arrow-right ms-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card shadow-sm task-card priority-manual bg-white" onclick="openArchivingReview('TopTech電子', '2025', '11-1 危害辨識')">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="badge bg-purple bg-opacity-10 text-purple" style="color: #6f42c1; background-color: #f3ebff;">人工上傳</span>
+                                <small class="text-muted">昨天</small>
+                            </div>
+                            <h5 class="card-title fw-bold text-dark">TopTech電子</h5>
+                            <div class="text-muted small mt-2">
+                                <div class="mb-1"><i class="far fa-calendar me-2"></i>2025 年度</div>
+                                <div><i class="fas fa-tag me-2"></i>11-1 危害辨識</div>
+                            </div>
+                            <div class="border-top mt-3 pt-3 text-center text-primary fw-bold small">
+                                點擊進行審查與歸檔 <i class="fas fa-arrow-right ms-1"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-light py-3">
+                <h5 class="mb-0 fw-bold text-dark">各事業單位評鑑資料完成度總覽</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light text-secondary">
+                            <tr>
+                                <th class="ps-4 py-3">事業單位</th>
+                                <th>年度</th>
+                                <th>已完成項目數</th>
+                                <th>缺件項目</th>
+                                <th class="text-end pe-4">狀態</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="ps-4 fw-bold">ABCDEF有限公司</td>
+                                <td>2024</td>
+                                <td>15 / 15</td>
+                                <td class="text-success">無</td>
+                                <td class="text-end pe-4"><span class="badge bg-success bg-opacity-10 text-success">資料齊備</span></td>
+                            </tr>
+                            <tr>
+                                <td class="ps-4 fw-bold">XYZ 物流中心</td>
+                                <td>2024</td>
+                                <td>2 / 6</td>
+                                <td class="text-danger fw-bold">9-2, 9-3</td>
+                                <td class="text-end pe-4"><span class="badge bg-danger bg-opacity-10 text-danger">未完成</span></td>
+                            </tr>
+                            <tr>
+                                <td class="ps-4 fw-bold">TopTech電子</td>
+                                <td>2025</td>
+                                <td>8 / 12</td>
+                                <td class="text-warning text-dark">11-1 審查中</td>
+                                <td class="text-end pe-4"><span class="badge bg-warning bg-opacity-10 text-warning text-dark">進行中</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal fade" id="archivingModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title fs-6 fw-bold"><i class="fas fa-file-signature me-2"></i>資料歸檔審查</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4 bg-light">
+                    
+                    <div class="alert alert-primary d-flex align-items-start border-primary border-start border-4" role="alert">
+                        <i class="fas fa-robot text-primary mt-1 me-3 fs-5"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">AI 預判分類結果</h6>
+                            <small>系統依據文件內容自動填寫以下欄位，請管理者確認是否正確。如需調整，請點擊「修改」按鈕。</small>
+                        </div>
+                    </div>
+
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="small text-muted fw-bold text-uppercase">事業單位</label>
+                                <input type="text" id="review-company" class="review-input-locked" value="ABCDEF有限公司" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="small text-muted fw-bold text-uppercase">歸檔年度</label>
+                                <input type="text" id="review-year" class="review-input-locked" value="2024" readonly>
+                            </div>
+                            <div class="mb-0">
+                                <label class="small text-muted fw-bold text-uppercase">歸檔類別</label>
+                                <div class="d-flex align-items-center">
+                                    <input type="text" id="review-category" class="review-input-locked" value="9-2 適性評估" readonly>
+                                    <span class="badge bg-success bg-opacity-10 text-success ms-2 border border-success" id="confidence-badge">信心度 98%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer bg-white">
+                    <button type="button" class="btn btn-outline-secondary flex-fill" id="btn-modify" onclick="toggleArchivingEdit()">
+                        <i class="fas fa-pen-to-square me-2"></i>修改
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary flex-fill" onclick="openPdfModal()">
+                        <i class="fas fa-eye me-2"></i>預覽文件
+                    </button>
+                    <button type="button" class="btn btn-primary flex-fill fw-bold" onclick="confirmArchiving()">
+                        <i class="fas fa-check me-2"></i>確認並歸檔
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="pdfModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content h-100">
+                <div class="modal-header bg-secondary text-white py-2">
+                    <h6 class="modal-title" id="pdfModalTitle">文件預覽</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center" style="min-height: 500px;">
+                    <div class="text-center text-muted">
+                        <i class="far fa-file-pdf fa-5x mb-3"></i>
+                        <h5>PDF 文件預覽區 (Demo)</h5>
+                        <p>此處將顯示實際文件內容</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.display = 'block';
+            const userName = sessionStorage.getItem('currentUserName') || 'Admin';
+            document.getElementById('user-display').innerHTML = `<small>管理者: ${userName}</small>`;
+        });
+
+        // 1. 開啟審查 Modal [引用 source: 212]
+        let currentReviewCard = null; // 紀錄目前點擊的是哪張卡片
+        let archivingModal; // Bootstrap Modal 實例
+
+        function openArchivingReview(company, year, category) {
+            // 儲存來源卡片以便歸檔後刪除 (視覺效果)
+            currentReviewCard = event.currentTarget;
+
+            document.getElementById('review-company').value = company;
+            document.getElementById('review-year').value = year;
+            document.getElementById('review-category').value = category;
+
+            // 重置編輯狀態
+            isReviewEditing = false;
+            updateReviewFieldsState();
+
+            // 顯示 Modal
+            archivingModal = new bootstrap.Modal(document.getElementById('archivingModal'));
+            archivingModal.show();
+        }
+
+        // 2. 編輯模式切換邏輯 [引用 source: 216-222]
+        let isReviewEditing = false;
+        function toggleArchivingEdit() {
+            isReviewEditing = !isReviewEditing;
+            updateReviewFieldsState();
+        }
+
+        function updateReviewFieldsState() {
+            const inputs = ['review-company', 'review-year', 'review-category'];
+            const btn = document.getElementById('btn-modify');
+            
+            inputs.forEach(id => {
+                const el = document.getElementById(id);
+                if (isReviewEditing) {
+                    el.readOnly = false;
+                    el.classList.remove('review-input-locked');
+                    el.classList.add('review-input-unlocked');
+                } else {
+                    el.readOnly = true;
+                    el.classList.remove('review-input-unlocked');
+                    el.classList.add('review-input-locked');
+                }
+            });
+
+            if (isReviewEditing) {
+                btn.innerHTML = '<i class="fas fa-save me-2"></i>儲存';
+                btn.classList.remove('btn-outline-secondary');
+                btn.classList.add('btn-warning');
+            } else {
+                btn.innerHTML = '<i class="fas fa-pen-to-square me-2"></i>修改';
+                btn.classList.remove('btn-warning');
+                btn.classList.add('btn-outline-secondary');
+            }
+        }
+
+        // 3. 確認歸檔 [引用 source: 222]
+        function confirmArchiving() {
+            alert('系統訊息：\n\n已成功歸檔！\n資料已寫入正式資料庫並產生稽核紀錄。');
+            
+            // 隱藏 Modal
+            const modalEl = document.getElementById('archivingModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            modal.hide();
+
+            // 視覺上移除該卡片 (Demo效果)
+            if(currentReviewCard) {
+                currentReviewCard.closest('.col-md-4').style.display = 'none';
+                
+                // 更新數字
+                const badge = document.querySelector('.badge.bg-danger.bg-opacity-10');
+                if(badge) badge.textContent = "2 筆待辦";
+            }
+        }
+
+        // 4. PDF 預覽
+        function openPdfModal() {
+            const pdfModal = new bootstrap.Modal(document.getElementById('pdfModal'));
+            pdfModal.show();
+        }
+    </script>
+</body>
+</html>
