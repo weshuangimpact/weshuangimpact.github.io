@@ -130,11 +130,7 @@
 
         <div class="master-info-card shadow-sm">
             <strong><i class="fas fa-magic me-2"></i>智慧建檔功能 (Smart Import)</strong><br>
-            您可透過「匯入歷史資料」功能，上傳客戶過去的<strong>「勞工健康服務執行紀錄表 (PDF)」</strong>。系統將自動擷取以下欄位建立主檔：
-            <ul class="mb-0 ps-3 mt-1 small">
-                <li><strong>基本資料：</strong> 統一編號、事業單位名稱、部門名稱。</li>
-                <li><strong>作業概況：</strong> 勞工人數結構 (分男女/行政現場)、特別危害作業 (高溫/噪音人數)、製程描述。</li>
-            </ul>
+            您可透過「匯入歷史資料」功能，直接上傳既有的<strong>「勞工健康服務執行紀錄表 (PDF)」</strong>。系統將自動解析文件內容，擷取員工人數、製程特性與危害分類，自動建立客戶主檔。
         </div>
 
         <div class="card border-0 shadow-sm mb-4">
@@ -176,13 +172,13 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="ps-4 font-monospace">87654321</td>
-                                <td class="fw-bold">XYZ 物流中心</td>
-                                <td class="small text-muted">CT-2024-008</td>
-                                <td>林小姐 (02-23456789)</td>
-                                <td><div class="d-flex align-items-center"><div class="bg-success text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width:24px;height:24px;font-size:10px;">林</div>林美秀</div></td>
-                                <td><span class="text-muted text-opacity-25"><i class="fas fa-paperclip"></i></span></td>
-                                <td class="small text-muted">2024/06/01 ~ 2025/05/31</td>
+                                <td class="ps-4 font-monospace">12345678</td>
+                                <td class="fw-bold">ABCDEF有限公司</td>
+                                <td class="small text-muted">CT-2024-001</td>
+                                <td>陳經理</td>
+                                <td><div class="d-flex align-items-center"><div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width:24px;height:24px;font-size:10px;">王</div>王大明</div></td>
+                                <td><i class="fas fa-paperclip text-primary"></i></td>
+                                <td class="small text-muted">2024/01/01 ~ 2025/12/31</td>
                                 <td><span class="status-active">合約中</span></td>
                                 <td class="text-end pe-4">
                                     <button class="btn btn-sm btn-outline-secondary me-1"><i class="fas fa-pen"></i></button>
@@ -190,14 +186,14 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="ps-4 font-monospace">22334455</td>
-                                <td class="fw-bold">TopTech 電子</td>
-                                <td class="small text-muted">CT-2023-012</td>
-                                <td>張特助 (03-5566778)</td>
-                                <td><div class="d-flex align-items-center"><div class="bg-info text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width:24px;height:24px;font-size:10px;">張</div>張志明</div></td>
-                                <td><i class="fas fa-paperclip text-primary"></i></td>
-                                <td class="small text-muted">2023/01/01 ~ 2023/12/31</td>
-                                <td><span class="status-inactive">已過期</span></td>
+                                <td class="ps-4 font-monospace">87654321</td>
+                                <td class="fw-bold">XYZ 物流中心</td>
+                                <td class="small text-muted">CT-2024-008</td>
+                                <td>林小姐</td>
+                                <td><div class="d-flex align-items-center"><div class="bg-success text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width:24px;height:24px;font-size:10px;">林</div>林美秀</div></td>
+                                <td><span class="text-muted text-opacity-25"><i class="fas fa-paperclip"></i></span></td>
+                                <td class="small text-muted">2024/06/01 ~ 2025/05/31</td>
+                                <td><span class="status-active">合約中</span></td>
                                 <td class="text-end pe-4">
                                     <button class="btn btn-sm btn-outline-secondary me-1"><i class="fas fa-pen"></i></button>
                                     <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
@@ -231,6 +227,7 @@
                         <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#contract">4. 合約及附件</button></li>
                     </ul>
                     <div class="tab-content p-4" id="myTabContent">
+                        
                         <div class="tab-pane fade show active" id="basic">
                             <h6 class="form-section-title">公司基本資料</h6>
                             <div class="row g-3">
@@ -238,8 +235,87 @@
                                 <div class="col-md-8"><label class="form-label fw-bold">事業單位名稱 <span class="text-danger">*</span></label><input type="text" class="form-control"></div>
                                 <div class="col-md-12"><label class="form-label">公司地址</label><input type="text" class="form-control"></div>
                             </div>
+                            <h6 class="form-section-title">聯絡窗口</h6>
+                            <div class="row g-3">
+                                <div class="col-md-4"><label class="form-label">聯絡人</label><input type="text" class="form-control"></div>
+                                <div class="col-md-4"><label class="form-label">電話</label><input type="text" class="form-control"></div>
+                                <div class="col-md-4"><label class="form-label">Email</label><input type="email" class="form-control"></div>
+                            </div>
                         </div>
+
+                        <div class="tab-pane fade" id="workplace">
+                            <h6 class="form-section-title">基本概況</h6>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6"><label class="form-label">部門名稱</label><input type="text" class="form-control"></div>
+                                <div class="col-md-6"><label class="form-label">一般作業人數</label><input type="number" class="form-control"></div>
+                            </div>
+
+                            <h6 class="form-section-title">勞工人數結構 (ABCDEF 格式)</h6>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <div class="card bg-light border-0">
+                                        <div class="card-body">
+                                            <h6 class="card-title text-muted small fw-bold">行政人員</h6>
+                                            <div class="row">
+                                                <div class="col-6"><label class="small">男</label><input type="number" class="form-control form-control-sm"></div>
+                                                <div class="col-6"><label class="small">女</label><input type="number" class="form-control form-control-sm"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card bg-light border-0">
+                                        <div class="card-body">
+                                            <h6 class="card-title text-muted small fw-bold">現場操作人員</h6>
+                                            <div class="row">
+                                                <div class="col-6"><label class="small">男</label><input type="number" class="form-control form-control-sm"></div>
+                                                <div class="col-6"><label class="small">女</label><input type="number" class="form-control form-control-sm"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h6 class="form-section-title">特別危害健康作業</h6>
+                            <div class="row g-3">
+                                <div class="col-md-4"><label class="form-label">1. 高溫 (人)</label><input type="number" class="form-control"></div>
+                                <div class="col-md-4"><label class="form-label">2. 噪音 (人)</label><input type="number" class="form-control"></div>
+                                <div class="col-md-4"><label class="form-label">3. 其他 (人)</label><input type="number" class="form-control"></div>
+                            </div>
                         </div>
+
+                        <div class="tab-pane fade" id="condition">
+                            <h6 class="form-section-title">作業細節描述</h6>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">1. 工作流程 (製程)</label>
+                                <textarea class="form-control" rows="3" placeholder="例如：整經漿紗->織布->脫漿->成布加工..."></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">2. 工作型態與時間</label>
+                                <textarea class="form-control" rows="2" placeholder="例如：行政人員常日班，產線人員輪值三班。"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">3. 潛在工作危害特性</label>
+                                <textarea class="form-control" rows="3" placeholder="例如：高溫、噪音、人因性危害..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="contract">
+                            <h6 class="form-section-title">合約與管理資訊</h6>
+                            <div class="row g-3">
+                                <div class="col-md-4"><label class="form-label">合約編號</label><input type="text" class="form-control"></div>
+                                <div class="col-md-4"><label class="form-label">合約起始日</label><input type="date" class="form-control"></div>
+                                <div class="col-md-4"><label class="form-label">合約結束日</label><input type="date" class="form-control"></div>
+                                <div class="col-md-6"><label class="form-label fw-bold">指派負責顧問</label><select class="form-select"><option>王大明 醫師</option><option>李雅婷 護理師</option></select></div>
+                            </div>
+                            <h6 class="form-section-title mt-4">文件歸檔</h6>
+                            <div class="upload-zone" onclick="alert('開啟檔案選擇器')">
+                                <i class="fas fa-file-contract fa-2x text-secondary mb-2"></i>
+                                <p class="mb-0 text-muted small">合約影本上傳</p>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
                 <div class="modal-footer bg-light">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
@@ -261,7 +337,7 @@
             document.getElementById('importInput').click();
         }
 
-        // 2. 模擬匯入流程
+        // 2. 模擬匯入流程 (使用 參考範例1 的數據)
         function simulateImportProcess() {
             const input = document.getElementById('importInput');
             if (input.files && input.files[0]) {
@@ -272,21 +348,23 @@
                     // 隱藏 Loading
                     document.getElementById('loadingOverlay').style.display = 'none';
                     
-                    // 3. 動態新增一列 (模擬 ABCDEF 有限公司匯入)
+                    // 3. 動態新增一列 (使用 0000公司 數據)
                     const tbody = document.querySelector('#clientTable tbody');
                     const newRow = document.createElement('tr');
-                    newRow.className = 'new-row-highlight animate__animated animate__fadeInUp'; // 動畫效果
+                    newRow.className = 'new-row-highlight animate__animated animate__fadeInUp'; 
                     
-                    // 根據 PDF [cite: 1, 5] 填入的模擬數據
+                    [cite_start]// 根據 [參考範例1.pdf] 填入數據 [cite: 59, 60]
+                    // 統編模擬: 00001234
+                    // 人數: 行政 20+30, 現場 40+20 = 110
                     newRow.innerHTML = `
-                        <td class="ps-4 font-monospace">12345678</td>
-                        <td class="fw-bold">ABCDEF有限公司 <span class="badge bg-primary bg-opacity-10 text-primary ms-2" style="font-size: 0.7rem;">New</span></td>
+                        <td class="ps-4 font-monospace">00001234</td>
+                        <td class="fw-bold">0000科技有限公司 <span class="badge bg-primary bg-opacity-10 text-primary ms-2" style="font-size: 0.7rem;">New</span></td>
                         <td class="small text-muted">待補登</td>
-                        <td>陳廠長 (系統帶入)</td>
-                        <td><div class="d-flex align-items-center"><div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width:24px;height:24px;font-size:10px;">王</div>王大明</div></td>
-                        <td><i class="fas fa-file-pdf text-danger" title="來源文件"></i></td>
-                        <td class="small text-muted">2024/01/01 ~ 2024/12/31</td>
-                        <td><span class="status-active">合約中</span></td>
+                        <td>系統帶入</td>
+                        <td><div class="d-flex align-items-center"><div class="bg-secondary text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width:24px;height:24px;font-size:10px;">待</div>指派中</div></td>
+                        <td><i class="fas fa-file-pdf text-danger" title="來源文件：勞工健康服務執行紀錄表_參考範例1.pdf"></i></td>
+                        <td class="small text-muted">2022/01/01 ~ 2022/12/31</td>
+                        <td><span class="status-inactive">已過期</span></td>
                         <td class="text-end pe-4">
                             <button class="btn btn-sm btn-outline-secondary me-1"><i class="fas fa-pen"></i></button>
                             <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
@@ -295,13 +373,13 @@
                     
                     tbody.appendChild(newRow);
                     
-                    // 成功提示
-                    alert('匯入成功！\n\n系統已依據「ABCDEF有限公司_勞工健康服務執行紀錄_2024-01-01.pdf」建立基本資料。\n\n擷取重點：\n- 員工人數：110 人 (含行政/現場)\n- 特別危害：高溫、噪音\n- 製程：紡織相關');
+                    // 成功提示 (顯示擷取的重點資訊)
+                    alert('匯入成功！\n\n系統已依據「勞工健康服務執行紀錄表_參考範例1.pdf」建立基本資料。\n\n[AI 擷取重點]\n● 公司名稱：0000科技有限公司\n● 員工總數：110 人 (行政50/現場60)\n● 危害風險：高溫(5人)、噪音(20人)\n● 製程特徵：紡織相關(漿紗/織布/染整)');
                     
                     // 捲動到底部
                     newRow.scrollIntoView({ behavior: 'smooth' });
 
-                }, 1500); // 模擬 1.5 秒運算時間
+                }, 1500); 
             }
         }
     </script>
