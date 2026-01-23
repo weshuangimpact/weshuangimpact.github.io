@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>系統維護與稽核日誌 | OHSMS</title>
+    <title>系統稽核與資安 | OHSMS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
@@ -75,23 +75,23 @@
         
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-                <h2 class="fw-bold text-dark"><i class="fas fa-server me-2 text-secondary"></i>系統維護與稽核日誌</h2>
-                <p class="text-muted mb-0">Event Logging & Audit Trail (僅限管理員)</p>
+                <h2 class="fw-bold text-dark"><i class="fas fa-user-shield me-2 text-secondary"></i>系統稽核與資安</h2>
+                <p class="text-muted mb-0">Security Audit Logs & Compliance Monitoring (僅限管理員)</p>
             </div>
             
             <div class="d-flex gap-2">
-                <button class="btn btn-outline-dark btn-sm" onclick="alert('匯出 CSV 報表 (Demo)')"><i class="fas fa-file-csv me-1"></i>匯出日誌</button>
+                <button class="btn btn-outline-dark btn-sm" onclick="alert('匯出資安報表 (CSV/PDF)')"><i class="fas fa-file-export me-1"></i>匯出報表</button>
                 <button class="btn btn-primary btn-sm" onclick="location.reload()"><i class="fas fa-sync-alt me-1"></i>重新整理</button>
             </div>
         </div>
 
         <div class="audit-info-card shadow-sm">
-            <span class="audit-title"><i class="fas fa-fingerprint me-2"></i>證據鏈與系統除錯 (Evidence & Debugging)</span>
-            本頁面完整記錄系統內所有關鍵操作行為，目的包含：
+            <span class="audit-title"><i class="fas fa-fingerprint me-2"></i>資安監控與數位證據鏈 (Security Monitoring & Digital Forensics)</span>
+            本模組依據 ISO 27001 資訊安全標準設計，完整記錄系統關鍵行為，確保數據之完整性與不可否認性：
             <ul class="mb-0 ps-3 mt-1 small">
-                <li><strong>資安稽核 (Audit):</strong> 追蹤「誰」在「什麼時間」做了「什麼動作」，確保資料異動的可追溯性 (Non-repudiation)。</li>
-                <li><strong>系統除錯 (Debug):</strong> 當系統發生錯誤時，可依據操作歷程與 API 狀態碼 (Status) 進行問題排查。</li>
-                <li><strong>敏感操作監控:</strong> 特別標示刪除、權限變更等高風險行為。</li>
+                <li><strong>資安合規 (Compliance):</strong> 詳實記錄所有人員之登入、存取、修改與刪除行為，建立完整數位軌跡 (Audit Trail)。</li>
+                <li><strong>入侵偵測 (Intrusion Detection):</strong> 系統自動標示異常登入（如：密碼錯誤過多、非授權IP）與越權存取嘗試，提供早期預警。</li>
+                <li><strong>證據保全 (Evidence):</strong> 所有日誌採「唯讀」寫入，作為發生資安事件或責任歸屬釐清時之數位鑑識依據。</li>
             </ul>
         </div>
 
@@ -114,9 +114,10 @@
                             <span class="input-group-text bg-light">事件類型</span>
                             <select class="form-select">
                                 <option value="">全部類型</option>
-                                <option value="login">系統登入</option>
-                                <option value="upload">資料上傳</option>
-                                <option value="delete">刪除操作</option>
+                                <option value="login">系統登入 (Login)</option>
+                                <option value="upload">資料異動 (Data)</option>
+                                <option value="delete">刪除操作 (Delete)</option>
+                                <option value="security">資安警示 (Security)</option>
                             </select>
                         </div>
                     </div>
@@ -129,7 +130,7 @@
                         </div>
                     </div>
                     <div class="col-md-2 text-end">
-                        <button class="btn btn-secondary btn-sm w-100 fw-bold">查詢</button>
+                        <button class="btn btn-secondary btn-sm w-100 fw-bold">查詢日誌</button>
                     </div>
                 </div>
             </div>
@@ -147,7 +148,7 @@
                                 <th style="width: 140px;">動作類型 (Action)</th>
                                 <th>事件詳情 (Description)</th>
                                 <th style="width: 100px;">狀態</th>
-                                <th class="text-end pe-4" style="width: 80px;">功能</th>
+                                <th class="text-end pe-4" style="width: 80px;">詳情</th>
                             </tr>
                         </thead>
                         <tbody id="log-table-body">
@@ -156,9 +157,9 @@
                                 <td><span class="fw-bold text-dark">Admin</span> <span class="badge bg-secondary text-white" style="font-size: 0.65rem;">管理員</span></td>
                                 <td class="small text-muted">192.168.1.10</td>
                                 <td><span class="badge badge-op-delete">刪除文件</span></td>
-                                <td class="small">移除了 "2023_教育訓練_舊版.ppt" 從 <span class="text-primary">資源中心</span></td>
+                                <td class="small">移除了 "2023_教育訓練_舊版.ppt" 從 <span class="text-primary">資源中心</span> (檔案雜湊值: a1b2...e9)</td>
                                 <td><span class="badge bg-success">成功</span></td>
-                                <td class="text-end pe-4"><button class="btn btn-link btn-sm text-secondary p-0"><i class="fas fa-info-circle"></i></button></td>
+                                <td class="text-end pe-4"><button class="btn btn-link btn-sm text-secondary p-0"><i class="fas fa-search-plus"></i></button></td>
                             </tr>
 
                             <tr>
@@ -166,9 +167,9 @@
                                 <td><span class="fw-bold text-dark">Nurse</span> <span class="badge bg-info text-white" style="font-size: 0.65rem;">醫護</span></td>
                                 <td class="small text-muted">192.168.1.55</td>
                                 <td><span class="badge badge-op-create">上傳資料</span></td>
-                                <td class="small">上傳了 "ABCDEF有限公司_臨場紀錄.pdf" 至 <span class="text-primary">顧問上傳區</span></td>
+                                <td class="small">上傳 "ABCDEF有限公司_臨場紀錄.pdf" 至 <span class="text-primary">顧問上傳區</span></td>
                                 <td><span class="badge bg-success">成功</span></td>
-                                <td class="text-end pe-4"><button class="btn btn-link btn-sm text-secondary p-0"><i class="fas fa-info-circle"></i></button></td>
+                                <td class="text-end pe-4"><button class="btn btn-link btn-sm text-secondary p-0"><i class="fas fa-search-plus"></i></button></td>
                             </tr>
 
                             <tr>
@@ -176,17 +177,17 @@
                                 <td><span class="fw-bold text-purple-600" style="color: #6f42c1;">System AI</span> <span class="badge bg-light text-dark border" style="font-size: 0.65rem;">Bot</span></td>
                                 <td class="small text-muted">Localhost</td>
                                 <td><span class="badge bg-warning text-dark border border-warning">OCR 辨識</span></td>
-                                <td class="small">自動解析 PDF 內容，擷取信心度 98.5%</td>
+                                <td class="small">自動解析 PDF 內容，擷取關鍵欄位 (信心度 98.5%)</td>
                                 <td><span class="badge bg-success">成功</span></td>
-                                <td class="text-end pe-4"><button class="btn btn-link btn-sm text-secondary p-0"><i class="fas fa-info-circle"></i></button></td>
+                                <td class="text-end pe-4"><button class="btn btn-link btn-sm text-secondary p-0"><i class="fas fa-search-plus"></i></button></td>
                             </tr>
 
                             <tr>
                                 <td class="ps-4 text-muted small">2026-01-23 09:00:01</td>
                                 <td><span class="fw-bold text-dark">Unknown</span></td>
                                 <td class="small text-danger fw-bold">203.145.xx.xx</td>
-                                <td><span class="badge badge-op-login">嘗試登入</span></td>
-                                <td class="small text-danger">密碼錯誤次數過多 (User: admin)</td>
+                                <td><span class="badge badge-op-login">異常登入</span></td>
+                                <td class="small text-danger">密碼錯誤次數過多 (User: admin) - 觸發帳號暫時鎖定</td>
                                 <td><span class="badge bg-danger">失敗</span></td>
                                 <td class="text-end pe-4"><button class="btn btn-link btn-sm text-secondary p-0"><i class="fas fa-exclamation-triangle text-danger"></i></button></td>
                             </tr>
@@ -195,10 +196,10 @@
                                 <td class="ps-4 text-muted small">2026-01-22 16:45:33</td>
                                 <td><span class="fw-bold text-dark">User</span> <span class="badge bg-light text-dark border" style="font-size: 0.65rem;">一般</span></td>
                                 <td class="small text-muted">192.168.1.88</td>
-                                <td><span class="badge bg-secondary text-white">存取拒絕</span></td>
-                                <td class="small">嘗試存取 "index6.html" (系統維護頁)</td>
+                                <td><span class="badge bg-secondary text-white">越權存取</span></td>
+                                <td class="small">嘗試存取 "index6.html" (系統稽核頁) - 權限不足</td>
                                 <td><span class="badge bg-warning text-dark">阻擋</span></td>
-                                <td class="text-end pe-4"><button class="btn btn-link btn-sm text-secondary p-0"><i class="fas fa-info-circle"></i></button></td>
+                                <td class="text-end pe-4"><button class="btn btn-link btn-sm text-secondary p-0"><i class="fas fa-search-plus"></i></button></td>
                             </tr>
 
                         </tbody>
