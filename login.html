@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
@@ -131,16 +130,16 @@
             }
 
             if (isValid) {
-                // 將角色權限寫入 Session，供 index1.html 判讀
+                // 將角色權限寫入 Session，供後續頁面判讀
                 sessionStorage.setItem('currentUserRole', role);
                 sessionStorage.setItem('currentUserName', userInput);
                 
-                // 導向儀表板
-                window.location.href = 'index1.html';
+                // [修正處] 導向至 dashboard.html (儀表板)，而非 index1.html
+                window.location.href = 'dashboard.html';
             } else {
                 // 顯示錯誤
                 errorMsg.style.display = 'block';
-                // 搖晃動畫效果 (可選)
+                // 搖晃動畫效果
                 document.querySelector('.login-card').classList.add('shake');
                 setTimeout(() => {
                     document.querySelector('.login-card').classList.remove('shake');
