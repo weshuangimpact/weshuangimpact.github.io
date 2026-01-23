@@ -1,1 +1,152 @@
 
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入 | 職業衛生服務管理系統</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            border-bottom: none;
+        }
+
+        .login-btn {
+            background-color: #2c3e50;
+            border: none;
+            padding: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .login-btn:hover {
+            background-color: #34495e;
+        }
+
+        .form-control:focus {
+            border-color: #2c3e50;
+            box-shadow: 0 0 0 0.2rem rgba(44, 62, 80, 0.25);
+        }
+        
+        #error-msg {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card login-card">
+        <div class="card-header">
+            <h3 class="mb-0"><i class="fas fa-shield-alt me-2"></i>OHSMS</h3>
+            <small class="opacity-75">職業衛生服務管理系統</small>
+        </div>
+        <div class="card-body p-4">
+            
+            <div id="error-msg" class="alert alert-danger py-2 small" role="alert">
+                <i class="fas fa-exclamation-circle me-1"></i> 帳號或密碼錯誤
+            </div>
+
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label for="username" class="form-label text-muted small fw-bold">帳號 (Username)</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0"><i class="fas fa-user text-muted"></i></span>
+                        <input type="text" class="form-control border-start-0 ps-0" id="username" placeholder="請輸入帳號" required>
+                    </div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="password" class="form-label text-muted small fw-bold">密碼 (Password)</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0"><i class="fas fa-lock text-muted"></i></span>
+                        <input type="password" class="form-control border-start-0 ps-0" id="password" placeholder="請輸入密碼" required>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="rememberMe">
+                        <label class="form-check-label small text-muted" for="rememberMe">記住我</label>
+                    </div>
+                    <a href="#" class="text-decoration-none small text-muted">忘記密碼?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 login-btn">登入系統</button>
+            </form>
+        </div>
+        <div class="card-footer bg-light text-center py-3 border-top-0">
+            <small class="text-muted">&copy; 2026 OHSMS Inc. All rights reserved.</small>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const userInput = document.getElementById('username').value.trim();
+            const passInput = document.getElementById('password').value.trim();
+            const errorMsg = document.getElementById('error-msg');
+            
+            // 模擬後端驗證邏輯 (Mock Logic)
+            let role = '';
+            let isValid = false;
+
+            // 1. 管理員 (Admin)
+            if (userInput === 'admin' && passInput === 'admin') {
+                role = 'admin';
+                isValid = true;
+            } 
+            // 2. 醫護人員 (Nurse/Doctor)
+            else if (userInput === 'nurse' && passInput === '1234') {
+                role = 'medical';
+                isValid = true;
+            } 
+            // 3. 一般使用者/業主 (User)
+            else if (userInput === 'user' && passInput === '1234') {
+                role = 'general';
+                isValid = true;
+            }
+
+            if (isValid) {
+                // 將角色權限寫入 Session，供 index1.html 判讀
+                sessionStorage.setItem('currentUserRole', role);
+                sessionStorage.setItem('currentUserName', userInput);
+                
+                // 導向儀表板
+                window.location.href = 'index1.html';
+            } else {
+                // 顯示錯誤
+                errorMsg.style.display = 'block';
+                // 搖晃動畫效果 (可選)
+                document.querySelector('.login-card').classList.add('shake');
+                setTimeout(() => {
+                    document.querySelector('.login-card').classList.remove('shake');
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
