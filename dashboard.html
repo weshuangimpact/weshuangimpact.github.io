@@ -167,6 +167,23 @@
                 </div>
             </div>
 
+            <div class="col-xl-3 col-md-6" id="card-index6">
+                <div class="card dashboard-card bg-white" onclick="window.location.href='index6.html'">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5 class="card-title fw-bold">系統維護與稽核</h5>
+                                <span class="badge bg-dark bg-opacity-75 text-white mb-2">Admin Only</span>
+                                <div class="text-muted small">操作日誌與除錯紀錄</div>
+                            </div>
+                            <div class="icon-wrapper bg-dark bg-opacity-10 text-dark">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -188,21 +205,24 @@
             document.getElementById('user-display').innerHTML = `<small>${roleTitle} (${userName})</small>`;
 
             // 3. 權限邏輯 (RBAC)
-            // 取得各卡片元素
             const cardManager = document.getElementById('card-index2'); // 管理者總覽
             const cardEval = document.getElementById('card-index3');    // 評鑑機器人
-            
-            // index5 (文件資源中心) 對所有人開放，因此無需隱藏邏輯
+            const cardMaint = document.getElementById('card-index6');   // [新增] 系統維護
 
-            // 一般使用者 (User)：只能看 上傳(index1), AI(index4), 資源(index5)
-            if (userRole === 'general') {
+            // [預設隱藏] 系統維護卡片，只有 Admin 能打開
+            if(cardMaint) cardMaint.style.display = 'none';
+
+            if (userRole === 'admin') {
+                // Admin 權限：顯示所有，包含維護卡片
+                if(cardMaint) cardMaint.style.display = 'block';
+            }
+            else if (userRole === 'general') {
+                // 一般使用者：隱藏 管理、評鑑、維護
                 if(cardManager) cardManager.style.display = 'none';
                 if(cardEval) cardEval.style.display = 'none';
+                // cardMaint 保持隱藏
             }
-            
-            // 醫護人員 (Nurse)：
-            // 假設醫護人員可以看評鑑，但不能看純管理者總覽
-            // if (userRole === 'medical') { ... } 
+            // 醫護人員：保留預設 (隱藏維護，顯示其他)
         });
 
         function logout() {
