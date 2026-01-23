@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>顧問資料上傳 (Plan/Do) | OHSMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-bg: #f4f6f9;
+        }
+        body {
+            background-color: var(--primary-bg);
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+            display: none; /* Auth Guard */
+        }
+
+        /* PDCA 說明字卡樣式 [引用 source: 15-20] */
+        .demo-info-card {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            color: #92400e;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .demo-info-card strong {
+            font-weight: 700;
+            color: #b45309;
+        }
+
+        /* 輸入框狀態樣式 [引用 source: 8-11] */
+        .input-readonly {
+            background-color: #f8fafc;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            cursor: default;
+        }
+        .input-readonly:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        .input-editable {
+            background-color: #ffffff;
+            border: 1px solid #3b82f6;
+            color: #1e293b;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Checkbox 優化 */
+        .form-check-input:checked {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        /* 步驟標題 */
+        .step-title {
+            border-left: 4px solid #0d6efd;
+            padding-left: 10px;
+            font-weight: bold;
+            color: #0d6efd;
+            margin-bottom: 1rem;
+        }
+    </style>
+
+    <script>
+        const role = sessionStorage.getItem('currentUserRole');
+        if (!role) {
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 mb-4">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand" href="dashboard.html"><i class="fas fa-shield-alt me-2"></i>OHSMS</a>
+            <div class="d-flex align-items-center">
+                <span class="text-light me-3" id="user-display"></span>
+                <a href="dashboard.html" class="btn btn-outline-light btn-sm"><i class="fas fa-arrow-left me-1"></i> 返回儀表板</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container pb-5">
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold text-dark"><i class="fas fa-file-arrow-up me-2 text-primary"></i>顧問資料上傳</h2>
+                <p class="text-muted mb-0">Plan & Do 階段：建立基準與執行紀錄</p>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4 p-md-5">
+
+                <div class="demo-info-card">
+                    <i class="fas fa-compass me-2"></i>
+                    <strong>PDCA 設計理念：Plan (計畫) —— 基準確立與歷史繼承</strong><br>
+                    系統透過「統編」與「年度」自動調閱歷史歸檔，建立當次服務的「基準線（Baseline）」。這不僅減少重複 Key-in，更確保了資料結構與法規邏輯的一致性，為後續的 Do (執行) 階段奠定基礎。
+                </div>
+
+                <div class="bg-light p-4 rounded mb-4 border">
+                    <h5 class="step-title">Step 1：帶入作業場所資料</h5>
+                    <div class="row g-3 align-items-end">
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small text-muted">統一編號 <span class="text-danger">*</span></label>
+                            <input type="text" id="input-tax-id" class="form-control" value="12345678" placeholder="請輸入統編">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold small text-muted">服務年度 <span class="text-danger">*</span></label>
+                            <select id="input-year" class="form-select">
+                                <option value="2025">2025 (114年)</option>
+                                <option value="2024" selected>2024 (113年)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <button onclick="fetchCompanyData(this)" class="btn btn-primary w-100 fw-bold">
+                                <i class="fas fa-magnifying-glass me-2"></i> 確認並帶入資料
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="company-data-section" style="display: none;">
+                    
+                    <hr class="my-5">
+
+                    <div class="demo-info-card">
+                        <i class="fas fa-pen-nib me-2"></i>
+                        <strong>PDCA 設計理念：Do (執行) —— 現場實況校正</strong><br>
+                        當現場狀況（如員工人數變動、新增製程）與歷史基準不符時，顧問必須透過「資料更新」功能進行修正。這些修正後的數據經確認後，將成為最新的「現況紀錄」。
+                    </div>
+
+                    <div class="alert alert-warning d-flex justify-content-between align-items-center" role="alert">
+                        <small><i class="fas fa-file-pdf me-2 text-danger"></i>已帶入來源：<strong>ABCDEF有限公司_歷史紀錄_2024.pdf</strong></small>
+                        <button id="edit-btn" onclick="toggleEditMode()" class="btn btn-light btn-sm border fw-bold">
+                            <i class="fas fa-pen-to-square me-1"></i> 啟用編輯
+                        </button>
+                    </div>
+
+                    <div class="card mb-4 border">
+                        <div class="card-header bg-light fw-bold text-dark">一、作業場所基本資料</div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted fw-bold">事業單位名稱</label>
+                                    <input type="text" class="form-control input-readonly data-field" value="ABCDEF有限公司" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted fw-bold">部門名稱</label>
+                                    <input type="text" class="form-control input-readonly data-field" value="台南廠" readonly>
+                                </div>
+                                
+                                <div class="col-12 mt-4">
+                                    <h6 class="border-bottom pb-2 fw-bold text-secondary">勞工人數統計</h6>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <span class="fw-bold me-3" style="width: 80px;">行政人員</span>
+                                        <span class="text-muted me-2">男</span>
+                                        <input type="number" class="form-control input-readonly data-field text-center me-2" style="width: 70px;" value="30" readonly>
+                                        <span class="text-muted me-3">人</span>
+                                        <span class="text-muted me-2">女</span>
+                                        <input type="number" class="form-control input-readonly data-field text-center me-2" style="width: 70px;" value="20" readonly>
+                                        <span class="text-muted">人</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <span class="fw-bold me-3" style="width: 80px;">現場人員</span>
+                                        <span class="text-muted me-2">男</span>
+                                        <input type="number" class="form-control input-readonly data-field text-center me-2" style="width: 70px;" value="40" readonly>
+                                        <span class="text-muted me-3">人</span>
+                                        <span class="text-muted me-2">女</span>
+                                        <input type="number" class="form-control input-readonly data-field text-center me-2" style="width: 70px;" value="20" readonly>
+                                        <span class="text-muted">人</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4 border">
+                        <div class="card-header bg-light fw-bold text-dark d-flex justify-content-between">
+                            <span>二、特別危害健康作業</span>
+                            <span class="badge bg-warning text-dark"><i class="fas fa-exclamation-triangle me-1"></i>風險關注</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex flex-wrap gap-3">
+                                <div class="input-group" style="width: 200px;">
+                                    <span class="input-group-text bg-white">1. 高溫</span>
+                                    <input type="number" class="form-control input-readonly data-field text-center" value="5" readonly>
+                                    <span class="input-group-text bg-light">人</span>
+                                </div>
+                                <div class="input-group" style="width: 200px;">
+                                    <span class="input-group-text bg-white">2. 噪音</span>
+                                    <input type="number" class="form-control input-readonly data-field text-center" value="20" readonly>
+                                    <span class="input-group-text bg-light">人</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+                        <h5 class="step-title">Step 2：臨場服務項目 (法規檢核)</h5>
+                        <div class="card border border-primary bg-primary bg-opacity-10 mb-3">
+                            <div class="card-body d-flex align-items-center">
+                                <input class="form-check-input me-3" type="checkbox" checked disabled style="transform: scale(1.2);">
+                                <div>
+                                    <h6 class="mb-0 fw-bold text-primary">勞工健康服務執行紀錄表 (核心必要)</h6>
+                                    <small class="text-muted">依職安法規規定必須產出之文件</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-2 ps-2">
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="check9-1" checked>
+                                    <label class="form-check-label" for="check9-1">9-1 勞工體格(健康)檢查結果分析與評估</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="check9-2" checked>
+                                    <label class="form-check-label" for="check9-2">9-2 勞工適性工作評估與配置建議</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="check9-3" checked>
+                                    <label class="form-check-label" for="check9-3">9-3 健康檢查異常追蹤與健康指導</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="check11-1" checked>
+                                    <label class="form-check-label" for="check11-1">11-1 辨識與評估工作場所危害因子</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+                        <h5 class="step-title">Step 3：簽核文件上傳</h5>
+                        <div class="border-2 border-dashed border-secondary rounded p-5 text-center bg-light" style="cursor: pointer;" onclick="alert('開啟檔案選擇器 (Demo)')">
+                            <i class="fas fa-cloud-arrow-up fa-3x text-secondary mb-3"></i>
+                            <h6 class="fw-bold text-secondary">點擊上傳 PDF 文件</h6>
+                            <small class="text-muted">請上傳已用印之正式文件以供評鑑佐證 (Max: 10MB)</small>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-4 pt-3 border-top">
+                        <button class="btn btn-secondary me-2" onclick="location.reload()">取消重置</button>
+                        <button class="btn btn-primary px-4 fw-bold shadow" onclick="alert('上傳成功！資料已寫入資料庫。')">
+                            <i class="fas fa-paper-plane me-2"></i>確認提交 (Plan/Do)
+                        </button>
+                    </div>
+
+                </div> </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // 顯示使用者名稱
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.display = 'block';
+            const userName = sessionStorage.getItem('currentUserName') || 'Guest';
+            document.getElementById('user-display').innerHTML = `<small>Hi, ${userName}</small>`;
+        });
+
+        // 模擬 API 查詢資料 [引用 source: 195]
+        function fetchCompanyData(btn) {
+            const taxId = document.getElementById('input-tax-id').value;
+            const originalText = btn.innerHTML;
+
+            if(taxId !== '12345678') {
+                alert('查無此統編 (Demo請輸入: 12345678)');
+                return;
+            }
+
+            // Loading 效果
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>查詢中...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // 顯示隱藏區域
+                document.getElementById('company-data-section').style.display = 'block';
+                // 捲動到該處
+                document.getElementById('company-data-section').scrollIntoView({ behavior: 'smooth' });
+                
+                // 按鈕恢復
+                btn.innerHTML = '<i class="fas fa-check me-2"></i>已帶入資料';
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-success');
+                
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('btn-success');
+                    btn.classList.add('btn-primary');
+                }, 2000);
+            }, 800);
+        }
+
+        // 編輯模式切換邏輯 [引用 source: 202]
+        let isEditMode = false;
+        function toggleEditMode() {
+            const btn = document.getElementById('edit-btn');
+            const fields = document.querySelectorAll('.data-field');
+            
+            isEditMode = !isEditMode;
+
+            if (isEditMode) {
+                // 進入編輯模式
+                fields.forEach(field => {
+                    field.readOnly = false;
+                    field.classList.remove('input-readonly');
+                    field.classList.add('input-editable');
+                });
+                btn.innerHTML = '<i class="fas fa-save me-1"></i> 儲存變更';
+                btn.classList.remove('btn-light');
+                btn.classList.add('btn-primary');
+            } else {
+                // 儲存並變回唯讀
+                fields.forEach(field => {
+                    field.readOnly = true;
+                    field.classList.remove('input-editable');
+                    field.classList.add('input-readonly');
+                });
+                btn.innerHTML = '<i class="fas fa-pen-to-square me-1"></i> 啟用編輯';
+                btn.classList.remove('btn-primary');
+                btn.classList.add('btn-light');
+                alert('系統訊息：資料已更新並暫存。');
+            }
+        }
+    </script>
+</body>
+</html>
