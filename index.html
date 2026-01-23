@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>職業安全衛生評鑑資料管理系統（完整演示版_歸檔優化）</title>
+    <title>職業安全衛生評鑑資料管理系統（完整演示版_含PDCA說明）</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -93,10 +93,17 @@
         <!-- Tab 2: 顧問資料上傳介面 (預設首頁) -->
         <!-- ========================================== -->
         <div id="tab2" class="h-full flex flex-col">
-            <!-- (內容保持不變，省略以節省長度，請參考前版) -->
             <div class="max-w-5xl mx-auto bg-white rounded-lg shadow border border-slate-200 w-full">
                 <div class="p-6 border-b border-slate-200"><h2 class="text-xl font-bold text-slate-800">顧問資料上傳</h2><p class="text-sm text-slate-500 mt-1">輸入統編與年度，自動帶入歷史執行紀錄資料。</p></div>
                 <div class="p-8 space-y-8">
+                    
+                    <!-- Demo 說明字卡 (Plan) -->
+                    <div class="demo-info-card">
+                        <i class="fa-solid fa-compass"></i>
+                        <strong>PDCA 設計理念：Plan (計畫) —— 基準確立與歷史繼承</strong><br>
+                        系統透過「統編」與「年度」自動調閱歷史歸檔，建立當次服務的「基準線（Baseline）」。這不僅減少重複 Key-in，更確保了資料結構與法規邏輯的一致性，為後續的 Do (執行) 階段奠定基礎。
+                    </div>
+
                     <div class="bg-blue-50 p-6 rounded-lg border border-blue-100">
                         <label class="block text-base font-bold text-blue-800 mb-4 border-l-4 border-blue-500 pl-2">Step 1：帶入作業場所資料</label>
                         <div class="flex flex-col md:flex-row gap-4 items-end">
@@ -105,9 +112,23 @@
                             <div class="w-full md:w-1/3"><button onclick="fetchCompanyData()" class="w-full bg-blue-600 text-white px-4 py-2 rounded text-sm font-bold shadow hover:bg-blue-700 transition"><i class="fa-solid fa-magnifying-glass mr-2"></i> 確認並帶入資料</button></div>
                         </div>
                     </div>
+
                     <div id="company-data-section" class="hidden space-y-8">
-                        <div class="flex justify-between items-center bg-yellow-50 p-3 rounded-md border border-yellow-200 shadow-sm"><div class="text-sm text-slate-700 flex items-center"><i class="fa-solid fa-file-pdf mr-2 text-red-500"></i> <span>已帶入資料來源：<span class="font-bold underline">ABCDEF有限公司_勞工健康服務執行紀錄_2024-01-01.pdf</span></span></div><button onclick="alert('Demo: 切換編輯模式')" class="bg-white border border-slate-300 text-slate-700 px-4 py-1.5 rounded text-sm font-bold shadow-sm hover:text-blue-600"><i class="fa-solid fa-pen-to-square mr-2"></i> 資料更新</button></div>
-                        <div class="border border-slate-200 rounded-lg overflow-hidden"><div class="bg-slate-50 p-4 border-b border-slate-200"><h3 class="font-bold text-slate-700 text-lg">一、作業場所基本資料</h3></div><div class="p-6 grid grid-cols-2 gap-6"><div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">事業單位名稱</label><input type="text" class="w-full input-readonly rounded text-sm p-2.5" value="ABCDEF有限公司" readonly></div><div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">部門名稱</label><input type="text" class="w-full input-readonly rounded text-sm p-2.5" value="台南廠" readonly></div></div></div>
+                        
+                        <!-- Demo 說明字卡 (Do) -->
+                        <div class="demo-info-card">
+                            <i class="fa-solid fa-pen-nib"></i>
+                            <strong>PDCA 設計理念：Do (執行) —— 現場實況校正</strong><br>
+                            當現場狀況（如員工人數變動、新增製程）與歷史基準不符時，顧問必須透過「資料更新」功能進行修正。這些修正後的數據經確認後，將成為最新的「現況紀錄」，並寫入資料庫作為下一次 Plan 的依據，實現動態循環。
+                        </div>
+
+                        <div class="flex justify-between items-center bg-yellow-50 p-3 rounded-md border border-yellow-200 shadow-sm"><div class="text-sm text-slate-700 flex items-center"><i class="fa-solid fa-file-pdf mr-2 text-red-500"></i> <span>已帶入資料來源：<span class="font-bold underline">ABCDEF有限公司_勞工健康服務執行紀錄_2024-01-01.pdf</span></span></div><button onclick="toggleEditMode()" id="edit-btn" class="bg-white border border-slate-300 text-slate-700 px-4 py-1.5 rounded text-sm font-bold shadow-sm hover:text-blue-600 transition"><i class="fa-solid fa-pen-to-square mr-2"></i> 資料更新 (啟用編輯)</button></div>
+                        
+                        <div class="border border-slate-200 rounded-lg overflow-hidden">
+                            <div class="bg-slate-50 p-4 border-b border-slate-200"><h3 class="font-bold text-slate-700 text-lg">一、作業場所基本資料</h3></div>
+                            <div class="p-6 grid grid-cols-2 gap-6"><div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">事業單位名稱</label><input type="text" class="w-full input-readonly rounded text-sm p-2.5" value="ABCDEF有限公司" readonly></div><div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">部門名稱</label><input type="text" class="w-full input-readonly rounded text-sm p-2.5 data-field" value="台南廠" readonly></div></div>
+                        </div>
+                        
                         <div class="flex justify-end pt-4 border-t border-slate-100"><button class="bg-blue-600 text-white px-8 py-2.5 rounded text-sm font-bold shadow hover:bg-blue-700 transition"><i class="fa-regular fa-paper-plane mr-2"></i> 確認上傳</button></div>
                     </div>
                 </div>
@@ -115,11 +136,20 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- Tab 3: 管理者總覽 (新增歸檔通知) -->
+        <!-- Tab 3: 管理者總覽 (Check/Act) -->
         <!-- ========================================== -->
         <div id="tab3" class="hidden">
             
-            <!-- 新增：待歸檔資料通知區 -->
+            <!-- Demo 說明字卡 (Check & Act) -->
+            <div class="demo-info-card">
+                <i class="fa-solid fa-gavel"></i>
+                <strong>PDCA 設計理念：Check & Act (查核與行動) —— 缺口管理與歸檔審查</strong><br>
+                此介面包含兩大核心功能：<br>
+                1. <strong>缺口分析 (Check)</strong>：即時比對法規要求與執行現況，以紅燈標示缺件。<br>
+                2. <strong>歸檔審查 (Act)</strong>：針對文管機器人傳送的待辦項目進行「人機協作」審核。管理者可預覽原始文件並修正 AI 判讀結果，確保每一筆寫入資料庫的紀錄皆符合合規標準（Gatekeeping）。
+            </div>
+
+            <!-- 待歸檔資料通知區 -->
             <div class="mb-8">
                 <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center">
                     <span class="bg-red-500 w-2 h-6 mr-2 rounded-full"></span>
@@ -142,37 +172,19 @@
                             點擊進行審查與歸檔 <i class="fa-solid fa-arrow-right ml-1"></i>
                         </div>
                     </div>
-
                     <!-- Notification Card 2 -->
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200 border-l-4 border-l-blue-500 cursor-pointer hover:shadow-md transition group" onclick="openArchivingReview('XYZ物流中心', '2024', '9-3 異常追蹤')">
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded">AI 建議</span>
-                            <span class="text-xs text-slate-400">2 小時前</span>
-                        </div>
+                        <div class="flex justify-between items-start mb-2"><span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded">AI 建議</span><span class="text-xs text-slate-400">2 小時前</span></div>
                         <h4 class="font-bold text-slate-800 text-lg group-hover:text-blue-600 transition">XYZ物流中心</h4>
-                        <div class="mt-2 text-sm text-slate-500 space-y-1">
-                            <p><i class="fa-regular fa-calendar mr-2 w-4"></i>2024 年度</p>
-                            <p><i class="fa-solid fa-tag mr-2 w-4"></i>9-3 異常追蹤</p>
-                        </div>
-                        <div class="mt-3 pt-3 border-t border-slate-100 text-center text-xs text-blue-500 font-bold group-hover:underline">
-                            點擊進行審查與歸檔 <i class="fa-solid fa-arrow-right ml-1"></i>
-                        </div>
+                        <div class="mt-2 text-sm text-slate-500 space-y-1"><p><i class="fa-regular fa-calendar mr-2 w-4"></i>2024 年度</p><p><i class="fa-solid fa-tag mr-2 w-4"></i>9-3 異常追蹤</p></div>
+                        <div class="mt-3 pt-3 border-t border-slate-100 text-center text-xs text-blue-500 font-bold group-hover:underline">點擊進行審查與歸檔 <i class="fa-solid fa-arrow-right ml-1"></i></div>
                     </div>
-
                     <!-- Notification Card 3 -->
                     <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200 border-l-4 border-l-purple-500 cursor-pointer hover:shadow-md transition group" onclick="openArchivingReview('TopTech電子', '2025', '11-1 危害辨識')">
-                        <div class="flex justify-between items-start mb-2">
-                            <span class="bg-purple-100 text-purple-700 text-[10px] font-bold px-2 py-0.5 rounded">人工上傳</span>
-                            <span class="text-xs text-slate-400">昨天</span>
-                        </div>
+                        <div class="flex justify-between items-start mb-2"><span class="bg-purple-100 text-purple-700 text-[10px] font-bold px-2 py-0.5 rounded">人工上傳</span><span class="text-xs text-slate-400">昨天</span></div>
                         <h4 class="font-bold text-slate-800 text-lg group-hover:text-blue-600 transition">TopTech電子</h4>
-                        <div class="mt-2 text-sm text-slate-500 space-y-1">
-                            <p><i class="fa-regular fa-calendar mr-2 w-4"></i>2025 年度</p>
-                            <p><i class="fa-solid fa-tag mr-2 w-4"></i>11-1 危害辨識</p>
-                        </div>
-                        <div class="mt-3 pt-3 border-t border-slate-100 text-center text-xs text-blue-500 font-bold group-hover:underline">
-                            點擊進行審查與歸檔 <i class="fa-solid fa-arrow-right ml-1"></i>
-                        </div>
+                        <div class="mt-2 text-sm text-slate-500 space-y-1"><p><i class="fa-regular fa-calendar mr-2 w-4"></i>2025 年度</p><p><i class="fa-solid fa-tag mr-2 w-4"></i>11-1 危害辨識</p></div>
+                        <div class="mt-3 pt-3 border-t border-slate-100 text-center text-xs text-blue-500 font-bold group-hover:underline">點擊進行審查與歸檔 <i class="fa-solid fa-arrow-right ml-1"></i></div>
                     </div>
                 </div>
             </div>
@@ -201,11 +213,18 @@
         </div>
 
         <!-- ========================================== -->
-        <!-- Tab 1: 評鑑機器人 (查詢介面) -->
+        <!-- Tab 1: 評鑑機器人 (Evaluation) -->
         <!-- ========================================== -->
         <div id="tab1" class="hidden">
             <div id="search-view" class="flex flex-col items-center justify-center h-full transition-all duration-500">
                 <div class="w-full max-w-2xl text-center space-y-6">
+                    <!-- Demo 說明字卡 -->
+                    <div class="demo-info-card text-left">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        <strong>PDCA 設計理念：Evaluation (評鑑) —— 智慧調閱與可追溯性</strong><br>
+                        此介面運用 AI 語意分析技術，允許稽核人員透過自然語言指令即時調閱歷史紀錄。系統將非結構化的訪視紀錄轉化為可量化的法規完成度指標，且所有欄位皆可點擊追溯至原始 PDF 附件，確保資料的真實性與不可否認性。
+                    </div>
+
                     <div class="bg-blue-50 p-4 rounded-full inline-block mb-2"><i class="fa-solid fa-robot text-4xl text-blue-600"></i></div>
                     <h2 class="text-2xl font-bold text-slate-700">評鑑資料AI查詢助手</h2>
                     <div class="relative group text-left">
@@ -221,16 +240,24 @@
                     <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full border border-emerald-200"><i class="fa-solid fa-check-circle mr-1"></i> 查詢完成</span>
                 </div>
                 <div class="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden p-8 text-center text-slate-500">
-                    （評鑑報告內容，與前版相同，省略以節省篇幅）
+                    （評鑑報告內容，包含案件基本資訊、項目狀態與佐證文件，省略以節省篇幅）
                 </div>
             </div>
         </div>
 
         <!-- ========================================== -->
-        <!-- Tab 4: 文管機器人 (簡化版：只負責吃資料) -->
+        <!-- Tab 4: 文管機器人 (AI Support) -->
         <!-- ========================================== -->
         <div id="tab4" class="hidden">
             <div class="flex flex-col items-center justify-center h-full max-w-3xl mx-auto">
+                
+                <!-- Demo 說明字卡 (AI) -->
+                <div class="demo-info-card w-full mb-8">
+                    <i class="fa-solid fa-microchip"></i>
+                    <strong>PDCA 設計理念：AI Support (智能輔助) —— 資料攝取中心</strong><br>
+                    此為系統的「資料入口」。AI 僅作為「分類助手」而非決策者，負責對掃描文件進行 OCR 辨識與屬性預判。所有資料皆需傳送至「管理者總覽」進行人工確認（Human-in-the-Loop），確保資料進入正式資料庫前的準確性。
+                </div>
+
                 <div class="bg-white p-10 rounded-xl shadow-lg border border-slate-200 w-full text-center">
                     <div class="mb-6">
                         <div class="bg-indigo-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -255,18 +282,14 @@
 
     </main>
 
-    <!-- 歸檔審查 Modal (原本 Tab 4 右側介面優化版) -->
+    <!-- 歸檔審查 Modal -->
     <div id="archiving-modal" class="fixed inset-0 bg-slate-900 bg-opacity-75 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
         <div class="bg-white w-full max-w-2xl rounded-lg shadow-2xl flex flex-col overflow-hidden animate-fade-in-up transform transition-all">
-            <!-- Modal Header -->
             <div class="bg-slate-800 text-white px-6 py-4 flex justify-between items-center shrink-0">
                 <h3 class="font-bold text-lg"><i class="fa-solid fa-file-signature mr-2"></i>資料歸檔審查</h3>
                 <button onclick="closeArchivingModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
             </div>
-            
-            <!-- Modal Body -->
             <div class="p-8 bg-slate-50">
-                <!-- AI 提示 -->
                 <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 text-sm text-blue-900">
                     <div class="flex items-start">
                         <i class="fa-solid fa-robot mt-1 mr-3 text-blue-500"></i>
@@ -276,43 +299,19 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- 欄位區 -->
                 <div class="space-y-6">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">事業單位</label>
-                        <input type="text" id="review-company" class="review-input-locked" value="ABCDEF有限公司" readonly>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-500 uppercase mb-1">歸檔年度</label>
-                        <input type="text" id="review-year" class="review-input-locked" value="2024" readonly>
-                    </div>
+                    <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">事業單位</label><input type="text" id="review-company" class="review-input-locked" value="ABCDEF有限公司" readonly></div>
+                    <div><label class="block text-xs font-bold text-slate-500 uppercase mb-1">歸檔年度</label><input type="text" id="review-year" class="review-input-locked" value="2024" readonly></div>
                     <div>
                         <label class="block text-xs font-bold text-slate-500 uppercase mb-1">歸檔類別</label>
-                        <div class="flex items-center">
-                            <input type="text" id="review-category" class="review-input-locked" value="9-2 適性評估" readonly>
-                            <span class="ml-2 text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded border border-green-200" id="confidence-badge">信心度 98%</span>
-                        </div>
+                        <div class="flex items-center"><input type="text" id="review-category" class="review-input-locked" value="9-2 適性評估" readonly><span class="ml-2 text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded border border-green-200" id="confidence-badge">信心度 98%</span></div>
                     </div>
                 </div>
             </div>
-
-            <!-- Modal Footer (Buttons) -->
             <div class="bg-white border-t border-slate-200 p-6 flex space-x-4">
-                <!-- 修改鍵 -->
-                <button id="btn-modify" onclick="toggleArchivingEdit()" class="flex-1 bg-white border border-slate-300 text-slate-700 px-4 py-2.5 rounded text-sm font-bold hover:bg-slate-50 hover:text-blue-600 transition flex items-center justify-center">
-                    <i class="fa-solid fa-pen-to-square mr-2"></i> 修改
-                </button>
-                
-                <!-- 預覽鍵 (新增) -->
-                <button onclick="openPdfModal('待審文件.pdf')" class="flex-1 bg-white border border-slate-300 text-slate-700 px-4 py-2.5 rounded text-sm font-bold hover:bg-slate-50 hover:text-blue-600 transition flex items-center justify-center">
-                    <i class="fa-solid fa-eye mr-2"></i> 預覽文件
-                </button>
-
-                <!-- 確認歸檔鍵 -->
-                <button onclick="confirmArchiving()" class="flex-[1.5] bg-indigo-600 text-white px-4 py-2.5 rounded text-sm font-bold hover:bg-indigo-700 shadow-md transition flex items-center justify-center">
-                    <i class="fa-solid fa-check mr-2"></i> 確認並歸檔
-                </button>
+                <button id="btn-modify" onclick="toggleArchivingEdit()" class="flex-1 bg-white border border-slate-300 text-slate-700 px-4 py-2.5 rounded text-sm font-bold hover:bg-slate-50 hover:text-blue-600 transition flex items-center justify-center"><i class="fa-solid fa-pen-to-square mr-2"></i> 修改</button>
+                <button onclick="openPdfModal('待審文件.pdf')" class="flex-1 bg-white border border-slate-300 text-slate-700 px-4 py-2.5 rounded text-sm font-bold hover:bg-slate-50 hover:text-blue-600 transition flex items-center justify-center"><i class="fa-solid fa-eye mr-2"></i> 預覽文件</button>
+                <button onclick="confirmArchiving()" class="flex-[1.5] bg-indigo-600 text-white px-4 py-2.5 rounded text-sm font-bold hover:bg-indigo-700 shadow-md transition flex items-center justify-center"><i class="fa-solid fa-check mr-2"></i> 確認並歸檔</button>
             </div>
         </div>
     </div>
@@ -389,7 +388,7 @@
                 btn.classList.replace('bg-white', 'bg-blue-600'); btn.classList.replace('text-slate-700', 'text-white'); btn.classList.replace('border-slate-300', 'border-blue-600');
             } else {
                 fields.forEach(field => { field.readOnly = true; field.classList.remove('input-editable'); field.classList.add('input-readonly'); });
-                btn.innerHTML = '<i class="fa-solid fa-pen-to-square mr-2"></i> 資料更新';
+                btn.innerHTML = '<i class="fa-solid fa-pen-to-square mr-2"></i> 資料更新 (啟用編輯)';
                 btn.classList.replace('bg-blue-600', 'bg-white'); btn.classList.replace('text-white', 'text-slate-700'); btn.classList.replace('border-blue-600', 'border-slate-300');
                 alert('系統訊息：資料已更新並暫存。');
             }
@@ -473,7 +472,6 @@
         function confirmArchiving() {
             alert('系統訊息：\n\n已成功歸檔！\n資料已寫入正式資料庫並產生稽核紀錄。');
             closeArchivingModal();
-            // Demo 效果：移除點擊的那個卡片 (這裡簡單重整即可，或需更複雜邏輯)
         }
 
         // PDF Preview Modal
