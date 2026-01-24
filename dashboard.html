@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>主儀表板 | OHSMS</title>
+    <title>工作儀表板 | OHSMS</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <style>
         :root {
-            --primary-bg: #f4f6f9;
+            --primary-bg: #f8f9fa;
             --card-hover-transform: translateY(-5px);
         }
         body {
             background-color: var(--primary-bg);
             font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
-            display: none; /* 預設隱藏，待驗證後顯示 */
+            display: none; /* 權限驗證前先隱藏 */
         }
         .dashboard-card {
             border: none;
@@ -24,11 +24,20 @@
             transition: all 0.3s ease;
             cursor: pointer;
             height: 100%;
+            border-left: 4px solid transparent; /* 左側飾條預留 */
         }
         .dashboard-card:hover {
             transform: var(--card-hover-transform);
             box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
         }
+        
+        /* 卡片左側飾條顏色定義 */
+        .card-plan { border-left-color: #0d6efd; }
+        .card-check { border-left-color: #198754; }
+        .card-eval { border-left-color: #ffc107; }
+        .card-data { border-left-color: #4f46e5; }
+        .card-admin { border-left-color: #212529; }
+
         .icon-wrapper {
             width: 60px;
             height: 60px;
@@ -38,12 +47,18 @@
             justify-content: center;
             font-size: 1.5rem;
         }
+        .guide-text {
+            font-size: 0.85rem;
+            color: #6c757d;
+            line-height: 1.4;
+            margin-top: 8px;
+        }
     </style>
 
     <script>
         const role = sessionStorage.getItem('currentUserRole');
         if (!role) {
-            window.location.href = 'login.html'; // 未登入踢回登入頁
+            window.location.href = 'login.html'; 
         }
     </script>
 </head>
@@ -82,121 +97,87 @@
 
         <div class="row g-4">
             
-            <div class="col-xl-3 col-md-6" id="card-index1">
-                <div class="card dashboard-card bg-white" onclick="window.location.href='index1.html'">
+            <div class="col-xl-4 col-md-6" id="card-index1">
+                <div class="card dashboard-card bg-white card-plan" onclick="window.location.href='index1.html'">
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
                                 <h5 class="card-title fw-bold">顧問資料上傳</h5>
                                 <span class="badge bg-primary bg-opacity-10 text-primary mb-2">Plan / Do</span>
-                                <div class="text-muted small">現場訪視、資料建檔</div>
                             </div>
                             <div class="icon-wrapper bg-primary bg-opacity-10 text-primary">
                                 <i class="fas fa-upload"></i>
                             </div>
                         </div>
+                        <div class="guide-text">現場訪視紀錄、照片上傳與資料建檔</div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-3 col-md-6" id="card-index2">
-                <div class="card dashboard-card bg-white" onclick="window.location.href='index2.html'">
+            <div class="col-xl-4 col-md-6" id="card-index2">
+                <div class="card dashboard-card bg-white card-check" onclick="window.location.href='index2.html'">
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
                                 <h5 class="card-title fw-bold">管理者總覽</h5>
                                 <span class="badge bg-success bg-opacity-10 text-success mb-2">Check / Act</span>
-                                <div class="text-muted small">數據統計、績效審查</div>
                             </div>
                             <div class="icon-wrapper bg-success bg-opacity-10 text-success">
                                 <i class="fas fa-chart-pie"></i>
                             </div>
                         </div>
+                        <div class="guide-text">各廠區績效統計、異常追蹤與執行成效報表</div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-3 col-md-6" id="card-index3">
-                <div class="card dashboard-card bg-white" onclick="window.location.href='index3.html'">
+            <div class="col-xl-4 col-md-6" id="card-index3">
+                <div class="card dashboard-card bg-white card-eval" onclick="window.location.href='index3.html'">
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
                                 <h5 class="card-title fw-bold">評鑑支援 AI 智慧助理</h5>
                                 <span class="badge bg-warning bg-opacity-10 text-warning mb-2">Evaluation</span>
-                                <div class="text-muted small">自動化評鑑指標檢核</div>
                             </div>
                             <div class="icon-wrapper bg-warning bg-opacity-10 text-warning">
                                 <i class="fas fa-tasks"></i>
                             </div>
                         </div>
+                        <div class="guide-text">自動化評鑑指標檢核與佐證資料調閱</div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-3 col-md-6" id="card-index4">
-                <div class="card dashboard-card bg-white" onclick="window.location.href='index4.html'">
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <h5 class="card-title fw-bold">文件管理 AI 智慧助理</h5>
-                                <span class="badge bg-info bg-opacity-10 text-info mb-2">AI 輔助</span>
-                                <div class="text-muted small">文件智慧歸檔、補件支援</div>
-                            </div>
-                            <div class="icon-wrapper bg-info bg-opacity-10 text-info">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-3 col-md-6" id="card-index5">
-                <div class="card dashboard-card bg-white" onclick="window.location.href='index5.html'">
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <h5 class="card-title fw-bold">文件資源中心</h5>
-                                <span class="badge bg-secondary bg-opacity-10 text-secondary mb-2" style="color: #6610f2 !important; background-color: #e0cffc !important;">Standard</span>
-                                <div class="text-muted small">公版表單、合約、教材</div>
-                            </div>
-                            <div class="icon-wrapper bg-secondary bg-opacity-10 text-secondary" style="color: #6610f2 !important; background-color: #e0cffc !important;">
-                                <i class="fas fa-folder-open"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-3 col-md-6" id="card-index7">
-                <div class="card dashboard-card bg-white" onclick="window.location.href='index7.html'">
+            <div class="col-xl-4 col-md-6" id="card-index7">
+                <div class="card dashboard-card bg-white card-data" onclick="window.location.href='index7.html'">
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
                                 <h5 class="card-title fw-bold">基本資料建立</h5>
-                                <span class="badge bg-primary bg-opacity-75 text-white mb-2">Data Mgmt</span>
-                                <div class="text-muted small">客戶主檔、合約管理</div>
+                                <span class="badge bg-primary bg-opacity-75 text-white mb-2" style="background-color: #4f46e5 !important;">Data Mgmt</span>
                             </div>
                             <div class="icon-wrapper bg-indigo-50 text-indigo-600" style="background-color: #e0e7ff; color: #4f46e5;">
                                 <i class="fas fa-database"></i>
                             </div>
                         </div>
+                        <div class="guide-text">建立客戶主檔、醫護人員名單與合約設定</div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-3 col-md-6" id="card-index6">
-                <div class="card dashboard-card bg-white" onclick="window.location.href='index6.html'">
+            <div class="col-xl-4 col-md-6" id="card-index6">
+                <div class="card dashboard-card bg-white card-admin" onclick="window.location.href='index6.html'">
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
                                 <h5 class="card-title fw-bold">系統維護與稽核</h5>
                                 <span class="badge bg-dark bg-opacity-75 text-white mb-2">Admin Only</span>
-                                <div class="text-muted small">操作日誌與除錯紀錄</div>
                             </div>
                             <div class="icon-wrapper bg-dark bg-opacity-10 text-dark">
                                 <i class="fas fa-tools"></i>
                             </div>
                         </div>
+                        <div class="guide-text">檢視系統操作日誌、權限管理與錯誤排除</div>
                     </div>
                 </div>
             </div>
@@ -218,43 +199,45 @@
             let roleTitle = '使用者';
             if(userRole === 'admin') roleTitle = '系統管理員';
             if(userRole === 'medical') roleTitle = '醫護人員';
+            if(userRole === 'general') roleTitle = '文管人員';
             
             document.getElementById('user-display').innerHTML = `<small>${roleTitle} (${userName})</small>`;
 
-            // 3. 權限邏輯 (RBAC)
-            const cardManager = document.getElementById('card-index2'); // 管理者總覽
-            const cardEval = document.getElementById('card-index3');    // 評鑑機器人
-            const cardMaint = document.getElementById('card-index6');   // 系統維護
-            const cardMaster = document.getElementById('card-index7');  // 基本資料
+            // 3. 權限邏輯 (RBAC) - 控制卡片顯示
+            const cards = {
+                manager: document.getElementById('card-index2'), // 管理者總覽
+                eval: document.getElementById('card-index3'),    // 評鑑助理
+                maint: document.getElementById('card-index6'),   // 系統維護
+                master: document.getElementById('card-index7')   // 基本資料
+            };
 
-            // 初始化：預設隱藏敏感卡片
-            if(cardMaint) cardMaint.style.display = 'none';
-            if(cardMaster) cardMaster.style.display = 'none';
+            // 初始化：先隱藏敏感項目
+            if(cards.maint) cards.maint.style.display = 'none';
+            if(cards.master) cards.master.style.display = 'none';
 
             if (userRole === 'admin') {
-                // Admin 權限：全開
-                if(cardMaint) cardMaint.style.display = 'block';
-                if(cardMaster) cardMaster.style.display = 'block';
+                // Admin: 全開
+                if(cards.maint) cards.maint.style.display = 'block';
+                if(cards.master) cards.master.style.display = 'block';
             }
             else if (userRole === 'general') {
-                // 一般使用者 (文管)：隱藏 管理、評鑑、維護
-                // 但 [開放] 基本資料建立 (index7)
-                if(cardManager) cardManager.style.display = 'none';
-                if(cardEval) cardEval.style.display = 'none';
-                if(cardMaster) cardMaster.style.display = 'block'; 
-                // cardMaint 保持隱藏
+                // 文管: 隱藏管理與評鑑，但可建立基本資料
+                if(cards.manager) cards.manager.style.display = 'none';
+                if(cards.eval) cards.eval.style.display = 'none';
+                if(cards.master) cards.master.style.display = 'block'; 
             }
             else if (userRole === 'medical') {
-                // 醫護人員：保留預設 (隱藏維護與基本資料，顯示其他操作功能)
-                // Nurse 專注於執行面，通常不負責建立合約主檔
+                // 醫護: 專注執行面 (預設隱藏維護與基本資料建立)
             }
         });
 
+        // 登出功能
         function logout() {
             sessionStorage.clear();
             window.location.href = 'login.html';
         }
 
+        // 時鐘功能
         setInterval(() => {
             document.getElementById('clock').textContent = new Date().toLocaleTimeString('zh-TW', { hour12: false });
         }, 1000);
