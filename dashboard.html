@@ -1,246 +1,40 @@
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>工作儀表板 | OHSMS</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    
-    <style>
-        :root {
-            --primary-bg: #f8f9fa;
-            --card-hover-transform: translateY(-5px);
-        }
-        body {
-            background-color: var(--primary-bg);
-            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
-            display: none; /* 權限驗證前先隱藏 */
-        }
-        .dashboard-card {
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            height: 100%;
-            border-left: 4px solid transparent; /* 左側飾條預留 */
-        }
-        .dashboard-card:hover {
-            transform: var(--card-hover-transform);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* 卡片左側飾條顏色定義 */
-        .card-plan { border-left-color: #0d6efd; }
-        .card-check { border-left-color: #198754; }
-        .card-eval { border-left-color: #ffc107; }
-        .card-data { border-left-color: #4f46e5; }
-        .card-admin { border-left-color: #212529; }
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. 顯示畫面
+    document.body.style.display = 'block';
 
-        .icon-wrapper {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-        .guide-text {
-            font-size: 0.85rem;
-            color: #6c757d;
-            line-height: 1.4;
-            margin-top: 8px;
-        }
-    </style>
+    // 2. 使用者資訊（保留）
+    const userRole = sessionStorage.getItem('currentUserRole');
+    const userName = sessionStorage.getItem('currentUserName');
 
-    <script>
-        const role = sessionStorage.getItem('currentUserRole');
-        if (!role) {
-            window.location.href = 'login.html'; 
-        }
-    </script>
-</head>
-<body>
+    let roleTitle = '使用者';
+    if(userRole === 'admin') roleTitle = '系統管理員';
+    if(userRole === 'medical') roleTitle = '醫護人員';
+    if(userRole === 'general') roleTitle = '文管人員';
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3">
-        <div class="container-fluid px-4">
-            <a class="navbar-brand" href="#"><i class="fas fa-shield-alt me-2"></i>OHSMS 系統</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-                    <li class="nav-item me-3">
-                        <span class="text-light" id="user-display"><small>載入中...</small></span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-danger" href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> 登出</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    document.getElementById('user-display').innerHTML =
+        `<small>${roleTitle} (${userName})</small>`;
 
-    <div class="container-fluid px-4 mt-4">
-        
-        <div class="row mb-4 align-items-center">
-            <div class="col-md-8">
-                <h2 class="fw-bold text-dark">工作儀表板</h2>
-                <p class="text-muted">核心作業分流區</p>
-            </div>
-            <div class="col-md-4 text-end">
-                <span class="badge bg-secondary p-2"><i class="far fa-clock me-1"></i><span id="clock">--:--</span></span>
-            </div>
-        </div>
+    // ===== 核心重點在這裡 =====
 
-        <div class="row g-4">
-            
-            <div class="col-xl-4 col-md-6" id="card-index1">
-                <div class="card dashboard-card bg-white card-plan" onclick="window.location.href='index1.html'">
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <h5 class="card-title fw-bold">顧問資料上傳</h5>
-                                <span class="badge bg-primary bg-opacity-10 text-primary mb-2">Plan / Do</span>
-                            </div>
-                            <div class="icon-wrapper bg-primary bg-opacity-10 text-primary">
-                                <i class="fas fa-upload"></i>
-                            </div>
-                        </div>
-                        <div class="guide-text">現場訪視紀錄、照片上傳與資料建檔</div>
-                    </div>
-                </div>
-            </div>
+    // A. 先全部隱藏
+    document.querySelectorAll('[id^="card-index"]').forEach(card => {
+        card.style.display = 'none';
+    });
 
-            <div class="col-xl-4 col-md-6" id="card-index2">
-                <div class="card dashboard-card bg-white card-check" onclick="window.location.href='index2.html'">
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <h5 class="card-title fw-bold">管理者總覽</h5>
-                                <span class="badge bg-success bg-opacity-10 text-success mb-2">Check / Act</span>
-                            </div>
-                            <div class="icon-wrapper bg-success bg-opacity-10 text-success">
-                                <i class="fas fa-chart-pie"></i>
-                            </div>
-                        </div>
-                        <div class="guide-text">各廠區績效統計、異常追蹤與執行成效報表</div>
-                    </div>
-                </div>
-            </div>
+    // B. 只顯示 index1, index2, index3, index7, index6
+    const allowList = [
+        'card-index1',
+        'card-index2',
+        'card-index3',
+        'card-index7',
+        'card-index6'
+    ];
 
-            <div class="col-xl-4 col-md-6" id="card-index3">
-                <div class="card dashboard-card bg-white card-eval" onclick="window.location.href='index3.html'">
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <h5 class="card-title fw-bold">評鑑支援 AI 智慧助理</h5>
-                                <span class="badge bg-warning bg-opacity-10 text-warning mb-2">Evaluation</span>
-                            </div>
-                            <div class="icon-wrapper bg-warning bg-opacity-10 text-warning">
-                                <i class="fas fa-tasks"></i>
-                            </div>
-                        </div>
-                        <div class="guide-text">自動化評鑑指標檢核與佐證資料調閱</div>
-                    </div>
-                </div>
-            </div>
+    allowList.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = 'block';
+    });
 
-            <div class="col-xl-4 col-md-6" id="card-index7">
-                <div class="card dashboard-card bg-white card-data" onclick="window.location.href='index7.html'">
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <h5 class="card-title fw-bold">基本資料建立</h5>
-                                <span class="badge bg-primary bg-opacity-75 text-white mb-2" style="background-color: #4f46e5 !important;">Data Mgmt</span>
-                            </div>
-                            <div class="icon-wrapper bg-indigo-50 text-indigo-600" style="background-color: #e0e7ff; color: #4f46e5;">
-                                <i class="fas fa-database"></i>
-                            </div>
-                        </div>
-                        <div class="guide-text">建立客戶主檔、醫護人員名單與合約設定</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-4 col-md-6" id="card-index6">
-                <div class="card dashboard-card bg-white card-admin" onclick="window.location.href='index6.html'">
-                    <div class="card-body p-4">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <h5 class="card-title fw-bold">系統維護與稽核</h5>
-                                <span class="badge bg-dark bg-opacity-75 text-white mb-2">Admin Only</span>
-                            </div>
-                            <div class="icon-wrapper bg-dark bg-opacity-10 text-dark">
-                                <i class="fas fa-tools"></i>
-                            </div>
-                        </div>
-                        <div class="guide-text">檢視系統操作日誌、權限管理與錯誤排除</div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // 1. 顯示畫面
-            document.body.style.display = 'block';
-
-            // 2. 讀取使用者資訊
-            const userRole = sessionStorage.getItem('currentUserRole');
-            const userName = sessionStorage.getItem('currentUserName');
-            
-            let roleTitle = '使用者';
-            if(userRole === 'admin') roleTitle = '系統管理員';
-            if(userRole === 'medical') roleTitle = '醫護人員';
-            if(userRole === 'general') roleTitle = '文管人員';
-            
-            document.getElementById('user-display').innerHTML = `<small>${roleTitle} (${userName})</small>`;
-
-            // 3. 權限邏輯 (RBAC) - 控制卡片顯示
-            const cards = {
-                manager: document.getElementById('card-index2'), // 管理者總覽
-                eval: document.getElementById('card-index3'),    // 評鑑助理
-                maint: document.getElementById('card-index6'),   // 系統維護
-                master: document.getElementById('card-index7')   // 基本資料
-            };
-
-            // 初始化：先隱藏敏感項目
-            if(cards.maint) cards.maint.style.display = 'none';
-            if(cards.master) cards.master.style.display = 'none';
-
-            if (userRole === 'admin') {
-                // Admin: 全開
-                if(cards.maint) cards.maint.style.display = 'block';
-                if(cards.master) cards.master.style.display = 'block';
-            }
-            else if (userRole === 'general') {
-                // 文管: 隱藏管理與評鑑，但可建立基本資料
-                if(cards.manager) cards.manager.style.display = 'none';
-                if(cards.eval) cards.eval.style.display = 'none';
-                if(cards.master) cards.master.style.display = 'block'; 
-            }
-            else if (userRole === 'medical') {
-                // 醫護: 專注執行面 (預設隱藏維護與基本資料建立)
-            }
-        });
-
-        // 登出功能
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = 'login.html';
-        }
-
-        // 時鐘功能
-        setInterval(() => {
-            document.getElementById('clock').textContent = new Date().toLocaleTimeString('zh-TW', { hour12: false });
-        }, 1000);
-    </script>
-</body>
-</html>
+});
+</script>
