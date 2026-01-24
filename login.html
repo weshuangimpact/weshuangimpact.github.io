@@ -53,6 +53,22 @@
         #error-msg {
             display: none;
         }
+        
+        /* 搖晃動畫 */
+        .shake { animation: shake 0.5s; }
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
     </style>
 </head>
 <body>
@@ -65,15 +81,15 @@
         <div class="card-body p-4">
             
             <div id="error-msg" class="alert alert-danger py-2 small" role="alert">
-                <i class="fas fa-exclamation-circle me-1"></i> 帳號或密碼錯誤
+                <i class="fas fa-exclamation-circle me-1"></i> <span id="error-text">帳號或密碼錯誤</span>
             </div>
 
             <form id="loginForm">
                 <div class="mb-3">
-                    <label for="username" class="form-label text-muted small fw-bold">帳號 (Username)</label>
+                    <label for="email" class="form-label text-muted small fw-bold">電子郵件 (Email)</label>
                     <div class="input-group">
-                        <span class="input-group-text bg-light border-end-0"><i class="fas fa-user text-muted"></i></span>
-                        <input type="text" class="form-control border-start-0 ps-0" id="username" placeholder="請輸入帳號" required>
+                        <span class="input-group-text bg-light border-end-0"><i class="fas fa-envelope text-muted"></i></span>
+                        <input type="email" class="form-control border-start-0 ps-0" id="email" placeholder="admin@example.com" required>
                     </div>
                 </div>
                 
@@ -93,7 +109,10 @@
                     <a href="#" class="text-decoration-none small text-muted">忘記密碼?</a>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100 login-btn">登入系統</button>
+                <button type="submit" class="btn btn-primary w-100 login-btn" id="btnSubmit">
+                    <span id="btnText">登入系統</span>
+                    <span id="btnSpinner" class="spinner-border spinner-border-sm ms-2" style="display:none;"></span>
+                </button>
             </form>
         </div>
         <div class="card-footer bg-light text-center py-3 border-top-0">
@@ -101,49 +120,89 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        // 1. Supabase 設定
+        const SUPABASE_URL = 'https://ghpxaeenikochgrnczic.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_v0ZN2OY08lh-8EC8ps8NdQ_ChYo1FRW';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // 2. 登入邏輯
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const userInput = document.getElementById('username').value.trim();
-            const passInput = document.getElementById('password').value.trim();
+            // UI 狀態切換
+            const btn = document.getElementById('btnSubmit');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('btnSpinner');
             const errorMsg = document.getElementById('error-msg');
-            
-            // 模擬後端驗證邏輯 (Mock Logic)
-            let role = '';
-            let isValid = false;
+            const errorText = document.getElementById('error-text');
 
-            // 1. 管理員 (Admin)
-            if (userInput === 'admin' && passInput === 'admin') {
-                role = 'admin';
-                isValid = true;
-            } 
-            // 2. 醫護人員 (Nurse/Doctor)
-            else if (userInput === 'nurse' && passInput === '1234') {
-                role = 'medical';
-                isValid = true;
-            } 
-            // 3. 一般使用者/業主 (User)
-            else if (userInput === 'user' && passInput === '1234') {
-                role = 'general';
-                isValid = true;
-            }
+            btn.disabled = true;
+            btnText.innerText = "驗證中...";
+            spinner.style.display = "inline-block";
+            errorMsg.style.display = "none";
 
-            if (isValid) {
-                // 將角色權限寫入 Session，供後續頁面判讀
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            try {
+                // A. 呼叫 Supabase Auth 登入
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) throw error;
+
+                // B. 登入成功，取得 User ID (UUID)
+                const userId = data.user.id;
+                console.log("Auth Success, User ID:", userId);
+
+                // C. 去 medical_staff 查詢對應的權限與姓名
+                // 注意：這一步需要 medical_staff 表格有 user_id 欄位且有資料
+                // 若找不到資料 (例如尚未綁定)，我們給予一個預設權限 'medical'
+                const { data: staffData, error: staffError } = await supabase
+                    .from('medical_staff')
+                    .select('name, system_role')
+                    .eq('user_id', userId)
+                    .single();
+
+                let role = 'medical'; // 預設權限
+                let userName = email.split('@')[0]; // 預設名稱
+
+                if (staffData) {
+                    role = staffData.system_role || 'medical';
+                    userName = staffData.name;
+                } else {
+                    console.warn("此帳號尚未綁定 medical_staff 資料，使用預設權限。");
+                    // 您可以在這裡決定是否要阻擋登入，或者允許進入但功能受限
+                }
+
+                // D. 寫入 SessionStorage
                 sessionStorage.setItem('currentUserRole', role);
-                sessionStorage.setItem('currentUserName', userInput);
-                
-                // [修正處] 導向至 dashboard.html (儀表板)，而非 index1.html
+                sessionStorage.setItem('currentUserName', userName);
+                sessionStorage.setItem('authToken', data.session.access_token);
+
+                // E. 導向儀表板
                 window.location.href = 'dashboard.html';
-            } else {
-                // 顯示錯誤
-                errorMsg.style.display = 'block';
-                // 搖晃動畫效果
+
+            } catch (err) {
+                console.error("Login Failed:", err.message);
+                errorText.innerText = "登入失敗：帳號或密碼錯誤 (" + err.message + ")";
+                errorMsg.style.display = "block";
+                
+                // 搖晃特效
                 document.querySelector('.login-card').classList.add('shake');
                 setTimeout(() => {
                     document.querySelector('.login-card').classList.remove('shake');
                 }, 500);
+
+                // 復原按鈕
+                btn.disabled = false;
+                btnText.innerText = "登入系統";
+                spinner.style.display = "none";
             }
         });
     </script>
