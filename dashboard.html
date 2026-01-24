@@ -12,35 +12,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('user-display').innerHTML = `${roleTitle} <b>${userName}</b>`;
 
-    /* === admin 只允許 index1,2,3,7,6 === */
+    /* === admin 白名單（只能看到 index1,2,3,6,7）=== */
     const adminAllow = ['card-index1','card-index2','card-index3','card-index6','card-index7'];
 
-    if (userRole === 'admin') {
-        document.querySelectorAll('[id^="card-index"]').forEach(el => {
-            if (!adminAllow.includes(el.id)) {
-                el.remove();
-            }
-        });
-        return;
-    }
-
-    /* === 其他角色原本邏輯 === */
-    const cards = {
-        manager: document.getElementById('card-index2'),
-        eval: document.getElementById('card-index3'),
-        maint: document.getElementById('card-index6'),
-        master: document.getElementById('card-index7'),
-        agent: document.getElementById('card-index8')
-    };
-
-    if(cards.maint) cards.maint.style.display = 'none';
-    if(cards.master) cards.master.style.display = 'none';
-    if(cards.agent) cards.agent.style.display = 'none';
+    document.querySelectorAll('[id^="card-index"]').forEach(el => {
+        if (userRole === 'admin') {
+            if (!adminAllow.includes(el.id)) el.remove();
+        } else {
+            if (el.id === 'card-index6' || el.id === 'card-index8') el.remove();
+        }
+    });
 
     if (userRole === 'general') {
-        if(cards.manager) cards.manager.style.display = 'none';
-        if(cards.eval) cards.eval.style.display = 'none';
-        if(cards.master) cards.master.style.display = 'block';
+        ['card-index2','card-index3'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        });
     }
 });
 </script>
