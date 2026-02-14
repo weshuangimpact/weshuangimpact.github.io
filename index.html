@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WesmartAI | Founder & Vision</title>
+    <title>WesmartAI | Trusted Intelligence Integration</title>
     
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
@@ -27,25 +27,41 @@
             transition: background-color 0.5s ease;
         }
         
-        /* Animations */
+        /* OHACSS Specific Animations */
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-20px); }
             100% { transform: translateY(0px); }
         }
-        .floating {
+        .floating-img {
             animation: float 6s ease-in-out infinite;
         }
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        /* Glass Effects */
         .glass-card {
             background: rgba(30, 41, 59, 0.4);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        
+        /* Text Gradients */
         .tech-gradient-text {
             background: linear-gradient(to right, #60a5fa, #34d399);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        
+        /* Page Transition */
         .page-enter {
             animation: fadeIn 0.6s ease-out;
         }
@@ -54,15 +70,15 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Skills Tag Style */
+        /* Founder Page Tags */
         .skill-tag {
-            background: rgba(59, 130, 246, 0.1);
-            color: #2563eb;
+            background: rgba(59, 130, 246, 0.08);
+            color: #1d4ed8;
             border: 1px solid rgba(59, 130, 246, 0.2);
             transition: all 0.3s ease;
         }
         .skill-tag:hover {
-            background: rgba(59, 130, 246, 0.2);
+            background: rgba(59, 130, 246, 0.15);
             transform: translateY(-2px);
         }
     </style>
@@ -73,7 +89,7 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- Icons ---
+        // --- Shared Icons ---
         const Icon = ({ path, size = 24, className = "" }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
                 {path}
@@ -86,8 +102,6 @@
             Lock: <g><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></g>,
             ArrowRight: <g><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></g>,
             ChevronLeft: <polyline points="15 18 9 12 15 6" />,
-            User: <g><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></g>,
-            Rocket: <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />,
             Briefcase: <g><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></g>,
             Award: <g><circle cx="12" cy="8" r="7" /><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" /></g>
         };
@@ -99,7 +113,7 @@
         // ==========================================
         const CorporatePage = ({ onNavigate }) => {
             useEffect(() => {
-                document.body.style.backgroundColor = "#0b1120";
+                document.body.style.backgroundColor = "#0b1120"; // Dark BG
                 AOS.refresh();
             }, []);
 
@@ -156,46 +170,12 @@
                         </div>
                     </section>
 
-                    {/* Architecture */}
-                    <section className="py-20 px-6 max-w-7xl mx-auto">
-                        <div className="mb-12">
-                            <h2 className="text-2xl font-bold text-white mb-4">System Architecture</h2>
-                            <p className="text-slate-400 max-w-2xl">
-                                Our platform enforces a hardware-backed separation between AI execution and governance logic.
-                            </p>
-                        </div>
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                            <div className="glass-card rounded-xl p-8 flex flex-col items-center text-center relative overflow-hidden group">
-                                <div className="absolute top-0 left-0 w-full h-1 bg-slate-700 group-hover:bg-slate-500 transition-colors"></div>
-                                <div className="w-16 h-16 bg-slate-800/50 rounded-full flex items-center justify-center mb-6 text-slate-400">
-                                    <WIcon name="Cpu" size={32} />
-                                </div>
-                                <h3 className="text-lg font-semibold text-slate-200 mb-2">Normal World</h3>
-                                <p className="text-sm text-slate-400 leading-relaxed">High-performance AI inference execution (Rich OS).</p>
-                            </div>
-                            <div className="hidden lg:flex items-center justify-center relative">
-                                <div className="absolute inset-x-0 h-px bg-slate-800"></div>
-                                <div className="bg-[#0b1120] px-4 z-10 flex flex-col items-center gap-2">
-                                    <WIcon name="Lock" className="text-emerald-500" size={24} />
-                                    <span className="text-[10px] uppercase tracking-widest text-emerald-500/80 font-bold">TrustZone</span>
-                                </div>
-                            </div>
-                            <div className="glass-card rounded-xl p-8 flex flex-col items-center text-center relative overflow-hidden group">
-                                <div className="absolute top-0 left-0 w-full h-1 bg-emerald-600 group-hover:bg-emerald-400 transition-colors"></div>
-                                <div className="w-16 h-16 bg-emerald-900/20 rounded-full flex items-center justify-center mb-6 text-emerald-400">
-                                    <WIcon name="ShieldCheck" size={32} />
-                                </div>
-                                <h3 className="text-lg font-semibold text-white mb-2">Secure World</h3>
-                                <p className="text-sm text-slate-400 leading-relaxed">Governance Trusted Application (TA) & Adjudication.</p>
-                            </div>
-                        </div>
-                    </section>
-
                     {/* Featured Product / Use Cases */}
                     <section className="py-20 bg-slate-900/30 border-t border-white/5">
                         <div className="max-w-7xl mx-auto px-6">
                             <h2 className="text-2xl font-bold text-white mb-12">Deployment & Products</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                {/* Link to OHACSS */}
                                 <div onClick={() => onNavigate('ohacss')} className="glass-card p-6 rounded-lg hover:bg-blue-900/20 transition-all cursor-pointer border border-blue-500/30 group">
                                     <div className="flex justify-between items-start mb-4">
                                         <div className="p-2 bg-blue-600 rounded-lg text-white">
@@ -236,7 +216,8 @@
 
             return (
                 <div className="bg-slate-50 text-slate-800 page-enter">
-                    <nav className="fixed w-full z-50 bg-white/85 backdrop-blur-md border-b border-slate-200/50 shadow-sm transition-all duration-300">
+                    {/* Navigation */}
+                    <nav className="fixed w-full z-50 glass-nav border-b border-slate-200/50 shadow-sm transition-all duration-300">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex justify-between h-20 items-center">
                                 <div className="flex-shrink-0 flex items-center gap-3 cursor-pointer" onClick={() => onNavigate('corporate')}>
@@ -251,28 +232,187 @@
                                     </div>
                                 </div>
                                 <div className="hidden md:flex space-x-8 items-center">
-                                    <button onClick={() => onNavigate('founder')} className="text-slate-600 hover:text-blue-600 text-sm font-medium">關於我們</button>
-                                    <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:shadow-lg">預約展示</button>
+                                    <a href="#features" className="text-slate-600 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors relative group">核心功能</a>
+                                    <a href="#comparison" className="text-slate-600 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors relative group">效益分析</a>
+                                    <button onClick={() => onNavigate('founder')} className="text-slate-600 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors">關於我們</button>
+                                    <a href="#contact" className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:shadow-lg px-6 py-2.5 rounded-full text-sm font-medium transition-all transform hover:-translate-y-0.5">預約展示</a>
                                 </div>
                             </div>
                         </div>
                     </nav>
 
-                    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden" style={{backgroundImage: "url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80')", backgroundSize: 'cover', backgroundAttachment: 'fixed'}}>
+                    {/* Hero Section */}
+                    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden parallax-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80')"}}>
                         <div className="absolute inset-0 bg-slate-900/70"></div>
-                        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                            <div className="inline-block px-4 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-100 text-sm font-semibold mb-6 backdrop-blur-sm">
-                                🚀 企業合規管理的最佳數位夥伴
+                        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="text-center max-w-5xl mx-auto mb-16" data-aos="fade-up">
+                                <div className="inline-block px-4 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-100 text-sm font-semibold mb-6 backdrop-blur-sm">🚀 企業合規管理的最佳數位夥伴</div>
+                                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-8 drop-shadow-lg">
+                                    讓專業被看見<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300">讓服務變資產</span>
+                                </h1>
+                                <p className="text-xl text-slate-200 mb-10 max-w-3xl mx-auto leading-relaxed font-light">
+                                    結合 <span className="font-semibold text-white">PDCA 循環</span> 與 <span className="font-semibold text-white">數位證據鏈</span> 技術。<br/>
+                                    透過結構化資料與版本控管，確保所有服務歷程皆可視、可追溯、可驗證。
+                                </p>
+                                <div className="flex flex-col sm:flex-row justify-center gap-4">
+                                    <a href="#contact" className="px-8 py-4 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition shadow-lg transform hover:-translate-y-1">立即諮詢方案</a>
+                                    <a href="#features" className="px-8 py-4 bg-white/10 text-white border border-white/30 rounded-lg font-bold hover:bg-white/20 transition backdrop-blur-sm">深入了解功能</a>
+                                </div>
                             </div>
-                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-8">
-                                讓專業被看見<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300">讓服務變資產</span>
-                            </h1>
-                            <p className="text-xl text-slate-200 mb-10 max-w-3xl mx-auto leading-relaxed font-light">
-                                結合 <span className="font-semibold text-white">PDCA 循環</span> 與 <span className="font-semibold text-white">數位證據鏈</span> 技術。<br/>
-                                透過結構化資料與版本控管，確保所有服務歷程皆可視、可追溯、可驗證。
-                            </p>
-                            <div className="relative max-w-5xl mx-auto mt-12 bg-slate-800 rounded-xl p-2 shadow-2xl border border-slate-700 floating">
-                                <img src="https://placehold.co/1200x675/1e293b/ffffff?text=OHACSS+Dashboard+Interface" alt="Dashboard" className="w-full rounded-lg" />
+                            <div className="relative max-w-6xl mx-auto" data-aos="zoom-in-up" data-aos-delay="200">
+                                <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
+                                <div className="relative rounded-xl shadow-2xl bg-slate-800 p-2 md:p-3 border border-slate-700 floating-img">
+                                    <img src="pic1.png" alt="OHACSS 工作儀表板介面" className="w-full h-auto rounded-lg shadow-inner border border-slate-600" />
+                                </div>
+                                <p className="text-center text-sm text-slate-300 mt-6 font-light tracking-wider opacity-80"><i className="fas fa-info-circle mr-2"></i>直覺式操作儀表板：PDCA × Evidence × 5W1H 設計精神</p>
+                            </div>
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-50 to-transparent"></div>
+                    </section>
+
+                    {/* Features Section 1 (pic2) */}
+                    <section id="features" className="py-24 bg-slate-50 relative overflow-hidden">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                            <div className="lg:grid lg:grid-cols-2 lg:gap-20 items-center">
+                                <div className="mb-12 lg:mb-0" data-aos="fade-right">
+                                    <div className="inline-flex items-center justify-center p-2 bg-blue-100/80 rounded-lg mb-6 shadow-sm"><span className="text-blue-800 font-bold px-3 tracking-wider text-sm">PLAN & DO</span></div>
+                                    <h2 className="text-3xl font-bold text-slate-900 mb-6">服務執行歷程管理<br/><span className="text-blue-600">數位化轉型的第一步</span></h2>
+                                    <div className="space-y-8">
+                                        {[
+                                            {icon: "fa-database", title: "完整資料保存", text: "將服務歷程轉化為企業資產，透過嚴謹的版本控管與補件機制，確保資料不可否認性。"},
+                                            {icon: "fa-mouse-pointer", title: "簡潔介面好上手", text: "優化作業流程，減少導入摩擦。檔案上傳即完成紀錄。"},
+                                            {icon: "fa-shield-alt", title: "PDCA 完整性", text: "從規劃到改善系統無縫整合，建立基準與完整執行紀錄。"}
+                                        ].map((item, i) => (
+                                            <div key={i} className="flex items-start">
+                                                <div className="flex-shrink-0 h-12 w-12 rounded-xl bg-white shadow-md flex items-center justify-center border border-slate-100">
+                                                    <i className={`fas ${item.icon} text-blue-600 text-xl`}></i>
+                                                </div>
+                                                <div className="ml-6">
+                                                    <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
+                                                    <p className="text-slate-600">{item.text}</p>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="relative" data-aos="fade-left">
+                                    <img src="pic2.jpg" alt="服務執行歷程" className="relative rounded-xl shadow-2xl border border-white/50 w-full transform hover:scale-[1.02] transition-transform duration-500" />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Features Section 2 (pic4) */}
+                    <section className="py-24 bg-white relative">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="lg:grid lg:grid-cols-2 lg:gap-20 items-center">
+                                <div className="order-2 lg:order-1 relative" data-aos="fade-right">
+                                    <img src="pic4.jpg" alt="AI 智慧助理" className="relative rounded-xl shadow-2xl border border-white/50 w-full transform hover:scale-[1.02] transition-transform duration-500" />
+                                </div>
+                                <div className="order-1 lg:order-2 mb-12 lg:mb-0" data-aos="fade-left">
+                                    <div className="inline-flex items-center justify-center p-2 bg-indigo-100/80 rounded-lg mb-6 shadow-sm"><span className="text-indigo-800 font-bold px-3 tracking-wider text-sm">EVALUATION</span></div>
+                                    <h2 className="text-3xl font-bold text-slate-900 mb-6">AI 智慧助理<br/><span className="text-indigo-600">不僅是管理，更是智慧生成</span></h2>
+                                    <p className="text-lg text-slate-600 mb-8 leading-relaxed">基於 WesmartAI 核心技術，超越傳統文件管理。系統能自動建構數位證據鏈，即時檢視完整性。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Features Section 3 (pic5) */}
+                    <section className="py-24 bg-slate-50 relative overflow-hidden">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                            <div className="lg:grid lg:grid-cols-2 lg:gap-20 items-center">
+                                <div className="mb-12 lg:mb-0" data-aos="fade-right">
+                                    <div className="inline-flex items-center justify-center p-2 bg-rose-100/80 rounded-lg mb-6 shadow-sm"><span className="text-rose-800 font-bold px-3 tracking-wider text-sm">AUDIT TRAIL</span></div>
+                                    <h2 className="text-3xl font-bold text-slate-900 mb-6">完整評鑑報告<br/><span className="text-rose-600">一鍵生成，輕鬆應對稽核</span></h2>
+                                    <p className="text-slate-600 mb-8 text-lg">當評鑑來臨時，不必再翻箱倒櫃。系統自動彙整所有改善行動、附件清單與年度計畫，生成標準化評鑑報告。</p>
+                                </div>
+                                <div className="relative" data-aos="fade-left">
+                                    <img src="pic5.jpg" alt="完整評鑑報告" className="rounded-xl shadow-2xl border border-white/50 w-full transform hover:-translate-y-2 transition-transform duration-500" />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Comparison Section (pic3) */}
+                    <section id="comparison" className="py-24 relative parallax-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1920&q=80')"}}>
+                        <div className="absolute inset-0 bg-slate-900/90 backdrop-blur-[2px]"></div>
+                        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="text-center mb-16">
+                                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">效益分析</h2>
+                                <p className="text-slate-300 text-lg">從 EXCEL 紙本作業轉型至 OHACSS 雲端系統</p>
+                            </div>
+                            <div className="grid md:grid-cols-2 gap-12 items-center">
+                                <div className="bg-white/5 p-8 rounded-3xl backdrop-blur-md border border-white/10 shadow-2xl" data-aos="zoom-in">
+                                    <img src="pic3.png" alt="雷達圖比較" className="w-full h-auto max-w-md mx-auto" />
+                                </div>
+                                <div className="space-y-6" data-aos="fade-left">
+                                    {[
+                                        {icon: "fa-lock", title: "證據完整性", old: "資料分散", new: "結構化權限管理"},
+                                        {icon: "fa-tachometer-alt", title: "評鑑準備速度", old: "費時查找", new: "一鍵生成報表"},
+                                        {icon: "fa-comments", title: "溝通效率", old: "難以追溯", new: "系統化追蹤"}
+                                    ].map((item, i) => (
+                                        <div key={i} className="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+                                            <h3 className="text-xl font-bold text-blue-400 mb-3 flex items-center"><i className={`fas ${item.icon} mr-3`}></i>{item.title}</h3>
+                                            <div className="pl-8 border-l-2 border-slate-600">
+                                                <p className="text-slate-500 text-sm line-through">{item.old}</p>
+                                                <p className="text-white font-medium flex items-center mt-1"><i className="fas fa-arrow-right text-green-400 mr-2 text-xs"></i> {item.new}</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* R&D Section */}
+                    <section id="technology" className="py-24 bg-white relative overflow-hidden">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                            <div className="text-center mb-16" data-aos="fade-up">
+                                <div className="inline-flex items-center justify-center p-2 bg-slate-100 rounded-lg mb-6 shadow-sm"><span className="text-slate-700 font-bold px-3 tracking-wider text-sm">R&D CORE</span></div>
+                                <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6">可信智慧團隊的技術基礎</h2>
+                                <p className="text-slate-600 text-lg max-w-3xl mx-auto">本系統並非單純文件管理，而是<span className="text-blue-600 font-bold">數位證據鏈生成</span>相關研究成果。</p>
+                            </div>
+                            <div className="grid md:grid-cols-3 gap-8">
+                                <div className="bg-white rounded-2xl p-8 shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="100">
+                                    <div className="w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110"><i className="fas fa-trophy text-yellow-600 text-3xl"></i></div>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-3">頂尖賽事肯定</h3>
+                                    <p className="text-slate-600 font-medium">2025 微軟企業應用實戰賽</p>
+                                </div>
+                                <div className="bg-white rounded-2xl p-8 shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="200">
+                                    <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110"><i className="fas fa-certificate text-blue-600 text-3xl"></i></div>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-3">發明專利佈局</h3>
+                                    <p className="text-slate-600 mb-2">OHACSS 系統數位證據鏈生成方法</p>
+                                </div>
+                                <div className="bg-white rounded-2xl p-8 shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="300">
+                                    <div className="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110"><i className="fas fa-microchip text-indigo-600 text-3xl"></i></div>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-3">核心技術研發</h3>
+                                    <p className="text-slate-600">AI 專用飛行紀錄儀系統</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Contact (pic6) */}
+                    <section id="contact" className="py-24 bg-gradient-to-br from-slate-50 to-blue-50">
+                        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 flex flex-col md:flex-row" data-aos="fade-up">
+                                <div className="md:w-3/5 p-10 md:p-12 bg-gradient-to-br from-blue-600 to-indigo-700 text-white relative overflow-hidden">
+                                    <div className="relative z-10">
+                                        <h2 className="text-3xl font-bold mb-6">準備好升級您的專業服務了嗎？</h2>
+                                        <div className="space-y-4">
+                                            <p className="font-medium flex items-center gap-3"><i className="fas fa-user-tie"></i> 專案經理：黃致維 (Wes Huang)</p>
+                                            <p className="font-medium flex items-center gap-3"><i className="fas fa-phone-alt"></i> 0912-310570</p>
+                                            <p className="font-medium flex items-center gap-3"><i className="fas fa-envelope"></i> weshuangimpact@gmail.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="md:w-2/5 p-10 md:p-12 flex flex-col justify-center items-center bg-slate-50 text-center relative">
+                                    <div className="w-full max-w-[220px] bg-white p-4 rounded-2xl shadow-lg border border-slate-100">
+                                        <img src="pic6.png" alt="掃描 QR Code" className="w-full h-auto" />
+                                    </div>
+                                    <div className="mt-6"><h3 className="text-slate-800 font-bold text-lg mb-1">線上諮詢</h3></div>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -281,18 +421,18 @@
         };
 
         // ==========================================
-        // PAGE 3: Founder Page (New)
+        // PAGE 3: Founder Page (New Layout for Landscape Photo)
         // ==========================================
         const FounderPage = ({ onNavigate }) => {
             useEffect(() => {
-                document.body.style.backgroundColor = "#ffffff"; // Clean White
+                document.body.style.backgroundColor = "#ffffff";
                 AOS.refresh();
             }, []);
 
             return (
-                <div className="text-slate-800 page-enter font-sans">
+                <div className="text-slate-800 page-enter font-sans pb-20">
                     {/* Founder Navbar */}
-                    <nav className="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm transition-all duration-300">
+                    <nav className="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm transition-all duration-300">
                         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                             <div className="flex items-center gap-3 cursor-pointer" onClick={() => onNavigate('corporate')}>
                                 <div className="flex items-center text-slate-400 hover:text-blue-600 transition mr-4 border-r border-slate-200 pr-4">
@@ -302,86 +442,49 @@
                                 <span className="font-bold text-lg text-slate-800">WesmartAI</span>
                             </div>
                             <div className="flex items-center gap-6">
-                                <span className="text-sm font-semibold text-blue-600">Founder & CEO</span>
+                                <span className="text-sm font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">Founder & CEO</span>
                             </div>
                         </div>
                     </nav>
 
-                    <div className="pt-32 pb-20 max-w-7xl mx-auto px-6">
-                        <div className="grid lg:grid-cols-12 gap-12 items-start">
-                            
-                            {/* Left: Image & Quick Stats */}
-                            <div className="lg:col-span-5 sticky top-32" data-aos="fade-right">
-                                <div className="relative group">
-                                    <div className="absolute inset-0 bg-blue-600 rounded-2xl transform translate-x-3 translate-y-3 transition-transform group-hover:translate-x-4 group-hover:translate-y-4"></div>
-                                    <img 
-                                        src="pic7.png" 
-                                        alt="Wes Huang 黃致維" 
-                                        className="relative w-full rounded-2xl shadow-2xl object-cover grayscale hover:grayscale-0 transition-all duration-500 border border-slate-200 bg-slate-100"
-                                        onError={(e) => {e.target.src='https://placehold.co/600x800/e2e8f0/475569?text=Founder+Photo'}}
-                                    />
-                                </div>
-                                
-                                <div className="mt-8 space-y-4">
-                                    <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
-                                        <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
-                                            <WIcon name="Briefcase" className="text-blue-600" /> 
-                                            現任職務
-                                        </h3>
-                                        <ul className="space-y-3 text-sm text-slate-600">
-                                            <li className="flex items-start gap-2">
-                                                <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5"></div>
-                                                <div>
-                                                    <strong className="block text-slate-800">Chief Executive Officer</strong>
-                                                    WesmartAI Co., Ltd.
-                                                </div>
-                                            </li>
-                                            <li className="flex items-start gap-2">
-                                                <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5"></div>
-                                                <div>
-                                                    <strong className="block text-slate-800">Principal Investigator</strong>
-                                                    SBIR / 數位證據封存系統計畫
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
-                                        <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
-                                            <WIcon name="Award" className="text-yellow-500" /> 
-                                            重要里程碑
-                                        </h3>
-                                        <div className="space-y-4 text-sm">
-                                            <div className="border-l-2 border-yellow-400 pl-3">
-                                                <p className="font-bold text-slate-800">2025 Microsoft Agentic AI Hackathon</p>
-                                                <p className="text-slate-600">決賽入選團隊 (Finalist)</p>
-                                                <p className="text-xs text-slate-500 mt-1">人機共創 × 技術轉譯 × 專利變現</p>
-                                            </div>
-                                            <div className="border-l-2 border-blue-400 pl-3">
-                                                <p className="font-bold text-slate-800">發明專利申請</p>
-                                                <p className="text-slate-600">非決定性處理系統之治理紀錄生成方法</p>
-                                                <p className="text-xs text-slate-500 mt-1">台灣、歐盟、美國佈局中</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div className="pt-28 max-w-6xl mx-auto px-6">
+                        
+                        {/* Profile Header & Landscape Image */}
+                        <div className="mb-16" data-aos="fade-down">
+                            <div className="text-center max-w-3xl mx-auto mb-10">
+                                <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                                    Wes Huang <span className="text-slate-400 font-light">黃致維</span>
+                                </h1>
+                                <p className="text-xl text-slate-600 font-light tracking-wide">
+                                    🚀 創業者｜發明家｜投資人｜地方創生推動者
+                                </p>
                             </div>
 
-                            {/* Right: Bio Content */}
-                            <div className="lg:col-span-7 space-y-10" data-aos="fade-up">
-                                <div>
-                                    <div className="flex items-center gap-2 text-blue-600 font-bold tracking-widest text-sm uppercase mb-2">
-                                        Founder & CEO
-                                    </div>
-                                    <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-                                        Wes Huang <span className="text-slate-400 font-light">黃致維</span>
-                                    </h1>
-                                    <p className="text-xl text-slate-600 leading-relaxed font-light">
-                                        <span className="font-medium text-slate-800">🚀 創業者｜發明家｜投資人｜地方創生推動者</span>
-                                    </p>
+                            {/* Landscape Image Container - Optimized for Width */}
+                            <div className="relative w-full max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-slate-100 group">
+                                <img 
+                                    src="pic7.png" 
+                                    alt="Wes Huang 黃致維" 
+                                    className="w-full h-auto object-cover transform group-hover:scale-[1.01] transition-transform duration-700"
+                                    onError={(e) => {e.target.src='https://placehold.co/1200x600/e2e8f0/475569?text=Founder+Photo+(pic7.png)'}}
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-60"></div>
+                                <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 text-white">
+                                    <p className="text-sm font-medium opacity-90 uppercase tracking-widest mb-1">Current Focus</p>
+                                    <p className="text-xl md:text-2xl font-bold">Building Trust for the AI Era.</p>
                                 </div>
+                            </div>
+                        </div>
 
+                        <div className="grid lg:grid-cols-12 gap-12">
+                            
+                            {/* Left: Bio Content */}
+                            <div className="lg:col-span-8 space-y-10" data-aos="fade-up">
                                 <div className="prose prose-lg text-slate-600 leading-8 space-y-6">
+                                    <h3 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                                        <span className="bg-blue-600 w-1 h-8 rounded-full"></span>
+                                        關於我
+                                    </h3>
                                     <p>
                                         我是一位長期投入於創業、地方創生與影響力投資的實踐者，具備新創發展、社會創新與數位產品落地的整合經驗。曾創立社會創新企業，並透過創業競賽、投資簡報、群眾募資與地方型專案，持續推動具備實質成效的計畫。
                                     </p>
@@ -389,12 +492,18 @@
                                         在品牌定位、募資策略與市場拓展方面，曾主導多項研究與創新計畫撰寫，並成功取得政府補助資源（包含 SBIR 與中小企業創新研發相關計畫），協助團隊將技術與構想轉化為可執行、可驗證的成果。
                                     </p>
 
-                                    <h3 className="text-2xl font-bold text-slate-900 mt-8 mb-4">🎯 以地方為核心，推動可擴張的影響力事業</h3>
+                                    <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
+                                        <span className="bg-indigo-600 w-1 h-8 rounded-full"></span>
+                                        🎯 以地方為核心，推動可擴張的影響力事業
+                                    </h3>
                                     <p>
                                         我深知早期團隊在關鍵階段所面臨的資源與策略限制，因此在推進自身事業的同時，也積極投入 ESG 導向之投資與策略性資源整合，協助地方創新團隊建立具體成果、可複製流程與可擴張模型。多年來，持續參與跨域創業生態系，推動以地方為核心、但具備規模化潛力的影響力事業。
                                     </p>
 
-                                    <h3 className="text-2xl font-bold text-slate-900 mt-8 mb-4">📘 AI 系統落地 × 可治理 × 可驗證 × 專利化</h3>
+                                    <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
+                                        <span className="bg-teal-500 w-1 h-8 rounded-full"></span>
+                                        📘 AI 系統落地 × 可治理 × 可驗證 × 專利化
+                                    </h3>
                                     <p>
                                         在技術面，我專注於將人工智慧系統導入高度可靠、可治理且可驗證的實務應用場景。透過系統化的專利布局，將研發成果轉化為可授權、可商業化的數位資產，而非僅止於概念或展示型應用。
                                     </p>
@@ -402,27 +511,61 @@
                                         我所提出的技術方法，核心在於於真實人機互動過程中，建立可追溯、可驗證的生成與決策紀錄機制，以確保人工智慧系統在實際部署時，具備一致性、可重現性與工程層級的可控性。相關成果已展開台灣、歐盟與美國等多地之專利佈局，並形成可實際部署的原型系統。
                                     </p>
                                 </div>
+                            </div>
 
-                                <div className="border-t border-slate-200 pt-8">
-                                    <h4 className="font-bold text-slate-900 mb-4 text-sm uppercase tracking-wider">Core Competencies</h4>
-                                    <div className="flex flex-wrap gap-3">
-                                        {["Strategic Planning", "Innovation Management", "AI-Driven Entrepreneurship", "Blockchain", "Patent Strategy", "Impact Investing"].map((skill, i) => (
-                                            <span key={i} className="skill-tag px-4 py-2 rounded-full text-sm font-medium">
+                            {/* Right: Sidebar Stats */}
+                            <div className="lg:col-span-4 space-y-6" data-aos="fade-left" data-aos-delay="200">
+                                
+                                <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                                    <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2 text-sm uppercase tracking-wider">
+                                        <WIcon name="Briefcase" className="text-blue-600" /> 
+                                        Current Roles
+                                    </h3>
+                                    <ul className="space-y-4 text-sm text-slate-600">
+                                        <li className="flex flex-col">
+                                            <strong className="text-slate-800 text-base">Chief Executive Officer</strong>
+                                            <span>WesmartAI Co., Ltd.</span>
+                                        </li>
+                                        <li className="flex flex-col">
+                                            <strong className="text-slate-800 text-base">Principal Investigator</strong>
+                                            <span>SBIR / 數位證據封存系統計畫</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div className="bg-yellow-50/50 p-6 rounded-xl border border-yellow-100">
+                                    <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2 text-sm uppercase tracking-wider">
+                                        <WIcon name="Award" className="text-yellow-600" /> 
+                                        Major Milestone
+                                    </h3>
+                                    <div className="space-y-2">
+                                        <p className="font-bold text-slate-800">2025 Microsoft Agentic AI Hackathon</p>
+                                        <span className="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded font-bold">Finalist (決賽入選)</span>
+                                        <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+                                            獲得國際評審對其工程完整性、實務落地性與未來商業潛力之肯定。
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
+                                    <h3 className="font-bold text-slate-900 mb-4 text-sm uppercase tracking-wider">Core Competencies</h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {["Strategic Planning", "Innovation Management", "AI Entrepreneurship", "Blockchain", "Patent Strategy"].map((skill, i) => (
+                                            <span key={i} className="skill-tag px-3 py-1.5 rounded-md text-xs font-semibold">
                                                 {skill}
                                             </span>
                                         ))}
                                     </div>
                                 </div>
-                                
-                                <div className="bg-slate-900 rounded-xl p-8 text-white mt-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
-                                    <div>
-                                        <h4 className="font-bold text-xl mb-1">Let's build trust together.</h4>
-                                        <p className="text-slate-400 text-sm">Open for strategic partnerships & investment opportunities.</p>
-                                    </div>
-                                    <a href="mailto:weshuangimpact@gmail.com" className="px-6 py-3 bg-white text-slate-900 font-bold rounded-lg hover:bg-blue-50 transition transform hover:-translate-y-1">
-                                        Contact Me
+
+                                <div className="bg-slate-900 text-white p-6 rounded-xl shadow-xl text-center">
+                                    <h4 className="font-bold mb-2">Let's Connect</h4>
+                                    <p className="text-xs text-slate-400 mb-4">Open for strategic partnerships.</p>
+                                    <a href="mailto:weshuangimpact@gmail.com" className="block w-full py-3 bg-white text-slate-900 font-bold rounded-lg hover:bg-blue-50 transition">
+                                        Email Me
                                     </a>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -434,7 +577,7 @@
         // Main App Controller
         // ==========================================
         const App = () => {
-            const [page, setPage] = useState('corporate'); // 'corporate', 'ohacss', 'founder'
+            const [page, setPage] = useState('corporate');
 
             useEffect(() => {
                 AOS.init({
@@ -456,7 +599,7 @@
                     {page === 'ohacss' && <OhacssPage onNavigate={handleNavigation} />}
                     {page === 'founder' && <FounderPage onNavigate={handleNavigation} />}
 
-                    {/* Shared Footer (Hidden on Founder page to avoid duplication if desired, but kept for consistency) */}
+                    {/* Shared Footer */}
                     <footer className="bg-slate-900 border-t border-slate-800 pt-16 pb-8 text-slate-400">
                         <div className="max-w-7xl mx-auto px-6">
                             <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -472,7 +615,6 @@
                                     <ul className="space-y-2 text-sm">
                                         <li><i className="fas fa-map-marker-alt mr-2 w-4 text-center"></i>722 台南市佳里區光明街68號1樓</li>
                                         <li><i className="fas fa-phone mr-2 w-4 text-center"></i>+886-912-310570</li>
-                                        <li><i className="fas fa-envelope mr-2 w-4 text-center"></i>weshuangimpact@gmail.com</li>
                                     </ul>
                                 </div>
                                 <div>
