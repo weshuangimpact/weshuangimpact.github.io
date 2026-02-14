@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WesmartAI 可信智慧整合 | Edge Governance & OHACSS</title>
+    <title>WesmartAI | Founder & Vision</title>
     
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
@@ -20,51 +20,50 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Global & Corporate Styles */
+        /* Global Styles */
         body {
             font-family: 'Inter', 'Noto Sans TC', sans-serif;
             overflow-x: hidden;
             transition: background-color 0.5s ease;
         }
         
-        /* OHACSS Specific Animations */
+        /* Animations */
         @keyframes float {
             0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+            50% { transform: translateY(-10px); }
             100% { transform: translateY(0px); }
         }
-        .floating-img {
+        .floating {
             animation: float 6s ease-in-out infinite;
-        }
-        .parallax-bg {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
         }
         .glass-card {
             background: rgba(30, 41, 59, 0.4);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .glass-card-light {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
         }
         .tech-gradient-text {
             background: linear-gradient(to right, #60a5fa, #34d399);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
-        /* Smooth Fade Transition for Page Switching */
         .page-enter {
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.6s ease-out;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Skills Tag Style */
+        .skill-tag {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+        .skill-tag:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -74,7 +73,7 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- Common Icons (Fix: Wrapped multiple paths in <g>) ---
+        // --- Icons ---
         const Icon = ({ path, size = 24, className = "" }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
                 {path}
@@ -84,12 +83,13 @@
         const Icons = {
             ShieldCheck: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z m-3 10 2 2 4-4" />,
             Cpu: <g><rect x="4" y="4" width="16" height="16" rx="2" /><rect x="9" y="9" width="6" height="6" /><path d="M9 1v3" /><path d="M15 1v3" /><path d="M9 20v3" /><path d="M15 20v3" /><path d="M20 9h3" /><path d="M20 14h3" /><path d="M1 9h3" /><path d="M1 14h3" /></g>,
-            Layers: <g><polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /><polyline points="2 12 12 17 22 12" /></g>,
-            Globe: <g><circle cx="12" cy="12" r="10" /><line x1="2" x2="22" y1="12" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></g>,
             Lock: <g><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></g>,
-            Server: <g><rect x="2" y="2" width="20" height="8" rx="2" ry="2" /><rect x="2" y="14" width="20" height="8" rx="2" ry="2" /><line x1="6" x2="6.01" y1="6" y2="6" /><line x1="6" x2="6.01" y1="18" y2="18" /></g>,
             ArrowRight: <g><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></g>,
-            ChevronLeft: <polyline points="15 18 9 12 15 6" />
+            ChevronLeft: <polyline points="15 18 9 12 15 6" />,
+            User: <g><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></g>,
+            Rocket: <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />,
+            Briefcase: <g><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></g>,
+            Award: <g><circle cx="12" cy="8" r="7" /><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" /></g>
         };
 
         const WIcon = ({ name, className, size }) => <Icon path={Icons[name]} className={className} size={size} />;
@@ -99,7 +99,7 @@
         // ==========================================
         const CorporatePage = ({ onNavigate }) => {
             useEffect(() => {
-                document.body.style.backgroundColor = "#0b1120"; // Dark BG
+                document.body.style.backgroundColor = "#0b1120";
                 AOS.refresh();
             }, []);
 
@@ -117,10 +117,10 @@
                                     <div className="text-[10px] text-slate-400 uppercase tracking-widest">可信智慧整合有限公司</div>
                                 </div>
                             </div>
-                            <div className="hidden md:flex text-sm text-slate-400 gap-8">
-                                <span className="hover:text-white cursor-pointer">Infrastructure</span>
-                                <span className="hover:text-white cursor-pointer" onClick={() => onNavigate('ohacss')}>Products</span>
-                                <span className="hover:text-white cursor-pointer">Security</span>
+                            <div className="hidden md:flex text-sm text-slate-400 gap-8 items-center">
+                                <span className="hover:text-white cursor-pointer transition">Infrastructure</span>
+                                <span className="hover:text-white cursor-pointer transition" onClick={() => onNavigate('ohacss')}>Products</span>
+                                <span className="hover:text-white cursor-pointer transition" onClick={() => onNavigate('founder')}>Founder</span>
                             </div>
                             <div className="text-xs font-mono text-slate-500 border border-slate-800 px-3 py-1 rounded hidden sm:block">
                                 UBN: 42917004
@@ -149,9 +149,9 @@
                                 <button onClick={() => onNavigate('ohacss')} className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition flex items-center gap-2">
                                     View OHACSS Product <WIcon name="ArrowRight" size={18} />
                                 </button>
-                                <div className="text-sm font-semibold text-slate-300 flex items-center px-4 border-l-2 border-blue-500">
-                                    Making Trust Transparent.
-                                </div>
+                                <button onClick={() => onNavigate('founder')} className="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium rounded-lg transition border border-slate-700">
+                                    Meet the Founder
+                                </button>
                             </div>
                         </div>
                     </section>
@@ -196,7 +196,6 @@
                         <div className="max-w-7xl mx-auto px-6">
                             <h2 className="text-2xl font-bold text-white mb-12">Deployment & Products</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                {/* Link to OHACSS */}
                                 <div onClick={() => onNavigate('ohacss')} className="glass-card p-6 rounded-lg hover:bg-blue-900/20 transition-all cursor-pointer border border-blue-500/30 group">
                                     <div className="flex justify-between items-start mb-4">
                                         <div className="p-2 bg-blue-600 rounded-lg text-white">
@@ -205,15 +204,14 @@
                                         <WIcon name="ArrowRight" className="text-blue-400 group-hover:translate-x-1 transition-transform" />
                                     </div>
                                     <h3 className="font-semibold text-white mb-2 group-hover:text-blue-300">OHACSS Platform</h3>
-                                    <p className="text-sm text-slate-400">Occupational Health Assessment & Compliance Support System. B2B SaaS implementation.</p>
+                                    <p className="text-sm text-slate-400">Occupational Health Assessment & Compliance Support System.</p>
                                 </div>
-
                                 <div className="glass-card p-6 rounded-lg hover:bg-slate-800/50 transition-colors">
-                                    <h3 className="font-semibold text-white mb-3">Industrial IoT Integrity</h3>
+                                    <h3 className="font-semibold text-white mb-3">IoT Integrity</h3>
                                     <p className="text-sm text-slate-400">Ensuring valid command sequences in SCADA/PLC bridges.</p>
                                 </div>
                                 <div className="glass-card p-6 rounded-lg hover:bg-slate-800/50 transition-colors">
-                                    <h3 className="font-semibold text-white mb-3">Secure Audit Trail</h3>
+                                    <h3 className="font-semibold text-white mb-3">Secure Audit</h3>
                                     <p className="text-sm text-slate-400">Non-repudiable logging of AI decision outputs.</p>
                                 </div>
                                 <div className="glass-card p-6 rounded-lg hover:bg-slate-800/50 transition-colors">
@@ -238,143 +236,196 @@
 
             return (
                 <div className="bg-slate-50 text-slate-800 page-enter">
-                    {/* OHACSS Navbar */}
                     <nav className="fixed w-full z-50 bg-white/85 backdrop-blur-md border-b border-slate-200/50 shadow-sm transition-all duration-300">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="flex justify-between h-20 items-center">
                                 <div className="flex-shrink-0 flex items-center gap-3 cursor-pointer" onClick={() => onNavigate('corporate')}>
                                     <div className="flex items-center text-slate-400 hover:text-blue-600 transition mr-4 border-r border-slate-300 pr-4">
                                         <WIcon name="ChevronLeft" size={20} />
-                                        <span className="text-sm font-medium ml-1">Back to WesmartAI</span>
+                                        <span className="text-sm font-medium ml-1">Back</span>
                                     </div>
-                                    <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                                        O
-                                    </div>
+                                    <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg">O</div>
                                     <div>
                                         <span className="font-bold text-xl text-slate-900 tracking-tight block leading-none">OHACSS</span>
                                         <span className="text-xs text-slate-500 font-medium tracking-wide">職業健康合規支援系統</span>
                                     </div>
                                 </div>
                                 <div className="hidden md:flex space-x-8 items-center">
-                                    <a href="#features" className="text-slate-600 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors">核心功能</a>
-                                    <a href="#comparison" className="text-slate-600 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors">效益分析</a>
-                                    <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:shadow-lg">
-                                        預約展示
-                                    </button>
+                                    <button onClick={() => onNavigate('founder')} className="text-slate-600 hover:text-blue-600 text-sm font-medium">關於我們</button>
+                                    <button className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:shadow-lg">預約展示</button>
                                 </div>
                             </div>
                         </div>
                     </nav>
 
-                    {/* OHACSS Hero */}
-                    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden parallax-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80')"}}>
+                    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden" style={{backgroundImage: "url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80')", backgroundSize: 'cover', backgroundAttachment: 'fixed'}}>
                         <div className="absolute inset-0 bg-slate-900/70"></div>
-                        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="text-center max-w-5xl mx-auto mb-16" data-aos="fade-up">
-                                <div className="inline-block px-4 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-100 text-sm font-semibold mb-6 backdrop-blur-sm">
-                                    🚀 企業合規管理的最佳數位夥伴
-                                </div>
-                                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-8 drop-shadow-lg">
-                                    讓專業被看見<br/>
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300">讓服務變資產</span>
-                                </h1>
-                                <p className="text-xl text-slate-200 mb-10 max-w-3xl mx-auto leading-relaxed font-light">
-                                    結合 <span className="font-semibold text-white">PDCA 循環</span> 與 <span className="font-semibold text-white">數位證據鏈</span> 技術。<br/>
-                                    透過結構化資料與版本控管，確保所有服務歷程皆可視、可追溯、可驗證。
-                                </p>
-                                <div className="flex flex-col sm:flex-row justify-center gap-4">
-                                    <button className="px-8 py-4 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition shadow-lg transform hover:-translate-y-1">
-                                        立即諮詢方案
-                                    </button>
-                                </div>
+                        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                            <div className="inline-block px-4 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-100 text-sm font-semibold mb-6 backdrop-blur-sm">
+                                🚀 企業合規管理的最佳數位夥伴
                             </div>
-                            
-                            <div className="relative max-w-6xl mx-auto" data-aos="zoom-in-up" data-aos-delay="200">
-                                <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
-                                <div className="relative rounded-xl shadow-2xl bg-slate-800 p-2 md:p-3 border border-slate-700 floating-img">
-                                    <img src="https://placehold.co/1200x675/1e293b/ffffff?text=OHACSS+Dashboard+Preview" alt="OHACSS 工作儀表板介面" className="w-full h-auto rounded-lg shadow-inner border border-slate-600" />
-                                </div>
-                                <p className="text-center text-sm text-slate-300 mt-6 font-light tracking-wider opacity-80">
-                                    <i className="fas fa-info-circle mr-2"></i>直覺式操作儀表板：PDCA × Evidence × 5W1H 設計精神
-                                </p>
+                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-8">
+                                讓專業被看見<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300">讓服務變資產</span>
+                            </h1>
+                            <p className="text-xl text-slate-200 mb-10 max-w-3xl mx-auto leading-relaxed font-light">
+                                結合 <span className="font-semibold text-white">PDCA 循環</span> 與 <span className="font-semibold text-white">數位證據鏈</span> 技術。<br/>
+                                透過結構化資料與版本控管，確保所有服務歷程皆可視、可追溯、可驗證。
+                            </p>
+                            <div className="relative max-w-5xl mx-auto mt-12 bg-slate-800 rounded-xl p-2 shadow-2xl border border-slate-700 floating">
+                                <img src="https://placehold.co/1200x675/1e293b/ffffff?text=OHACSS+Dashboard+Interface" alt="Dashboard" className="w-full rounded-lg" />
                             </div>
                         </div>
-                        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-50 to-transparent"></div>
                     </section>
+                </div>
+            );
+        };
 
-                    {/* Features Grid (Fixed class to className) */}
-                    <section id="features" className="py-24 bg-slate-50">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="lg:grid lg:grid-cols-2 lg:gap-20 items-center">
-                                <div data-aos="fade-right">
-                                    <div className="inline-flex items-center justify-center p-2 bg-blue-100/80 rounded-lg mb-6 shadow-sm">
-                                        <span className="text-blue-800 font-bold px-3 tracking-wider text-sm">PLAN & DO</span>
+        // ==========================================
+        // PAGE 3: Founder Page (New)
+        // ==========================================
+        const FounderPage = ({ onNavigate }) => {
+            useEffect(() => {
+                document.body.style.backgroundColor = "#ffffff"; // Clean White
+                AOS.refresh();
+            }, []);
+
+            return (
+                <div className="text-slate-800 page-enter font-sans">
+                    {/* Founder Navbar */}
+                    <nav className="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm transition-all duration-300">
+                        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                            <div className="flex items-center gap-3 cursor-pointer" onClick={() => onNavigate('corporate')}>
+                                <div className="flex items-center text-slate-400 hover:text-blue-600 transition mr-4 border-r border-slate-200 pr-4">
+                                    <WIcon name="ChevronLeft" size={20} />
+                                    <span className="text-sm font-medium ml-1">Back</span>
+                                </div>
+                                <span className="font-bold text-lg text-slate-800">WesmartAI</span>
+                            </div>
+                            <div className="flex items-center gap-6">
+                                <span className="text-sm font-semibold text-blue-600">Founder & CEO</span>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <div className="pt-32 pb-20 max-w-7xl mx-auto px-6">
+                        <div className="grid lg:grid-cols-12 gap-12 items-start">
+                            
+                            {/* Left: Image & Quick Stats */}
+                            <div className="lg:col-span-5 sticky top-32" data-aos="fade-right">
+                                <div className="relative group">
+                                    <div className="absolute inset-0 bg-blue-600 rounded-2xl transform translate-x-3 translate-y-3 transition-transform group-hover:translate-x-4 group-hover:translate-y-4"></div>
+                                    <img 
+                                        src="pic7.png" 
+                                        alt="Wes Huang 黃致維" 
+                                        className="relative w-full rounded-2xl shadow-2xl object-cover grayscale hover:grayscale-0 transition-all duration-500 border border-slate-200 bg-slate-100"
+                                        onError={(e) => {e.target.src='https://placehold.co/600x800/e2e8f0/475569?text=Founder+Photo'}}
+                                    />
+                                </div>
+                                
+                                <div className="mt-8 space-y-4">
+                                    <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                                        <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
+                                            <WIcon name="Briefcase" className="text-blue-600" /> 
+                                            現任職務
+                                        </h3>
+                                        <ul className="space-y-3 text-sm text-slate-600">
+                                            <li className="flex items-start gap-2">
+                                                <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5"></div>
+                                                <div>
+                                                    <strong className="block text-slate-800">Chief Executive Officer</strong>
+                                                    WesmartAI Co., Ltd.
+                                                </div>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5"></div>
+                                                <div>
+                                                    <strong className="block text-slate-800">Principal Investigator</strong>
+                                                    SBIR / 數位證據封存系統計畫
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    <h2 className="text-3xl font-bold text-slate-900 mb-6">
-                                        服務執行歷程管理<br/>
-                                        <span className="text-blue-600">數位化轉型的第一步</span>
-                                    </h2>
-                                    <div className="space-y-8">
-                                        {[
-                                            {icon: "fa-database", title: "完整資料保存", text: "將服務歷程轉化為企業資產，透過嚴謹的版本控管與補件機制，確保資料不可否認性。"},
-                                            {icon: "fa-mouse-pointer", title: "簡潔介面好上手", text: "優化作業流程，減少導入摩擦。檔案上傳即完成紀錄。"},
-                                            {icon: "fa-shield-alt", title: "PDCA 完整性", text: "從規劃到改善系統無縫整合，建立基準與完整執行紀錄。"}
-                                        ].map((item, i) => (
-                                            <div key={i} className="flex items-start">
-                                                <div className="flex-shrink-0 h-12 w-12 rounded-xl bg-white shadow-md flex items-center justify-center border border-slate-100">
-                                                    <i className={`fas ${item.icon} text-blue-600 text-xl`}></i>
-                                                </div>
-                                                <div className="ml-6">
-                                                    <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
-                                                    <p className="text-slate-600">{item.text}</p>
-                                                </div>
+
+                                    <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                                        <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2">
+                                            <WIcon name="Award" className="text-yellow-500" /> 
+                                            重要里程碑
+                                        </h3>
+                                        <div className="space-y-4 text-sm">
+                                            <div className="border-l-2 border-yellow-400 pl-3">
+                                                <p className="font-bold text-slate-800">2025 Microsoft Agentic AI Hackathon</p>
+                                                <p className="text-slate-600">決賽入選團隊 (Finalist)</p>
+                                                <p className="text-xs text-slate-500 mt-1">人機共創 × 技術轉譯 × 專利變現</p>
                                             </div>
+                                            <div className="border-l-2 border-blue-400 pl-3">
+                                                <p className="font-bold text-slate-800">發明專利申請</p>
+                                                <p className="text-slate-600">非決定性處理系統之治理紀錄生成方法</p>
+                                                <p className="text-xs text-slate-500 mt-1">台灣、歐盟、美國佈局中</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Right: Bio Content */}
+                            <div className="lg:col-span-7 space-y-10" data-aos="fade-up">
+                                <div>
+                                    <div className="flex items-center gap-2 text-blue-600 font-bold tracking-widest text-sm uppercase mb-2">
+                                        Founder & CEO
+                                    </div>
+                                    <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+                                        Wes Huang <span className="text-slate-400 font-light">黃致維</span>
+                                    </h1>
+                                    <p className="text-xl text-slate-600 leading-relaxed font-light">
+                                        <span className="font-medium text-slate-800">🚀 創業者｜發明家｜投資人｜地方創生推動者</span>
+                                    </p>
+                                </div>
+
+                                <div className="prose prose-lg text-slate-600 leading-8 space-y-6">
+                                    <p>
+                                        我是一位長期投入於創業、地方創生與影響力投資的實踐者，具備新創發展、社會創新與數位產品落地的整合經驗。曾創立社會創新企業，並透過創業競賽、投資簡報、群眾募資與地方型專案，持續推動具備實質成效的計畫。
+                                    </p>
+                                    <p>
+                                        在品牌定位、募資策略與市場拓展方面，曾主導多項研究與創新計畫撰寫，並成功取得政府補助資源（包含 SBIR 與中小企業創新研發相關計畫），協助團隊將技術與構想轉化為可執行、可驗證的成果。
+                                    </p>
+
+                                    <h3 className="text-2xl font-bold text-slate-900 mt-8 mb-4">🎯 以地方為核心，推動可擴張的影響力事業</h3>
+                                    <p>
+                                        我深知早期團隊在關鍵階段所面臨的資源與策略限制，因此在推進自身事業的同時，也積極投入 ESG 導向之投資與策略性資源整合，協助地方創新團隊建立具體成果、可複製流程與可擴張模型。多年來，持續參與跨域創業生態系，推動以地方為核心、但具備規模化潛力的影響力事業。
+                                    </p>
+
+                                    <h3 className="text-2xl font-bold text-slate-900 mt-8 mb-4">📘 AI 系統落地 × 可治理 × 可驗證 × 專利化</h3>
+                                    <p>
+                                        在技術面，我專注於將人工智慧系統導入高度可靠、可治理且可驗證的實務應用場景。透過系統化的專利布局，將研發成果轉化為可授權、可商業化的數位資產，而非僅止於概念或展示型應用。
+                                    </p>
+                                    <p>
+                                        我所提出的技術方法，核心在於於真實人機互動過程中，建立可追溯、可驗證的生成與決策紀錄機制，以確保人工智慧系統在實際部署時，具備一致性、可重現性與工程層級的可控性。相關成果已展開台灣、歐盟與美國等多地之專利佈局，並形成可實際部署的原型系統。
+                                    </p>
+                                </div>
+
+                                <div className="border-t border-slate-200 pt-8">
+                                    <h4 className="font-bold text-slate-900 mb-4 text-sm uppercase tracking-wider">Core Competencies</h4>
+                                    <div className="flex flex-wrap gap-3">
+                                        {["Strategic Planning", "Innovation Management", "AI-Driven Entrepreneurship", "Blockchain", "Patent Strategy", "Impact Investing"].map((skill, i) => (
+                                            <span key={i} className="skill-tag px-4 py-2 rounded-full text-sm font-medium">
+                                                {skill}
+                                            </span>
                                         ))}
                                     </div>
                                 </div>
-                                <div className="mt-12 lg:mt-0 relative" data-aos="fade-left">
-                                     <div className="bg-white p-2 rounded-xl shadow-xl border border-slate-200">
-                                        <img src="https://placehold.co/600x400/e2e8f0/475569?text=Execution+Process+UI" alt="Execution Process" className="rounded-lg w-full h-auto" />
-                                     </div>
+                                
+                                <div className="bg-slate-900 rounded-xl p-8 text-white mt-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+                                    <div>
+                                        <h4 className="font-bold text-xl mb-1">Let's build trust together.</h4>
+                                        <p className="text-slate-400 text-sm">Open for strategic partnerships & investment opportunities.</p>
+                                    </div>
+                                    <a href="mailto:weshuangimpact@gmail.com" className="px-6 py-3 bg-white text-slate-900 font-bold rounded-lg hover:bg-blue-50 transition transform hover:-translate-y-1">
+                                        Contact Me
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </section>
-
-                    {/* Comparison */}
-                    <section id="comparison" className="py-24 relative parallax-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1920&q=80')"}}>
-                         <div className="absolute inset-0 bg-slate-900/90 backdrop-blur-[2px]"></div>
-                         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="text-center mb-16">
-                                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">效益分析</h2>
-                                <p className="text-slate-300">從 EXCEL 紙本作業轉型至 OHACSS 雲端系統</p>
-                            </div>
-                            <div className="grid md:grid-cols-2 gap-12 items-center">
-                                <div className="bg-white/5 p-8 rounded-3xl backdrop-blur-md border border-white/10 shadow-2xl flex items-center justify-center" data-aos="zoom-in">
-                                    <img src="https://placehold.co/400x400/3b82f6/ffffff?text=Radar+Chart" alt="Radar Chart" className="w-full max-w-md" />
-                                </div>
-                                <div className="space-y-6" data-aos="fade-left">
-                                    {[
-                                        {icon: "fa-lock", title: "證據完整性", old: "資料分散", new: "結構化權限管理"},
-                                        {icon: "fa-tachometer-alt", title: "評鑑準備速度", old: "費時查找", new: "一鍵生成報表"},
-                                        {icon: "fa-comments", title: "溝通效率", old: "難以追溯", new: "系統化追蹤"}
-                                    ].map((item, i) => (
-                                        <div key={i} className="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
-                                            <h3 className="text-xl font-bold text-blue-400 mb-3 flex items-center">
-                                                <i className={`fas ${item.icon} mr-3`}></i>{item.title}
-                                            </h3>
-                                            <div className="pl-8 border-l-2 border-slate-600">
-                                                <p className="text-slate-500 text-sm line-through">{item.old}</p>
-                                                <p className="text-white font-medium flex items-center mt-1">
-                                                    <i className="fas fa-arrow-right text-green-400 mr-2 text-xs"></i> {item.new}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                         </div>
-                    </section>
+                    </div>
                 </div>
             );
         };
@@ -383,7 +434,7 @@
         // Main App Controller
         // ==========================================
         const App = () => {
-            const [page, setPage] = useState('corporate'); // 'corporate' or 'ohacss'
+            const [page, setPage] = useState('corporate'); // 'corporate', 'ohacss', 'founder'
 
             useEffect(() => {
                 AOS.init({
@@ -401,13 +452,11 @@
 
             return (
                 <>
-                    {page === 'corporate' ? (
-                        <CorporatePage onNavigate={handleNavigation} />
-                    ) : (
-                        <OhacssPage onNavigate={handleNavigation} />
-                    )}
+                    {page === 'corporate' && <CorporatePage onNavigate={handleNavigation} />}
+                    {page === 'ohacss' && <OhacssPage onNavigate={handleNavigation} />}
+                    {page === 'founder' && <FounderPage onNavigate={handleNavigation} />}
 
-                    {/* Shared Footer */}
+                    {/* Shared Footer (Hidden on Founder page to avoid duplication if desired, but kept for consistency) */}
                     <footer className="bg-slate-900 border-t border-slate-800 pt-16 pb-8 text-slate-400">
                         <div className="max-w-7xl mx-auto px-6">
                             <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -423,16 +472,15 @@
                                     <ul className="space-y-2 text-sm">
                                         <li><i className="fas fa-map-marker-alt mr-2 w-4 text-center"></i>722 台南市佳里區光明街68號1樓</li>
                                         <li><i className="fas fa-phone mr-2 w-4 text-center"></i>+886-912-310570</li>
+                                        <li><i className="fas fa-envelope mr-2 w-4 text-center"></i>weshuangimpact@gmail.com</li>
                                     </ul>
                                 </div>
                                 <div>
-                                    <h4 className="text-white text-lg font-bold mb-4">Products</h4>
+                                    <h4 className="text-white text-lg font-bold mb-4">Explore</h4>
                                     <ul className="space-y-2 text-sm">
-                                        <li>
-                                            <button onClick={() => handleNavigation('ohacss')} className="hover:text-blue-400 transition text-left">
-                                                OHACSS Platform
-                                            </button>
-                                        </li>
+                                        <li><button onClick={() => handleNavigation('corporate')} className="hover:text-blue-400 transition text-left">Corporate Home</button></li>
+                                        <li><button onClick={() => handleNavigation('ohacss')} className="hover:text-blue-400 transition text-left">OHACSS Platform</button></li>
+                                        <li><button onClick={() => handleNavigation('founder')} className="hover:text-blue-400 transition text-left">About Founder</button></li>
                                     </ul>
                                 </div>
                             </div>
