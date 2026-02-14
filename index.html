@@ -103,7 +103,8 @@
             ArrowRight: <g><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></g>,
             ChevronLeft: <polyline points="15 18 9 12 15 6" />,
             Briefcase: <g><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></g>,
-            Award: <g><circle cx="12" cy="8" r="7" /><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" /></g>
+            Award: <g><circle cx="12" cy="8" r="7" /><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" /></g>,
+            FileText: <g><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></g>
         };
 
         const WIcon = ({ name, className, size }) => <Icon path={Icons[name]} className={className} size={size} />;
@@ -463,10 +464,16 @@
                             {/* Landscape Image Container - Optimized for Width */}
                             <div className="relative w-full max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-slate-100 group">
                                 <img 
-                                    src="pic7.jpg" 
+                                    src="pic7.png" 
                                     alt="Wes Huang 黃致維" 
                                     className="w-full h-auto object-cover transform group-hover:scale-[1.01] transition-transform duration-700"
-                                    onError={(e) => {e.target.src='https://placehold.co/1200x600/e2e8f0/475569?text=Founder+Photo+(pic7.jpg)'}}
+                                    onError={(e) => {
+                                        if (e.target.src.includes('pic7.png')) {
+                                            e.target.src = 'pic7.jpg'; 
+                                        } else {
+                                            e.target.src='https://placehold.co/1200x600/e2e8f0/475569?text=Founder+Photo+(pic7)';
+                                        }
+                                    }}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-60"></div>
                                 <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 text-white">
@@ -519,31 +526,67 @@
                                 <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
                                     <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2 text-sm uppercase tracking-wider">
                                         <WIcon name="Briefcase" className="text-blue-600" /> 
-                                        Current Roles
+                                        Current Role
                                     </h3>
                                     <ul className="space-y-4 text-sm text-slate-600">
                                         <li className="flex flex-col">
                                             <strong className="text-slate-800 text-base">Chief Executive Officer</strong>
                                             <span>WesmartAI Co., Ltd.</span>
                                         </li>
-                                        <li className="flex flex-col">
-                                            <strong className="text-slate-800 text-base">Principal Investigator</strong>
-                                            <span>SBIR / 數位證據封存系統計畫</span>
-                                        </li>
                                     </ul>
                                 </div>
 
-                                <div className="bg-yellow-50/50 p-6 rounded-xl border border-yellow-100">
-                                    <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2 text-sm uppercase tracking-wider">
-                                        <WIcon name="Award" className="text-yellow-600" /> 
-                                        Major Milestone
+                                <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-full -mr-10 -mt-10 opacity-50"></div>
+                                    <h3 className="font-bold text-slate-900 mb-6 flex items-center gap-2 text-sm uppercase tracking-wider relative z-10">
+                                        <WIcon name="Award" className="text-blue-600" /> 
+                                        Key Milestones
                                     </h3>
-                                    <div className="space-y-2">
-                                        <p className="font-bold text-slate-800">2025 Microsoft Agentic AI Hackathon</p>
-                                        <span className="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded font-bold">Finalist (決賽入選)</span>
-                                        <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                                            獲得國際評審對其工程完整性、實務落地性與未來商業潛力之肯定。
-                                        </p>
+                                    
+                                    <div className="space-y-8 relative z-10">
+                                        {/* Item 1: Patent 1 */}
+                                        <div className="relative pl-6 border-l-2 border-slate-200">
+                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-blue-400 rounded-full"></div>
+                                            <span className="text-xs font-mono text-slate-400 block mb-1">Nov 2025</span>
+                                            <p className="font-bold text-slate-800 text-sm leading-tight">System and Method for Controlled Generation of Immutable Records</p>
+                                            <span className="inline-block mt-1 text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200">Invention Patent App.</span>
+                                        </div>
+
+                                        {/* Item 2: Microsoft Hackathon */}
+                                        <div className="relative pl-6 border-l-2 border-yellow-300">
+                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-yellow-500 rounded-full animate-pulse"></div>
+                                            <span className="text-xs font-mono text-slate-400 block mb-1">Nov 2025</span>
+                                            <p className="font-bold text-slate-900 text-sm leading-tight">2025 Microsoft Agentic AI Hackathon</p>
+                                            <div className="mt-2 p-2 bg-yellow-50 rounded border border-yellow-100 flex items-center gap-3">
+                                                
+                                                <div>
+                                                    <span className="block text-xs font-bold text-yellow-800">Finalist Award</span>
+                                                    <span className="text-[10px] text-yellow-700">Top 10 Nationwide</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Item 3: Patent 2 */}
+                                        <div className="relative pl-6 border-l-2 border-slate-200">
+                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-blue-400 rounded-full"></div>
+                                            <span className="text-xs font-mono text-slate-400 block mb-1">Dec 2025</span>
+                                            <p className="font-bold text-slate-800 text-sm leading-tight">Governance Determination Processing & Replayable Adjudication System</p>
+                                            <span className="inline-block mt-1 text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200">Invention Patent App.</span>
+                                        </div>
+
+                                        {/* Item 4: SSRN Paper */}
+                                        <div className="relative pl-6 border-l-2 border-slate-200">
+                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-indigo-400 rounded-full"></div>
+                                            <span className="text-xs font-mono text-slate-400 block mb-1">Feb 2026</span>
+                                            <p className="font-bold text-slate-800 text-sm leading-tight">Institutional Acceptability and Post-Hoc Governance Adjudication</p>
+                                            <div className="mt-2 p-2 bg-slate-50 rounded border border-slate-100">
+                                                
+                                                <div className="mt-1 flex justify-between items-center">
+                                                    <span className="text-[10px] font-bold text-indigo-600">SSRN Published</span>
+                                                    <WIcon name="FileText" size={12} className="text-slate-400" />
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
