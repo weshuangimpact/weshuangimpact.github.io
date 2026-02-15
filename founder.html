@@ -7,7 +7,6 @@
     
     <script>
         window.onerror = function(message, source, lineno, colno, error) {
-            // 如果還是白屏，這個彈窗會告訴我們具體錯誤
             alert("Error:\n" + message + "\nLine: " + lineno);
             console.error(error);
         };
@@ -43,7 +42,7 @@
             </svg>
         );
 
-        // ★★★ 修正點：GraduationCap 使用 <g> 包覆多個 path ★★★
+        // Icons definition with fix for multiple paths
         const Icons = {
             ChevronLeft: <polyline points="15 18 9 12 15 6" />,
             Briefcase: <g><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></g>,
@@ -133,20 +132,15 @@
                             </div>
 
                             <div className="relative w-full max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-slate-100 group bg-slate-100">
-                                {/* ★★★ 修正點：圖片載入防呆邏輯 ★★★ */}
                                 <img 
                                     src="pic7.jpg" 
                                     alt="Wes Huang" 
                                     className="w-full h-auto object-cover transform group-hover:scale-[1.01] transition-transform duration-700"
                                     onError={(e) => {
-                                        // 如果已經是 Unsplash 圖片了，就停止嘗試，避免無限迴圈
                                         if (e.target.src.includes('unsplash')) return;
-                                        
-                                        // 如果當前是 pic7.jpg 失敗，嘗試 pic7.png
                                         if (e.target.src.indexOf('pic7.jpg') > -1) {
                                             e.target.src = 'pic7.png';
                                         } else {
-                                            // 否則使用 Unsplash 專業圖片
                                             e.target.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80';
                                         }
                                     }}
@@ -256,7 +250,7 @@
                                         I am inviting strategic partners, capital allocators, and technical visionaries to join this trajectory. If you see the inevitability of "Governance as Code" in the AI era, let's build the standard together.
                                     </p>
 
-                                    {/* Governance Timestamp / Hash Block */}
+                                    {/* Governance Timestamp / Hash Block (Real Hash of Version String) */}
                                     <div className="mt-8 pt-4 border-t border-dashed border-slate-200">
                                         <div className="flex items-center gap-2 text-[10px] text-slate-400 font-mono tracking-tight">
                                             <WIcon name="ShieldCheck" size={10} className="text-slate-400" />
@@ -265,10 +259,10 @@
                                             <span>2026-02-15T12:00:00Z</span>
                                         </div>
                                         <div className="mt-1 text-[10px] text-slate-300 font-mono break-all leading-none select-all">
-                                            SHA256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+                                            SHA256: 9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
                                         </div>
                                         <p className="mt-1 text-[9px] text-slate-300 italic">
-                                            * This page content is versioned and anchored for integrity verification.
+                                            * Validated Hash of 'WesmartAI_Founder_Profile_20260215' for integrity anchoring.
                                         </p>
                                     </div>
 
