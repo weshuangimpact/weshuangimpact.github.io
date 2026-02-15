@@ -1,20 +1,19 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WesmartAI | Trusted Intelligence Integration</title>
+    <title>Founder - Wes Huang</title>
     
     <script>
         window.onerror = function(message, source, lineno, colno, error) {
-            alert("系統發生錯誤 (白屏偵錯):\n" + message + "\nLine: " + lineno);
+            alert("Error (White Screen Debug):\n" + message + "\nLine: " + lineno);
         };
     </script>
 
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -22,20 +21,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
-        body { font-family: 'Inter', 'Noto Sans TC', sans-serif; overflow-x: hidden; transition: background-color 0.5s ease; background-color: #0b1120; }
-        .glass-card { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .tech-gradient-text { background: linear-gradient(to right, #60a5fa, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        /* Global Styles */
+        body { font-family: 'Inter', 'Noto Sans TC', sans-serif; overflow-x: hidden; transition: background-color 0.5s ease; background-color: #ffffff; }
+        /* Page Transition */
         .page-enter { animation: fadeIn 0.6s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        /* Founder Page Tags */
+        .skill-tag { background: rgba(59, 130, 246, 0.08); color: #1d4ed8; border: 1px solid rgba(59, 130, 246, 0.2); transition: all 0.3s ease; }
+        .skill-tag:hover { background: rgba(59, 130, 246, 0.15); transform: translateY(-2px); }
     </style>
 </head>
-<body class="antialiased selection:bg-blue-500/30 text-slate-200">
+<body class="antialiased selection:bg-blue-500/30">
     <div id="root"></div>
 
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // Icons Component
+        // --- Shared Icons ---
         const Icon = ({ path, size = 24, className = "" }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
                 {path}
@@ -43,25 +45,33 @@
         );
 
         const Icons = {
-            ShieldCheck: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z m-3 10 2 2 4-4" />,
-            ArrowRight: <g><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></g>
+            ChevronLeft: <polyline points="15 18 9 12 15 6" />,
+            Briefcase: <g><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></g>,
+            Award: <g><circle cx="12" cy="8" r="7" /><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" /></g>,
+            FileText: <g><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></g>,
+            Globe: <g><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></g>
         };
 
-        const WIcon = ({ name, size }) => <Icon path={Icons[name]} size={size} />;
+        const WIcon = ({ name, className, size }) => <Icon path={Icons[name]} className={className} size={size} />;
 
-        // Footer Component
+        // ==========================================
+        // Footer Component (Shared)
+        // ==========================================
         const Footer = () => (
             <footer className="bg-slate-900 border-t border-slate-800 pt-16 pb-8 text-slate-400">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="grid md:grid-cols-3 gap-8 mb-12">
                         <div>
                             <h4 className="text-white text-lg font-bold mb-4">WesmartAI</h4>
-                            <p className="text-sm leading-relaxed mb-4">Making Trust Transparent.<br/>致力於將繁瑣的合規流程轉化為企業的數位資產。</p>
+                            <p className="text-sm leading-relaxed mb-4">
+                                Making Trust Transparent.<br/>
+                                Transforming complex compliance into digital assets.
+                            </p>
                         </div>
                         <div>
                             <h4 className="text-white text-lg font-bold mb-4">Contact</h4>
                             <ul className="space-y-2 text-sm">
-                                <li><i className="fas fa-map-marker-alt mr-2 w-4 text-center"></i>722 台南市佳里區光明街68號1樓</li>
+                                <li><i className="fas fa-map-marker-alt mr-2 w-4 text-center"></i>722 Tainan City, Jiali Dist.</li>
                                 <li><i className="fas fa-phone mr-2 w-4 text-center"></i>+886-912-310570</li>
                             </ul>
                         </div>
@@ -75,109 +85,275 @@
                         </div>
                     </div>
                     <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
-                        <p>&copy; 2026 可信智慧整合有限公司. All rights reserved.</p>
+                        <p>&copy; 2026 WesmartAI Co., Ltd. All rights reserved.</p>
                         <p className="mt-2 md:mt-0">UBN: 42917004</p>
                     </div>
                 </div>
             </footer>
         );
 
-        // Main Page Component
-        const CorporatePage = () => {
+        // ==========================================
+        // PAGE: Founder Page
+        // ==========================================
+        const FounderPage = () => {
             useEffect(() => {
-                AOS.init({ once: true, offset: 100, duration: 800 });
+                AOS.init({ once: true, offset: 100, duration: 800, easing: 'ease-out-cubic' });
             }, []);
 
             return (
-                <div className="page-enter">
-                    {/* Navbar */}
-                    <nav className="sticky top-0 z-50 bg-[#0b1120]/90 backdrop-blur-md border-b border-white/5">
+                <div className="text-slate-800 page-enter font-sans pb-20">
+                    {/* Founder Navbar */}
+                    <nav className="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm transition-all duration-300">
                         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                             <a href="index.html" className="flex items-center gap-3 cursor-pointer">
-                                <div className="w-8 h-8 bg-blue-600/20 border border-blue-500/30 rounded flex items-center justify-center">
-                                    <span className="font-bold text-blue-400">W</span>
+                                <div className="flex items-center text-slate-400 hover:text-blue-600 transition mr-4 border-r border-slate-200 pr-4">
+                                    <WIcon name="ChevronLeft" size={20} />
+                                    <span className="text-sm font-medium ml-1">Back</span>
                                 </div>
-                                <div>
-                                    <div className="font-bold text-lg tracking-tight text-white">WesmartAI</div>
-                                    <div className="text-[10px] text-slate-400 uppercase tracking-widest">可信智慧整合有限公司</div>
-                                </div>
+                                <span className="font-bold text-lg text-slate-800">WesmartAI</span>
                             </a>
-                            <div className="hidden md:flex text-sm text-slate-400 gap-8 items-center">
-                                <span className="hover:text-white cursor-pointer transition">Infrastructure</span>
-                                <a href="ohacss.html" className="hover:text-white cursor-pointer transition">Products</a>
-                                <a href="founder.html" className="hover:text-white cursor-pointer transition">Founder</a>
-                            </div>
-                            <div className="text-xs font-mono text-slate-500 border border-slate-800 px-3 py-1 rounded hidden sm:block">
-                                UBN: 42917004
+                            <div className="flex items-center gap-6">
+                                <span className="text-sm font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">Founder & CEO</span>
                             </div>
                         </div>
                     </nav>
 
-                    {/* Hero */}
-                    <section className="relative pt-24 pb-20 px-6 max-w-7xl mx-auto border-b border-white/5">
-                        <div className="absolute top-0 right-0 -z-10 opacity-20">
-                            <div className="w-[600px] h-[600px] bg-blue-600/20 blur-[120px] rounded-full"></div>
-                        </div>
-                        <div className="max-w-3xl" data-aos="fade-up">
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/20 border border-blue-500/20 text-blue-400 text-xs font-medium mb-6">
-                                <WIcon name="ShieldCheck" size={14} />
-                                <span>Secure Edge Governance Platform</span>
+                    <div className="pt-28 max-w-6xl mx-auto px-6">
+                        
+                        {/* Profile Header & Landscape Image */}
+                        <div className="mb-16" data-aos="fade-down">
+                            <div className="text-center max-w-3xl mx-auto mb-10">
+                                <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                                    Wes Huang <span className="text-slate-400 font-light">黃致維</span>
+                                </h1>
+                                <p className="text-xl text-slate-600 font-light tracking-wide">
+                                    🚀 Entrepreneur | Inventor | Investor | Regional Revitalization Advocate
+                                </p>
                             </div>
-                            <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight leading-tight mb-6">
-                                Edge Governance Infrastructure for <span className="tech-gradient-text">TrustZone-Class</span> Platforms
-                            </h1>
-                            <p className="text-xl text-slate-400 leading-relaxed max-w-2xl mb-10">
-                                A deterministic adjudication layer designed for non-deterministic AI systems. 
-                                We provide the institutional trust anchor required for mission-critical Edge AI deployment.
-                            </p>
-                            <div className="flex flex-col sm:flex-row gap-4">
-                                <a href="ohacss.html" className="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition flex items-center justify-center gap-2">
-                                    View OHACSS Product <WIcon name="ArrowRight" size={18} />
-                                </a>
-                                <a href="founder.html" className="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium rounded-lg transition border border-slate-700 text-center">
-                                    Meet the Founder
-                                </a>
-                            </div>
-                        </div>
-                    </section>
 
-                    {/* Featured Product */}
-                    <section className="py-20 bg-slate-900/30 border-t border-white/5">
-                        <div className="max-w-7xl mx-auto px-6">
-                            <h2 className="text-2xl font-bold text-white mb-12">Deployment & Products</h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                <a href="ohacss.html" className="glass-card p-6 rounded-lg hover:bg-blue-900/20 transition-all cursor-pointer border border-blue-500/30 group block">
-                                    <div className="flex justify-between items-start mb-4">
-                                        <div className="p-2 bg-blue-600 rounded-lg text-white">
-                                            <span className="font-bold">O</span>
-                                        </div>
-                                        <WIcon name="ArrowRight" size={20} />
-                                    </div>
-                                    <h3 className="font-semibold text-white mb-2 group-hover:text-blue-300">OHACSS Platform</h3>
-                                    <p className="text-sm text-slate-400">Occupational Health Assessment & Compliance Support System.</p>
-                                </a>
-                                <div className="glass-card p-6 rounded-lg hover:bg-slate-800/50 transition-colors">
-                                    <h3 className="font-semibold text-white mb-3">IoT Integrity</h3>
-                                    <p className="text-sm text-slate-400">Ensuring valid command sequences in SCADA/PLC bridges.</p>
-                                </div>
-                                <div className="glass-card p-6 rounded-lg hover:bg-slate-800/50 transition-colors">
-                                    <h3 className="font-semibold text-white mb-3">Secure Audit</h3>
-                                    <p className="text-sm text-slate-400">Non-repudiable logging of AI decision outputs.</p>
-                                </div>
-                                <div className="glass-card p-6 rounded-lg hover:bg-slate-800/50 transition-colors">
-                                    <h3 className="font-semibold text-white mb-3">Human-in-the-Loop</h3>
-                                    <p className="text-sm text-slate-400">Hardware-enforced intervention mechanisms.</p>
+                            {/* Landscape Image Container - Optimized for Width */}
+                            <div className="relative w-full max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-slate-100 group bg-slate-100">
+                                <img 
+                                    src="pic7.png" 
+                                    alt="Wes Huang 黃致維" 
+                                    className="w-full h-auto object-cover transform group-hover:scale-[1.01] transition-transform duration-700"
+                                    onError={(e) => {
+                                        // 避免無窮迴圈，只執行一次替換
+                                        e.target.onerror = null; 
+                                        e.target.src = 'https://placehold.co/1200x600/e2e8f0/475569?text=Founder+Photo+(pic7)';
+                                    }}
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-60"></div>
+                                <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 text-white">
+                                    <p className="text-sm font-medium opacity-90 uppercase tracking-widest mb-1">Current Focus</p>
+                                    <p className="text-xl md:text-2xl font-bold">Building Trust for the AI Era.</p>
                                 </div>
                             </div>
                         </div>
-                    </section>
+
+                        <div className="grid lg:grid-cols-12 gap-12">
+                            
+                            {/* Left: Bio Content */}
+                            <div className="lg:col-span-8 space-y-10" data-aos="fade-up">
+                                <div className="prose prose-lg text-slate-600 leading-8 space-y-6">
+                                    
+                                    {/* Section 1: About Me */}
+                                    <h3 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+                                        <span className="bg-blue-600 w-1 h-8 rounded-full"></span>
+                                        About Me
+                                    </h3>
+                                    <p>
+                                        I am a practitioner deeply committed to entrepreneurship, regional revitalization, and impact investing, with integrated experience in startup development, social innovation, and digital product implementation. I have founded social innovation enterprises and consistently driven effective projects through startup competitions, investment pitches, crowdfunding, and regional initiatives.
+                                    </p>
+                                    <p>
+                                        In terms of brand positioning, fundraising strategy, and market expansion, I have led numerous research and innovation project proposals, successfully securing government grants (including SBIR and SME innovation research programs) to assist teams in transforming technologies and concepts into executable, verifiable results.
+                                    </p>
+
+                                    {/* Section 2: Local Core */}
+                                    <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
+                                        <span className="bg-indigo-600 w-1 h-8 rounded-full"></span>
+                                        🎯 Locally Rooted, Scalable Impact
+                                    </h3>
+                                    <p>
+                                        Understanding the resource and strategic constraints early-stage teams face during critical phases, I actively engage in ESG-oriented investing and strategic resource integration while advancing my own ventures. My goal is to help regional innovation teams establish concrete results, replicable processes, and scalable models. Over the years, I have participated in cross-domain startup ecosystems, promoting impact businesses that are locally rooted yet possess the potential for scale.
+                                    </p>
+
+                                    {/* Section 3: AI Tech */}
+                                    <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
+                                        <span className="bg-teal-500 w-1 h-8 rounded-full"></span>
+                                        📘 AI Deployment: Governable, Verifiable, Patented
+                                    </h3>
+                                    <p>
+                                        On the technical front, I focus on deploying AI systems into highly reliable, governable, and verifiable practical scenarios. Through systematic patent layout, I transform R&D results into licensable and commercializable digital assets, moving beyond mere concepts or demo applications.
+                                    </p>
+                                    <p>
+                                        My technical approach centers on establishing traceable and verifiable generation and decision-making recording mechanisms during real-world human-machine interactions. This ensures that AI systems possess consistency, reproducibility, and engineering-level controllability when deployed. These results have initiated patent layouts in Taiwan, the EU, and the US, evolving into deployable prototype systems.
+                                    </p>
+
+                                    {/* Section 4: Why We Do This (Narrative Version) */}
+                                    <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
+                                        <span className="bg-rose-600 w-1 h-8 rounded-full"></span>
+                                        <i className="fas fa-globe text-rose-600 mr-1"></i> Why We Do This
+                                    </h3>
+                                    <p className="text-slate-700 font-medium">
+                                        In response to the accelerating global AI regulatory landscape, we established a strategic patent narrative long before the deadlines approached. Taiwan's Artificial Intelligence Basic Act officially took effect in January 2026, establishing a risk-based governance framework centered on human-centric principles. Meanwhile, the EU AI Act's core obligations for high-risk and high-sensitivity sectors (such as healthcare, transportation, finance, and law enforcement) will apply from August 2026, mandating verifiable, transparent, and post-hoc review mechanisms.
+                                    </p>
+                                    <p className="text-slate-700 font-medium">
+                                        Addressing this gap requires more than theory; it demands a validated engineering roadmap. This is why we initiated our aggressive patent layout in late 2025, securing priority for our "Immutable Record Generation" and "Replayable Adjudication" methods. Our architecture—recognized as a Top 10 Finalist in the Microsoft Agentic AI Hackathon and theoretically grounded in our February 2026 SSRN governance framework—uses mature engineering components to enforce a deterministic layer within Qualcomm QTEE TrustZone.
+                                    </p>
+                                    <p className="text-slate-700 font-medium">
+                                        By moving from conceptual patents to validated prototypes (QITC 2026 participant), we provide not merely technological innovation, but a strategic compliance moat for enterprises operating in disconnected, high-risk environments.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Right: Sidebar Stats (Milestones) */}
+                            <div className="lg:col-span-4 space-y-6" data-aos="fade-left" data-aos-delay="200">
+                                
+                                <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                                    <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2 text-sm uppercase tracking-wider">
+                                        <WIcon name="Briefcase" className="text-blue-600" /> 
+                                        Current Role
+                                    </h3>
+                                    <ul className="space-y-4 text-sm text-slate-600">
+                                        <li className="flex flex-col">
+                                            <strong className="text-slate-800 text-base">Chief Executive Officer</strong>
+                                            <span>WesmartAI Co., Ltd.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
+                                    <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-full -mr-10 -mt-10 opacity-50"></div>
+                                    <h3 className="font-bold text-slate-900 mb-6 flex items-center gap-2 text-sm uppercase tracking-wider relative z-10">
+                                        <WIcon name="Award" className="text-blue-600" /> 
+                                        Key Milestones
+                                    </h3>
+                                    
+                                    <div className="space-y-8 relative z-10">
+                                        
+                                        {/* 0. Challenge Kickoff (Oct 2025) - NEW START */}
+                                        <div className="relative pl-6 border-l-2 border-slate-200">
+                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-gray-400 rounded-full"></div>
+                                            <span className="text-xs font-mono text-slate-400 block mb-1">Oct 2025</span>
+                                            <p className="font-bold text-slate-800 text-sm leading-tight">Participant in 2025 Microsoft Agentic AI Hackathon</p>
+                                            <span className="inline-block mt-1 text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded border border-gray-200">Challenge Kickoff</span>
+                                        </div>
+
+                                        {/* 1. Patent (Nov 2025) */}
+                                        <div className="relative pl-6 border-l-2 border-slate-200">
+                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-blue-400 rounded-full"></div>
+                                            <span className="text-xs font-mono text-slate-400 block mb-1">Nov 2025</span>
+                                            <p className="font-bold text-slate-800 text-sm leading-tight">System and Method for Controlled Generation of Immutable Records from Non-Deterministic AI Systems</p>
+                                            <span className="inline-block mt-1 text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200">Invention Patent App.</span>
+                                        </div>
+
+                                        {/* 2. Patent (Nov 2025) */}
+                                        <div className="relative pl-6 border-l-2 border-slate-200">
+                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-blue-400 rounded-full"></div>
+                                            <span className="text-xs font-mono text-slate-400 block mb-1">Nov 2025</span>
+                                            <p className="font-bold text-slate-800 text-sm leading-tight">Governance Record Generation Method for Non-Deterministic Processing Systems</p>
+                                            <span className="inline-block mt-1 text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200">Invention Patent App.</span>
+                                        </div>
+
+                                        {/* 3. Tech Release (Nov 2025) */}
+                                        <div className="relative pl-6 border-l-2 border-slate-200">
+                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-teal-400 rounded-full"></div>
+                                            <span className="text-xs font-mono text-slate-400 block mb-1">Nov 2025</span>
+                                            <p className="font-bold text-slate-800 text-sm leading-tight">Launch of AI Immutable Flight Recorder & AI Creation Provenance System</p>
+                                            <span className="inline-block mt-1 text-[10px] bg-teal-50 text-teal-700 px-2 py-0.5 rounded border border-teal-100">Core Tech MVP</span>
+                                        </div>
+
+                                        {/* 4. Hackathon Award (Nov 2025) */}
+                                        <div className="relative pl-6 border-l-2 border-yellow-300">
+                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-yellow-500 rounded-full animate-pulse"></div>
+                                            <span className="text-xs font-mono text-slate-400 block mb-1">Nov 2025</span>
+                                            <p className="font-bold text-slate-900 text-sm leading-tight">2025 Microsoft Agentic AI Hackathon</p>
+                                            <div className="mt-2 p-2 bg-yellow-50 rounded border border-yellow-100 flex items-center gap-3">
+                                                <div>
+                                                    <span className="block text-xs font-bold text-yellow-800">Finalist Award</span>
+                                                    <span className="text-[10px] text-yellow-700">Top 10 Nationwide</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* 5. Patent (Dec 2025) */}
+                                        <div className="relative pl-6 border-l-2 border-slate-200">
+                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-blue-400 rounded-full"></div>
+                                            <span className="text-xs font-mono text-slate-400 block mb-1">Dec 2025</span>
+                                            <p className="font-bold text-slate-800 text-sm leading-tight">Governance Determination Processing & Replayable Adjudication System</p>
+                                            <span className="inline-block mt-1 text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200">Invention Patent App.</span>
+                                        </div>
+
+                                        {/* 6. OHACSS Release (Jan 2026) */}
+                                        <div className="relative pl-6 border-l-2 border-slate-200">
+                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-green-400 rounded-full"></div>
+                                            <span className="text-xs font-mono text-slate-400 block mb-1">Jan 2026</span>
+                                            <p className="font-bold text-slate-800 text-sm leading-tight">Launch of OHACSS: Occupational Health Assessment & Compliance Support System</p>
+                                            <span className="inline-block mt-1 text-[10px] bg-green-50 text-green-700 px-2 py-0.5 rounded border border-green-100">SaaS MVP</span>
+                                        </div>
+
+                                        {/* 7. SSRN Paper (Feb 2026) */}
+                                        <div className="relative pl-6 border-l-2 border-slate-200">
+                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-indigo-400 rounded-full"></div>
+                                            <span className="text-xs font-mono text-slate-400 block mb-1">Feb 2026</span>
+                                            <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6080406" target="_blank" rel="noopener noreferrer" className="font-bold text-indigo-700 hover:underline text-sm leading-tight block">Institutional Acceptability and Post-Hoc Governance Adjudication</a>
+                                            <div className="mt-2 p-2 bg-slate-50 rounded border border-slate-100">
+                                                <div className="mt-1 flex justify-between items-center">
+                                                    <span className="text-[10px] font-bold text-indigo-600">SSRN Published</span>
+                                                    <WIcon name="FileText" size={12} className="text-slate-400" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* 8. Infra Release (Feb 2026) */}
+                                        <div className="relative pl-6 border-l-2 border-slate-200">
+                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-teal-400 rounded-full"></div>
+                                            <span className="text-xs font-mono text-slate-400 block mb-1">Feb 2026</span>
+                                            <p className="font-bold text-slate-800 text-sm leading-tight">Edge Governance Infrastructure for TrustZone-Class Platforms Released</p>
+                                            <span className="inline-block mt-1 text-[10px] bg-teal-50 text-teal-700 px-2 py-0.5 rounded border border-teal-100">Infra MVP</span>
+                                        </div>
+
+                                        {/* 9. QITC (Mar 2026) */}
+                                        <div className="relative pl-6 border-l-2 border-slate-200">
+                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-purple-400 rounded-full"></div>
+                                            <span className="text-xs font-mono text-slate-400 block mb-1">Mar 2026</span>
+                                            <p className="font-bold text-slate-800 text-sm leading-tight">Participant in 8th Qualcomm Innovate in Taiwan Challenge (QITC 2026)</p>
+                                            <span className="inline-block mt-1 text-[10px] bg-purple-50 text-purple-700 px-2 py-0.5 rounded border border-purple-100">Startup Challenge</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm">
+                                    <h3 className="font-bold text-slate-900 mb-4 text-sm uppercase tracking-wider">Core Competencies</h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {["Strategic Planning", "Innovation Management", "AI Entrepreneurship", "Blockchain", "Patent Strategy"].map((skill, i) => (
+                                            <span key={i} className="skill-tag px-3 py-1.5 rounded-md text-xs font-semibold">
+                                                {skill}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="bg-slate-900 text-white p-6 rounded-xl shadow-xl text-center">
+                                    <h4 className="font-bold mb-2">Let's Connect</h4>
+                                    <p className="text-xs text-slate-400 mb-4">Open for strategic partnerships.</p>
+                                    <a href="mailto:weshuangimpact@gmail.com" className="block w-full py-3 bg-white text-slate-900 font-bold rounded-lg hover:bg-blue-50 transition">
+                                        Email Me
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             );
         };
 
         const App = () => (
             <>
-                <CorporatePage />
+                <FounderPage />
                 <Footer />
             </>
         );
