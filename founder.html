@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,7 +42,8 @@
             ChevronLeft: <polyline points="15 18 9 12 15 6" />,
             Briefcase: <g><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></g>,
             Award: <g><circle cx="12" cy="8" r="7" /><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" /></g>,
-            FileText: <g><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></g>
+            FileText: <g><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></g>,
+            Globe: <g><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></g>
         };
 
         const WIcon = ({ name, className, size }) => <Icon path={Icons[name]} className={className} size={size} />;
@@ -58,13 +59,13 @@
                             <h4 className="text-white text-lg font-bold mb-4">WesmartAI</h4>
                             <p className="text-sm leading-relaxed mb-4">
                                 Making Trust Transparent.<br/>
-                                致力於將繁瑣的合規流程轉化為企業的數位資產。
+                                Transforming complex compliance into digital assets.
                             </p>
                         </div>
                         <div>
                             <h4 className="text-white text-lg font-bold mb-4">Contact</h4>
                             <ul className="space-y-2 text-sm">
-                                <li><i className="fas fa-map-marker-alt mr-2 w-4 text-center"></i>722 台南市佳里區光明街68號1樓</li>
+                                <li><i className="fas fa-map-marker-alt mr-2 w-4 text-center"></i>722 Tainan City, Jiali Dist.</li>
                                 <li><i className="fas fa-phone mr-2 w-4 text-center"></i>+886-912-310570</li>
                             </ul>
                         </div>
@@ -78,7 +79,7 @@
                         </div>
                     </div>
                     <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
-                        <p>&copy; 2026 可信智慧整合有限公司 (WesmartAI). All rights reserved.</p>
+                        <p>&copy; 2026 WesmartAI Co., Ltd. All rights reserved.</p>
                         <p className="mt-2 md:mt-0">UBN: 42917004</p>
                     </div>
                 </div>
@@ -118,10 +119,10 @@
                         <div className="mb-16" data-aos="fade-down">
                             <div className="text-center max-w-3xl mx-auto mb-10">
                                 <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-                                    Wes Huang <span className="text-slate-400 font-light">黃致維</span>
+                                    Wes Huang <span className="text-slate-400 font-light"></span>
                                 </h1>
                                 <p className="text-xl text-slate-600 font-light tracking-wide">
-                                    🚀 創業者｜發明家｜投資人｜地方創生推動者
+                                    🚀 Entrepreneur | Inventor | Investor | Regional Revitalization Advocate
                                 </p>
                             </div>
 
@@ -152,34 +153,50 @@
                             {/* Left: Bio Content */}
                             <div className="lg:col-span-8 space-y-10" data-aos="fade-up">
                                 <div className="prose prose-lg text-slate-600 leading-8 space-y-6">
+                                    
+                                    {/* Section 1: About Me */}
                                     <h3 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
                                         <span className="bg-blue-600 w-1 h-8 rounded-full"></span>
-                                        關於我
+                                        About Me
                                     </h3>
                                     <p>
-                                        我是一位長期投入於創業、地方創生與影響力投資的實踐者，具備新創發展、社會創新與數位產品落地的整合經驗。曾創立社會創新企業，並透過創業競賽、投資簡報、群眾募資與地方型專案，持續推動具備實質成效的計畫。
+                                        I am a practitioner deeply committed to entrepreneurship, regional revitalization, and impact investing, with integrated experience in startup development, social innovation, and digital product implementation. I have founded social innovation enterprises and consistently driven effective projects through startup competitions, investment pitches, crowdfunding, and regional initiatives.
                                     </p>
                                     <p>
-                                        在品牌定位、募資策略與市場拓展方面，曾主導多項研究與創新計畫撰寫，並成功取得政府補助資源（包含 SBIR 與中小企業創新研發相關計畫），協助團隊將技術與構想轉化為可執行、可驗證的成果。
+                                        In terms of brand positioning, fundraising strategy, and market expansion, I have led numerous research and innovation project proposals, successfully securing government grants (including SBIR and SME innovation research programs) to assist teams in transforming technologies and concepts into executable, verifiable results.
                                     </p>
 
+                                    {/* Section 2: Local Core */}
                                     <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
                                         <span className="bg-indigo-600 w-1 h-8 rounded-full"></span>
-                                        🎯 以地方為核心，推動可擴張的影響力事業
+                                        🎯 Locally Rooted, Scalable Impact
                                     </h3>
                                     <p>
-                                        我深知早期團隊在關鍵階段所面臨的資源與策略限制，因此在推進自身事業的同時，也積極投入 ESG 導向之投資與策略性資源整合，協助地方創新團隊建立具體成果、可複製流程與可擴張模型。多年來，持續參與跨域創業生態系，推動以地方為核心、但具備規模化潛力的影響力事業。
+                                        Understanding the resource and strategic constraints early-stage teams face during critical phases, I actively engage in ESG-oriented investing and strategic resource integration while advancing my own ventures. My goal is to help regional innovation teams establish concrete results, replicable processes, and scalable models. Over the years, I have participated in cross-domain startup ecosystems, promoting impact businesses that are locally rooted yet possess the potential for scale.
                                     </p>
 
+                                    {/* Section 3: AI Tech */}
                                     <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
                                         <span className="bg-teal-500 w-1 h-8 rounded-full"></span>
-                                        📘 AI 系統落地 × 可治理 × 可驗證 × 專利化
+                                        📘 AI Deployment: Governable, Verifiable, Patented
                                     </h3>
                                     <p>
-                                        在技術面，我專注於將人工智慧系統導入高度可靠、可治理且可驗證的實務應用場景。透過系統化的專利布局，將研發成果轉化為可授權、可商業化的數位資產，而非僅止於概念或展示型應用。
+                                        On the technical front, I focus on deploying AI systems into highly reliable, governable, and verifiable practical scenarios. Through systematic patent layout, I transform R&D results into licensable and commercializable digital assets, moving beyond mere concepts or demo applications.
                                     </p>
                                     <p>
-                                        我所提出的技術方法，核心在於於真實人機互動過程中，建立可追溯、可驗證的生成與決策紀錄機制，以確保人工智慧系統在實際部署時，具備一致性、可重現性與工程層級的可控性。相關成果已展開台灣、歐盟與美國等多地之專利佈局，並形成可實際部署的原型系統。
+                                        My technical approach centers on establishing traceable and verifiable generation and decision-making recording mechanisms during real-world human-machine interactions. This ensures that AI systems possess consistency, reproducibility, and engineering-level controllability when deployed. These results have initiated patent layouts in Taiwan, the EU, and the US, evolving into deployable prototype systems.
+                                    </p>
+
+                                    {/* Section 4: Why We Do This (New) */}
+                                    <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
+                                        <span className="bg-rose-600 w-1 h-8 rounded-full"></span>
+                                        <i className="fas fa-globe text-rose-600 mr-1"></i> Why We Do This
+                                    </h3>
+                                    <p className="text-slate-700 font-medium">
+                                        In response to the accelerating global AI regulatory landscape, we have chosen to invest in this domain's patent narrative. Taiwan's Artificial Intelligence Basic Act officially took effect in January 2026, establishing a risk-based governance framework centered on human-centric principles. Meanwhile, the EU AI Act's core obligations for high-risk and high-sensitivity sectors (such as healthcare, transportation, finance, and law enforcement) will apply from August 2026, mandating verifiable, transparent, and post-hoc review mechanisms. 
+                                    </p>
+                                    <p className="text-slate-700 font-medium">
+                                        These regulations expose a critical gap in offline edge AI scenarios: probabilistic models struggle to meet deterministic, auditable, and debuggable standards. Our governance architecture addresses this precisely — using mature engineering components to enforce a deterministic adjudication layer within Qualcomm QTEE TrustZone, ensuring institutional acceptability even in disconnected environments. This is not merely technological innovation; it is a strategic move to build compliance moats for Taiwanese and global enterprises ahead of regulatory deadlines.
                                     </p>
                                 </div>
                             </div>
@@ -222,7 +239,6 @@
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Nov 2025</span>
                                             <p className="font-bold text-slate-900 text-sm leading-tight">2025 Microsoft Agentic AI Hackathon</p>
                                             <div className="mt-2 p-2 bg-yellow-50 rounded border border-yellow-100 flex items-center gap-3">
-                                                
                                                 <div>
                                                     <span className="block text-xs font-bold text-yellow-800">Finalist Award</span>
                                                     <span className="text-[10px] text-yellow-700">Top 10 Nationwide</span>
@@ -244,7 +260,6 @@
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Feb 2026</span>
                                             <p className="font-bold text-slate-800 text-sm leading-tight">Institutional Acceptability and Post-Hoc Governance Adjudication</p>
                                             <div className="mt-2 p-2 bg-slate-50 rounded border border-slate-100">
-                                                
                                                 <div className="mt-1 flex justify-between items-center">
                                                     <span className="text-[10px] font-bold text-indigo-600">SSRN Published</span>
                                                     <WIcon name="FileText" size={12} className="text-slate-400" />
