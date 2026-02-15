@@ -7,8 +7,8 @@
     
     <script>
         window.onerror = function(message, source, lineno, colno, error) {
-            console.error("Error:", message);
-            // alert("Error (Debug):\n" + message + "\nLine: " + lineno); 
+            alert("系統偵測到錯誤 (Debug Mode):\n" + message + "\nLine: " + lineno);
+            console.error(error);
         };
     </script>
 
@@ -24,12 +24,8 @@
     <style>
         /* Global Styles */
         body { font-family: 'Inter', 'Noto Sans TC', sans-serif; overflow-x: hidden; background-color: #ffffff; }
-        
-        /* Animation */
         .page-enter { animation: fadeIn 0.6s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Tags */
         .skill-tag { background: rgba(59, 130, 246, 0.08); color: #1d4ed8; border: 1px solid rgba(59, 130, 246, 0.2); transition: all 0.3s ease; }
         .skill-tag:hover { background: rgba(59, 130, 246, 0.15); transform: translateY(-2px); }
     </style>
@@ -136,14 +132,18 @@
                             </div>
 
                             <div className="relative w-full max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-slate-100 group bg-slate-100">
-                                {/* 優先讀取 pic7.jpg，若失敗則使用 Unsplash 圖片作為備案 */}
+                                {/* 優先讀取 pic7.jpg，失敗則嘗試 pic7.png，再失敗則使用 Unsplash */}
                                 <img 
                                     src="pic7.jpg" 
                                     alt="Wes Huang" 
                                     className="w-full h-auto object-cover transform group-hover:scale-[1.01] transition-transform duration-700"
                                     onError={(e) => {
-                                        e.target.onerror = null; 
-                                        e.target.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80';
+                                        if (e.target.src.endsWith('pic7.jpg')) {
+                                            e.target.src = 'pic7.png'; 
+                                        } else {
+                                            e.target.onerror = null; 
+                                            e.target.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80';
+                                        }
                                     }}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-60"></div>
@@ -315,7 +315,7 @@
                                             <span className="inline-block mt-1 text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200">Invention Patent App.</span>
                                         </div>
 
-                                        {/* 3. Core Tech MVP */}
+                                        {/* 3. Tech Release */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-teal-400 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Nov 2025</span>
@@ -341,7 +341,7 @@
                                             <span className="inline-block mt-1 text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200">Invention Patent App.</span>
                                         </div>
 
-                                        {/* 6. SaaS MVP (OHACSS) */}
+                                        {/* 6. OHACSS Release */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-green-400 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Jan 2026</span>
@@ -362,7 +362,7 @@
                                             </div>
                                         </div>
 
-                                        {/* 8. Infra MVP */}
+                                        {/* 8. Infra Release */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-teal-400 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Feb 2026</span>
