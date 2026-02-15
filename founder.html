@@ -7,7 +7,8 @@
     
     <script>
         window.onerror = function(message, source, lineno, colno, error) {
-            alert("Error (White Screen Debug):\n" + message + "\nLine: " + lineno);
+            console.error("Error:", message);
+            // alert("Error (Debug):\n" + message + "\nLine: " + lineno); 
         };
     </script>
 
@@ -21,12 +22,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Global Styles */
-        body { font-family: 'Inter', 'Noto Sans TC', sans-serif; overflow-x: hidden; transition: background-color 0.5s ease; background-color: #ffffff; }
-        /* Page Transition */
+        body { font-family: 'Inter', 'Noto Sans TC', sans-serif; overflow-x: hidden; background-color: #ffffff; }
         .page-enter { animation: fadeIn 0.6s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        /* Founder Page Tags */
         .skill-tag { background: rgba(59, 130, 246, 0.08); color: #1d4ed8; border: 1px solid rgba(59, 130, 246, 0.2); transition: all 0.3s ease; }
         .skill-tag:hover { background: rgba(59, 130, 246, 0.15); transform: translateY(-2px); }
     </style>
@@ -37,7 +35,6 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- Shared Icons ---
         const Icon = ({ path, size = 24, className = "" }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
                 {path}
@@ -48,25 +45,18 @@
             ChevronLeft: <polyline points="15 18 9 12 15 6" />,
             Briefcase: <g><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></g>,
             Award: <g><circle cx="12" cy="8" r="7" /><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" /></g>,
-            FileText: <g><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></g>,
-            Globe: <g><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></g>
+            FileText: <g><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></g>
         };
 
         const WIcon = ({ name, className, size }) => <Icon path={Icons[name]} className={className} size={size} />;
 
-        // ==========================================
-        // Footer Component (Shared)
-        // ==========================================
         const Footer = () => (
             <footer className="bg-slate-900 border-t border-slate-800 pt-16 pb-8 text-slate-400">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="grid md:grid-cols-3 gap-8 mb-12">
                         <div>
                             <h4 className="text-white text-lg font-bold mb-4">WesmartAI</h4>
-                            <p className="text-sm leading-relaxed mb-4">
-                                Making Trust Transparent.<br/>
-                                Transforming complex compliance into digital assets.
-                            </p>
+                            <p className="text-sm leading-relaxed mb-4">Making Trust Transparent.</p>
                         </div>
                         <div>
                             <h4 className="text-white text-lg font-bold mb-4">Contact</h4>
@@ -78,32 +68,27 @@
                         <div>
                             <h4 className="text-white text-lg font-bold mb-4">Explore</h4>
                             <ul className="space-y-2 text-sm">
-                                <li><a href="index.html" className="hover:text-blue-400 transition text-left block">Corporate Home</a></li>
-                                <li><a href="ohacss.html" className="hover:text-blue-400 transition text-left block">OHACSS Platform</a></li>
-                                <li><a href="founder.html" className="hover:text-blue-400 transition text-left block">About Founder</a></li>
+                                <li><a href="index.html" className="hover:text-blue-400 block">Corporate Home</a></li>
+                                <li><a href="ohacss.html" className="hover:text-blue-400 block">OHACSS Platform</a></li>
+                                <li><a href="founder.html" className="hover:text-blue-400 block">About Founder</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
-                        <p>&copy; 2026 WesmartAI Co., Ltd. All rights reserved.</p>
-                        <p className="mt-2 md:mt-0">UBN: 42917004</p>
+                    <div className="border-t border-slate-800 pt-8 flex text-xs justify-between">
+                        <p>&copy; 2026 WesmartAI Co., Ltd.</p>
                     </div>
                 </div>
             </footer>
         );
 
-        // ==========================================
-        // PAGE: Founder Page
-        // ==========================================
         const FounderPage = () => {
             useEffect(() => {
-                AOS.init({ once: true, offset: 100, duration: 800, easing: 'ease-out-cubic' });
+                AOS.init({ once: true, offset: 100, duration: 800 });
             }, []);
 
             return (
                 <div className="text-slate-800 page-enter font-sans pb-20">
-                    {/* Founder Navbar */}
-                    <nav className="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm transition-all duration-300">
+                    <nav className="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
                         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                             <a href="index.html" className="flex items-center gap-3 cursor-pointer">
                                 <div className="flex items-center text-slate-400 hover:text-blue-600 transition mr-4 border-r border-slate-200 pr-4">
@@ -119,28 +104,24 @@
                     </nav>
 
                     <div className="pt-28 max-w-6xl mx-auto px-6">
-                        
-                        {/* Profile Header & Landscape Image */}
                         <div className="mb-16" data-aos="fade-down">
                             <div className="text-center max-w-3xl mx-auto mb-10">
-                                <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-                                    Wes Huang <span className="text-slate-400 font-light">黃致維</span>
-                                </h1>
-                                <p className="text-xl text-slate-600 font-light tracking-wide">
-                                    🚀 Entrepreneur | Inventor | Investor | Regional Revitalization Advocate
-                                </p>
+                                <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Wes Huang <span className="text-slate-400 font-light">黃致維</span></h1>
+                                <p className="text-xl text-slate-600 font-light tracking-wide">🚀 Entrepreneur | Inventor | Investor | Regional Revitalization Advocate</p>
                             </div>
-
-                            {/* Landscape Image Container - Optimized for Width */}
                             <div className="relative w-full max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-slate-100 group bg-slate-100">
+                                {/* 直接指定 pic7.jpg，若失敗則嘗試 pic7.png (以防萬一)，最後才用 placeholder */}
                                 <img 
-                                    src="pic7.png" 
-                                    alt="Wes Huang 黃致維" 
+                                    src="pic7.jpg" 
+                                    alt="Wes Huang" 
                                     className="w-full h-auto object-cover transform group-hover:scale-[1.01] transition-transform duration-700"
                                     onError={(e) => {
-                                        // 避免無窮迴圈，只執行一次替換
-                                        e.target.onerror = null; 
-                                        e.target.src = 'https://placehold.co/1200x600/e2e8f0/475569?text=Founder+Photo+(pic7)';
+                                        if (e.target.src.endsWith('pic7.jpg')) {
+                                            e.target.src = 'pic7.png'; // Try png if jpg fails
+                                        } else {
+                                            e.target.onerror = null; 
+                                            e.target.src = 'https://placehold.co/1200x600/e2e8f0/475569?text=Founder+Photo+(pic7)';
+                                        }
                                     }}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-60"></div>
@@ -152,87 +133,54 @@
                         </div>
 
                         <div className="grid lg:grid-cols-12 gap-12">
-                            
-                            {/* Left: Bio Content */}
                             <div className="lg:col-span-8 space-y-10" data-aos="fade-up">
                                 <div className="prose prose-lg text-slate-600 leading-8 space-y-6">
-                                    
-                                    {/* Section 1: About Me */}
                                     <h3 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                                        <span className="bg-blue-600 w-1 h-8 rounded-full"></span>
-                                        About Me
+                                        <span className="bg-blue-600 w-1 h-8 rounded-full"></span> About Me
                                     </h3>
-                                    <p>
-                                        I am a practitioner deeply committed to entrepreneurship, regional revitalization, and impact investing, with integrated experience in startup development, social innovation, and digital product implementation. I have founded social innovation enterprises and consistently driven effective projects through startup competitions, investment pitches, crowdfunding, and regional initiatives.
-                                    </p>
-                                    <p>
-                                        In terms of brand positioning, fundraising strategy, and market expansion, I have led numerous research and innovation project proposals, successfully securing government grants (including SBIR and SME innovation research programs) to assist teams in transforming technologies and concepts into executable, verifiable results.
-                                    </p>
-
-                                    {/* Section 2: Local Core */}
+                                    <p>I am a practitioner deeply committed to entrepreneurship, regional revitalization, and impact investing, with integrated experience in startup development, social innovation, and digital product implementation. I have founded social innovation enterprises and consistently driven effective projects through startup competitions, investment pitches, crowdfunding, and regional initiatives.</p>
+                                    <p>In terms of brand positioning, fundraising strategy, and market expansion, I have led numerous research and innovation project proposals, successfully securing government grants (including SBIR and SME innovation research programs) to assist teams in transforming technologies and concepts into executable, verifiable results.</p>
+                                    
                                     <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
-                                        <span className="bg-indigo-600 w-1 h-8 rounded-full"></span>
-                                        🎯 Locally Rooted, Scalable Impact
+                                        <span className="bg-indigo-600 w-1 h-8 rounded-full"></span> 🎯 Locally Rooted, Scalable Impact
                                     </h3>
-                                    <p>
-                                        Understanding the resource and strategic constraints early-stage teams face during critical phases, I actively engage in ESG-oriented investing and strategic resource integration while advancing my own ventures. My goal is to help regional innovation teams establish concrete results, replicable processes, and scalable models. Over the years, I have participated in cross-domain startup ecosystems, promoting impact businesses that are locally rooted yet possess the potential for scale.
-                                    </p>
+                                    <p>Understanding the resource and strategic constraints early-stage teams face during critical phases, I actively engage in ESG-oriented investing and strategic resource integration while advancing my own ventures. My goal is to help regional innovation teams establish concrete results, replicable processes, and scalable models. Over the years, I have participated in cross-domain startup ecosystems, promoting impact businesses that are locally rooted yet possess the potential for scale.</p>
 
-                                    {/* Section 3: AI Tech */}
                                     <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
-                                        <span className="bg-teal-500 w-1 h-8 rounded-full"></span>
-                                        📘 AI Deployment: Governable, Verifiable, Patented
+                                        <span className="bg-teal-500 w-1 h-8 rounded-full"></span> 📘 AI Deployment: Governable, Verifiable, Patented
                                     </h3>
-                                    <p>
-                                        On the technical front, I focus on deploying AI systems into highly reliable, governable, and verifiable practical scenarios. Through systematic patent layout, I transform R&D results into licensable and commercializable digital assets, moving beyond mere concepts or demo applications.
-                                    </p>
-                                    <p>
-                                        My technical approach centers on establishing traceable and verifiable generation and decision-making recording mechanisms during real-world human-machine interactions. This ensures that AI systems possess consistency, reproducibility, and engineering-level controllability when deployed. These results have initiated patent layouts in Taiwan, the EU, and the US, evolving into deployable prototype systems.
-                                    </p>
+                                    <p>On the technical front, I focus on deploying AI systems into highly reliable, governable, and verifiable practical scenarios. Through systematic patent layout, I transform R&D results into licensable and commercializable digital assets, moving beyond mere concepts or demo applications.</p>
+                                    <p>My technical approach centers on establishing traceable and verifiable generation and decision-making recording mechanisms during real-world human-machine interactions. This ensures that AI systems possess consistency, reproducibility, and engineering-level controllability when deployed. These results have initiated patent layouts in Taiwan, the EU, and the US, evolving into deployable prototype systems.</p>
 
-                                    {/* Section 4: Why We Do This (Narrative Version) */}
+                                    {/* Why We Do This */}
                                     <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
                                         <span className="bg-rose-600 w-1 h-8 rounded-full"></span>
                                         <i className="fas fa-globe text-rose-600 mr-1"></i> Why We Do This
                                     </h3>
-                                    <p className="text-slate-700 font-medium">
-                                        In response to the accelerating global AI regulatory landscape, we established a strategic patent narrative long before the deadlines approached. Taiwan's Artificial Intelligence Basic Act officially took effect in January 2026, establishing a risk-based governance framework centered on human-centric principles. Meanwhile, the EU AI Act's core obligations for high-risk and high-sensitivity sectors (such as healthcare, transportation, finance, and law enforcement) will apply from August 2026, mandating verifiable, transparent, and post-hoc review mechanisms.
-                                    </p>
-                                    <p className="text-slate-700 font-medium">
-                                        Addressing this gap requires more than theory; it demands a validated engineering roadmap. This is why we initiated our aggressive patent layout in late 2025, securing priority for our "Immutable Record Generation" and "Replayable Adjudication" methods. Our architecture—recognized as a Top 10 Finalist in the Microsoft Agentic AI Hackathon and theoretically grounded in our February 2026 SSRN governance framework—uses mature engineering components to enforce a deterministic layer within Qualcomm QTEE TrustZone.
-                                    </p>
-                                    <p className="text-slate-700 font-medium">
-                                        By moving from conceptual patents to validated prototypes (QITC 2026 participant), we provide not merely technological innovation, but a strategic compliance moat for enterprises operating in disconnected, high-risk environments.
-                                    </p>
+                                    <p className="text-slate-700 font-medium">In response to the accelerating global AI regulatory landscape, we established a strategic patent narrative long before the deadlines approached. Taiwan's Artificial Intelligence Basic Act officially took effect in January 2026, establishing a risk-based governance framework centered on human-centric principles. Meanwhile, the EU AI Act's core obligations for high-risk and high-sensitivity sectors (such as healthcare, transportation, finance, and law enforcement) will apply from August 2026, mandating verifiable, transparent, and post-hoc review mechanisms.</p>
+                                    <p className="text-slate-700 font-medium">Addressing this gap requires more than theory; it demands a validated engineering roadmap. This is why we initiated our aggressive patent layout in late 2025, securing priority for our "Immutable Record Generation" and "Replayable Adjudication" methods. Our architecture—recognized as a Top 10 Finalist in the Microsoft Agentic AI Hackathon and theoretically grounded in our February 2026 SSRN governance framework—uses mature engineering components to enforce a deterministic layer within Qualcomm QTEE TrustZone.</p>
+                                    <p className="text-slate-700 font-medium">By moving from conceptual patents to validated prototypes (QITC 2026 participant), we provide not merely technological innovation, but a strategic compliance moat for enterprises operating in disconnected, high-risk environments.</p>
                                 </div>
                             </div>
 
-                            {/* Right: Sidebar Stats (Milestones) */}
-                            <div className="lg:col-span-4 space-y-6" data-aos="fade-left" data-aos-delay="200">
-                                
+                            <div className="lg:col-span-4 space-y-6" data-aos="fade-left">
                                 <div className="bg-slate-50 p-6 rounded-xl border border-slate-100">
                                     <h3 className="font-bold text-slate-900 mb-4 flex items-center gap-2 text-sm uppercase tracking-wider">
-                                        <WIcon name="Briefcase" className="text-blue-600" /> 
-                                        Current Role
+                                        <WIcon name="Briefcase" className="text-blue-600" /> Current Role
                                     </h3>
                                     <ul className="space-y-4 text-sm text-slate-600">
-                                        <li className="flex flex-col">
-                                            <strong className="text-slate-800 text-base">Chief Executive Officer</strong>
-                                            <span>WesmartAI Co., Ltd.</span>
-                                        </li>
+                                        <li className="flex flex-col"><strong className="text-slate-800 text-base">Chief Executive Officer</strong><span>WesmartAI Co., Ltd.</span></li>
                                     </ul>
                                 </div>
 
                                 <div className="bg-white p-6 rounded-xl border border-slate-100 shadow-sm relative overflow-hidden">
                                     <div className="absolute top-0 right-0 w-24 h-24 bg-blue-50 rounded-full -mr-10 -mt-10 opacity-50"></div>
                                     <h3 className="font-bold text-slate-900 mb-6 flex items-center gap-2 text-sm uppercase tracking-wider relative z-10">
-                                        <WIcon name="Award" className="text-blue-600" /> 
-                                        Key Milestones
+                                        <WIcon name="Award" className="text-blue-600" /> Key Milestones
                                     </h3>
-                                    
                                     <div className="space-y-8 relative z-10">
                                         
-                                        {/* 0. Challenge Kickoff (Oct 2025) - NEW START */}
+                                        {/* 0. Challenge Kickoff */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-gray-400 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Oct 2025</span>
@@ -240,7 +188,7 @@
                                             <span className="inline-block mt-1 text-[10px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded border border-gray-200">Challenge Kickoff</span>
                                         </div>
 
-                                        {/* 1. Patent (Nov 2025) */}
+                                        {/* 1. Patent */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-blue-400 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Nov 2025</span>
@@ -248,7 +196,7 @@
                                             <span className="inline-block mt-1 text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200">Invention Patent App.</span>
                                         </div>
 
-                                        {/* 2. Patent (Nov 2025) */}
+                                        {/* 2. Patent */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-blue-400 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Nov 2025</span>
@@ -256,7 +204,7 @@
                                             <span className="inline-block mt-1 text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200">Invention Patent App.</span>
                                         </div>
 
-                                        {/* 3. Tech Release (Nov 2025) */}
+                                        {/* 3. Tech Release */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-teal-400 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Nov 2025</span>
@@ -264,20 +212,17 @@
                                             <span className="inline-block mt-1 text-[10px] bg-teal-50 text-teal-700 px-2 py-0.5 rounded border border-teal-100">Core Tech MVP</span>
                                         </div>
 
-                                        {/* 4. Hackathon Award (Nov 2025) */}
+                                        {/* 4. Hackathon Award */}
                                         <div className="relative pl-6 border-l-2 border-yellow-300">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-yellow-500 rounded-full animate-pulse"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Nov 2025</span>
                                             <p className="font-bold text-slate-900 text-sm leading-tight">2025 Microsoft Agentic AI Hackathon</p>
-                                            <div className="mt-2 p-2 bg-yellow-50 rounded border border-yellow-100 flex items-center gap-3">
-                                                <div>
-                                                    <span className="block text-xs font-bold text-yellow-800">Finalist Award</span>
-                                                    <span className="text-[10px] text-yellow-700">Top 10 Nationwide</span>
-                                                </div>
+                                            <div className="mt-2 p-2 bg-yellow-50 rounded border border-yellow-100">
+                                                <span className="block text-xs font-bold text-yellow-800">Finalist Award (Top 10)</span>
                                             </div>
                                         </div>
 
-                                        {/* 5. Patent (Dec 2025) */}
+                                        {/* 5. Patent */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-blue-400 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Dec 2025</span>
@@ -285,7 +230,7 @@
                                             <span className="inline-block mt-1 text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200">Invention Patent App.</span>
                                         </div>
 
-                                        {/* 6. OHACSS Release (Jan 2026) */}
+                                        {/* 6. OHACSS Release */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-green-400 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Jan 2026</span>
@@ -293,7 +238,7 @@
                                             <span className="inline-block mt-1 text-[10px] bg-green-50 text-green-700 px-2 py-0.5 rounded border border-green-100">SaaS MVP</span>
                                         </div>
 
-                                        {/* 7. SSRN Paper (Feb 2026) */}
+                                        {/* 7. SSRN Paper */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-indigo-400 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Feb 2026</span>
@@ -306,7 +251,7 @@
                                             </div>
                                         </div>
 
-                                        {/* 8. Infra Release (Feb 2026) */}
+                                        {/* 8. Infra Release */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-teal-400 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Feb 2026</span>
@@ -314,7 +259,7 @@
                                             <span className="inline-block mt-1 text-[10px] bg-teal-50 text-teal-700 px-2 py-0.5 rounded border border-teal-100">Infra MVP</span>
                                         </div>
 
-                                        {/* 9. QITC (Mar 2026) */}
+                                        {/* 9. QITC */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-purple-400 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Mar 2026</span>
