@@ -17,7 +17,6 @@
         th, td { border: 1px solid #334155; padding: 0.75rem; text-align: left; font-size: 0.875rem; }
         th { background-color: #0f172a; color: #94a3b8; font-size: 0.875rem; }
         tr:nth-child(even) { background-color: #0f172a; }
-        .code-block { background-color: #0b1120; color: #a5b4fc; font-family: monospace; padding: 1rem; border-radius: 0.25rem; border: 1px solid #334155; font-size: 0.875rem; }
         
         /* Modal Styles */
         #imageModal { display: none; position: fixed; z-index: 100; padding-top: 50px; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(15, 23, 42, 0.95); backdrop-filter: blur(5px); }
@@ -66,11 +65,11 @@
             <section class="section-card">
                 <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">1. Project Overview</h2>
                 <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                    Edge AI systems increasingly require deterministic and verifiable control mechanisms. This project develops a hardware-enforced adjudication engine implemented as Silicon IP to provide deterministic policy enforcement and decision validation for non-deterministic AI inferences.
+                    Edge AI systems increasingly require deterministic and legally admissible control mechanisms. This project develops a hardware-enforced adjudication engine implemented as Silicon IP. It translates probabilistic AI outputs into legally defensible, verifiable physical execution.
                 </p>
                 <ul class="list-disc list-inside text-sm text-slate-300">
-                    <li><strong>Objective:</strong> 100% physical compliance without NPU overhead.</li>
-                    <li><strong>Target:</strong> High-stakes environments (Automotive, Industrial).</li>
+                    <li><strong>Objective:</strong> 100% physical compliance and evidence generation without NPU overhead.</li>
+                    <li><strong>Target:</strong> High-stakes environments (Automotive SDV, Industrial Automation).</li>
                 </ul>
             </section>
 
@@ -81,46 +80,29 @@
                     <p class="text-slate-500 py-1 pl-4">↓ (One-way Hardware Gate)</p>
                     <p class="text-sky-400 font-bold">Hardware Adjudication IP</p>
                     <p class="text-slate-500 py-1 pl-4">├─ Decision → <span class="text-emerald-400">Actuator Control</span></p>
-                    <p class="text-slate-500 pl-4">└─ Evidence → <span class="text-indigo-400">Hash Chain Logger</span></p>
+                    <p class="text-slate-500 pl-4">└─ Evidence → <span class="text-indigo-400">Immutable Ledger</span></p>
                 </div>
             </section>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">3. Module Hierarchy</h2>
-                <div class="code-block">
-top_adjudication_module
- ├── inference_interface_rx
- ├── static_rule_engine
- │    ├── safety_bounds_fsm
- │    └── threshold_comparator
- ├── decision_unit
- │    ├── gate_controller
- │    └── auto_healing_trigger
- ├── evidence_logger
- │    └── sha256_nonce_gen
- └── actuator_interface_tx
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">3. Conceptual Functional Blocks</h2>
+                <div class="bg-slate-900 p-4 rounded border border-slate-700 text-slate-300 font-mono text-sm leading-loose">
+                    [+] Inference Isolation Interface (RX)<br>
+                    [+] Deterministic Policy FSM Engine<br>
+                    [+] Physical Gate Controller<br>
+                    [+] Hardware-Anchored Evidence Generator
                 </div>
             </section>
 
             <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">4. Interface Definition</h2>
-                <div class="code-block">
-// Input Bus (From NPU/MPU)
-input wire        clk,
-input wire        rst_n,
-input wire [31:0] ai_cmd_payload,
-input wire [7:0]  confidence_score,
-input wire        req_valid,
-
-// Output Signals (To Actuator/System)
-output reg        gate_open_allow,
-output reg        deny_hard_drop,
-output reg        pending_recal,
-output reg [63:0] evidence_hash,
-output reg        resp_valid
-                </div>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">4. Hardware Data Flow</h2>
+                <ul class="space-y-3 text-sm text-slate-300">
+                    <li><strong class="text-sky-400">Input (From AI MPU):</strong> Unidirectional data diode receiving non-deterministic payloads and confidence arrays.</li>
+                    <li><strong class="text-emerald-400">Control Output (To Actuator):</strong> Strict deterministic execution states (ALLOW, DENY, PENDING).</li>
+                    <li><strong class="text-indigo-400">Evidence Output:</strong> Cryptographically bound hash linking the decision directly to the physical hardware state.</li>
+                </ul>
             </section>
         </div>
 
@@ -170,7 +152,7 @@ output reg        resp_valid
         </div>
 
         <section class="section-card">
-            <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">8. Timing Analysis & Power Profiling</h2>
+            <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">8. Performance & Latency Trajectory</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center mt-4">
                 <div class="bg-slate-900 p-4 rounded border border-slate-700">
                     <div class="text-slate-400 text-xs uppercase tracking-wider mb-1">Max Freq (Fmax)</div>
@@ -181,8 +163,8 @@ output reg        resp_valid
                     <div class="data-value">&lt; 15 <span class="text-lg">mW</span></div>
                 </div>
                 <div class="bg-slate-900 p-4 rounded border border-slate-700">
-                    <div class="text-slate-400 text-xs uppercase tracking-wider mb-1">Critical Path</div>
-                    <div class="data-value text-emerald-400">~ 6.8 <span class="text-lg">ns</span></div>
+                    <div class="text-slate-400 text-xs uppercase tracking-wider mb-1">Empirical Baseline (MCU)</div>
+                    <div class="data-value text-emerald-400">13.23 <span class="text-lg">ms</span></div>
                 </div>
                 <div class="bg-slate-900 p-4 rounded border border-sky-900">
                     <div class="text-slate-400 text-xs uppercase tracking-wider mb-1">Target Silicon Latency</div>
@@ -191,30 +173,15 @@ output reg        resp_valid
             </div>
         </section>
 
-        <section class="section-card">
-            <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">9. Deterministic Latency Cycle Analysis</h2>
-            <p class="text-slate-300 text-sm mb-4">Clock cycle breakdown confirming strict constant-time execution under hardware isolation.</p>
-            <div class="bg-slate-900 rounded-lg p-4 border border-slate-700">
-                <div class="flex justify-between items-center border-b border-slate-800 py-2">
-                    <span class="text-slate-300 text-sm">Input I/O Synchronization</span>
-                    <span class="font-mono text-sky-400">2 cycles</span>
-                </div>
-                <div class="flex justify-between items-center border-b border-slate-800 py-2">
-                    <span class="text-slate-300 text-sm">Static Rule Evaluation (FSM)</span>
-                    <span class="font-mono text-sky-400">12 cycles</span>
-                </div>
-                <div class="flex justify-between items-center border-b border-slate-800 py-2">
-                    <span class="text-slate-300 text-sm">Gate Decision & Evidence Hash Gen</span>
-                    <span class="font-mono text-sky-400">8 cycles</span>
-                </div>
-                <div class="flex justify-between items-center border-b border-slate-800 py-2">
-                    <span class="text-slate-300 text-sm">Output Driver Activation</span>
-                    <span class="font-mono text-sky-400">2 cycles</span>
-                </div>
-                <div class="flex justify-between items-center pt-3 mt-1">
-                    <span class="font-bold text-slate-200">Total Adjudication Pipeline</span>
-                    <span class="font-mono font-bold text-emerald-400">&lt; 25 cycles</span>
-                </div>
+        <section class="section-card border-indigo-900/50 bg-slate-800/30">
+            <h2 class="text-xl mb-4 border-b border-indigo-800 pb-2 text-indigo-300">9. Adjudication Pipeline & Evidence Chain</h2>
+            <p class="text-slate-300 text-sm mb-4">Unlike standard software filters, our IP produces legally admissible evidence through a constant-time hardware pipeline.</p>
+            <div class="bg-slate-900/80 rounded-lg p-5 border border-indigo-900/30">
+                <ul class="list-disc list-inside text-sm text-slate-300 space-y-4">
+                    <li><strong class="text-slate-200">Constant-Time Execution:</strong> The entire evaluation pipeline executes in strictly <span class="font-mono text-emerald-400 font-bold ml-1">&lt; 25 clock cycles</span>, ensuring absolute determinism regardless of input complexity.</li>
+                    <li><strong class="text-slate-200">Hardware-Anchored Evidence:</strong> Generates a non-repudiable cryptographic hash binding the AI payload, the applied safety rule, and the exact hardware state timestamp.</li>
+                    <li><strong class="text-slate-200">Legal Admissibility:</strong> Because the adjudication hash is generated at the physical silicon level prior to actuator release, it forms an immutable audit trail entirely immune to OS crashes, root-level tampering, or Prompt Injections.</li>
+                </ul>
             </div>
         </section>
 
@@ -224,7 +191,7 @@ output reg        resp_valid
             <div class="grid md:grid-cols-2 gap-6 mt-4">
                 <div>
                     <p class="text-slate-200 text-sm leading-relaxed mb-4">
-                        Based on the verified FPGA footprint (&lt; 500 LUTs) and a ~25-cycle deterministic evaluation pipeline, migrating this IP to an advanced technology node (e.g., 5nm/4nm Automotive SoC) incurs negligible Area and Power overhead.
+                        Based on the verified FPGA footprint (&lt; 500 LUTs) and strict constant-time logic, migrating this IP to an advanced technology node (e.g., 5nm/4nm Automotive SoC) incurs negligible Area and Power overhead.
                     </p>
                     <ul class="list-disc list-inside text-slate-300 text-sm space-y-2">
                         <li><strong>Estimated ASIC Area:</strong> ~ 0.01 mm² (Estimated)</li>
