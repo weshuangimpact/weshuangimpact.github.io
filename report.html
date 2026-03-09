@@ -28,7 +28,7 @@
         .zoomable-img:hover { opacity: 0.8; border-color: #38bdf8; }
     </style>
 </head>
-<body class="antialiased pt-20">
+<body class="antialiased pt-20 flex flex-col min-h-screen">
 
     <nav class="fixed w-full top-0 z-50 glass-nav transition-all">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -60,7 +60,7 @@
         </div>
     </header>
 
-    <main class="max-w-5xl mx-auto px-6 pb-12">
+    <main class="max-w-5xl mx-auto px-6 pb-12 flex-grow">
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <section class="section-card">
@@ -315,8 +315,37 @@ output reg        resp_valid
 
     </main>
     
-    <footer class="text-center text-slate-500 text-sm py-8 border-t border-slate-800 mt-auto">
-        <p>&copy; 2026 WesmartAI Co., Ltd. | Silicon IP Technical Documentation</p>
+    <footer class="bg-[#070b14] border-t border-slate-800 pt-16 pb-8 text-slate-400 mt-auto">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div>
+                    <h4 class="text-white text-lg font-bold mb-4">WesmartAI</h4>
+                    <p class="text-sm leading-relaxed mb-4">
+                        Making Trust Transparent.<br/>
+                        致力於將繁瑣的合規流程轉化為企業的數位資產。
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white text-lg font-bold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><i class="fas fa-map-marker-alt mr-2 w-4 text-center"></i>722 台南市佳里區光明街68號1樓</li>
+                        <li><i class="fas fa-phone mr-2 w-4 text-center"></i>+886-912-310570</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white text-lg font-bold mb-4">Explore</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="hover:text-blue-400 transition text-left block">Corporate Home</a></li>
+                        <li><a href="ohacss.html" class="hover:text-blue-400 transition text-left block">OHACSS Platform</a></li>
+                        <li><a href="founder.html" class="hover:text-blue-400 transition text-left block">About Founder</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
+                <p>&copy; 2026 可信智慧整合有限公司 (WesmartAI). All rights reserved.</p>
+                <p class="mt-2 md:mt-0">UBN: 42917004</p>
+            </div>
+        </div>
     </footer>
 
     <div id="imageModal" class="modal" onclick="closeModal(event)">
