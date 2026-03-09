@@ -17,14 +17,7 @@
         th, td { border: 1px solid #334155; padding: 0.75rem; text-align: left; font-size: 0.875rem; }
         th { background-color: #0f172a; color: #94a3b8; font-size: 0.875rem; }
         tr:nth-child(even) { background-color: #0f172a; }
-        
-        /* Modal Styles */
-        #imageModal { display: none; position: fixed; z-index: 100; padding-top: 50px; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(15, 23, 42, 0.95); backdrop-filter: blur(5px); }
-        .modal-content { margin: auto; display: block; max-width: 90%; max-height: 85vh; object-fit: contain; border: 1px solid #334155; border-radius: 0.5rem; }
-        .close { position: absolute; top: 15px; right: 35px; color: #f1f5f9; font-size: 40px; font-weight: bold; transition: 0.3s; cursor: pointer; }
-        .close:hover, .close:focus { color: #ef4444; text-decoration: none; cursor: pointer; }
-        .zoomable-img { cursor: zoom-in; transition: 0.3s; }
-        .zoomable-img:hover { opacity: 0.8; border-color: #38bdf8; }
+        .code-block { background-color: #0b1120; color: #a5b4fc; font-family: monospace; padding: 1rem; border-radius: 0.25rem; border: 1px solid #334155; font-size: 0.875rem; }
     </style>
 </head>
 <body class="antialiased pt-20 flex flex-col min-h-screen">
@@ -107,12 +100,17 @@
         </div>
 
         <section class="section-card">
-            <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">5. RTL Logic Schematic</h2>
-            <p class="text-slate-300 text-sm mb-4">
-                The architecture features an ultra-minimized finite state machine (FSM) executing strict, constant-time compliance rule checks. <span class="text-sky-400 cursor-pointer font-semibold" onclick="openModal('pic10.jpg')">(Click to enlarge)</span>
-            </p>
+            <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">5. RTL Logic Schematic (Sanitized Version)</h2>
+            <div class="mb-4 space-y-2">
+                <p class="text-slate-300 text-sm">
+                    The architecture features an ultra-minimized finite state machine (FSM) executing strict, constant-time compliance rule checks.
+                </p>
+                <div class="bg-slate-800/50 p-3 rounded border-l-4 border-amber-500 text-slate-400 text-xs">
+                    <strong class="text-amber-500">Security Note:</strong> This is a sanitized representation of our logic synthesis. Specific payload thresholds, cryptographic constants, and proprietary policy addresses have been intentionally masked to protect core intellectual property prior to NDA execution.
+                </div>
+            </div>
             <div class="bg-slate-900 border border-slate-700 rounded-lg overflow-hidden flex items-center justify-center p-2">
-                <img src="pic10.jpg" alt="RTL Schematic Visualization" class="w-full h-auto object-contain zoomable-img rounded" onclick="openModal(this.src)">
+                <img src="pic10.jpg" alt="Sanitized RTL Schematic Visualization" class="w-full h-auto object-contain rounded">
             </div>
         </section>
 
@@ -315,35 +313,5 @@
         </div>
     </footer>
 
-    <div id="imageModal" class="modal" onclick="closeModal(event)">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <img class="modal-content" id="img01">
-    </div>
-
-    <script>
-        const modal = document.getElementById("imageModal");
-        const modalImg = document.getElementById("img01");
-
-        function openModal(src) {
-            modal.style.display = "block";
-            modalImg.src = src;
-            document.body.style.overflow = "hidden"; // Prevent scrolling behind modal
-        }
-
-        function closeModal(event) {
-            // Close if clicking the close button OR the background
-            if (!event || event.target === modal || event.target.className === "close") {
-                modal.style.display = "none";
-                document.body.style.overflow = "auto";
-            }
-        }
-
-        // Close on Escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === "Escape") {
-                closeModal();
-            }
-        });
-    </script>
 </body>
 </html>
