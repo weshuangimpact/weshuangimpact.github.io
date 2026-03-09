@@ -115,6 +115,7 @@
                             <div className="hidden md:flex text-sm font-medium text-slate-300 gap-8 items-center">
                                 <span className="text-blue-400 cursor-pointer">Architecture</span>
                                 <a href="ohacss.html" className="hover:text-white transition">Products</a>
+                                <a href="report.html" className="hover:text-white transition">FPGA Report</a>
                                 <a href="founder.html" className="hover:text-white transition">Founder</a>
                             </div>
                         </div>
@@ -234,20 +235,20 @@
                             </div>
                             
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                {/* OHACSS Card */}
+                                {/* Technical Report Card */}
                                 <div className="md:col-span-2 glass-card rounded-xl overflow-hidden group flex flex-col md:flex-row border border-blue-500/20 hover:border-blue-500/50 transition-colors" data-aos="fade-up" data-aos-delay="100">
                                     <div className="w-full md:w-1/2 relative bg-slate-800">
-                                        {/* IMAGE PLACEHOLDER: pic1.png (OHACSS Dashboard Preview) */}
-                                        <img src="pic1.png" alt="OHACSS Platform" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onError={(e) => { e.target.onerror = null; e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%230f172a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='16' fill='%23475569'%3E[pic1.png] OHACSS Preview%3C/text%3E%3C/svg%3E" }} />
+                                        {/* IMAGE PLACEHOLDER: pic10.jpg (RTL Schematic Preview) */}
+                                        <img src="pic10.jpg" alt="FPGA Technical Report" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onError={(e) => { e.target.onerror = null; e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%230f172a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='16' fill='%23475569'%3E[pic10.jpg] RTL Schematic%3C/text%3E%3C/svg%3E" }} />
                                     </div>
                                     <div className="p-8 w-full md:w-1/2 flex flex-col justify-center">
-                                        <div className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">SaaS Platform</div>
-                                        <h3 className="text-2xl font-bold text-white mb-4">OHACSS</h3>
+                                        <div className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">Silicon IP</div>
+                                        <h3 className="text-2xl font-bold text-white mb-4">Technical Report</h3>
                                         <p className="text-slate-400 text-sm leading-relaxed mb-6">
-                                            Occupational Health Assessment & Compliance Support System. Translating complex health regulations into streamlined digital workflows with non-repudiable audit trails.
+                                            Comprehensive FPGA Prototype Technical Report & ASIC Migration Feasibility. Explore the exact RTL synthesis data, ultra-low logic footprint, and &lt; 4ms deterministic latency projections.
                                         </p>
-                                        <a href="ohacss.html" className="inline-flex items-center gap-2 text-white font-medium hover:text-blue-400 transition-colors mt-auto">
-                                            Explore Platform <WIcon name="ArrowRight" size={16} />
+                                        <a href="report.html" className="inline-flex items-center gap-2 text-white font-medium hover:text-blue-400 transition-colors mt-auto">
+                                            Explore FPGA Report <WIcon name="ArrowRight" size={16} />
                                         </a>
                                     </div>
                                 </div>
