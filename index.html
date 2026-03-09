@@ -30,8 +30,6 @@
         /* Page Transition */
         .page-enter { animation: fadeIn 0.6s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        /* Image Placeholder Style */
-        .img-placeholder { background: linear-gradient(45deg, #1e293b, #0f172a); border: 1px solid #334155; display: flex; align-items: center; justify-content: center; color: #64748b; font-family: monospace; }
     </style>
 </head>
 <body class="antialiased selection:bg-blue-500/30">
@@ -128,10 +126,17 @@
                         </div>
                         <div className="grid lg:grid-cols-2 gap-12 items-center">
                             <div data-aos="fade-right">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-6">
-                                    <WIcon name="ShieldCheck" size={14} />
-                                    <span>Hardware-Enforced Adjudication</span>
+                                <div className="flex flex-wrap gap-2 mb-6">
+                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-900/40 border border-emerald-700 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
+                                        <WIcon name="Cpu" size={14} />
+                                        <span>Phase 1: MCU Prototype Ready</span>
+                                    </div>
+                                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/40 border border-blue-700 text-blue-400 text-xs font-semibold uppercase tracking-wider">
+                                        <WIcon name="Server" size={14} />
+                                        <span>Phase 2: FPGA Silicon IP Ready</span>
+                                    </div>
                                 </div>
+                                
                                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1] mb-6">
                                     Edge Governance for <br/>
                                     <span className="tech-gradient-text">TrustZone-Class</span> Platforms.
@@ -140,7 +145,7 @@
                                     A physical defense boundary engineered for <strong className="text-slate-200">Edge Agentic AI</strong>. We deliver zero-friction deterministic compliance without compromising inference throughput in mission-critical environments.
                                 </p>
                                 <div className="flex flex-col sm:flex-row gap-4">
-                                    <a href="#architecture" className="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20">
+                                    <a href="#mcu-prototype" className="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20">
                                         Explore Architecture <WIcon name="ArrowRight" size={18} />
                                     </a>
                                     <a href="founder.html" className="px-6 py-3.5 glass-card hover:bg-slate-800 text-slate-200 font-medium rounded-lg transition text-center">
@@ -165,11 +170,14 @@
                         </div>
                     </section>
 
-                    {/* Deep-Tech Defense Features */}
-                    <section id="architecture" className="py-24 bg-[#070b14] border-t border-white/5 relative">
+                    {/* PHASE 1: MCU Hardware Prototype */}
+                    <section id="mcu-prototype" className="py-24 bg-[#070b14] border-t border-white/5 relative">
                         <div className="max-w-7xl mx-auto px-6">
                             <div className="text-center mb-16" data-aos="fade-up">
-                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Deep-Tech Defense Features</h2>
+                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/30 border border-emerald-700/50 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-4">
+                                    Phase 1: Board-Level Prototype
+                                </div>
+                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Hardware Isolation Validation <br/><span class="text-xl text-slate-400 font-medium">(Arduino UNO Q + MCU)</span></h2>
                                 <p className="text-slate-400 max-w-2xl mx-auto">Replacing traditional software filters with a solid, verifiable isolation layer bridging the MPU inference engine and MCU execution core.</p>
                             </div>
 
@@ -180,7 +188,7 @@
                                 </div>
                                 <div className="order-1 lg:order-2 space-y-8">
                                     <div className="flex gap-4" data-aos="fade-up" data-aos-delay="100">
-                                        <div className="mt-1 w-10 h-10 rounded bg-blue-900/30 flex items-center justify-center text-blue-400 shrink-0 border border-blue-500/20">
+                                        <div className="mt-1 w-10 h-10 rounded bg-emerald-900/30 flex items-center justify-center text-emerald-400 shrink-0 border border-emerald-500/20">
                                             <WIcon name="Cpu" size={20} />
                                         </div>
                                         <div>
@@ -200,17 +208,17 @@
                                     </div>
 
                                     <div className="flex gap-4" data-aos="fade-up" data-aos-delay="300">
-                                        <div className="mt-1 w-10 h-10 rounded bg-indigo-900/30 flex items-center justify-center text-indigo-400 shrink-0 border border-indigo-500/20">
+                                        <div className="mt-1 w-10 h-10 rounded bg-emerald-900/30 flex items-center justify-center text-emerald-400 shrink-0 border border-emerald-500/20">
                                             <WIcon name="Server" size={20} />
                                         </div>
                                         <div>
                                             <h3 className="text-xl font-bold text-white mb-2">Edge-Controlled Redeployment</h3>
-                                            <p className="text-slate-400 text-sm leading-relaxed">An automated pipeline allows the MPU to dynamically redeploy and update the MCU adjudication logic at the edge, adapting to regulatory shifts (e.g., EU AI Act) seamlessly.</p>
+                                            <p className="text-slate-400 text-sm leading-relaxed">An automated pipeline allows the MPU to dynamically redeploy and update the MCU adjudication logic at the edge, adapting to regulatory shifts seamlessly.</p>
                                         </div>
                                     </div>
 
                                     <div className="flex gap-4" data-aos="fade-up" data-aos-delay="400">
-                                        <div className="mt-1 w-10 h-10 rounded bg-rose-900/30 flex items-center justify-center text-rose-400 shrink-0 border border-rose-500/20">
+                                        <div className="mt-1 w-10 h-10 rounded bg-emerald-900/30 flex items-center justify-center text-emerald-400 shrink-0 border border-emerald-500/20">
                                             <WIcon name="Lock" size={20} />
                                         </div>
                                         <div>
@@ -223,14 +231,17 @@
                         </div>
                     </section>
 
-                    {/* Products & Deployment Section */}
-                    <section className="py-24 relative overflow-hidden">
+                    {/* PHASE 2: Silicon IP & FPGA Section */}
+                    <section id="fpga-silicon" className="py-24 relative overflow-hidden">
                         <div className="absolute top-0 left-0 w-full h-full bg-slate-900/50 pointer-events-none"></div>
                         <div className="max-w-7xl mx-auto px-6 relative z-10">
                             <div className="flex flex-col md:flex-row justify-between items-end mb-12" data-aos="fade-up">
                                 <div>
-                                    <h2 className="text-3xl font-black text-white mb-3">Enterprise Deployment</h2>
-                                    <p className="text-slate-400">Applying deterministic governance to real-world operational compliance.</p>
+                                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-900/30 border border-blue-700/50 text-blue-400 text-xs font-bold uppercase tracking-widest mb-4">
+                                        Phase 2: ASIC Migration Readiness
+                                    </div>
+                                    <h2 className="text-3xl md:text-4xl font-black text-white mb-3">Silicon IP & FPGA Verification <br/><span class="text-xl text-slate-400 font-medium">(Gowin Tang Nano 9K)</span></h2>
+                                    <p className="text-slate-400">Proving deterministic SoC integration capability with an ultra-low logic footprint.</p>
                                 </div>
                             </div>
                             
@@ -241,11 +252,11 @@
                                         {/* IMAGE PLACEHOLDER: pic10.jpg (RTL Schematic Preview) */}
                                         <img src="pic10.jpg" alt="FPGA Technical Report" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onError={(e) => { e.target.onerror = null; e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%230f172a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='16' fill='%23475569'%3E[pic10.jpg] RTL Schematic%3C/text%3E%3C/svg%3E" }} />
                                     </div>
-                                    <div className="p-8 w-full md:w-1/2 flex flex-col justify-center">
-                                        <div className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">Silicon IP</div>
-                                        <h3 className="text-2xl font-bold text-white mb-4">Technical Report</h3>
+                                    <div className="p-8 w-full md:w-1/2 flex flex-col justify-center bg-gradient-to-br from-slate-900/80 to-[#0b1120]">
+                                        <div className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">Silicon IP Validation</div>
+                                        <h3 className="text-2xl font-bold text-white mb-4">FPGA Technical Report</h3>
                                         <p className="text-slate-400 text-sm leading-relaxed mb-6">
-                                            Comprehensive FPGA Prototype Technical Report & ASIC Migration Feasibility. Explore the exact RTL synthesis data, ultra-low logic footprint, and &lt; 4ms deterministic latency projections.
+                                            Comprehensive FPGA Prototype Technical Report & ASIC Migration Feasibility. Explore the exact RTL synthesis data (&lt; 500 LUTs), interface definition, and the &lt; 4ms deterministic latency projection for Snapdragon-class architectures.
                                         </p>
                                         <a href="report.html" className="inline-flex items-center gap-2 text-white font-medium hover:text-blue-400 transition-colors mt-auto">
                                             Explore FPGA Report <WIcon name="ArrowRight" size={16} />
@@ -254,13 +265,13 @@
                                 </div>
 
                                 {/* Immutable Ledger Card */}
-                                <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-slate-500 transition-colors flex flex-col" data-aos="fade-up" data-aos-delay="200">
-                                    <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center text-slate-300 mb-6">
+                                <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-slate-500 transition-colors flex flex-col bg-gradient-to-b from-slate-800/40 to-[#0b1120]" data-aos="fade-up" data-aos-delay="200">
+                                    <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center text-slate-300 mb-6 border border-slate-600">
                                         <WIcon name="Server" size={24} />
                                     </div>
                                     <h3 className="text-lg font-bold text-white mb-3">Immutable Evidence Chain</h3>
                                     <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-1">
-                                        Every hardware adjudication is cryptographically bound using a true random nonce, producing an atomic SHA-256 ledger.
+                                        Every hardware adjudication is cryptographically bound using a true random nonce, producing an atomic SHA-256 ledger directly within the silicon logic.
                                     </p>
                                 </div>
                             </div>
