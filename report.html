@@ -18,6 +18,21 @@
         th { background-color: #0f172a; color: #94a3b8; font-size: 0.875rem; }
         tr:nth-child(even) { background-color: #0f172a; }
         .code-block { background-color: #0b1120; color: #a5b4fc; font-family: monospace; padding: 1rem; border-radius: 0.25rem; border: 1px solid #334155; font-size: 0.875rem; }
+        
+        /* Modal Styles */
+        #imageModal {
+            backdrop-filter: blur(5px);
+            transition: opacity 0.3s ease;
+        }
+        .report-img {
+            cursor: zoom-in;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .report-img:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            border-color: #38bdf8;
+        }
     </style>
 </head>
 <body class="antialiased pt-20 flex flex-col min-h-screen">
@@ -100,83 +115,85 @@
         </div>
 
         <section class="section-card">
-            <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">5. RTL Logic Schematic (Sanitized Version)</h2>
-            <div class="mb-4 space-y-2">
-                <p class="text-slate-300 text-sm">
-                    The architecture features an ultra-minimized finite state machine (FSM) executing strict, constant-time compliance rule checks.
+            <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">5. FPGA Implementation Strategy & Physical Validation</h2>
+            <div class="mb-4">
+                <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                    We deliberately synthesized our RTL on a highly constrained, entry-level FPGA (Gowin Tang Nano 9K). The following silicon-proven EDA reports objectively demonstrate our exceptionally lightweight logic footprint and absolute constant-time deterministic performance. 
+                    <br><span class="text-sky-400 text-xs mt-2 inline-block"><i class="fas fa-search-plus mr-1"></i> Click images to enlarge EDA reports.</span>
                 </p>
-                <div class="bg-slate-800/50 p-3 rounded border-l-4 border-amber-500 text-slate-400 text-xs">
-                    <strong class="text-amber-500">Security Note:</strong> This is a sanitized representation of our logic synthesis. Specific payload thresholds, cryptographic constants, and proprietary policy addresses have been intentionally masked to protect core intellectual property prior to NDA execution.
-                </div>
             </div>
-            <div class="bg-slate-900 border border-slate-700 rounded-lg overflow-hidden flex items-center justify-center p-2">
-                <img src="pic10.jpg" alt="Sanitized RTL Schematic Visualization" class="w-full h-auto object-contain rounded">
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div class="bg-slate-900 p-2 rounded border border-slate-700">
+                    <img src="pic11.jpg" alt="Synthesis Resource Report" class="w-full h-32 object-cover rounded report-img border border-slate-600" onclick="openModal(this.src)">
+                    <p class="text-center text-xs text-slate-400 mt-2 font-mono">Synthesis Resource</p>
+                </div>
+                <div class="bg-slate-900 p-2 rounded border border-slate-700">
+                    <img src="pic12.jpg" alt="PnR Resource Report" class="w-full h-32 object-cover rounded report-img border border-slate-600" onclick="openModal(this.src)">
+                    <p class="text-center text-xs text-slate-400 mt-2 font-mono">Post-PnR Resource</p>
+                </div>
+                <div class="bg-slate-900 p-2 rounded border border-slate-700">
+                    <img src="pic13.jpg" alt="Power Analysis Report" class="w-full h-32 object-cover rounded report-img border border-slate-600" onclick="openModal(this.src)">
+                    <p class="text-center text-xs text-slate-400 mt-2 font-mono">Power Analysis</p>
+                </div>
+                <div class="bg-slate-900 p-2 rounded border border-slate-700">
+                    <img src="pic14.jpg" alt="Timing Analysis Report" class="w-full h-32 object-cover rounded report-img border border-slate-600" onclick="openModal(this.src)">
+                    <p class="text-center text-xs text-slate-400 mt-2 font-mono">Timing Analysis (Delay/Fmax)</p>
+                </div>
             </div>
         </section>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">6. FPGA Implementation Strategy</h2>
-                <h3 class="text-lg text-sky-400 mb-2">Why Gowin Tang Nano 9K?</h3>
-                <p class="text-slate-300 text-sm leading-relaxed">
-                    We deliberately synthesized our RTL on a highly constrained, entry-level FPGA. This strategic choice objectively proves our exceptionally lightweight logic footprint (PPA), demonstrating readiness for minimal-overhead SoC integration.
-                </p>
-            </section>
-
-            <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">7. Resource Utilization (Hardware Validated) </h2>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">6. Resource Utilization (Hardware Validated)</h2>
                 <table>
                     <thead>
                         <tr>
                             <th class="text-left">Resource Metric</th>
-                            <th class="text-center">Utilization</th>
+                            <th class="text-center">Post-PnR Data</th>
                             <th class="text-center">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td class="font-medium text-slate-200">Logic Elements (LUTs)</td>
-                            <td class="text-sky-400 font-bold text-center">&lt; 500</td>
+                            <td class="text-sky-400 font-bold text-center">40 (0%)</td>
                             <td class="text-emerald-400 text-center">Ultra-low footprint</td>
                         </tr>
                         <tr>
                             <td class="font-medium text-slate-200">Registers / Flip-Flops</td>
-                            <td class="text-sky-400 font-bold text-center">~ 250</td>
+                            <td class="text-sky-400 font-bold text-center">13 (0%)</td>
                             <td class="text-emerald-400 text-center">Optimized</td>
                         </tr>
                     </tbody>
                 </table>
             </section>
+
+            <section class="section-card">
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">7. Performance & Latency Trajectory</h2>
+                <div class="grid grid-cols-2 gap-4 text-center mt-2">
+                    <div class="bg-slate-900 p-4 rounded border border-slate-700">
+                        <div class="text-slate-400 text-[11px] uppercase tracking-wider mb-1">Max Freq (Fmax)</div>
+                        <div class="data-value">153.68 <span class="text-lg">MHz</span></div>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded border border-slate-700">
+                        <div class="text-slate-400 text-[11px] uppercase tracking-wider mb-1">Total Power</div>
+                        <div class="data-value text-emerald-400">14.73 <span class="text-lg">mW</span></div>
+                    </div>
+                    <div class="bg-slate-900 p-4 rounded border border-slate-700 col-span-2 flex items-center justify-between px-6">
+                        <div class="text-slate-400 text-xs uppercase tracking-wider text-left">Max Data Path Delay <br><span class="text-sky-500 font-bold normal-case text-sm">O(1) Physical Latency</span></div>
+                        <div class="text-sky-400 font-bold text-3xl">5.244 <span class="text-xl">ns</span></div>
+                    </div>
+                </div>
+            </section>
         </div>
 
-        <section class="section-card">
-            <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">8. Performance & Latency Trajectory</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center mt-4">
-                <div class="bg-slate-900 p-4 rounded border border-slate-700">
-                    <div class="text-slate-400 text-xs uppercase tracking-wider mb-1">Max Freq (Fmax)</div>
-                    <div class="data-value">&gt; 120 <span class="text-lg">MHz</span></div>
-                </div>
-                <div class="bg-slate-900 p-4 rounded border border-slate-700">
-                    <div class="text-slate-400 text-xs uppercase tracking-wider mb-1">Dynamic Power</div>
-                    <div class="data-value">&lt; 15 <span class="text-lg">mW</span></div>
-                </div>
-                <div class="bg-slate-900 p-4 rounded border border-slate-700">
-                    <div class="text-slate-400 text-xs uppercase tracking-wider mb-1">Empirical Baseline (MCU)</div>
-                    <div class="data-value text-emerald-400">13.23 <span class="text-lg">ms</span></div>
-                </div>
-                <div class="bg-slate-900 p-4 rounded border border-sky-900">
-                    <div class="text-slate-400 text-xs uppercase tracking-wider mb-1">Target Silicon Latency</div>
-                    <div class="data-value text-sky-400">&lt; 4 <span class="text-lg">ms</span></div>
-                </div>
-            </div>
-        </section>
-
         <section class="section-card border-indigo-900/50 bg-slate-800/30">
-            <h2 class="text-xl mb-4 border-b border-indigo-800 pb-2 text-indigo-300">9. Adjudication Pipeline & Evidence Chain</h2>
+            <h2 class="text-xl mb-4 border-b border-indigo-800 pb-2 text-indigo-300">8. Adjudication Pipeline & Evidence Chain</h2>
             <p class="text-slate-300 text-sm mb-4">Unlike standard software filters, our IP produces legally admissible evidence through a constant-time hardware pipeline.</p>
             <div class="bg-slate-900/80 rounded-lg p-5 border border-indigo-900/30">
                 <ul class="list-disc list-inside text-sm text-slate-300 space-y-4">
-                    <li><strong class="text-slate-200">Constant-Time Execution:</strong> The entire evaluation pipeline executes in strictly <span class="font-mono text-emerald-400 font-bold ml-1">&lt; 25 clock cycles</span>, ensuring absolute determinism regardless of input complexity.</li>
+                    <li><strong class="text-slate-200">Constant-Time Execution:</strong> The entire evaluation pipeline executes with a maximum data path delay of <span class="font-mono text-emerald-400 font-bold ml-1">5.244 ns</span>, ensuring absolute determinism regardless of input complexity.</li>
                     <li><strong class="text-slate-200">Hardware-Anchored Evidence:</strong> Generates a non-repudiable cryptographic hash binding the AI payload, the applied safety rule, and the exact hardware state timestamp.</li>
                     <li><strong class="text-slate-200">Legal Admissibility:</strong> Because the adjudication hash is generated at the physical silicon level prior to actuator release, it forms an immutable audit trail entirely immune to OS crashes, root-level tampering, or Prompt Injections.</li>
                 </ul>
@@ -184,12 +201,12 @@
         </section>
 
         <section class="section-card border-sky-700 bg-slate-800 shadow-lg shadow-sky-900/20">
-            <h2 class="text-2xl mb-4 border-b border-sky-800 pb-2 text-sky-300">10. Feasibility for Snapdragon-class SoC Integration</h2>
+            <h2 class="text-2xl mb-4 border-b border-sky-800 pb-2 text-sky-300">9. Feasibility for Snapdragon-class SoC Integration</h2>
             
             <div class="grid md:grid-cols-2 gap-6 mt-4">
                 <div>
                     <p class="text-slate-200 text-sm leading-relaxed mb-4">
-                        Based on the verified FPGA footprint (&lt; 500 LUTs) and strict constant-time logic, migrating this IP to an advanced technology node (e.g., 5nm/4nm Automotive SoC) incurs negligible Area and Power overhead.
+                        Based on the verified FPGA footprint (40 LUTs / 13 DFFs) and strict constant-time logic, migrating this IP to an advanced technology node (e.g., 5nm/4nm Automotive SoC) incurs negligible Area and Power overhead.
                     </p>
                     <ul class="list-disc list-inside text-slate-300 text-sm space-y-2">
                         <li><strong>Estimated ASIC Area:</strong> ~ 0.01 mm² (Estimated)</li>
@@ -213,7 +230,7 @@
         </section>
 
         <section class="section-card border-emerald-700 bg-slate-800/50">
-            <h2 class="text-xl mb-4 border-b border-emerald-800 pb-2 text-emerald-400">11. Competitive Positioning & Market Moat</h2>
+            <h2 class="text-xl mb-4 border-b border-emerald-800 pb-2 text-emerald-400">10. Competitive Positioning & Market Moat</h2>
             <p class="text-slate-300 text-sm mb-4">Why traditional isolation architectures are insufficient for Agentic AI execution.</p>
             <div class="overflow-x-auto">
                 <table class="w-full text-sm min-w-[600px]">
@@ -260,7 +277,7 @@
         </section>
 
         <section class="section-card">
-            <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">12. Verification Strategy</h2>
+            <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">11. Verification Strategy</h2>
             <p class="text-slate-300 text-sm mb-4">Rigorous validation pipeline ensuring IP reliability before tape-out.</p>
             <div class="grid md:grid-cols-3 gap-4">
                 <div class="bg-slate-900 p-4 rounded border border-slate-700">
@@ -273,7 +290,7 @@
                 </div>
                 <div class="bg-slate-900 p-4 rounded border border-slate-700">
                     <h4 class="text-sky-400 text-sm font-bold mb-2">FPGA Prototyping</h4>
-                    <p class="text-slate-400 text-xs">Physical validation on Gowin Tang Nano 9K, confirming dynamic power (&lt;15mW) and clock frequency thresholds (&gt;120MHz).</p>
+                    <p class="text-slate-400 text-xs">Physical validation on Gowin Tang Nano 9K, confirming low power (14.73mW) and clock frequency thresholds (153.68MHz).</p>
                 </div>
             </div>
         </section>
@@ -313,5 +330,29 @@
         </div>
     </footer>
 
+    <div id="imageModal" class="fixed inset-0 z-[100] hidden bg-black/90 flex justify-center items-center" onclick="closeModal()">
+        <span class="absolute top-6 right-8 text-white text-4xl cursor-pointer hover:text-red-500 transition" onclick="closeModal()">&times;</span>
+        <img id="modalImage" class="max-w-[90%] max-h-[90%] object-contain rounded border-2 border-slate-600 shadow-2xl" src="" alt="Enlarged Report">
+    </div>
+
+    <script>
+        function openModal(imgSrc) {
+            document.getElementById('modalImage').src = imgSrc;
+            document.getElementById('imageModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+        
+        // Close modal on escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
