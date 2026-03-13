@@ -1,358 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silicon IP Technical Brief | Hardware-Enforced Adjudication</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: #0f172a; color: #e2e8f0; }
-        .glass-nav { background: rgba(11, 17, 32, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        .accent-gradient { background: linear-gradient(135deg, #2563eb, #10b981); }
-        .section-card { background-color: #1e293b; border: 1px solid #334155; border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 1.5rem; }
-        h1, h2, h3, h4 { color: #f8fafc; font-weight: 600; }
-        .data-value { color: #38bdf8; font-weight: 700; font-size: 1.5rem; }
-        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-        th, td { border: 1px solid #334155; padding: 0.75rem; text-align: left; font-size: 0.875rem; }
-        th { background-color: #0f172a; color: #94a3b8; font-size: 0.875rem; }
-        tr:nth-child(even) { background-color: #0f172a; }
-        .code-block { background-color: #0b1120; color: #a5b4fc; font-family: monospace; padding: 1rem; border-radius: 0.25rem; border: 1px solid #334155; font-size: 0.875rem; }
-        
-        /* Modal Styles */
-        #imageModal {
-            backdrop-filter: blur(5px);
-            transition: opacity 0.3s ease;
-        }
-        .report-img {
-            cursor: zoom-in;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .report-img:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-            border-color: #38bdf8;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silicon IP Technical Brief | Hardware-Enforced Adjudication</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+<style>
+
+body { font-family: 'Inter', system-ui, -apple-system, sans-serif; background-color: #0f172a; color: #e2e8f0; }
+
+.glass-nav { background: rgba(11, 17, 32, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+
+.accent-gradient { background: linear-gradient(135deg, #2563eb, #10b981); }
+
+.section-card { background-color: #1e293b; border: 1px solid #334155; border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+
+h1, h2, h3, h4 { color: #f8fafc; font-weight: 600; }
+
+.data-value { color: #38bdf8; font-weight: 700; font-size: 1.5rem; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+
+th, td { border: 1px solid #334155; padding: 0.75rem; text-align: left; font-size: 0.875rem; }
+
+th { background-color: #0f172a; color: #94a3b8; font-size: 0.875rem; }
+
+tr:nth-child(even) { background-color: #0f172a; }
+
+.code-block { background-color: #0b1120; color: #a5b4fc; font-family: monospace; padding: 1rem; border-radius: 0.25rem; border: 1px solid #334155; font-size: 0.875rem; }
+
+#imageModal { backdrop-filter: blur(5px); transition: opacity 0.3s ease; }
+
+.report-img { cursor: zoom-in; transition: transform 0.2s, box-shadow 0.2s; }
+
+.report-img:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); border-color: #38bdf8; }
+
+</style>
 </head>
+
 <body class="antialiased pt-20 flex flex-col min-h-screen">
 
-    <nav class="fixed w-full top-0 z-50 glass-nav transition-all">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
-                <div class="w-8 h-8 accent-gradient rounded flex items-center justify-center shadow-lg shadow-blue-500/20">
-                    <span class="font-bold text-white">W</span>
-                </div>
-                <div>
-                    <div class="font-bold text-lg tracking-tight text-white">WesmartAI</div>
-                    <div class="text-[10px] text-slate-400 uppercase tracking-widest">可信智慧整合有限公司</div>
-                </div>
-            </a>
-            <div class="hidden md:flex text-sm font-medium text-slate-300 gap-8 items-center">
-                <a href="index.html#architecture" class="hover:text-white transition">Architecture</a>
-                <a href="ohacss.html" class="hover:text-white transition">Products</a>
-                <span class="text-blue-400 cursor-default">FPGA Report</span>
-                <a href="founder.html" class="hover:text-white transition">Founder</a>
-            </div>
-        </div>
-    </nav>
+<nav class="fixed w-full top-0 z-50 glass-nav transition-all">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
 
-    <header class="bg-slate-900 border-b border-slate-700 py-6 mb-8">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sky-400 text-xs font-semibold uppercase tracking-wider mb-2">
-                Silicon IP Technical Brief
-            </div>
-            <h1 class="text-3xl font-bold tracking-tight">Silicon-Governed: Making Edge AI Admissible</h1>
-            <p class="text-slate-400 mt-2">FPGA Prototype & SoC Integration Feasibility Report</p>
-        </div>
-    </header>
+<a href="index.html" class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
 
-    <main class="max-w-5xl mx-auto px-6 pb-12 flex-grow">
+<div class="w-8 h-8 accent-gradient rounded flex items-center justify-center shadow-lg shadow-blue-500/20">
+<span class="font-bold text-white">W</span>
+</div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">1. Project Overview</h2>
-                <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                    Edge AI systems increasingly require deterministic and legally admissible control mechanisms. This project develops a hardware-enforced adjudication engine implemented as Silicon IP. It translates probabilistic AI outputs into legally defensible, verifiable physical execution.
-                </p>
-                <ul class="list-disc list-inside text-sm text-slate-300">
-                    <li><strong>Objective:</strong> 100% physical compliance and evidence generation without NPU overhead.</li>
-                    <li><strong>Target:</strong> High-stakes environments (Automotive SDV, Industrial Automation).</li>
-                </ul>
-            </section>
+<div>
+<div class="font-bold text-lg tracking-tight text-white">WesmartAI</div>
+<div class="text-[10px] text-slate-400 uppercase tracking-widest">可信智慧整合有限公司</div>
+</div>
 
-            <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">2. System Architecture</h2>
-                <div class="bg-slate-900 p-4 rounded text-sm font-mono text-slate-300 border border-slate-700">
-                    <p class="text-slate-400">AI Inference Engine (MPU)</p>
-                    <p class="text-slate-500 py-1 pl-4">↓ (One-way Hardware Gate)</p>
-                    <p class="text-sky-400 font-bold">Hardware Adjudication IP</p>
-                    <p class="text-slate-500 py-1 pl-4">├─ Decision → <span class="text-emerald-400">Actuator Control</span></p>
-                    <p class="text-slate-500 pl-4">└─ Evidence → <span class="text-indigo-400">Immutable Ledger</span></p>
-                </div>
-            </section>
-        </div>
+</a>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">3. Conceptual Functional Blocks</h2>
-                <div class="bg-slate-900 p-4 rounded border border-slate-700 text-slate-300 font-mono text-sm leading-loose">
-                    [+] Inference Isolation Interface (RX)<br>
-                    [+] Deterministic Policy FSM Engine<br>
-                    [+] Physical Gate Controller<br>
-                    [+] Hardware-Anchored Evidence Generator
-                </div>
-            </section>
+<div class="hidden md:flex text-sm font-medium text-slate-300 gap-8 items-center">
+<a href="index.html#architecture" class="hover:text-white transition">Architecture</a>
+<a href="ohacss.html" class="hover:text-white transition">Products</a>
+<span class="text-blue-400 cursor-default">FPGA Report</span>
+<a href="founder.html" class="hover:text-white transition">Founder</a>
+</div>
 
-            <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">4. Hardware Data Flow</h2>
-                <ul class="space-y-3 text-sm text-slate-300">
-                    <li><strong class="text-sky-400">Input (From AI MPU):</strong> Unidirectional data diode receiving non-deterministic payloads and confidence arrays.</li>
-                    <li><strong class="text-emerald-400">Control Output (To Actuator):</strong> Strict deterministic execution states (ALLOW, DENY, PENDING).</li>
-                    <li><strong class="text-indigo-400">Evidence Output:</strong> Cryptographically bound hash linking the decision directly to the physical hardware state.</li>
-                </ul>
-            </section>
-        </div>
+</div>
+</nav>
 
-        <section class="section-card">
-            <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">5. FPGA Implementation Strategy & Physical Validation</h2>
-            <div class="mb-4">
-                <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                    We deliberately synthesized our RTL on a highly constrained, entry-level FPGA (Gowin Tang Nano 9K). The following silicon-proven EDA reports objectively demonstrate our exceptionally lightweight logic footprint and absolute constant-time deterministic performance. 
-                    <br><span class="text-sky-400 text-xs mt-2 inline-block"><i class="fas fa-search-plus mr-1"></i> Click images to enlarge EDA reports.</span>
-                </p>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-4">
-                <div class="bg-slate-900 p-2 rounded border border-slate-700">
-                    <img src="pic11.jpg" alt="Synthesis Resource Report" class="w-full h-32 object-cover rounded report-img border border-slate-600" onclick="openModal(this.src)">
-                    <p class="text-center text-xs text-slate-400 mt-2 font-mono">Synthesis Resource</p>
-                </div>
-                <div class="bg-slate-900 p-2 rounded border border-slate-700">
-                    <img src="pic12.jpg" alt="PnR Resource Report" class="w-full h-32 object-cover rounded report-img border border-slate-600" onclick="openModal(this.src)">
-                    <p class="text-center text-xs text-slate-400 mt-2 font-mono">Post-PnR Resource</p>
-                </div>
-                <div class="bg-slate-900 p-2 rounded border border-slate-700">
-                    <img src="pic13.jpg" alt="Power Analysis Report" class="w-full h-32 object-cover rounded report-img border border-slate-600" onclick="openModal(this.src)">
-                    <p class="text-center text-xs text-slate-400 mt-2 font-mono">Power Analysis</p>
-                </div>
-                <div class="bg-slate-900 p-2 rounded border border-slate-700">
-                    <img src="pic14.jpg" alt="Timing Analysis Report" class="w-full h-32 object-cover rounded report-img border border-slate-600" onclick="openModal(this.src)">
-                    <p class="text-center text-xs text-slate-400 mt-2 font-mono">Timing Analysis (Delay/Fmax)</p>
-                </div>
-            </div>
-        </section>
+<header class="bg-slate-900 border-b border-slate-700 py-6 mb-8">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">6. Resource Utilization (Hardware Validated)</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th class="text-left">Resource Metric</th>
-                            <th class="text-center">Post-PnR Data</th>
-                            <th class="text-center">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="font-medium text-slate-200">Logic Elements (LUTs)</td>
-                            <td class="text-sky-400 font-bold text-center">601 (8%)</td>
-                            <td class="text-emerald-400 text-center">Ultra-low footprint</td>
-                        </tr>
-                        <tr>
-                            <td class="font-medium text-slate-200">Registers / Flip-Flops</td>
-                            <td class="text-sky-400 font-bold text-center">142 (3%)</td>
-                            <td class="text-emerald-400 text-center">Optimized</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
+<div class="max-w-5xl mx-auto px-6">
 
-            <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">7. Performance & Latency Trajectory</h2>
-                <div class="grid grid-cols-2 gap-4 text-center mt-2">
-                    <div class="bg-slate-900 p-4 rounded border border-slate-700">
-                        <div class="text-slate-400 text-[11px] uppercase tracking-wider mb-1">Max Freq (Fmax)</div>
-                        <div class="data-value">56.307 <span class="text-lg">MHz</span></div>
-                    </div>
-                    <div class="bg-slate-900 p-4 rounded border border-slate-700">
-                        <div class="text-slate-400 text-[11px] uppercase tracking-wider mb-1">Total Power</div>
-                        <div class="data-value text-emerald-400">26.698 <span class="text-lg">mW</span></div>
-                    </div>
-                    <div class="bg-slate-900 p-4 rounded border border-slate-700 col-span-2 flex items-center justify-between px-6">
-                        <div class="text-slate-400 text-xs uppercase tracking-wider text-left">Max Data Path Delay <br><span class="text-sky-500 font-bold normal-case text-sm">O(1) Physical Latency</span></div>
-                        <div class="text-sky-400 font-bold text-3xl">17.360 <span class="text-xl">ns</span></div>
-                    </div>
-                </div>
-            </section>
-        </div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sky-400 text-xs font-semibold uppercase tracking-wider mb-2">
+Silicon IP Technical Brief
+</div>
 
-        <section class="section-card border-indigo-900/50 bg-slate-800/30">
-            <h2 class="text-xl mb-4 border-b border-indigo-800 pb-2 text-indigo-300">8. Adjudication Pipeline & Evidence Chain</h2>
-            <p class="text-slate-300 text-sm mb-4">Unlike standard software filters, our IP produces legally admissible evidence through a constant-time hardware pipeline.</p>
-            <div class="bg-slate-900/80 rounded-lg p-5 border border-indigo-900/30">
-                <ul class="list-disc list-inside text-sm text-slate-300 space-y-4">
-                    <li><strong class="text-slate-200">Constant-Time Execution:</strong> The entire evaluation pipeline executes with a maximum data path delay of <span class="font-mono text-emerald-400 font-bold ml-1">17.360 ns</span>, ensuring absolute determinism regardless of input complexity.</li>
-                    <li><strong class="text-slate-200">Hardware-Anchored Evidence:</strong> Generates a non-repudiable cryptographic hash binding the AI payload, the applied safety rule, and the exact hardware state timestamp.</li>
-                    <li><strong class="text-slate-200">Legal Admissibility:</strong> Because the adjudication hash is generated at the physical silicon level prior to actuator release, it forms an immutable audit trail entirely immune to OS crashes, root-level tampering, or Prompt Injections.</li>
-                </ul>
-            </div>
-        </section>
+<h1 class="text-3xl font-bold tracking-tight">Silicon-Governed: Making Edge AI Admissible</h1>
 
-        <section class="section-card border-sky-700 bg-slate-800 shadow-lg shadow-sky-900/20">
-            <h2 class="text-2xl mb-4 border-b border-sky-800 pb-2 text-sky-300">9. Feasibility for Snapdragon-class SoC Integration</h2>
-            
-            <div class="grid md:grid-cols-2 gap-6 mt-4">
-                <div>
-                    <p class="text-slate-200 text-sm leading-relaxed mb-4">
-                        Based on the verified FPGA footprint (601 LUTs / 142 DFFs) and strict constant-time logic, migrating this IP to an advanced technology node (e.g., 5nm/4nm Automotive SoC) incurs negligible Area and Power overhead.
-                    </p>
-                    <ul class="list-disc list-inside text-slate-300 text-sm space-y-2">
-                        <li><strong>Estimated ASIC Area:</strong> ~ 0.01 mm² (Estimated)</li>
-                        <li><strong>NPU Impact:</strong> Zero cycle stealing from core tensor operations.</li>
-                        <li><strong>Execution:</strong> Architecturally aligned with ISO 26262 deterministic control requirements.</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-slate-900 p-4 rounded border border-sky-800/50">
-                    <h4 class="text-sky-400 text-xs uppercase tracking-wider mb-3">SoC Integration Path</h4>
-                    <div class="font-mono text-sm text-slate-300 space-y-1 pl-2 border-l-2 border-slate-700">
-                        <p>Core NPU / CPU (Non-Deterministic)</p>
-                        <p class="text-slate-500">│</p>
-                        <p class="text-sky-300">▼ AXI-lite / AMBA APB Peripheral Bus</p>
-                        <p class="text-white font-bold bg-sky-900/40 inline-block px-2 py-1 rounded">Policy Engine (Our IP)</p>
-                        <p class="text-sky-300 mt-1">▼ GPIO / Secure Peripheral Bus</p>
-                        <p class="text-emerald-400">Actuator Control Interface</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+<p class="text-slate-400 mt-2">
+FPGA Prototype & SoC Integration Feasibility Report
+</p>
 
-        <section class="section-card border-emerald-700 bg-slate-800/50">
-            <h2 class="text-xl mb-4 border-b border-emerald-800 pb-2 text-emerald-400">10. Competitive Positioning & Market Moat</h2>
-            <p class="text-slate-300 text-sm mb-4">Why traditional isolation architectures are insufficient for Agentic AI execution.</p>
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm min-w-[600px]">
-                    <thead>
-                        <tr>
-                            <th class="bg-slate-900 text-center">Architecture</th>
-                            <th class="bg-slate-900 text-center">Isolation Level</th>
-                            <th class="bg-slate-900 text-center">NPU Overhead</th>
-                            <th class="bg-slate-900 text-center">Immunity to OS Crash</th>
-                            <th class="bg-slate-900 text-emerald-400 border-emerald-700/50 text-center">Our IP (Hardware Gate)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="font-semibold text-slate-200 text-center">Software Guardrails</td>
-                            <td class="text-slate-400 text-center">Application Layer</td>
-                            <td class="text-rose-400 text-center">High (Shares compute)</td>
-                            <td class="text-rose-400 text-center">None</td>
-                            <td rowspan="3" class="bg-emerald-900/20 border-emerald-700/50 align-top p-4">
-                                <ul class="space-y-2 text-emerald-300 text-left mx-auto w-fit">
-                                    <li><i class="fas fa-check mr-2"></i><strong>Physical Logic Layer</strong></li>
-                                    <li><i class="fas fa-check mr-2"></i><strong>Zero NPU Overhead</strong></li>
-                                    <li><i class="fas fa-check mr-2"></i><strong>100% OS Crash Immune</strong></li>
-                                    <li><i class="fas fa-check mr-2"></i><strong>Constant-time Determinism</strong></li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="font-semibold text-slate-200 text-center">ARM TrustZone</td>
-                            <td class="text-slate-400 text-center">Secure OS / Logical</td>
-                            <td class="text-yellow-400 text-center">Medium (Context switch)</td>
-                            <td class="text-yellow-400 text-center">Partial</td>
-                        </tr>
-                        <tr>
-                            <td class="font-semibold text-slate-200 text-center">Safety Island (MCU)</td>
-                            <td class="text-slate-400 text-center">Physical MCU</td>
-                            <td class="text-emerald-400 text-center">Zero</td>
-                            <td class="text-emerald-400 text-center">High</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <p class="text-slate-400 text-xs mt-3 italic">* Unlike a programmable Safety Island MCU, our static FSM prevents runtime code injection entirely.</p>
-        </section>
+</div>
+</header>
 
-        <section class="section-card">
-            <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">11. Verification Strategy</h2>
-            <p class="text-slate-300 text-sm mb-4">Rigorous validation pipeline ensuring IP reliability before tape-out.</p>
-            <div class="grid md:grid-cols-3 gap-4">
-                <div class="bg-slate-900 p-4 rounded border border-slate-700">
-                    <h4 class="text-sky-400 text-sm font-bold mb-2">RTL Simulation</h4>
-                    <p class="text-slate-400 text-xs">100% FSM state coverage and branch coverage achieved via testbenches simulating non-deterministic payload anomalies.</p>
-                </div>
-                <div class="bg-slate-900 p-4 rounded border border-slate-700">
-                    <h4 class="text-sky-400 text-sm font-bold mb-2">Formal Verification</h4>
-                    <p class="text-slate-400 text-xs">Property checking confirms deterministic constant-time latency and zero-deadlock states under all boundary conditions.</p>
-                </div>
-                <div class="bg-slate-900 p-4 rounded border border-slate-700">
-                    <h4 class="text-sky-400 text-sm font-bold mb-2">FPGA Prototyping</h4>
-                    <p class="text-slate-400 text-xs">Physical validation on Gowin Tang Nano 9K, confirming low power (26.698 mW) and clock frequency thresholds (56.307 MHz).</p>
-                </div>
-            </div>
-        </section>
+<main class="max-w-5xl mx-auto px-6 pb-12 flex-grow">
 
-    </main>
-    
-    <footer class="bg-[#070b14] border-t border-slate-800 pt-16 pb-8 text-slate-400 mt-auto">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-3 gap-8 mb-12">
-                <div>
-                    <h4 class="text-white text-lg font-bold mb-4">WesmartAI</h4>
-                    <p class="text-sm leading-relaxed mb-4">
-                        Making Trust Transparent.<br/>
-                        以晶片級實體隔離，為 Agentic AI 構築絕對合規防線。
-                    </p>
-                </div>
-                <div>
-                    <h4 class="text-white text-lg font-bold mb-4">Contact</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><i class="fas fa-map-marker-alt mr-2 w-4 text-center"></i>722 台南市佳里區光明街68號1樓</li>
-                        <li><i class="fas fa-phone mr-2 w-4 text-center"></i>+886-912-310570</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-white text-lg font-bold mb-4">Explore</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="index.html" class="hover:text-blue-400 transition text-left block">Corporate Home</a></li>
-                        <li><a href="ohacss.html" class="hover:text-blue-400 transition text-left block">OHACSS Platform</a></li>
-                        <li><a href="founder.html" class="hover:text-blue-400 transition text-left block">About Founder</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
-                <p>&copy; 2026 可信智慧整合有限公司 (WesmartAI). All rights reserved.</p>
-                <p class="mt-2 md:mt-0">UBN: 42917004</p>
-            </div>
-        </div>
-    </footer>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-    <div id="imageModal" class="fixed inset-0 z-[100] hidden bg-black/90 flex justify-center items-center" onclick="closeModal()">
-        <span class="absolute top-6 right-8 text-white text-4xl cursor-pointer hover:text-red-500 transition" onclick="closeModal()">&times;</span>
-        <img id="modalImage" class="max-w-[90%] max-h-[90%] object-contain rounded border-2 border-slate-600 shadow-2xl" src="" alt="Enlarged Report">
-    </div>
+<section class="section-card">
 
-    <script>
-        function openModal(imgSrc) {
-            document.getElementById('modalImage').src = imgSrc;
-            document.getElementById('imageModal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        }
+<h2 class="text-xl mb-4 border-b border-slate-600 pb-2">1. Project Overview</h2>
 
-        function closeModal() {
-            document.getElementById('imageModal').classList.add('hidden');
-            document.body.style.overflow = 'auto'; // Restore scrolling
-        }
-        
-        // Close modal on escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === "Escape") {
-                closeModal();
-            }
-        });
-    </script>
+<p class="text-slate-300 text-sm leading-relaxed mb-4">
+
+Modern edge AI systems increasingly operate in environments where probabilistic inference must ultimately translate into deterministic physical actions. This project introduces a hardware-enforced adjudication engine implemented as synthesizable Silicon IP. The engine evaluates AI inference outputs against predefined policy rules in hardware before actuator execution, enabling deterministic control enforcement and auditable decision traceability at the silicon level.
+
+</p>
+
+<ul class="list-disc list-inside text-sm text-slate-300">
+
+<li><strong>Objective:</strong> Deterministic policy enforcement for AI-driven systems with hardware-level auditability.</li>
+
+<li><strong>Target Domains:</strong> Automotive Software-Defined Vehicles (SDV), Industrial Automation, and Safety-Critical Edge AI.</li>
+
+</ul>
+
+</section>
+
+<section class="section-card">
+
+<h2 class="text-xl mb-4 border-b border-slate-600 pb-2">2. System Architecture</h2>
+
+<div class="bg-slate-900 p-4 rounded text-sm font-mono text-slate-300 border border-slate-700">
+
+<p class="text-slate-400">AI Inference Engine (MPU / NPU)</p>
+
+<p class="text-slate-500 py-1 pl-4">↓ Hardware Enforcement Boundary</p>
+
+<p class="text-sky-400 font-bold">Hardware Adjudication IP</p>
+
+<p class="text-slate-500 py-1 pl-4">├─ Deterministic Decision → <span class="text-emerald-400">Actuator Control</span></p>
+
+<p class="text-slate-500 pl-4">└─ Execution Evidence → <span class="text-indigo-400">Traceable Hardware Log</span></p>
+
+</div>
+
+</section>
+
+</div>
+
+<section class="section-card border-indigo-900/50 bg-slate-800/30">
+
+<h2 class="text-xl mb-4 border-b border-indigo-800 pb-2 text-indigo-300">
+8. Adjudication Pipeline & Evidence Chain
+</h2>
+
+<p class="text-slate-300 text-sm mb-4">
+
+Unlike software-only guardrail mechanisms, this architecture performs policy enforcement directly in hardware logic. The decision path is implemented as a fixed combinational and sequential pipeline, ensuring deterministic execution independent of operating system behavior or software runtime conditions.
+
+</p>
+
+<div class="bg-slate-900/80 rounded-lg p-5 border border-indigo-900/30">
+
+<ul class="list-disc list-inside text-sm text-slate-300 space-y-4">
+
+<li>
+<strong class="text-slate-200">Deterministic Hardware Execution:</strong>
+The critical evaluation path exhibits a measured worst-case propagation delay of
+<span class="font-mono text-emerald-400 font-bold ml-1">17.360 ns</span>,
+ensuring bounded hardware latency regardless of input complexity.
+</li>
+
+<li>
+<strong class="text-slate-200">Hardware-Anchored Evidence:</strong>
+The engine generates a cryptographically bindable event record linking AI input data, the evaluated rule set, and the resulting hardware decision state.
+</li>
+
+<li>
+<strong class="text-slate-200">System Integrity Boundary:</strong>
+Because adjudication occurs at the hardware logic layer prior to actuator release, enforcement remains independent of application software execution and reduces attack surfaces associated with OS-level manipulation.
+</li>
+
+</ul>
+
+</div>
+
+</section>
+
+<section class="section-card border-sky-700 bg-slate-800 shadow-lg shadow-sky-900/20">
+
+<h2 class="text-2xl mb-4 border-b border-sky-800 pb-2 text-sky-300">
+9. Feasibility for Snapdragon-class SoC Integration
+</h2>
+
+<div class="grid md:grid-cols-2 gap-6 mt-4">
+
+<div>
+
+<p class="text-slate-200 text-sm leading-relaxed mb-4">
+
+Based on the validated FPGA prototype footprint (601 LUTs, 142 registers) and a logic utilization of approximately 8% on a GW1NR-9 FPGA device, the policy engine represents a compact digital logic block. When translated into standard-cell ASIC implementation, the equivalent logic is expected to occupy a negligible silicon area relative to modern AI SoC designs.
+
+</p>
+
+<ul class="list-disc list-inside text-slate-300 text-sm space-y-2">
+
+<li><strong>Estimated ASIC Area:</strong> approximately ~0.01 mm² (engineering estimation based on LUT-to-gate mapping)</li>
+
+<li><strong>NPU Impact:</strong> no tensor pipeline contention; enforcement occurs in a dedicated peripheral logic block</li>
+
+<li><strong>Integration Interface:</strong> standard AMBA AXI-Lite or APB peripheral integration</li>
+
+</ul>
+
+</div>
+
+<div class="bg-slate-900 p-4 rounded border border-sky-800/50">
+
+<h4 class="text-sky-400 text-xs uppercase tracking-wider mb-3">
+SoC Integration Path
+</h4>
+
+<div class="font-mono text-sm text-slate-300 space-y-1 pl-2 border-l-2 border-slate-700">
+
+<p>AI Compute Domain (CPU / NPU)</p>
+
+<p class="text-slate-500">│</p>
+
+<p class="text-sky-300">▼ Peripheral Interface (AXI-Lite / APB)</p>
+
+<p class="text-white font-bold bg-sky-900/40 inline-block px-2 py-1 rounded">
+Hardware Policy Engine (IP)
+</p>
+
+<p class="text-sky-300 mt-1">▼ Secure Peripheral Interface</p>
+
+<p class="text-emerald-400">Actuator Control / Safety Controller</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
 </body>
 </html>
