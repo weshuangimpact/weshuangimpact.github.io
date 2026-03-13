@@ -157,12 +157,12 @@
                     <tbody>
                         <tr>
                             <td class="font-medium text-slate-200">Logic Elements (LUTs)</td>
-                            <td class="text-sky-400 font-bold text-center">40 (0%)</td>
+                            <td class="text-sky-400 font-bold text-center">601 (8%)</td>
                             <td class="text-emerald-400 text-center">Ultra-low footprint</td>
                         </tr>
                         <tr>
                             <td class="font-medium text-slate-200">Registers / Flip-Flops</td>
-                            <td class="text-sky-400 font-bold text-center">13 (0%)</td>
+                            <td class="text-sky-400 font-bold text-center">142 (3%)</td>
                             <td class="text-emerald-400 text-center">Optimized</td>
                         </tr>
                     </tbody>
@@ -174,15 +174,15 @@
                 <div class="grid grid-cols-2 gap-4 text-center mt-2">
                     <div class="bg-slate-900 p-4 rounded border border-slate-700">
                         <div class="text-slate-400 text-[11px] uppercase tracking-wider mb-1">Max Freq (Fmax)</div>
-                        <div class="data-value">153.68 <span class="text-lg">MHz</span></div>
+                        <div class="data-value">56.307 <span class="text-lg">MHz</span></div>
                     </div>
                     <div class="bg-slate-900 p-4 rounded border border-slate-700">
                         <div class="text-slate-400 text-[11px] uppercase tracking-wider mb-1">Total Power</div>
-                        <div class="data-value text-emerald-400">14.73 <span class="text-lg">mW</span></div>
+                        <div class="data-value text-emerald-400">26.698 <span class="text-lg">mW</span></div>
                     </div>
                     <div class="bg-slate-900 p-4 rounded border border-slate-700 col-span-2 flex items-center justify-between px-6">
                         <div class="text-slate-400 text-xs uppercase tracking-wider text-left">Max Data Path Delay <br><span class="text-sky-500 font-bold normal-case text-sm">O(1) Physical Latency</span></div>
-                        <div class="text-sky-400 font-bold text-3xl">5.244 <span class="text-xl">ns</span></div>
+                        <div class="text-sky-400 font-bold text-3xl">17.360 <span class="text-xl">ns</span></div>
                     </div>
                 </div>
             </section>
@@ -193,7 +193,7 @@
             <p class="text-slate-300 text-sm mb-4">Unlike standard software filters, our IP produces legally admissible evidence through a constant-time hardware pipeline.</p>
             <div class="bg-slate-900/80 rounded-lg p-5 border border-indigo-900/30">
                 <ul class="list-disc list-inside text-sm text-slate-300 space-y-4">
-                    <li><strong class="text-slate-200">Constant-Time Execution:</strong> The entire evaluation pipeline executes with a maximum data path delay of <span class="font-mono text-emerald-400 font-bold ml-1">5.244 ns</span>, ensuring absolute determinism regardless of input complexity.</li>
+                    <li><strong class="text-slate-200">Constant-Time Execution:</strong> The entire evaluation pipeline executes with a maximum data path delay of <span class="font-mono text-emerald-400 font-bold ml-1">17.360 ns</span>, ensuring absolute determinism regardless of input complexity.</li>
                     <li><strong class="text-slate-200">Hardware-Anchored Evidence:</strong> Generates a non-repudiable cryptographic hash binding the AI payload, the applied safety rule, and the exact hardware state timestamp.</li>
                     <li><strong class="text-slate-200">Legal Admissibility:</strong> Because the adjudication hash is generated at the physical silicon level prior to actuator release, it forms an immutable audit trail entirely immune to OS crashes, root-level tampering, or Prompt Injections.</li>
                 </ul>
@@ -206,7 +206,7 @@
             <div class="grid md:grid-cols-2 gap-6 mt-4">
                 <div>
                     <p class="text-slate-200 text-sm leading-relaxed mb-4">
-                        Based on the verified FPGA footprint (40 LUTs / 13 DFFs) and strict constant-time logic, migrating this IP to an advanced technology node (e.g., 5nm/4nm Automotive SoC) incurs negligible Area and Power overhead.
+                        Based on the verified FPGA footprint (601 LUTs / 142 DFFs) and strict constant-time logic, migrating this IP to an advanced technology node (e.g., 5nm/4nm Automotive SoC) incurs negligible Area and Power overhead.
                     </p>
                     <ul class="list-disc list-inside text-slate-300 text-sm space-y-2">
                         <li><strong>Estimated ASIC Area:</strong> ~ 0.01 mm² (Estimated)</li>
@@ -290,7 +290,7 @@
                 </div>
                 <div class="bg-slate-900 p-4 rounded border border-slate-700">
                     <h4 class="text-sky-400 text-sm font-bold mb-2">FPGA Prototyping</h4>
-                    <p class="text-slate-400 text-xs">Physical validation on Gowin Tang Nano 9K, confirming low power (14.73mW) and clock frequency thresholds (153.68MHz).</p>
+                    <p class="text-slate-400 text-xs">Physical validation on Gowin Tang Nano 9K, confirming low power (26.698 mW) and clock frequency thresholds (56.307 MHz).</p>
                 </div>
             </div>
         </section>
