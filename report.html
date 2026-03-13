@@ -179,9 +179,10 @@
                     <div class="bg-slate-900 p-4 rounded border border-slate-700">
                         <div class="text-slate-400 text-[11px] uppercase tracking-wider mb-1">Total Power</div>
                         <div class="data-value text-emerald-400">26.698 <span class="text-lg">mW</span></div>
+                        <div class="text-slate-400 text-[10px] mt-1">Dynamic Power: 0.613 mW</div>
                     </div>
                     <div class="bg-slate-900 p-4 rounded border border-slate-700 col-span-2 flex items-center justify-between px-6">
-                        <div class="text-slate-400 text-xs uppercase tracking-wider text-left">Max Data Path Delay <br><span class="text-sky-500 font-bold normal-case text-sm">O(1) Physical Latency</span></div>
+                        <div class="text-slate-400 text-xs uppercase tracking-wider text-left">Max Data Path Delay <br><span class="text-sky-500 font-bold normal-case text-sm">Fixed Propagation Delay</span></div>
                         <div class="text-sky-400 font-bold text-3xl">17.360 <span class="text-xl">ns</span></div>
                     </div>
                 </div>
@@ -251,7 +252,7 @@
                             <td class="text-rose-400 text-center">None</td>
                             <td rowspan="3" class="bg-emerald-900/20 border-emerald-700/50 align-top p-4">
                                 <ul class="space-y-2 text-emerald-300 text-left mx-auto w-fit">
-                                    <li><i class="fas fa-check mr-2"></i><strong>Physical Logic Layer</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>Hardwired Silicon IP</strong></li>
                                     <li><i class="fas fa-check mr-2"></i><strong>Zero NPU Overhead</strong></li>
                                     <li><i class="fas fa-check mr-2"></i><strong>100% OS Crash Immune</strong></li>
                                     <li><i class="fas fa-check mr-2"></i><strong>Constant-time Determinism</strong></li>
@@ -290,7 +291,7 @@
                 </div>
                 <div class="bg-slate-900 p-4 rounded border border-slate-700">
                     <h4 class="text-sky-400 text-sm font-bold mb-2">FPGA Prototyping</h4>
-                    <p class="text-slate-400 text-xs">Physical validation on Gowin Tang Nano 9K, confirming low power (26.698 mW) and clock frequency thresholds (56.307 MHz).</p>
+                    <p class="text-slate-400 text-xs">Physical validation on Gowin Tang Nano 9K, confirming low power (26.698 mW total / 0.613 mW dynamic) and a Maximum Operating Frequency (Fmax) of 56.307 MHz.</p>
                 </div>
             </div>
         </section>
