@@ -183,7 +183,7 @@
                                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/30 border border-emerald-700/50 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-4">
                                     Phase 1: Board-Level Prototype
                                 </div>
-                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Hardware Isolation Validation <br/><span className="text-xl text-slate-400 font-medium mt-2 block">(Qualcomm QRB2210 + STM32U585 MCU)</span></h2>
+                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Hardware Isolation Validation <br/><span className="text-xl text-slate-400 font-medium mt-2 block">(Qualcomm QRB2210 + Automotive-Grade Secure MCU)</span></h2>
                                 <p className="text-slate-400 max-w-2xl mx-auto leading-relaxed">
                                     Replacing traditional software filters with a physical defense boundary between non-deterministic AI inference (MPU) and critical execution systems (MCU). Delivering <strong className="text-emerald-400">13.23ms</strong> Round-Trip Adjudication Latency for true Zero-Friction integration.
                                 </p>
@@ -200,7 +200,7 @@
                                         </div>
                                         <div>
                                             <h3 className="text-xl font-bold text-white mb-2">Board-Level MPU–MCU Integration</h3>
-                                            <p className="text-slate-400 text-sm leading-relaxed">The Qualcomm Dragonwing MPU generates high-speed commands and drives the isolated STM32U585 MCU SWD interface directly through a Linux GPIO bitbang driver. All inference outputs route strictly through a one-way gate.</p>
+                                            <p className="text-slate-400 text-sm leading-relaxed">The Qualcomm Dragonwing MPU generates high-speed commands and drives the isolated Secure MCU through a dedicated, unidirectional hardware interface, establishing a strict data diode without exposing standard vulnerable ports.</p>
                                         </div>
                                     </div>
                                     
@@ -281,7 +281,7 @@
                                     </p>
                                 </div>
 
-                                {/* NEW: ISO 26262 Rule Scalability Stress Testing */}
+                                {/* ISO 26262 Rule Scalability Stress Testing */}
                                 <div className="md:col-span-3 glass-card p-8 rounded-xl border border-slate-700 hover:border-blue-500/50 transition-colors flex flex-col md:flex-row items-center gap-8 bg-gradient-to-r from-[#0b1120] via-slate-800/40 to-[#0b1120]" data-aos="fade-up" data-aos-delay="300">
                                     <div className="w-16 h-16 rounded-2xl bg-blue-900/30 flex items-center justify-center text-blue-400 shrink-0 border border-blue-700/50 shadow-lg">
                                         <WIcon name="ShieldCheck" size={32} />
