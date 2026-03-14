@@ -201,7 +201,7 @@
             <div class="bg-slate-900/80 rounded-lg p-5 border border-indigo-900/30">
                 <ul class="list-disc list-inside text-sm text-slate-300 space-y-4">
                     <li><strong class="text-slate-200">ISO-Grade Scalability & Constant-Time Execution:</strong> The entire evaluation pipeline executes with a maximum data path delay of <span class="font-mono text-emerald-400 font-bold ml-1">17.360 ns</span>. Crucially, hardware testing verifies this delay is perfectly deterministic and invariant, whether processing 3 basic rules or a full suite of 512 complex ISO 26262 functional safety conditions.</li>
-                    <li><strong class="text-slate-200">Hardware-Anchored Evidence:</strong> Generates a non-repudiable cryptographic hash binding the AI payload, the applied safety rule, and the exact hardware state timestamp.</li>
+                    <li><strong class="text-slate-200">Hardware-Anchored Evidence:</strong> Generates a non-repudiable cryptographic hash binding the AI payload, the applied safety rule, and the exact hardware state timestamp, using a hardware-generated nonce.</li>
                     <li><strong class="text-slate-200">Legal Admissibility:</strong> Because the adjudication hash is generated at the physical silicon level prior to actuator release, it forms an immutable audit trail entirely immune to OS crashes, root-level tampering, or Prompt Injections.</li>
                 </ul>
             </div>
@@ -228,7 +228,7 @@
                         <p>Core NPU / CPU (Non-Deterministic)</p>
                         <p class="text-slate-500">│</p>
                         <p class="text-sky-300">▼ AXI-lite / AMBA APB Peripheral Bus</p>
-                        <p class="text-white font-bold bg-sky-900/40 inline-block px-2 py-1 rounded">Policy Engine (Our IP)</p>
+                        <p class="text-white font-bold bg-sky-900/40 inline-block px-2 py-1 rounded">Rulepack Adjudication Engine (Our IP)</p>
                         <p class="text-sky-300 mt-1">▼ GPIO / Secure Peripheral Bus</p>
                         <p class="text-emerald-400">Actuator Control Interface</p>
                     </div>
