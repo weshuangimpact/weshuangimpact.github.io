@@ -45,7 +45,7 @@
             </svg>
         );
 
-        // Icons definition with fix for multiple paths
+        // Icons definition
         const Icons = {
             ChevronLeft: <polyline points="15 18 9 12 15 6" />,
             Briefcase: <g><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" /></g>,
@@ -168,24 +168,23 @@
                             <div className="lg:col-span-8 space-y-10" data-aos="fade-up">
                                 <div className="prose prose-lg text-slate-600 leading-8 space-y-6">
                                     
-                                    {/* About Me */}
+                                    {/* The Outsider's Advantage */}
                                     <h3 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-                                        <span className="bg-blue-600 w-1 h-8 rounded-full"></span> About Me
+                                        <span className="bg-blue-600 w-1 h-8 rounded-full"></span> The Outsider's Advantage
                                     </h3>
-                                    <p className="text-lg font-medium text-slate-800">I didn't set out to build an AI company.</p>
-                                    <p>I set out to solve a problem I kept running into — in startup competitions, government grant proposals, regional revitalization projects, and impact investment discussions: the people making decisions couldn't verify the process that produced the recommendation in front of them.</p>
-                                    <p>That gap — between what AI systems do and what institutions can actually trust — became the thread I couldn't let go.</p>
-                                    <p>I am a practitioner with integrated experience across startup development, social innovation, and digital product implementation. I have founded social innovation enterprises, secured government grants including SBIR and SME innovation research programs, and led teams from concept through to executable, verifiable results. But more than the titles or the wins, what has shaped me is years of sitting at the table where technology meets accountability — and watching that gap go unaddressed.</p>
-                                    <p className="font-bold text-slate-900">That's the problem WesmartAI exists to close.</p>
+                                    <p className="text-lg font-medium text-slate-800">I am not a traditional automotive engineer, nor an IC designer by training. And that is exactly why this architecture exists.</p>
                                     
-                                    {/* Local Impact */}
-                                    <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
-                                        <span className="bg-indigo-600 w-1 h-8 rounded-full"></span> 🎯 Locally Rooted, Scalable Impact
-                                    </h3>
-                                    <p>There's a particular kind of clarity you get from working in places the ecosystem tends to overlook.</p>
-                                    <p>When you're building in a regional city — not Taipei, not Silicon Valley — you don't have the luxury of narrative. You have to produce results. You have to show your work. You have to make things that actually run.</p>
-                                    <p>That discipline shaped how I approach every venture: find teams with real constraints, help them build concrete outcomes, replicable processes, and models that can scale without losing what made them work locally. The goal was never to extract value from a region. It was to prove that innovation doesn't require a certain zip code — it requires the right structure.</p>
-                                    <p className="text-slate-800 font-medium">That belief carries directly into how we build AI governance infrastructure. Verifiable. Deployable. Designed for environments that don't have the luxury of failure.</p>
+                                    <p>When the industry faced the "AI Hallucination" problem, traditional AI engineers tried to solve it by fine-tuning models, while software engineers built OS-level watchdogs. Bound by their own domains, they treated it as a software optimization problem.</p>
+                                    
+                                    <p>Coming from a background in social innovation, governance, and institutional accountability, I saw a completely different problem. <strong>This wasn't a software bug; it was a legal and evidentiary void.</strong> Institutions don't care about how clever an AI's weights are—they care about who is liable when the machine makes a fatal choice. They need undeniable, mathematically sound, physical evidence.</p>
+                                    
+                                    <p>Working backwards from that first principle, I didn't start by writing code. I started by defining a <strong>Universal Adjudication Architecture</strong> through rigorous academic research (published on SSRN) and a comprehensive global patent layout. The goal was to establish a universal governance standard for any Agentic AI—whether in drones, industrial IoT, or robotics.</p>
+                                    
+                                    <p className="text-slate-800 font-medium border-l-4 border-blue-600 pl-4 my-6 bg-slate-50 py-3 pr-3">
+                                        We didn't build an "automotive patch." We built a Universal Hardware Governance IP, and we deliberately chose the most unforgiving, high-stakes environment on earth—ISO 26262 Automotive Safety—as our ultimate stress test.
+                                    </p>
+                                    
+                                    <p>Because if our architecture can mathematically guarantee 17.360 ns of absolute determinism and physical safety for a self-driving car, integrating it into AI PCs or smart manufacturing platforms becomes a trivial task.</p>
 
                                     {/* AI Tech */}
                                     <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
@@ -266,23 +265,39 @@
                                         </div>
                                     </div>
 
+                                    {/* The IP-First Philosophy */}
+                                    <div className="mt-12 mb-12 p-8 bg-slate-900 rounded-2xl text-white shadow-2xl border border-slate-700" data-aos="fade-up">
+                                        <h3 className="text-xl font-bold mb-4 flex items-center gap-3 text-sky-400">
+                                            <WIcon name="FileText" className="text-sky-400" /> The IP-First Philosophy
+                                        </h3>
+                                        <p className="text-slate-300 font-medium leading-relaxed mb-4">
+                                            If you look closely at our development milestones, you will notice a deliberate trajectory. We did not build the Qualcomm UNO-Q prototype or the Gowin FPGA board to sell hardware. 
+                                        </p>
+                                        <p className="text-slate-300 font-medium leading-relaxed mb-4">
+                                            <strong>Every physical board we wired, every micro-watt we measured, and every 17.360 ns latency log we generated exists solely to serve, validate, and package our true core asset: the Silicon Soft IP (RTL).</strong>
+                                        </p>
+                                        <p className="text-slate-400 text-sm leading-relaxed border-l-2 border-sky-500 pl-4">
+                                            We operate on an Arm-like IP licensing model for the Agentic AI era. The experimental data proves our absolute physical feasibility. The patents provide the legal moat. The hardware is just the vehicle; the IP is the destination.
+                                        </p>
+                                    </div>
+
                                     {/* The Story Continues (CTA) */}
                                     <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
                                         <span className="bg-purple-600 w-1 h-8 rounded-full"></span>
                                         <WIcon name="Rocket" className="text-purple-600" /> The Story Continues
                                     </h3>
                                     <p className="text-slate-700 font-medium">
-                                        Most of what we've built, we built in six months.
+                                        Built upon years of deep-domain research and rigorous logic modeling, we translated our academic framework into a Silicon-Proven MVP in just six months.
                                     </p>
                                     <p className="text-slate-700 font-medium">
-                                        Not because we rushed — but because the structure was clear, the problem was real, and the window was closing. Patents filed. Hardware prototypes validated down to 17.360 ns physical latency. Regulatory timelines aligned. A governance framework published and an academic manuscript under review.
+                                        Not because we rushed — but because the structure was clear, the problem was real, and the window was closing. Patents filed. Hardware prototypes validated down to 17.360 ns physical latency. Regulatory timelines aligned. 
                                     </p>
                                     <p className="text-slate-700 font-bold">The 0-to-1 phase is done.</p>
                                     <p className="text-slate-700 font-medium">
                                         What comes next is harder, and more important: taking infrastructure that works in controlled settings and integrating it directly into Snapdragon-class architectures and Tier-1 automotive execution paths.
                                     </p>
                                     <p className="text-slate-700 font-medium">
-                                        I'm not looking for casual observers of AI governance. I am looking for <strong>SoC Vendors, Tier-1 Automotive Suppliers, and Deep-Tech Investors</strong> who understand that deterministic safety is the absolute prerequisite for scaling Agentic AI. We are ready to build the physical standard before someone else defines it by default.
+                                        We are looking for <strong>SoC Vendors, Tier-1 Automotive Suppliers, and Deep-Tech Investors</strong> who understand that deterministic safety is the absolute prerequisite for scaling Agentic AI. We are ready to build the physical standard before someone else defines it by default.
                                     </p>
                                     <p className="text-lg font-bold text-slate-900 mt-4">
                                         If that's you, let's talk.
@@ -398,7 +413,7 @@
                                             <span className="inline-block mt-1 text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200">Invention Patent App.</span>
                                         </div>
 
-                                        {/* 10. Prototype Completion (SANITIZED) */}
+                                        {/* 10. Prototype Completion */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-rose-400 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Mar 2026</span>
@@ -406,7 +421,7 @@
                                             <span className="inline-block mt-1 text-[10px] bg-rose-50 text-rose-700 px-2 py-0.5 rounded border border-rose-100">Hardware MVP</span>
                                         </div>
 
-                                        {/* 11. FPGA Verification (UPDATED TO Silicon IP MVP) */}
+                                        {/* 11. FPGA Verification */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-cyan-500 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Mar 2026</span>
