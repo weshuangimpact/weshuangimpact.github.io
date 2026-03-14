@@ -160,7 +160,6 @@
                                     </div>
                                 </div>
                                 <div className="relative" data-aos="fade-left">
-                                    {/* IMAGE PLACEHOLDER: pic8.png (Hero Architecture Visual) */}
                                     <img src="pic8.png" alt="Edge Governance Physical Boundary" className="w-full h-auto aspect-[4/3] rounded-2xl border border-slate-600/50 shadow-2xl floating-img object-cover bg-slate-800/80 backdrop-blur-sm" onError={(e) => { e.target.onerror = null; e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%231e293b'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='24' fill='%2364748b'%3E[pic8.png] Hero Architecture Visual%3C/text%3E%3C/svg%3E" }} />
                                     
                                     <div className="absolute -bottom-6 -left-6 glass-card p-4 rounded-xl border border-white/20 shadow-2xl hidden md:flex items-center gap-4">
@@ -192,7 +191,6 @@
 
                             <div className="grid lg:grid-cols-2 gap-16 items-center">
                                 <div className="order-2 lg:order-1" data-aos="fade-right">
-                                    {/* IMAGE PLACEHOLDER: pic9.png (Technical Flow / Hardware Gate) */}
                                     <img src="pic9.png" alt="MPU to MCU Hardware Gate" className="w-full h-auto aspect-square rounded-2xl border border-slate-700 shadow-2xl object-cover bg-slate-800/50" onError={(e) => { e.target.onerror = null; e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Crect width='600' height='600' fill='%231e293b'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='20' fill='%2364748b'%3E[pic9.png] Deep-Tech Architecture%3C/text%3E%3C/svg%3E" }} />
                                 </div>
                                 <div className="order-1 lg:order-2 space-y-8">
@@ -258,7 +256,6 @@
                                 {/* Technical Report Card */}
                                 <div className="md:col-span-2 glass-card rounded-xl overflow-hidden group flex flex-col md:flex-row border border-blue-500/20 hover:border-blue-500/50 transition-colors" data-aos="fade-up" data-aos-delay="100">
                                     <div className="w-full md:w-1/2 relative bg-slate-800">
-                                        {/* Updated to pic11.jpg (Synthesis Resource Report) */}
                                         <img src="pic11.jpg" alt="FPGA Technical Report" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onError={(e) => { e.target.onerror = null; e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%230f172a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='16' fill='%23475569'%3E[pic11.jpg] Synthesis Resource Report%3C/text%3E%3C/svg%3E" }} />
                                     </div>
                                     <div className="p-8 w-full md:w-1/2 flex flex-col justify-center bg-gradient-to-br from-slate-900/80 to-[#0b1120]">
@@ -283,49 +280,68 @@
                                         Every hardware adjudication is cryptographically bound using a true random nonce, producing an atomic SHA-256 ledger directly within the silicon logic.
                                     </p>
                                 </div>
+
+                                {/* NEW: ISO 26262 Rule Scalability Stress Testing */}
+                                <div className="md:col-span-3 glass-card p-8 rounded-xl border border-slate-700 hover:border-blue-500/50 transition-colors flex flex-col md:flex-row items-center gap-8 bg-gradient-to-r from-[#0b1120] via-slate-800/40 to-[#0b1120]" data-aos="fade-up" data-aos-delay="300">
+                                    <div className="w-16 h-16 rounded-2xl bg-blue-900/30 flex items-center justify-center text-blue-400 shrink-0 border border-blue-700/50 shadow-lg">
+                                        <WIcon name="ShieldCheck" size={32} />
+                                    </div>
+                                    <div>
+                                        <div className="flex flex-wrap gap-2 mb-3">
+                                            <span className="px-2 py-1 rounded bg-slate-800 border border-slate-600 text-xs font-mono text-slate-300">3 Rules</span>
+                                            <span className="px-2 py-1 rounded bg-slate-800 border border-slate-600 text-xs font-mono text-slate-300">16 Rules</span>
+                                            <span className="px-2 py-1 rounded bg-slate-800 border border-slate-600 text-xs font-mono text-slate-300">128 Rules</span>
+                                            <span className="px-2 py-1 rounded bg-blue-900/50 border border-blue-500/50 text-xs font-mono text-blue-300 font-bold">512 Rules</span>
+                                        </div>
+                                        <h3 className="text-xl font-bold text-white mb-2">ISO 26262 Rule Scalability & Stress Testing</h3>
+                                        <p className="text-slate-400 text-sm leading-relaxed">
+                                            To guarantee readiness for Tier-1 automotive environments, the FPGA prototype has undergone rigorous stress testing against dynamically scaling compliance rule sets. Scaling from fundamental logic up to <strong className="text-blue-400">512 concurrent safety rules</strong> verifies that our hardware adjudication maintains its absolute <strong className="text-white">17.360 ns constant-time deterministic latency</strong> regardless of policy complexity. This forms the critical engineering bridge to Phase 3 SoC Emulation.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>
 
-                    {/* PHASE 3: Field PoC Target */}
+                    {/* PHASE 3: Field PoC Target -> Updated to Automotive SoC Emulation & Tier-1 PoC */}
                     <section id="poc-target" className="py-24 bg-[#070b14] border-t border-white/5 relative overflow-hidden">
                         <div className="max-w-7xl mx-auto px-6 relative z-10">
                             <div className="text-center mb-16" data-aos="fade-up">
                                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-900/30 border border-purple-700/50 text-purple-400 text-xs font-bold uppercase tracking-widest mb-4">
                                     Phase 3: Next Objective
                                 </div>
-                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Targeting Autonomous Vehicle PoC</h2>
-                                <p className="text-slate-400 max-w-2xl mx-auto">Validating end-to-end deterministic latency and hardware adjudication in real-world, high-stakes environments.</p>
+                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Automotive SoC Emulation & Tier-1 PoC</h2>
+                                <p className="text-slate-400 max-w-2xl mx-auto">Translating validated FPGA Silicon IP into enterprise-grade hardware emulation and establishing ASIL-B compliance for Snapdragon-class architectures.</p>
                             </div>
                             
                             <div className="grid md:grid-cols-3 gap-8">
                                 <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-purple-500/50 transition-all transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="100">
                                     <div className="w-12 h-12 rounded-lg bg-purple-900/30 flex items-center justify-center text-purple-400 mb-6 border border-purple-700/50">
-                                        <WIcon name="Car" size={24} />
+                                        <WIcon name="Cpu" size={24} />
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-3">1. System Integration</h3>
+                                    <h3 className="text-xl font-bold text-white mb-3">1. AXI/AMBA Bus Emulation</h3>
                                     <p className="text-slate-400 text-sm leading-relaxed mb-4">
-                                        Proving the critical execution path in a live vehicle architecture: AI Perception (SDV) → Non-Deterministic Command → Hardware Adjudication Gate → Vehicle Actuator.
+                                        Deploying our RTL code into enterprise hardware emulators (e.g., Palladium/Zebu) to validate direct insertion into the SoC internal bus, securing the path between the core NPU and peripheral actuators.
                                     </p>
                                 </div>
                                 
                                 <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-purple-500/50 transition-all transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
                                     <div className="w-12 h-12 rounded-lg bg-purple-900/30 flex items-center justify-center text-purple-400 mb-6 border border-purple-700/50">
-                                        <WIcon name="Zap" size={24} />
+                                        <WIcon name="ShieldCheck" size={24} />
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-3">2. Latency & Stability</h3>
+                                    <h3 className="text-xl font-bold text-white mb-3">2. ASIL-B Functional Safety</h3>
                                     <p className="text-slate-400 text-sm leading-relaxed mb-4">
-                                        Stress-testing worst-case delays and concurrent AI decision loads. Validating that our end-to-end hardware isolation maintains strict constant-time predictability natively.
+                                        Executing rigorous fault injection testing at the silicon level to officially certify the hardware gate under ISO 26262 ASIL-B standards, a strict prerequisite for automotive deployment.
                                     </p>
                                 </div>
                                 
                                 <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-purple-500/50 transition-all transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="300">
                                     <div className="w-12 h-12 rounded-lg bg-purple-900/30 flex items-center justify-center text-purple-400 mb-6 border border-purple-700/50">
-                                        <WIcon name="Target" size={24} />
+                                        <WIcon name="Car" size={24} />
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-3">3. SoC Vendor Licensing</h3>
+                                    <h3 className="text-xl font-bold text-white mb-3">3. Tier-1 SDV Integration</h3>
                                     <p className="text-slate-400 text-sm leading-relaxed mb-4">
-                                        Translating validated field data into actionable silicon specifications. Establishing clear AXI/AMBA bus insertion points for seamless chip-level integration discussions.
+                                        Partnering with leading SoC vendors and Tier-1 suppliers to finalize the live-vehicle proof of concept, demonstrating end-to-end deterministic safety for autonomous perception and execution.
                                     </p>
                                 </div>
                             </div>
