@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +12,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         /* Global Styles */
-        body { font-family: 'Inter', 'Noto Sans TC', sans-serif; overflow-x: hidden; transition: background-color 0.5s ease; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; transition: background-color 0.5s ease; }
         /* Animations */
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
         .floating-img { animation: float 6s ease-in-out infinite; }
@@ -66,13 +66,13 @@
                             <h4 className="text-white text-lg font-bold mb-4">WesmartAI</h4>
                             <p className="text-sm leading-relaxed mb-4">
                                 Making Trust Transparent.<br/>
-                                以晶片級實體隔離，為 Agentic AI 構築絕對合規防線。
+                                Silicon-level physical isolation: The ultimate compliance defense for Agentic AI.
                             </p>
                         </div>
                         <div>
                             <h4 className="text-white text-lg font-bold mb-4">Contact</h4>
                             <ul className="space-y-2 text-sm">
-                                <li><i className="fas fa-map-marker-alt mr-2 w-4 text-center"></i>722 台南市佳里區光明街68號1樓</li>
+                                <li><i className="fas fa-map-marker-alt mr-2 w-4 text-center"></i>722 Tainan City, Jiali Dist.</li>
                                 <li><i className="fas fa-phone mr-2 w-4 text-center"></i>+886-912-310570</li>
                             </ul>
                         </div>
@@ -81,12 +81,13 @@
                             <ul className="space-y-2 text-sm">
                                 <li><a href="index.html" className="hover:text-blue-400 transition text-left block">Corporate Home</a></li>
                                 <li><a href="ohacss.html" className="hover:text-blue-400 transition text-left block">OHACSS Platform</a></li>
+                                <li><a href="tech-dd.html" className="hover:text-blue-400 transition text-left block">Tech DD</a></li>
                                 <li><a href="founder.html" className="hover:text-blue-400 transition text-left block">About Founder</a></li>
                             </ul>
                         </div>
                     </div>
                     <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
-                        <p>&copy; 2026 可信智慧整合有限公司 (WesmartAI). All rights reserved.</p>
+                        <p>&copy; 2026 WesmartAI Co., Ltd. All rights reserved.</p>
                         <p className="mt-2 md:mt-0">UBN: 42917004</p>
                     </div>
                 </div>
@@ -110,13 +111,14 @@
                                 </div>
                                 <div>
                                     <div className="font-bold text-lg tracking-tight text-white">WesmartAI</div>
-                                    <div className="text-[10px] text-slate-400 uppercase tracking-widest">可信智慧整合有限公司</div>
+                                    <div className="text-[10px] text-slate-400 uppercase tracking-widest">WesmartAI Co., Ltd.</div>
                                 </div>
                             </a>
                             <div className="hidden md:flex text-sm font-medium text-slate-300 gap-8 items-center">
                                 <span className="text-blue-400 cursor-pointer">Architecture</span>
                                 <a href="ohacss.html" className="hover:text-white transition">Products</a>
                                 <a href="report.html" className="hover:text-white transition">FPGA Report</a>
+                                <a href="tech-dd.html" className="hover:text-white transition">Tech DD</a>
                                 <a href="founder.html" className="hover:text-white transition">Founder</a>
                             </div>
                         </div>
@@ -149,11 +151,11 @@
                                     </div>
                                     
                                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1] mb-6 drop-shadow-lg">
-                                        Edge Governance for <br/>
-                                        <span className="tech-gradient-text drop-shadow-md">TrustZone-Class</span> Platforms.
+                                        Hardware-Enforced Governance for <br/>
+                                        <span className="tech-gradient-text drop-shadow-md">Agentic AI SoCs.</span>
                                     </h1>
                                     <p className="text-lg md:text-xl text-slate-300 leading-relaxed mb-8 drop-shadow">
-                                        A physical defense boundary engineered for <strong className="text-white">Edge Agentic AI</strong>. We deliver zero-friction deterministic compliance without compromising inference throughput in mission-critical environments.
+                                        A silicon-proven defense boundary engineered for Edge Agentic AI. We deliver absolute deterministic compliance without compromising inference throughput, transforming probabilistic AI into mission-critical physical safety.
                                     </p>
                                     <div className="flex flex-col sm:flex-row gap-4">
                                         <a href="#phase-2-5" className="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20 border border-blue-500/50">
@@ -257,22 +259,41 @@
                                 </div>
                             </div>
                             
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                                <div className="glass-card p-6 rounded-xl border border-blue-500/20 text-center" data-aos="fade-up" data-aos-delay="100">
-                                    <div className="text-3xl font-black text-blue-400 mb-1">17.360 <span className="text-lg">ns</span></div>
-                                    <div className="text-xs font-bold text-white mb-1">Constant Latency</div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                {/* Card 1: Latency */}
+                                <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="100">
+                                    <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+                                        17.360 <span className="text-2xl">ns</span>
+                                    </div>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Constant Latency</div>
+                                    <p className="text-sm text-blue-100/60">Absolute and deterministic physical data path delay.</p>
                                 </div>
-                                <div className="glass-card p-6 rounded-xl border border-blue-500/20 text-center" data-aos="fade-up" data-aos-delay="200">
-                                    <div className="text-3xl font-black text-blue-400 mb-1">601 <span className="text-lg">LUTs</span></div>
-                                    <div className="text-xs font-bold text-white mb-1">Logic Footprint</div>
+                                
+                                {/* Card 2: Resource */}
+                                <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="200">
+                                    <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+                                        601 <span className="text-2xl">LUTs</span>
+                                    </div>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Logic Footprint</div>
+                                    <p className="text-sm text-blue-100/60">Ultra-lightweight core engine establishing a baseline PoC.</p>
                                 </div>
-                                <div className="glass-card p-6 rounded-xl border border-blue-500/20 text-center" data-aos="fade-up" data-aos-delay="300">
-                                    <div className="text-3xl font-black text-blue-400 mb-1">0.613 <span className="text-lg">mW</span></div>
-                                    <div className="text-xs font-bold text-white mb-1">Dynamic Power</div>
+                                
+                                {/* Card 3: Power */}
+                                <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="300">
+                                    <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+                                        0.613 <span className="text-2xl">mW</span>
+                                    </div>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Dynamic Power</div>
+                                    <p className="text-sm text-blue-100/60">Near-zero penalty for energy-critical Edge AI environments.</p>
                                 </div>
-                                <div className="glass-card p-6 rounded-xl border border-blue-500/20 text-center" data-aos="fade-up" data-aos-delay="400">
-                                    <div className="text-3xl font-black text-blue-400 mb-1">100%</div>
-                                    <div className="text-xs font-bold text-white mb-1">OS Crash Immune</div>
+                                
+                                {/* Card 4: Crash Immune */}
+                                <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="400">
+                                    <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+                                        100%
+                                    </div>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">OS Crash Immune</div>
+                                    <p className="text-sm text-blue-100/60">Pure physical logic execution stripped of all firmware dependencies.</p>
                                 </div>
                             </div>
                         </div>
