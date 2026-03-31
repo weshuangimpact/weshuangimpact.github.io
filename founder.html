@@ -251,9 +251,9 @@
                                             
                                             {/* Phase 5 with FPGA and SoC connection */}
                                             <div className="pl-4 border-l-2 border-teal-400">
-                                                <h4 className="text-sm font-bold text-teal-700 uppercase tracking-wide mb-1">Phase 5 — Silicon IP & Hardware-Enforced Trust Boundary (Mar 2026)</h4>
+                                                <h4 className="text-sm font-bold text-teal-700 uppercase tracking-wide mb-1">Phase 5 — Silicon IP & Hardware-Enforced Trust Boundary (Mar-Apr 2026)</h4>
                                                 <p className="text-sm text-slate-600 leading-relaxed">
-                                                    The final layer: embedding deterministic adjudication within the physical chip logic. This transition from software to silicon architecture is now fully realized through our validated FPGA prototype. Achieving an absolute constant-time latency of 17.360 ns with zero NPU overhead, we deliver a hardware gate that holds even when the OS crashes. Infrastructure that works where it matters most—ready for SoC Emulation and Tier-1 Automotive integration.
+                                                    The final layer: embedding deterministic adjudication within the physical chip logic. This transition from software to silicon architecture is now fully realized. Our 55nm FPGA prototype achieved an absolute constant-time latency of 17.360 ns. Elevating the architecture further, our 28nm advanced node simulation (Phase 2.5) successfully mapped queues to hardware SRAM, reducing the core footprint to just 142 LUTs and compressing physical routing delay to an extreme 4.561 ns at 217.5 MHz. Achieving zero NPU overhead, we deliver a hardware gate that holds even when the OS crashes. Infrastructure that works where it matters most—ready for SoC Emulation and Tier-1 Automotive integration.
                                                 </p>
                                             </div>
                                         </div>
@@ -293,7 +293,7 @@
                                         Built upon years of deep-domain research and rigorous logic modeling, we translated our academic framework into a Silicon-Proven MVP in just six months.
                                     </p>
                                     <p className="text-slate-700 font-medium">
-                                        Not because we rushed — but because the structure was clear, the problem was real, and the window was closing. Patents filed. Hardware prototypes validated down to 17.360 ns physical latency. Regulatory timelines aligned. 
+                                        Not because we rushed — but because the structure was clear, the problem was real, and the window was closing. Patents filed. Hardware prototypes validated down to nanosecond physical latency. Regulatory timelines aligned. 
                                     </p>
                                     <p className="text-slate-700 font-bold">The 0-to-1 phase is done.</p>
                                     <p className="text-slate-700 font-medium">
@@ -449,11 +449,20 @@
                                         </div>
 
                                         {/* 14. Global IP Strategy (PPH + USPTO) */}
-                                        <div className="relative pl-6 border-l-2 border-transparent">
+                                        <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-blue-600 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Mar 2026</span>
                                             <p className="font-bold text-slate-800 text-sm leading-tight">Global IP Strategy: USPTO Filing & PPH Expedited Examination</p>
                                             <span className="inline-block mt-1 text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded border border-blue-200">International Patent Layout</span>
+                                        </div>
+
+                                        {/* 15. Phase 2.5 28nm Validation */}
+                                        <div className="relative pl-6 border-l-2 border-transparent">
+                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-cyan-600 rounded-full"></div>
+                                            <span className="text-xs font-mono text-slate-400 block mb-1">Apr 2026</span>
+                                            <p className="font-bold text-slate-800 text-sm leading-tight">Advanced Node Scaling: 28nm EDA Validation Completed</p>
+                                            <p className="text-xs text-slate-600 mt-1">Post-route simulation confirms 4.561 ns O(1) physical latency and 217.5 MHz Fmax via memory-aware synthesis.</p>
+                                            <span className="inline-block mt-1 text-[10px] bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded border border-cyan-200">Phase 2.5 Simulated Data</span>
                                         </div>
                                     </div>
                                 </div>
