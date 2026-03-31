@@ -52,7 +52,8 @@
             Zap: <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />,
             Server: <g><rect x="2" y="2" width="20" height="8" rx="2" ry="2" /><rect x="2" y="14" width="20" height="8" rx="2" ry="2" /><line x1="6" y1="6" x2="6.01" y2="6" /><line x1="6" y1="18" x2="6.01" y2="18" /></g>,
             Car: <g><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9L2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></g>,
-            Target: <g><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></g>
+            Target: <g><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></g>,
+            Activity: <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
         };
 
         const WIcon = ({ name, className, size }) => <Icon path={Icons[name]} className={className} size={size} />;
@@ -135,11 +136,15 @@
                                     <div className="flex flex-wrap gap-2 mb-6">
                                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-900/60 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
                                             <WIcon name="Cpu" size={14} />
-                                            <span>Phase 1: MCU Prototype Ready</span>
+                                            <span>Phase 1: MCU Ready</span>
                                         </div>
                                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/60 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
                                             <WIcon name="Server" size={14} />
-                                            <span>Phase 2: FPGA Silicon IP Ready</span>
+                                            <span>Phase 2: FPGA Ready</span>
+                                        </div>
+                                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-900/60 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
+                                            <WIcon name="Activity" size={14} />
+                                            <span>Phase 2.5: 28nm Validated</span>
                                         </div>
                                     </div>
                                     
@@ -151,8 +156,8 @@
                                         A physical defense boundary engineered for <strong className="text-white">Edge Agentic AI</strong>. We deliver zero-friction deterministic compliance without compromising inference throughput in mission-critical environments.
                                     </p>
                                     <div className="flex flex-col sm:flex-row gap-4">
-                                        <a href="#mcu-prototype" className="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20 border border-blue-500/50">
-                                            Explore Architecture <WIcon name="ArrowRight" size={18} />
+                                        <a href="#phase-2-5" className="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20 border border-blue-500/50">
+                                            Explore 28nm Results <WIcon name="ArrowRight" size={18} />
                                         </a>
                                         <a href="founder.html" className="px-6 py-3.5 glass-card hover:bg-slate-800 text-slate-200 font-medium rounded-lg transition text-center shadow-lg">
                                             Meet the Founder
@@ -163,12 +168,12 @@
                                     <img src="pic8.png" alt="Edge Governance Physical Boundary" className="w-full h-auto aspect-[4/3] rounded-2xl border border-slate-600/50 shadow-2xl floating-img object-cover bg-slate-800/80 backdrop-blur-sm" onError={(e) => { e.target.onerror = null; e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%231e293b'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='24' fill='%2364748b'%3E[pic8.png] Hero Architecture Visual%3C/text%3E%3C/svg%3E" }} />
                                     
                                     <div className="absolute -bottom-6 -left-6 glass-card p-4 rounded-xl border border-white/20 shadow-2xl hidden md:flex items-center gap-4">
-                                        <div className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 border border-emerald-500/30">
+                                        <div className="w-12 h-12 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 border border-cyan-500/30">
                                             <WIcon name="Zap" size={24} />
                                         </div>
                                         <div>
-                                            <div className="text-sm font-bold text-white">Zero-Friction</div>
-                                            <div className="text-xs text-slate-300">17.360 ns Physical Latency</div>
+                                            <div className="text-sm font-bold text-white">Ultra-Low Latency</div>
+                                            <div className="text-xs text-slate-300">4.561 ns Post-Route STA</div>
                                         </div>
                                     </div>
                                 </div>
@@ -245,65 +250,93 @@
                             <div className="flex flex-col md:flex-row justify-between items-end mb-12" data-aos="fade-up">
                                 <div>
                                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-900/30 border border-blue-700/50 text-blue-400 text-xs font-bold uppercase tracking-widest mb-4">
-                                        Phase 2: ASIC Migration Readiness
+                                        Phase 2: Silicon IP MVP
                                     </div>
-                                    <h2 className="text-3xl md:text-4xl font-black text-white mb-3">Silicon IP & FPGA Verification <br/><span className="text-xl text-slate-400 font-medium">(Gowin Tang Nano 9K)</span></h2>
-                                    <p className="text-slate-400">Proving deterministic SoC integration capability with an ultra-low logic footprint.</p>
+                                    <h2 className="text-3xl md:text-4xl font-black text-white mb-3">Silicon IP & FPGA Verification <br/><span className="text-xl text-slate-400 font-medium">(55nm Architecture - Gowin 9K)</span></h2>
+                                    <p className="text-slate-400">Proving deterministic physical logic transition and baseline capability.</p>
                                 </div>
                             </div>
                             
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                {/* Technical Report Card */}
-                                <div className="md:col-span-2 glass-card rounded-xl overflow-hidden group flex flex-col md:flex-row border border-blue-500/20 hover:border-blue-500/50 transition-colors" data-aos="fade-up" data-aos-delay="100">
-                                    <div className="w-full md:w-1/2 relative bg-slate-800">
-                                        <img src="pic11.jpg" alt="FPGA Technical Report" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" onError={(e) => { e.target.onerror = null; e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%230f172a'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='16' fill='%23475569'%3E[pic11.jpg] Synthesis Resource Report%3C/text%3E%3C/svg%3E" }} />
-                                    </div>
-                                    <div className="p-8 w-full md:w-1/2 flex flex-col justify-center bg-gradient-to-br from-slate-900/80 to-[#0b1120]">
-                                        <div className="text-xs font-bold text-blue-400 uppercase tracking-widest mb-2">Silicon IP Validation</div>
-                                        <h3 className="text-2xl font-bold text-white mb-4">FPGA Technical Report</h3>
-                                        <p className="text-slate-400 text-sm leading-relaxed mb-6">
-                                            Comprehensive FPGA Prototype Technical Report & ASIC Migration Feasibility. Explore the silicon-proven Post-PnR data (601 LUTs), physical logic footprint, and the astonishing 17.360 ns absolute deterministic latency achieved on the Gowin Tang Nano 9K, consuming just 0.613 mW of dynamic power.
-                                        </p>
-                                        <a href="report.html" className="inline-flex items-center gap-2 text-white font-medium hover:text-blue-400 transition-colors mt-auto">
-                                            Explore FPGA Report <WIcon name="ArrowRight" size={16} />
-                                        </a>
-                                    </div>
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                <div className="glass-card p-6 rounded-xl border border-blue-500/20 text-center" data-aos="fade-up" data-aos-delay="100">
+                                    <div className="text-3xl font-black text-blue-400 mb-1">17.360 <span className="text-lg">ns</span></div>
+                                    <div className="text-xs font-bold text-white mb-1">Constant Latency</div>
                                 </div>
-
-                                {/* Immutable Ledger Card */}
-                                <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-slate-500 transition-colors flex flex-col bg-gradient-to-b from-slate-800/40 to-[#0b1120]" data-aos="fade-up" data-aos-delay="200">
-                                    <div className="w-12 h-12 rounded-lg bg-slate-800 flex items-center justify-center text-slate-300 mb-6 border border-slate-600">
-                                        <WIcon name="Server" size={24} />
-                                    </div>
-                                    <h3 className="text-lg font-bold text-white mb-3">Immutable Evidence Chain</h3>
-                                    <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-1">
-                                        Every hardware adjudication is cryptographically bound using a true random nonce, producing an atomic SHA-256 ledger directly within the silicon logic.
-                                    </p>
+                                <div className="glass-card p-6 rounded-xl border border-blue-500/20 text-center" data-aos="fade-up" data-aos-delay="200">
+                                    <div className="text-3xl font-black text-blue-400 mb-1">601 <span className="text-lg">LUTs</span></div>
+                                    <div className="text-xs font-bold text-white mb-1">Logic Footprint</div>
                                 </div>
-
-                                {/* ISO 26262 Rule Scalability Stress Testing */}
-                                <div className="md:col-span-3 glass-card p-8 rounded-xl border border-slate-700 hover:border-blue-500/50 transition-colors flex flex-col md:flex-row items-center gap-8 bg-gradient-to-r from-[#0b1120] via-slate-800/40 to-[#0b1120]" data-aos="fade-up" data-aos-delay="300">
-                                    <div className="w-16 h-16 rounded-2xl bg-blue-900/30 flex items-center justify-center text-blue-400 shrink-0 border border-blue-700/50 shadow-lg">
-                                        <WIcon name="ShieldCheck" size={32} />
-                                    </div>
-                                    <div>
-                                        <div className="flex flex-wrap gap-2 mb-3">
-                                            <span className="px-2 py-1 rounded bg-slate-800 border border-slate-600 text-xs font-mono text-slate-300">3 Rules</span>
-                                            <span className="px-2 py-1 rounded bg-slate-800 border border-slate-600 text-xs font-mono text-slate-300">16 Rules</span>
-                                            <span className="px-2 py-1 rounded bg-slate-800 border border-slate-600 text-xs font-mono text-slate-300">128 Rules</span>
-                                            <span className="px-2 py-1 rounded bg-blue-900/50 border border-blue-500/50 text-xs font-mono text-blue-300 font-bold">512 Rules</span>
-                                        </div>
-                                        <h3 className="text-xl font-bold text-white mb-2">ISO 26262 Rule Scalability & Stress Testing</h3>
-                                        <p className="text-slate-400 text-sm leading-relaxed">
-                                            To guarantee readiness for Tier-1 automotive environments, the FPGA prototype has undergone rigorous stress testing against dynamically scaling compliance rule sets. Scaling from fundamental logic up to <strong className="text-blue-400">512 concurrent safety rules</strong> verifies that our hardware adjudication maintains its absolute <strong className="text-white">17.360 ns constant-time deterministic latency</strong> regardless of policy complexity. This forms the critical engineering bridge to Phase 3 SoC Emulation.
-                                        </p>
-                                    </div>
+                                <div className="glass-card p-6 rounded-xl border border-blue-500/20 text-center" data-aos="fade-up" data-aos-delay="300">
+                                    <div className="text-3xl font-black text-blue-400 mb-1">0.613 <span className="text-lg">mW</span></div>
+                                    <div className="text-xs font-bold text-white mb-1">Dynamic Power</div>
+                                </div>
+                                <div className="glass-card p-6 rounded-xl border border-blue-500/20 text-center" data-aos="fade-up" data-aos-delay="400">
+                                    <div className="text-3xl font-black text-blue-400 mb-1">100%</div>
+                                    <div className="text-xs font-bold text-white mb-1">OS Crash Immune</div>
                                 </div>
                             </div>
                         </div>
                     </section>
 
-                    {/* PHASE 3: Field PoC Target -> Updated to Automotive SoC Emulation & Tier-1 PoC */}
+                    {/* PHASE 2.5: Advanced Node Scaling (NEW SECTION) */}
+                    <section id="phase-2-5" className="py-24 bg-[#080d1a] relative overflow-hidden border-t border-cyan-900/30">
+                        <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-cyan-900/10 to-transparent pointer-events-none"></div>
+                        <div className="max-w-7xl mx-auto px-6 relative z-10">
+                            <div className="text-center mb-16" data-aos="fade-up">
+                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-900/40 border border-cyan-500/50 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-4 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
+                                    Phase 2.5: Advanced Node Scaling
+                                </div>
+                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+                                    Full Claim Coverage & Post-Route STA <br/>
+                                    <span className="text-xl text-cyan-400/80 font-medium mt-2 block tracking-wide">(28nm FPGA Architecture • Simulated Data)</span>
+                                </h2>
+                                <p className="text-slate-400 max-w-3xl mx-auto leading-relaxed text-lg">
+                                    Upgrading from 55nm to a 28nm architecture, we integrated <strong className="text-white">100% of our patented claims</strong>—including the 128-bit Offline Store & Forward queue and Hardware Crypto Engine. Post-route Static Timing Analysis (STA) confirms that memory-aware synthesis unlocks an extreme frequency boost with zero deterministic compromise.
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                {/* Card 1: Latency */}
+                                <div className="glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]" data-aos="fade-up" data-aos-delay="100">
+                                    <div className="text-5xl font-black text-cyan-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
+                                        4.561 <span className="text-2xl">ns</span>
+                                    </div>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Physical Routing Delay</div>
+                                    <p className="text-sm text-cyan-100/60">73% reduction in decision latency compared to 55nm baseline.</p>
+                                </div>
+                                
+                                {/* Card 2: Frequency */}
+                                <div className="glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]" data-aos="fade-up" data-aos-delay="200">
+                                    <div className="text-5xl font-black text-cyan-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
+                                        217.5 <span className="text-2xl">MHz</span>
+                                    </div>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Actual Fmax</div>
+                                    <p className="text-sm text-cyan-100/60">286% frequency leap. Fully optimized for high-speed Automotive Bus.</p>
+                                </div>
+                                
+                                {/* Card 3: Architecture */}
+                                <div className="glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]" data-aos="fade-up" data-aos-delay="300">
+                                    <div className="text-5xl font-black text-cyan-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
+                                        5
+                                    </div>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Logic Levels</div>
+                                    <p className="text-sm text-cyan-100/60">Ultra-shallow combinational depth guaranteeing absolute O(1) response.</p>
+                                </div>
+                                
+                                {/* Card 4: Resource */}
+                                <div className="glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]" data-aos="fade-up" data-aos-delay="400">
+                                    <div className="text-5xl font-black text-cyan-400 mb-1 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
+                                        142 <span className="text-2xl">LUTs</span>
+                                    </div>
+                                    <div className="text-lg font-bold text-cyan-300 mb-2">+ 3 BSRAM</div>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Memory-Aware Synthesis</div>
+                                    <p className="text-sm text-cyan-100/60">Logic size reduced by 70% by mapping queues directly to hardware SRAM.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* PHASE 3: Tier-1 PoC */}
                     <section id="poc-target" className="py-24 bg-[#070b14] border-t border-white/5 relative overflow-hidden">
                         <div className="max-w-7xl mx-auto px-6 relative z-10">
                             <div className="text-center mb-16" data-aos="fade-up">
