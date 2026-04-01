@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +12,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
         /* Global Styles */
-        body { font-family: 'Inter', 'Noto Sans TC', sans-serif; overflow-x: hidden; transition: background-color 0.5s ease; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; transition: background-color 0.5s ease; }
         /* OHACSS Specific Animations */
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0px); } }
         .floating-img { animation: float 6s ease-in-out infinite; }
@@ -65,7 +65,7 @@
                         <div>
                             <h4 className="text-white text-lg font-bold mb-4">Contact</h4>
                             <ul className="space-y-2 text-sm">
-                                <li><i className="fas fa-map-marker-alt mr-2 w-4 text-center"></i>722 Tainan City, Jiali Dist.</li>
+                                <li><i className="fas fa-map-marker-alt mr-2 w-4 text-center"></i>No. 68, Guangming St., Jiali Dist., Tainan City 722009, Taiwan (R.O.C.)</li>
                                 <li><i className="fas fa-phone mr-2 w-4 text-center"></i>+886-912-310570</li>
                             </ul>
                         </div>
@@ -121,28 +121,27 @@
 
                     {/* Hero Section */}
                     <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden parallax-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80')"}}>
-                        <div className="absolute inset-0 bg-slate-900/70"></div>
+                        <div className="absolute inset-0 bg-slate-900/80"></div>
                         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="text-center max-w-5xl mx-auto mb-16" data-aos="fade-up">
-                                <div className="inline-block px-4 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-100 text-sm font-semibold mb-6 backdrop-blur-sm">🚀 企業合規管理的最佳數位夥伴</div>
-                                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-8 drop-shadow-lg">
-                                    讓專業被看見<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300">讓服務變資產</span>
+                                <div className="inline-block px-4 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-100 text-sm font-semibold mb-6 backdrop-blur-sm">🚀 The Ultimate Digital Partner for Enterprise Compliance</div>
+                                <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-8 drop-shadow-lg tracking-tight">
+                                    Make Professionalism Visible<br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Turn Services into Assets</span>
                                 </h1>
-                                <p className="text-xl text-slate-200 mb-10 max-w-3xl mx-auto leading-relaxed font-light">
-                                    結合 <span className="font-semibold text-white">PDCA 循環</span> 與 <span className="font-semibold text-white">數位證據鏈</span> 技術。<br/>
-                                    透過結構化資料與版本控管，確保所有服務歷程皆可視、可追溯、可驗證。
+                                <p className="text-xl text-slate-300 mb-10 max-w-3xl mx-auto leading-relaxed font-light">
+                                    Integrating the <span className="font-semibold text-white">PDCA cycle</span> with <span className="font-semibold text-white">Digital Evidence Chain</span> technology. Through structured data and rigorous version control, we ensure all service records are visible, traceable, and verifiable.
                                 </p>
                                 <div className="flex flex-col sm:flex-row justify-center gap-4">
-                                    <a href="#contact" className="px-8 py-4 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition shadow-lg transform hover:-translate-y-1">立即諮詢方案</a>
-                                    <a href="#features" className="px-8 py-4 bg-white/10 text-white border border-white/30 rounded-lg font-bold hover:bg-white/20 transition backdrop-blur-sm">深入了解功能</a>
+                                    <a href="#contact" className="px-8 py-4 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-500 transition shadow-lg shadow-blue-600/20 transform hover:-translate-y-1">Consult Solutions Now</a>
+                                    <a href="#features" className="px-8 py-4 bg-white/10 text-white border border-white/30 rounded-lg font-bold hover:bg-white/20 transition backdrop-blur-sm">Explore Features</a>
                                 </div>
                             </div>
                             <div className="relative max-w-6xl mx-auto" data-aos="zoom-in-up" data-aos-delay="200">
                                 <div className="absolute -inset-4 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl blur-xl opacity-30 animate-pulse"></div>
                                 <div className="relative rounded-xl shadow-2xl bg-slate-800 p-2 md:p-3 border border-slate-700 floating-img">
-                                    <img src="pic1.png" alt="OHACSS 工作儀表板介面" className="w-full h-auto rounded-lg shadow-inner border border-slate-600" />
+                                    <img src="pic1.png" alt="OHACSS Dashboard Interface" className="w-full h-auto rounded-lg shadow-inner border border-slate-600" />
                                 </div>
-                                <p className="text-center text-sm text-slate-300 mt-6 font-light tracking-wider opacity-80"><i className="fas fa-info-circle mr-2"></i>直覺式操作儀表板：PDCA × Evidence × 5W1H 設計精神</p>
+                                <p className="text-center text-sm text-slate-300 mt-6 font-medium tracking-wide opacity-90"><i className="fas fa-info-circle mr-2"></i>Intuitive Dashboard: PDCA × Evidence × 5W1H Design Philosophy</p>
                             </div>
                         </div>
                         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-50 to-transparent"></div>
@@ -154,27 +153,27 @@
                             <div className="lg:grid lg:grid-cols-2 lg:gap-20 items-center">
                                 <div className="mb-12 lg:mb-0" data-aos="fade-right">
                                     <div className="inline-flex items-center justify-center p-2 bg-blue-100/80 rounded-lg mb-6 shadow-sm"><span className="text-blue-800 font-bold px-3 tracking-wider text-sm">PLAN & DO</span></div>
-                                    <h2 className="text-3xl font-bold text-slate-900 mb-6">服務執行歷程管理<br/><span className="text-blue-600">數位化轉型的第一步</span></h2>
+                                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 tracking-tight">Service Execution History<br/><span className="text-blue-600">The First Step to Digital Transformation</span></h2>
                                     <div className="space-y-8">
                                         {[
-                                            {icon: "fa-database", title: "完整資料保存", text: "將服務歷程轉化為企業資產，透過嚴謹的版本控管與補件機制，確保資料不可否認性。"},
-                                            {icon: "fa-mouse-pointer", title: "簡潔介面好上手", text: "優化作業流程，減少導入摩擦。檔案上傳即完成紀錄。"},
-                                            {icon: "fa-shield-alt", title: "PDCA 完整性", text: "從規劃到改善系統無縫整合，建立基準與完整執行紀錄。"}
+                                            {icon: "fa-database", title: "Comprehensive Data Preservation", text: "Transform service records into enterprise assets. Ensure data non-repudiation through rigorous version control and supplementary tracking mechanisms."},
+                                            {icon: "fa-mouse-pointer", title: "Intuitive & User-Friendly Interface", text: "Optimize workflows and reduce adoption friction. Simply upload files to complete your compliant record."},
+                                            {icon: "fa-shield-alt", title: "Complete PDCA Integrity", text: "Seamless integration from planning to improvement systems, establishing robust baselines and complete execution logs."}
                                         ].map((item, i) => (
                                             <div key={i} className="flex items-start">
-                                                <div className="flex-shrink-0 h-12 w-12 rounded-xl bg-white shadow-md flex items-center justify-center border border-slate-100">
+                                                <div className="flex-shrink-0 h-12 w-12 rounded-xl bg-white shadow-md flex items-center justify-center border border-slate-200">
                                                     <i className={`fas ${item.icon} text-blue-600 text-xl`}></i>
                                                 </div>
                                                 <div className="ml-6">
                                                     <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
-                                                    <p className="text-slate-600">{item.text}</p>
+                                                    <p className="text-slate-600 leading-relaxed">{item.text}</p>
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
                                 </div>
                                 <div className="relative" data-aos="fade-left">
-                                    <img src="pic2.jpg" alt="服務執行歷程" className="relative rounded-xl shadow-2xl border border-white/50 w-full transform hover:scale-[1.02] transition-transform duration-500" />
+                                    <img src="pic2.jpg" alt="Service Execution History" className="relative rounded-xl shadow-2xl border border-slate-200 w-full transform hover:scale-[1.02] transition-transform duration-500" />
                                 </div>
                             </div>
                         </div>
@@ -185,12 +184,12 @@
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="lg:grid lg:grid-cols-2 lg:gap-20 items-center">
                                 <div className="order-2 lg:order-1 relative" data-aos="fade-right">
-                                    <img src="pic4.jpg" alt="AI 智慧助理" className="relative rounded-xl shadow-2xl border border-white/50 w-full transform hover:scale-[1.02] transition-transform duration-500" />
+                                    <img src="pic4.jpg" alt="AI Smart Assistant" className="relative rounded-xl shadow-2xl border border-slate-200 w-full transform hover:scale-[1.02] transition-transform duration-500" />
                                 </div>
                                 <div className="order-1 lg:order-2 mb-12 lg:mb-0" data-aos="fade-left">
                                     <div className="inline-flex items-center justify-center p-2 bg-indigo-100/80 rounded-lg mb-6 shadow-sm"><span className="text-indigo-800 font-bold px-3 tracking-wider text-sm">EVALUATION</span></div>
-                                    <h2 className="text-3xl font-bold text-slate-900 mb-6">AI 智慧助理<br/><span className="text-indigo-600">不僅是管理，更是智慧生成</span></h2>
-                                    <p className="text-lg text-slate-600 mb-8 leading-relaxed">基於 WesmartAI 核心技術，超越傳統文件管理。系統能自動建構數位證據鏈，即時檢視完整性。</p>
+                                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 tracking-tight">AI Smart Assistant<br/><span className="text-indigo-600">Beyond Management: Intelligent Generation</span></h2>
+                                    <p className="text-lg text-slate-600 mb-8 leading-relaxed">Powered by WesmartAI's core technology, transcending traditional document management. The system automatically constructs digital evidence chains and verifies compliance integrity in real-time.</p>
                                 </div>
                             </div>
                         </div>
@@ -202,11 +201,11 @@
                             <div className="lg:grid lg:grid-cols-2 lg:gap-20 items-center">
                                 <div className="mb-12 lg:mb-0" data-aos="fade-right">
                                     <div className="inline-flex items-center justify-center p-2 bg-rose-100/80 rounded-lg mb-6 shadow-sm"><span className="text-rose-800 font-bold px-3 tracking-wider text-sm">AUDIT TRAIL</span></div>
-                                    <h2 className="text-3xl font-bold text-slate-900 mb-6">完整評鑑報告<br/><span className="text-rose-600">一鍵生成，輕鬆應對稽核</span></h2>
-                                    <p className="text-slate-600 mb-8 text-lg">當評鑑來臨時，不必再翻箱倒櫃。系統自動彙整所有改善行動、附件清單與年度計畫，生成標準化評鑑報告。</p>
+                                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 tracking-tight">Comprehensive Evaluation Reports<br/><span className="text-rose-600">One-Click Generation for Effortless Auditing</span></h2>
+                                    <p className="text-slate-600 mb-8 text-lg leading-relaxed">No more frantic searching during evaluations. The system automatically compiles all improvement actions, attachment lists, and annual plans to generate standardized, audit-ready evaluation reports.</p>
                                 </div>
                                 <div className="relative" data-aos="fade-left">
-                                    <img src="pic5.jpg" alt="完整評鑑報告" className="rounded-xl shadow-2xl border border-white/50 w-full transform hover:-translate-y-2 transition-transform duration-500" />
+                                    <img src="pic5.jpg" alt="Comprehensive Evaluation Reports" className="rounded-xl shadow-2xl border border-slate-200 w-full transform hover:-translate-y-2 transition-transform duration-500" />
                                 </div>
                             </div>
                         </div>
@@ -214,27 +213,27 @@
 
                     {/* Comparison Section (pic3) */}
                     <section id="comparison" className="py-24 relative parallax-bg" style={{backgroundImage: "url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1920&q=80')"}}>
-                        <div className="absolute inset-0 bg-slate-900/90 backdrop-blur-[2px]"></div>
+                        <div className="absolute inset-0 bg-slate-900/95 backdrop-blur-[2px]"></div>
                         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                             <div className="text-center mb-16">
-                                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">效益分析</h2>
-                                <p className="text-slate-300 text-lg">從 EXCEL 紙本作業轉型至 OHACSS 雲端系統</p>
+                                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">Cost-Benefit Analysis</h2>
+                                <p className="text-slate-300 text-lg">Transitioning from Paper/Excel Workflows to the OHACSS Cloud System</p>
                             </div>
                             <div className="grid md:grid-cols-2 gap-12 items-center">
                                 <div className="bg-white/5 p-8 rounded-3xl backdrop-blur-md border border-white/10 shadow-2xl" data-aos="zoom-in">
-                                    <img src="pic3.png" alt="雷達圖比較" className="w-full h-auto max-w-md mx-auto" />
+                                    <img src="pic3.png" alt="Radar Chart Comparison" className="w-full h-auto max-w-md mx-auto" />
                                 </div>
                                 <div className="space-y-6" data-aos="fade-left">
                                     {[
-                                        {icon: "fa-lock", title: "證據完整性", old: "資料分散", new: "結構化權限管理"},
-                                        {icon: "fa-tachometer-alt", title: "評鑑準備速度", old: "費時查找", new: "一鍵生成報表"},
-                                        {icon: "fa-comments", title: "溝通效率", old: "難以追溯", new: "系統化追蹤"}
+                                        {icon: "fa-lock", title: "Evidence Integrity", old: "Scattered Data", new: "Structured Access Management"},
+                                        {icon: "fa-tachometer-alt", title: "Audit Preparation Speed", old: "Time-Consuming Searches", new: "One-Click Report Generation"},
+                                        {icon: "fa-comments", title: "Communication Efficiency", old: "Hard to Trace Histories", new: "Systematic Tracking"}
                                     ].map((item, i) => (
-                                        <div key={i} className="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
+                                        <div key={i} className="bg-slate-800/60 p-6 rounded-xl border border-slate-700">
                                             <h3 className="text-xl font-bold text-blue-400 mb-3 flex items-center"><i className={`fas ${item.icon} mr-3`}></i>{item.title}</h3>
                                             <div className="pl-8 border-l-2 border-slate-600">
                                                 <p className="text-slate-500 text-sm line-through">{item.old}</p>
-                                                <p className="text-white font-medium flex items-center mt-1"><i className="fas fa-arrow-right text-green-400 mr-2 text-xs"></i> {item.new}</p>
+                                                <p className="text-white font-medium flex items-center mt-1"><i className="fas fa-arrow-right text-emerald-400 mr-2 text-xs"></i> {item.new}</p>
                                             </div>
                                         </div>
                                     ))}
@@ -248,24 +247,24 @@
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                             <div className="text-center mb-16" data-aos="fade-up">
                                 <div className="inline-flex items-center justify-center p-2 bg-slate-100 rounded-lg mb-6 shadow-sm"><span className="text-slate-700 font-bold px-3 tracking-wider text-sm">R&D CORE</span></div>
-                                <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6">可信智慧團隊的技術基礎</h2>
-                                <p className="text-slate-600 text-lg max-w-3xl mx-auto">本系統並非單純文件管理，而是<span className="text-blue-600 font-bold">數位證據鏈生成</span>相關研究成果。</p>
+                                <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 tracking-tight">The Technological Foundation of WesmartAI</h2>
+                                <p className="text-slate-600 text-lg max-w-3xl mx-auto">This system is not merely document management, but the culmination of research in <span className="text-blue-600 font-bold">digital evidence chain generation</span>.</p>
                             </div>
                             <div className="grid md:grid-cols-3 gap-8">
                                 <div className="bg-white rounded-2xl p-8 shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="100">
-                                    <div className="w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110"><i className="fas fa-trophy text-yellow-600 text-3xl"></i></div>
-                                    <h3 className="text-xl font-bold text-slate-900 mb-3">頂尖賽事肯定</h3>
-                                    <p className="text-slate-600 font-medium">2025 微軟企業應用實戰賽</p>
+                                    <div className="w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i className="fas fa-trophy text-yellow-600 text-3xl"></i></div>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-3">Recognized by Top Competitions</h3>
+                                    <p className="text-slate-600 font-medium">2025 Microsoft Agentic AI Hackathon</p>
                                 </div>
                                 <div className="bg-white rounded-2xl p-8 shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="200">
-                                    <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110"><i className="fas fa-certificate text-blue-600 text-3xl"></i></div>
-                                    <h3 className="text-xl font-bold text-slate-900 mb-3">發明專利佈局</h3>
-                                    <p className="text-slate-600 mb-2">OHACSS 系統數位證據鏈生成方法</p>
+                                    <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i className="fas fa-certificate text-blue-600 text-3xl"></i></div>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-3">Invention Patent Portfolio</h3>
+                                    <p className="text-slate-600 mb-2">OHACSS Digital Evidence Chain Generation Method</p>
                                 </div>
                                 <div className="bg-white rounded-2xl p-8 shadow-xl border border-slate-100 hover:shadow-2xl transition-all duration-300 group" data-aos="fade-up" data-aos-delay="300">
-                                    <div className="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110"><i className="fas fa-microchip text-indigo-600 text-3xl"></i></div>
-                                    <h3 className="text-xl font-bold text-slate-900 mb-3">核心技術研發</h3>
-                                    <p className="text-slate-600">AI 專用飛行紀錄儀系統</p>
+                                    <div className="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i className="fas fa-microchip text-indigo-600 text-3xl"></i></div>
+                                    <h3 className="text-xl font-bold text-slate-900 mb-3">Core Technology R&D</h3>
+                                    <p className="text-slate-600">AI-Dedicated Flight Data Recorder System</p>
                                 </div>
                             </div>
                         </div>
@@ -274,22 +273,23 @@
                     {/* Contact (pic6) */}
                     <section id="contact" className="py-24 bg-gradient-to-br from-slate-50 to-blue-50">
                         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 flex flex-col md:flex-row" data-aos="fade-up">
+                            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200 flex flex-col md:flex-row" data-aos="fade-up">
                                 <div className="md:w-3/5 p-10 md:p-12 bg-gradient-to-br from-blue-600 to-indigo-700 text-white relative overflow-hidden">
                                     <div className="relative z-10">
-                                        <h2 className="text-3xl font-bold mb-6">準備好升級您的專業服務了嗎？</h2>
+                                        <h2 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">Ready to Upgrade Your Professional Services?</h2>
                                         <div className="space-y-4">
-                                            <p className="font-medium flex items-center gap-3"><i className="fas fa-user-tie"></i> 專案經理：黃致維 (Wes Huang)</p>
-                                            <p className="font-medium flex items-center gap-3"><i className="fas fa-phone-alt"></i> 0912-310570</p>
-                                            <p className="font-medium flex items-center gap-3"><i className="fas fa-envelope"></i> weshuangimpact@gmail.com</p>
+                                            <p className="font-medium flex items-center gap-3"><i className="fas fa-user-tie text-blue-300"></i> Project Manager: Wes Huang</p>
+                                            <p className="font-medium flex items-center gap-3"><i className="fas fa-phone-alt text-blue-300"></i> +886-912-310570</p>
+                                            <p className="font-medium flex items-center gap-3"><i className="fas fa-envelope text-blue-300"></i> weshuangimpact@gmail.com</p>
                                         </div>
                                     </div>
+                                    <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl"></div>
                                 </div>
                                 <div className="md:w-2/5 p-10 md:p-12 flex flex-col justify-center items-center bg-slate-50 text-center relative">
-                                    <div className="w-full max-w-[220px] bg-white p-4 rounded-2xl shadow-lg border border-slate-100">
-                                        <img src="pic6.png" alt="掃描 QR Code" className="w-full h-auto" />
+                                    <div className="w-full max-w-[220px] bg-white p-4 rounded-2xl shadow-lg border border-slate-100 hover:shadow-xl transition-shadow">
+                                        <img src="pic6.png" alt="Scan QR Code" className="w-full h-auto" />
                                     </div>
-                                    <div className="mt-6"><h3 className="text-slate-800 font-bold text-lg mb-1">線上諮詢</h3></div>
+                                    <div className="mt-6"><h3 className="text-slate-800 font-bold text-lg mb-1">Online Consultation</h3></div>
                                 </div>
                             </div>
                         </div>
