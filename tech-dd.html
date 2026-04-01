@@ -156,10 +156,76 @@
                         </div>
                     </section>
 
-                    {/* Section 2 */}
+                    {/* Section 2 (New: FMEDA) */}
+                    <section className="doc-card mb-8 shadow-xl border-emerald-900/50" data-aos="fade-up">
+                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-emerald-800 pb-3">
+                            <span className="bg-emerald-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">2</span> 
+                            Functional Safety: Preliminary Architectural FMEDA
+                        </h2>
+                        
+                        <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                            In preparation for ASIL-B/D certification during the NRE phase, the following Architectural Level FMEDA outlines the primary failure modes and existing safety mechanisms. <strong>Note:</strong> Implementation details such as the deterministic matrix are functionally abstracted to protect proprietary combinational logic designs.
+                        </p>
+
+                        <div className="overflow-x-auto rounded-lg border border-slate-700 mb-4 shadow-lg">
+                            <table className="w-full text-sm text-left">
+                                <thead className="bg-slate-900 text-slate-300">
+                                    <tr>
+                                        <th className="p-3 border-b border-slate-700">Functional Block</th>
+                                        <th className="p-3 border-b border-slate-700">Potential Failure Mode</th>
+                                        <th className="p-3 border-b border-slate-700">Effect</th>
+                                        <th className="p-3 border-b border-slate-700">Severity</th>
+                                        <th className="p-3 border-b border-slate-700 text-emerald-400">Safety Mechanism</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="text-slate-300">
+                                    <tr className="border-b border-slate-800 bg-slate-800/20 hover:bg-slate-800/40 transition-colors">
+                                        <td className="p-3 font-bold text-white">Deterministic Adjudication Engine</td>
+                                        <td className="p-3">State anomaly or illegal state entry</td>
+                                        <td className="p-3 text-rose-400">Evaluation failure; non-compliant bypass</td>
+                                        <td className="p-3">High</td>
+                                        <td className="p-3 text-emerald-300">Watchdog + Periodic State Check + Monotonic Counter</td>
+                                    </tr>
+                                    <tr className="border-b border-slate-800 hover:bg-slate-800/40 transition-colors">
+                                        <td className="p-3 font-bold text-white">Deterministic Adjudication Engine</td>
+                                        <td className="p-3">Combinational logic evaluation error (e.g., bit flip)</td>
+                                        <td className="p-3 text-rose-400">False positive / False negative actuation</td>
+                                        <td className="p-3">High</td>
+                                        <td className="p-3 text-emerald-300">Dual Rail / Parity + Hardware Redundancy Check</td>
+                                    </tr>
+                                    <tr className="border-b border-slate-800 bg-slate-800/20 hover:bg-slate-800/40 transition-colors">
+                                        <td className="p-3 font-bold text-white">RulePack Loader & Validator</td>
+                                        <td className="p-3">Data corruption or version downgrade</td>
+                                        <td className="p-3 text-rose-400">Security boundary compromised</td>
+                                        <td className="p-3">High</td>
+                                        <td className="p-3 text-emerald-300">Crypto Signature Verification + Anti-rollback</td>
+                                    </tr>
+                                    <tr className="border-b border-slate-800 hover:bg-slate-800/40 transition-colors">
+                                        <td className="p-3 font-bold text-white">Hardware Crypto Engine</td>
+                                        <td className="p-3">Hash/Crypto computation error</td>
+                                        <td className="p-3 text-rose-400">Governance evidence invalid/forged</td>
+                                        <td className="p-3">Med-High</td>
+                                        <td className="p-3 text-emerald-300">BIST + Dual-computation Verification</td>
+                                    </tr>
+                                    <tr className="bg-slate-800/20 hover:bg-slate-800/40 transition-colors">
+                                        <td className="p-3 font-bold text-white">Unidirectional Interface</td>
+                                        <td className="p-3">Reverse data leakage or bypass</td>
+                                        <td className="p-3 text-rose-400">AI environment interference</td>
+                                        <td className="p-3">High</td>
+                                        <td className="p-3 text-emerald-300">Hardware-enforced physical diode + Isolation</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="text-xs text-slate-500 italic">
+                            * Detailed FMEDA including precise FIT (Failures In Time) rates and SPFM/LFM/PMHF metrics will be executed during the SoC integration (Phase 3 NRE) using the target advanced node cell library.
+                        </div>
+                    </section>
+
+                    {/* Section 3 (Was 2) */}
                     <section className="doc-card mb-8 shadow-xl" data-aos="fade-up">
                         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
-                            <span className="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">2</span> 
+                            <span className="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">3</span> 
                             Architecture Evolution: The Pareto Improvement
                         </h2>
                         
@@ -206,10 +272,10 @@
                         </div>
                     </section>
 
-                    {/* Section 3 */}
+                    {/* Section 4 (Was 3) */}
                     <section className="doc-card mb-8 shadow-xl" data-aos="fade-up">
                         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
-                            <span className="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">3</span> 
+                            <span className="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">4</span> 
                             Competitive Positioning: Static vs. Programmable
                         </h2>
 
@@ -257,10 +323,10 @@
                         </div>
                     </section>
 
-                    {/* Section 4 */}
+                    {/* Section 5 (Was 4) */}
                     <section className="doc-card mb-8 shadow-xl border-sky-900/50" data-aos="fade-up">
                         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
-                            <span className="bg-sky-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">4</span> 
+                            <span className="bg-sky-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">5</span> 
                             Commercial Advantages: $140 – $480 USD Savings / Vehicle
                         </h2>
                         <p className="text-slate-300 mb-6 text-sm">By completely replacing equivalent software monitors, OEMs/Tier-1s unlock superlinear cost advantages across four dimensions:</p>
@@ -286,10 +352,10 @@
                         <div className="text-xs text-slate-500 text-right italic">* Cost advantages scale superlinearly. At 1M+ units/year, savings approach $480M+ annually per OEM platform.</div>
                     </section>
 
-                    {/* Section 5 */}
+                    {/* Section 6 (Was 5) */}
                     <section className="doc-card mb-8 shadow-xl bg-slate-900 border-indigo-900/50" data-aos="fade-up">
                         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-indigo-800 pb-3">
-                            <span className="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">5</span> 
+                            <span className="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">6</span> 
                             SoC Integration &amp; IP Moat
                         </h2>
                         
@@ -313,16 +379,16 @@
                         </div>
                     </section>
 
-                    {/* Section 6 (ASIL-D & Die Cost - 4nm/5nm Target) */}
+                    {/* Section 7 (Was 6) */}
                     <section className="doc-card mb-8 shadow-xl border-rose-900/50" data-aos="fade-up">
                         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-rose-800 pb-3">
-                            <span className="bg-rose-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">6</span> 
+                            <span className="bg-rose-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">7</span> 
                             The Most Cost-Effective Hardware Path to L4/L5
                         </h2>
                         
-                        {/* 6.1 & 6.2 */}
+                        {/* 7.1 & 7.2 */}
                         <div className="mb-8">
-                            <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">6.1 The ASIL-D Bottleneck</h3>
+                            <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">7.1 The ASIL-D Bottleneck</h3>
                             <p className="text-slate-300 text-sm leading-relaxed mb-4">
                                 Commercial deployment of L4/L5 autonomous vehicles has a hard regulatory prerequisite: <strong>ISO 26262 ASIL-D certification</strong>. The question is not "can it be achieved," but "what architecture achieves it with the lowest time and cost?" Traditional software monitoring architectures face severe structural barriers:
                             </p>
@@ -366,9 +432,9 @@
                             </div>
                         </div>
 
-                        {/* 6.3 */}
+                        {/* 7.2 */}
                         <div className="mb-8">
-                            <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">6.2 Why SVG's Path is Structurally Shorter</h3>
+                            <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">7.2 Why SVG's Path is Structurally Shorter</h3>
                             <div className="grid md:grid-cols-3 gap-4">
                                 <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
                                     <h4 className="text-white font-bold mb-2">① Determinism</h4>
@@ -385,9 +451,9 @@
                             </div>
                         </div>
 
-                        {/* 6.4 */}
+                        {/* 7.3 */}
                         <div className="mb-8">
-                            <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">6.3 The Silicon Economics: Snapdragon Ride Target (4nm/5nm)</h3>
+                            <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">7.3 The Silicon Economics: Snapdragon Ride Target (4nm/5nm)</h3>
                             <div className="bg-slate-900 p-4 rounded-lg font-mono text-sm text-sky-300 border border-slate-700 mb-6 overflow-x-auto">
                                 // SVG Die Area Estimation for Snapdragon Ride (4nm/5nm)<br/>
                                 142 LUTs × 7 gate equivalents = ~1,000 gates<br/>
@@ -423,9 +489,9 @@
                             </p>
                         </div>
 
-                        {/* 6.5 - Table Format replacing tree structure */}
+                        {/* 7.4 */}
                         <div>
-                            <h3 className="text-rose-400 font-bold mb-4 text-sm uppercase tracking-wider">6.4 Execution Roadmap</h3>
+                            <h3 className="text-rose-400 font-bold mb-4 text-sm uppercase tracking-wider">7.4 Execution Roadmap</h3>
                             <div className="overflow-x-auto rounded-lg border border-slate-700 shadow-lg">
                                 <table className="w-full text-sm text-left">
                                     <thead className="bg-slate-900 text-slate-300">
