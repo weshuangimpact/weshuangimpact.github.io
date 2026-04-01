@@ -568,6 +568,39 @@
                         </div>
                     </section>
 
+                    {/* Section 8 (Zero-Overhead Logging) */}
+                    <section className="doc-card mb-8 shadow-xl border-amber-900/50" data-aos="fade-up">
+                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-amber-800 pb-3">
+                            <span className="bg-amber-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">8</span> 
+                            Zero-Overhead Compliance: Concurrent Immutable Logging
+                        </h2>
+                        
+                        <div className="highlight-box text-left mb-6 shadow-lg" style={{ background: 'rgba(245, 158, 11, 0.1)', borderLeftColor: '#f59e0b' }}>
+                            <h3 className="text-amber-400 font-bold text-base mb-2">EU AI Act Alignment: The Ultimate Evidentiary Defense</h3>
+                            <p className="text-slate-200 text-sm leading-relaxed mb-3">
+                                Article 12 of the EU AI Act mandates automatic record-keeping for high-risk AI systems. While software-based logs can theoretically comply, they consume critical MPU cycles and remain inherently vulnerable to OS-level tampering or crash events.
+                            </p>
+                            <p className="text-slate-300 text-sm leading-relaxed">
+                                WesmartAI SVG resolves this by completely decoupling the <strong>adjudication datapath</strong> from the <strong>evidence generation datapath</strong> at the RTL logic level. It generates mathematically undeniable evidence at the physical execution layer, rendering it completely immune to software manipulation without taxing the NPU.
+                            </p>
+                        </div>
+
+                        <div className="grid md:grid-cols-3 gap-4 mb-4">
+                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
+                                <h4 className="text-white font-bold mb-2 flex items-center gap-2"><i className="fas fa-bolt text-amber-400"></i> Synchronous Capture</h4>
+                                <p className="text-slate-400 text-xs leading-relaxed">Every adjudication event—whether ALLOW, DENY, PENDING, or AUTO-HEAL—is captured simultaneously by parallel registers at the exact clock cycle of execution, ensuring 100% evidentiary completeness with zero gaps.</p>
+                            </div>
+                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
+                                <h4 className="text-white font-bold mb-2 flex items-center gap-2"><i className="fas fa-random text-amber-400"></i> Parallel Export Channel</h4>
+                                <p className="text-slate-400 text-xs leading-relaxed">Cryptographically bound evidence packets are exported concurrently via a dedicated secondary hardware bypass (e.g., isolated AXI-Stream). The channel includes <strong>hardware-managed FIFO buffering</strong> to handle backpressure under peak loads, maintaining zero latency penalty to the critical control loop.</p>
+                            </div>
+                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
+                                <h4 className="text-white font-bold mb-2 flex items-center gap-2"><i className="fas fa-database text-amber-400"></i> Storage Agnostic</h4>
+                                <p className="text-slate-400 text-xs leading-relaxed">The IP does not hardcode storage topology. SoC vendors retain architectural flexibility to route the ledger to Secure SRAM, external Flash, or a TrustZone enclave. <strong>Storage endpoint selection and its corresponding ASIL qualification remain the SoC integrator's responsibility</strong> under the system-level safety case.</p>
+                            </div>
+                        </div>
+                    </section>
+
                     {/* Conclusion */}
                     <section className="doc-card shadow-xl bg-gradient-to-br from-slate-800/80 to-slate-900/80" data-aos="fade-up">
                         <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
