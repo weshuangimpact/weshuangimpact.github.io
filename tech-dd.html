@@ -355,7 +355,7 @@
                         </div>
 
                         <div className="bg-slate-900/80 border border-slate-600 p-3 rounded-md text-xs text-slate-400">
-                            <strong>*Base Assumptions for Economic Modeling:</strong> Estimates are calculated based on an annual production volume of 200,000 units per OEM platform. Baseline benchmarks utilize standard Tier-1 licensing, integration, and lifetime RTOS maintenance costs for a conventional dual-core ASIL-D lockstep MCU architecture versus the negligible marginal cost of a sub-0.0005 mm² static RTL macro. Cost advantages scale superlinearly at higher volumes.
+                            <strong>*Base Assumptions for Economic Modeling:</strong> Estimates are calculated based on an annual production volume of 200,000 units per OEM platform. Baseline benchmarks utilize standard Tier-1 licensing, integration, and lifetime RTOS maintenance costs for a conventional dual-core ASIL-D lockstep MCU architecture versus the negligible marginal cost of a sub-0.1 mm² static RTL macro (including dedicated SRAM). Cost advantages scale superlinearly at higher volumes.
                         </div>
                     </section>
 
@@ -372,7 +372,7 @@
                                 <ul className="space-y-3 text-sm text-slate-300">
                                     <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>Interface:</strong> Standard AXI-Lite output.</li>
                                     <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>Form Factor:</strong> Hard macro insertion between NPU and Actuator Bus.</li>
-                                    <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>Footprint:</strong> &lt; 0.0005 mm² estimated area on 5nm nodes.</li>
+                                    <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>Footprint:</strong> &lt; 0.1 mm² total estimated area on 5nm nodes (Memory + Logic).</li>
                                 </ul>
                             </div>
                             <div className="border-l border-slate-700 pl-6">
@@ -386,7 +386,7 @@
                         </div>
                     </section>
 
-                    {/* Section 7 (Roadmap) */}
+                    {/* Section 7 (Roadmap & Economics - UPDATED WITH 256KB SRAM) */}
                     <section className="doc-card mb-8 shadow-xl border-rose-900/50" data-aos="fade-up">
                         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-rose-800 pb-3">
                             <span className="bg-rose-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">7</span> 
@@ -458,41 +458,41 @@
                             </div>
                         </div>
 
-                        {/* 7.3 */}
+                        {/* 7.3 - UPDATED WITH 256KB SRAM */}
                         <div className="mb-8">
-                            <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">7.3 The Silicon Economics: 4nm/5nm Target</h3>
+                            <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">7.3 The Silicon Economics: 4nm/5nm Target & 10-Year OTA Headroom</h3>
                             <div className="bg-slate-900 p-4 rounded-lg font-mono text-sm text-sky-300 border border-slate-700 mb-6 overflow-x-auto">
                                 // SVG Die Area Estimation for Advanced Automotive Node (4nm/5nm)<br/>
-                                142 LUTs × 7 gate equivalents = ~1,000 gates<br/>
-                                1,000 gates ÷ 130,000,000 gates/mm² ≈ 0.0000076 mm²<br/>
-                                + 3 BSRAM overhead (High-Density 5nm Node) ≈ 0.0001 mm²<br/>
+                                Logic Core: 142 LUTs (~1,000 gates) = &lt; 0.0001 mm²<br/>
+                                RulePack Memory: 256 KB Dedicated Secure SRAM = ~0.08 mm²<br/>
+                                (SRAM Capacity: 16,000+ Hardware Rules @ 128-bit wide)<br/>
                                 ----------------------------------------<br/>
-                                Total Estimated Area: &lt; 0.0005 mm²
+                                Total Estimated Area: &lt; 0.1 mm²
                             </div>
                             <div className="grid md:grid-cols-2 gap-4">
                                 <div className="bg-emerald-900/20 border border-emerald-700/50 p-4 rounded">
-                                    <div className="text-emerald-400 font-bold text-xl mb-1">&lt; 0.0005%</div>
-                                    <div className="text-white font-bold text-sm mb-1">of Main AI SoC Area</div>
-                                    <div className="text-slate-400 text-xs">Based on ~100mm² main die. Zero impact on yield.</div>
+                                    <div className="text-emerald-400 font-bold text-xl mb-1">&lt; 0.1 mm²</div>
+                                    <div className="text-white font-bold text-sm mb-1">Total Die Area (Logic + Memory)</div>
+                                    <div className="text-slate-400 text-xs">Based on high-density 5nm SRAM node. Absolutely zero impact on SoC yield.</div>
+                                </div>
+                                <div className="bg-blue-900/20 border border-blue-700/50 p-4 rounded">
+                                    <div className="text-blue-400 font-bold text-xl mb-1">16,000+ Rules</div>
+                                    <div className="text-white font-bold text-sm mb-1">OTA Future-Proofing</div>
+                                    <div className="text-slate-400 text-xs">A massive 256KB hard-coded boundary easily supports 10+ years of L4/L5 policy updates without hardware obsolescence.</div>
                                 </div>
                                 <div className="bg-emerald-900/20 border border-emerald-700/50 p-4 rounded">
                                     <div className="text-emerald-400 font-bold text-xl mb-1">vs. Cortex-R52</div>
                                     <div className="text-white font-bold text-sm mb-1">Area Comparison</div>
-                                    <div className="text-slate-400 text-xs">Occupies &lt; 1% of a standard Safety Island CPU footprint.</div>
-                                </div>
-                                <div className="bg-blue-900/20 border border-blue-700/50 p-4 rounded">
-                                    <div className="text-blue-400 font-bold text-xl mb-1">$0.5 – $2 / Vehicle</div>
-                                    <div className="text-white font-bold text-sm mb-1">Realistic IP Licensing</div>
-                                    <div className="text-slate-400 text-xs">Fractions of software V&amp;V amortization.</div>
+                                    <div className="text-slate-400 text-xs">Occupies a fraction of a percent of a standard Safety CPU + L1/L2 Cache footprint.</div>
                                 </div>
                                 <div className="bg-blue-900/20 border border-blue-700/50 p-4 rounded">
                                     <div className="text-blue-400 font-bold text-xl mb-1">$140 – $480 / Vehicle</div>
                                     <div className="text-white font-bold text-sm mb-1">Net OEM Savings</div>
-                                    <div className="text-slate-400 text-xs">100x–300x ROI on license fee.</div>
+                                    <div className="text-slate-400 text-xs">100x–300x ROI on license fee by replacing software monitors.</div>
                                 </div>
                             </div>
                             <p className="text-slate-300 text-sm mt-4 italic border-l-4 border-emerald-500 pl-4">
-                                <strong>Conclusion:</strong> Trading less than <strong>0.0005 mm²</strong> in silicon area to secure the shortest path to ASIL-D. We provide more rigorous physical deterministic isolation than a dual-core Lock-step CPU, at a fraction of a percent of its die cost.
+                                <strong>Conclusion:</strong> Trading less than <strong>0.1 mm²</strong> in silicon area to secure the shortest path to ASIL-D. By intentionally over-provisioning the physical SRAM to 256 KB, the architecture guarantees a decade of secure RulePack OTA updates while remaining a fraction of the cost of a dual-core Lock-step CPU.
                             </p>
                         </div>
 
