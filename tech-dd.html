@@ -1,409 +1,476 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tech Due Diligence | WesmartAI</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Due Diligence | WesmartAI</title>
+    
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 
-<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-
-<style>
-body { font-family: 'Inter', sans-serif; overflow-x: hidden; background-color: #0b1120; color: #e2e8f0; }
-.glass-nav { background: rgba(11, 17, 32, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-.accent-gradient { background: linear-gradient(135deg, #2563eb, #10b981); }
-.doc-card { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 0.75rem; padding: 2rem; }
-.highlight-box { background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 1rem 1.5rem; border-radius: 0 0.5rem 0.5rem 0; }
-</style>
+    <style>
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; background-color: #0b1120; color: #e2e8f0; }
+        .glass-nav { background: rgba(11, 17, 32, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .accent-gradient { background: linear-gradient(135deg, #2563eb, #10b981); }
+        .doc-card { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 0.75rem; padding: 2rem; }
+        .highlight-box { background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 1rem 1.5rem; border-radius: 0 0.5rem 0.5rem 0; }
+    </style>
 </head>
 <body class="antialiased selection:bg-blue-500/30 pt-20">
-<div id="root"></div>
+    <div id="root"></div>
 
-<script type="text/babel">
-const { useEffect } = React;
+    <script type="text/babel">
+        const { useEffect } = React;
 
-const Navbar = () => (
-<nav className="fixed w-full top-0 z-50 glass-nav transition-all">
-<div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-<a href="index.html" className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
-<div className="w-8 h-8 accent-gradient rounded flex items-center justify-center shadow-lg shadow-blue-500/20">
-<span className="font-bold text-white">W</span>
-</div>
-<div>
-<div className="font-bold text-lg tracking-tight text-white">WesmartAI</div>
-<div className="text-[10px] text-slate-400 uppercase tracking-widest">WesmartAI Co., Ltd.</div>
-</div>
-</a>
-<div className="hidden md:flex text-sm font-medium text-slate-300 gap-8 items-center">
-<a href="index.html#architecture" className="hover:text-white transition">Architecture</a>
-<a href="ohacss.html" className="hover:text-white transition">Products</a>
-<a href="report.html" className="hover:text-white transition">FPGA Report</a>
-<span className="text-blue-400 cursor-default">Tech DD</span>
-<a href="founder.html" className="hover:text-white transition">Founder</a>
-</div>
-</div>
-</nav>
-);
+        const Navbar = () => (
+            <nav className="fixed w-full top-0 z-50 glass-nav transition-all">
+                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+                    <a href="index.html" className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
+                        <div className="w-8 h-8 accent-gradient rounded flex items-center justify-center shadow-lg shadow-blue-500/20">
+                            <span className="font-bold text-white">W</span>
+                        </div>
+                        <div>
+                            <div className="font-bold text-lg tracking-tight text-white">WesmartAI</div>
+                            <div className="text-[10px] text-slate-400 uppercase tracking-widest">WesmartAI Co., Ltd.</div>
+                        </div>
+                    </a>
+                    <div className="hidden md:flex text-sm font-medium text-slate-300 gap-8 items-center">
+                        <a href="index.html#architecture" className="hover:text-white transition">Architecture</a>
+                        <a href="ohacss.html" className="hover:text-white transition">Products</a>
+                        <a href="report.html" className="hover:text-white transition">FPGA Report</a>
+                        <span className="text-blue-400 cursor-default">Tech DD</span>
+                        <a href="founder.html" className="hover:text-white transition">Founder</a>
+                    </div>
+                </div>
+            </nav>
+        );
 
-const Footer = () => (
-<footer className="bg-[#070b14] border-t border-slate-800 pt-16 pb-8 text-slate-400 mt-20">
-<div className="max-w-7xl mx-auto px-6">
-<div className="grid md:grid-cols-3 gap-8 mb-12">
-<div>
-<h4 className="text-white text-lg font-bold mb-4">WesmartAI</h4>
-<p className="text-sm leading-relaxed mb-4">
-Making Trust Transparent.<br/>
-Silicon-level physical isolation: The ultimate compliance defense for Agentic AI.
-</p>
-</div>
-<div>
-<h4 className="text-white text-lg font-bold mb-4">Contact</h4>
-<ul className="space-y-2 text-sm">
-<li><i className="fas fa-map-marker-alt mr-2 w-4 text-center"></i>722 Tainan City, Jiali Dist.</li>
-<li><i className="fas fa-phone mr-2 w-4 text-center"></i>+886-912-310570</li>
-</ul>
-</div>
-<div>
-<h4 className="text-white text-lg font-bold mb-4">Explore</h4>
-<ul className="space-y-2 text-sm">
-<li><a href="index.html" className="hover:text-blue-400 transition text-left block">Corporate Home</a></li>
-<li><a href="ohacss.html" className="hover:text-blue-400 transition text-left block">OHACSS Platform</a></li>
-<li><a href="report.html" className="hover:text-blue-400 transition text-left block">FPGA Report</a></li>
-<li><a href="founder.html" className="hover:text-blue-400 transition text-left block">About Founder</a></li>
-</ul>
-</div>
-</div>
-<div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
-<p>&copy; 2026 WesmartAI Co., Ltd. All rights reserved.</p>
-<p className="mt-2 md:mt-0">UBN: 42917004</p>
-</div>
-</div>
-</footer>
-);
+        const Footer = () => (
+            <footer className="bg-[#070b14] border-t border-slate-800 pt-16 pb-8 text-slate-400 mt-20">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="grid md:grid-cols-3 gap-8 mb-12">
+                        <div>
+                            <h4 className="text-white text-lg font-bold mb-4">WesmartAI</h4>
+                            <p className="text-sm leading-relaxed mb-4">
+                                Making Trust Transparent.<br/>
+                                Silicon-level physical isolation: The ultimate compliance defense for Agentic AI.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 className="text-white text-lg font-bold mb-4">Contact</h4>
+                            <ul className="space-y-2 text-sm">
+                                <li><i className="fas fa-map-marker-alt mr-2 w-4 text-center"></i>722 Tainan City, Jiali Dist.</li>
+                                <li><i className="fas fa-phone mr-2 w-4 text-center"></i>+886-912-310570</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 className="text-white text-lg font-bold mb-4">Explore</h4>
+                            <ul className="space-y-2 text-sm">
+                                <li><a href="index.html" className="hover:text-blue-400 transition text-left block">Corporate Home</a></li>
+                                <li><a href="ohacss.html" className="hover:text-blue-400 transition text-left block">OHACSS Platform</a></li>
+                                <li><a href="report.html" className="hover:text-blue-400 transition text-left block">FPGA Report</a></li>
+                                <li><a href="founder.html" className="hover:text-blue-400 transition text-left block">About Founder</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
+                        <p>&copy; 2026 WesmartAI Co., Ltd. All rights reserved.</p>
+                        <p className="mt-2 md:mt-0">UBN: 42917004</p>
+                    </div>
+                </div>
+            </footer>
+        );
 
-const TechDDPage = () => {
-useEffect(() => {
-AOS.init({ once: true, offset: 50, duration: 800 });
-}, []);
+        const TechDDPage = () => {
+            useEffect(() => {
+                AOS.init({ once: true, offset: 50, duration: 800 });
+            }, []);
 
-return (
-<div className="max-w-4xl mx-auto px-6 pt-12 pb-24">
+            return (
+                <div className="max-w-4xl mx-auto px-6 pt-12 pb-24">
+                    
+                    {/* Header & Disclosures */}
+                    <div className="mb-12 text-center" data-aos="fade-down">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/30 border border-blue-700/50 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
+                            Executive Summary
+                        </div>
+                        <h1 className="text-3xl md:text-5xl font-black text-white mb-8 leading-tight tracking-tight">
+                            Deterministic SDV Safety Governance <br/>
+                            <span className="text-2xl md:text-3xl text-slate-400 font-medium">Tech Due Diligence Whitepaper</span>
+                        </h1>
+                        
+                        <div className="grid md:grid-cols-2 gap-4 mb-8 text-left">
+                            <div className="bg-amber-900/20 border border-amber-600/50 p-4 rounded-lg shadow-lg">
+                                <h4 className="text-amber-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-microchip mr-2"></i>Disclosure Notice: 55nm Validation</h4>
+                                <p className="text-slate-300 text-xs leading-relaxed">Phase 2.5 performance data (4.561 ns, 217.5 MHz, 142 LUTs) is derived from post-route Static Timing Analysis (STA) on the Gowin GW2A-18 FPGA (55nm process) using memory-aware RTL synthesis. Achieving sub-5ns latency on a mature 55nm node proves extreme architectural efficiency, indicating that migrating to advanced Automotive ASIC nodes (e.g., 28nm/4nm) will yield true sub-nanosecond physical latency. Full STA reports are available under NDA.</p>
+                            </div>
+                            <div className="bg-orange-900/20 border border-orange-600/50 p-4 rounded-lg shadow-lg">
+                                <h4 className="text-orange-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-info-circle mr-2"></i>Target Alignment: ASIL-B</h4>
+                                <p className="text-slate-300 text-xs leading-relaxed">The accurate current certification target is <strong>ASIL-B</strong>, formally validated during Phase 3 fault injection. The SVG hardware architecture is designed with ASIL-D upgrade headroom — formal ASIL-D certification is strategically planned for Phase 4 with redundancy mechanism validation.</p>
+                            </div>
+                        </div>
+                    </div>
 
-{/* Header & Disclosures */}
-<div className="mb-12 text-center" data-aos="fade-down">
-<div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/30 border border-blue-700/50 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
-Executive Summary
-</div>
-<h1 className="text-3xl md:text-5xl font-black text-white mb-8 leading-tight tracking-tight">
-Deterministic SDV Safety Governance <br/>
-<span className="text-2xl md:text-3xl text-slate-400 font-medium">Tech Due Diligence Whitepaper</span>
-</h1>
+                    {/* Section 1 */}
+                    <section className="doc-card mb-8 shadow-xl" data-aos="fade-up">
+                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
+                            <span className="bg-emerald-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">1</span> 
+                            Proactive Governance: Eliminating Failure Modes
+                        </h2>
+                        
+                        <div className="highlight-box text-left mb-6 shadow-lg">
+                            <h3 className="text-emerald-400 font-bold text-base mb-2">The Core Insight: Rules Precede Execution</h3>
+                            <p className="text-slate-200 text-sm leading-relaxed mb-3">
+                                Traditional safety architectures ask: <em>"What happens when the system fails?"</em> (Fail-Safe).<br/>
+                                SVG inverts this question: <strong>"How do we ensure non-compliant instructions never reach the actuator in the first place?"</strong>
+                            </p>
+                            <p className="text-slate-300 text-sm leading-relaxed">
+                                By utilizing a statically compiled, hardware-loaded <strong>Versioned Rulepack</strong>, hallucinated commands have no physical path to execution. <strong>Rulepack completeness — not hardware redundancy — is the primary safety lever.</strong>
+                            </p>
+                        </div>
 
-<div className="grid md:grid-cols-2 gap-4 mb-8 text-left">
-<div className="bg-amber-900/20 border border-amber-600/50 p-4 rounded-lg shadow-lg">
-<h4 className="text-amber-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-microchip mr-2"></i>Disclosure Notice: 55nm Validation</h4>
-<p className="text-slate-300 text-xs leading-relaxed">Phase 2.5 performance data (4.561 ns, 217.5 MHz, 142 LUTs) is derived from post-route Static Timing Analysis (STA) on the Gowin GW2A-18 FPGA (55nm process) using memory-aware RTL synthesis. Achieving sub-5ns latency on a mature 55nm node proves extreme architectural efficiency, indicating that migrating to advanced Automotive ASIC nodes (e.g., 28nm/4nm) will yield true sub-nanosecond physical latency. Full STA reports are available under NDA.</p>
-</div>
-<div className="bg-orange-900/20 border border-orange-600/50 p-4 rounded-lg shadow-lg">
-<h4 className="text-orange-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-info-circle mr-2"></i>Target Alignment: ASIL-B</h4>
-<p className="text-slate-300 text-xs leading-relaxed">The accurate current certification target is <strong>ASIL-B</strong>, formally validated during Phase 3 fault injection. The SVG hardware architecture is designed with ASIL-D upgrade headroom — formal ASIL-D certification is strategically planned for Phase 4 with redundancy mechanism validation.</p>
-</div>
-</div>
-</div>
+                        <h4 className="text-white font-bold mb-4">Timing Analysis: 8,000× Safety Margin</h4>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-2">
+                            <div className="bg-slate-800/50 border border-slate-700 p-4 rounded text-center">
+                                <div className="text-emerald-400 font-bold text-xl mb-1">4.561 ns</div>
+                                <div className="text-slate-400 text-xs">Single Adjudication</div>
+                            </div>
+                            <div className="bg-slate-800/50 border border-slate-700 p-4 rounded text-center">
+                                <div className="text-blue-400 font-bold text-xl mb-1">&lt; 1 μs</div>
+                                <div className="text-slate-400 text-xs">10+ Auto-Heal Retries</div>
+                            </div>
+                            <div className="bg-slate-800/50 border border-slate-700 p-4 rounded text-center opacity-70">
+                                <div className="text-rose-400 font-bold text-xl mb-1">8 ms</div>
+                                <div className="text-slate-400 text-xs">Brake Actuation Window</div>
+                            </div>
+                            <div className="bg-emerald-900/30 border border-emerald-500/50 p-4 rounded text-center">
+                                <div className="text-emerald-400 font-black text-2xl mb-1">8,000×</div>
+                                <div className="text-slate-300 text-xs font-bold">Safety Margin</div>
+                            </div>
+                        </div>
+                        <div className="text-right text-xs text-slate-500 italic mb-4">
+                            * Single adjudication latency; end-to-end system latency subject to Phase 3 Tier-1 bus integration validation.
+                        </div>
+                    </section>
 
-{/* Section 1 */}
-<section className="doc-card mb-8 shadow-xl" data-aos="fade-up">
-<h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
-<span className="bg-emerald-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">1</span> 
-Proactive Governance: Eliminating Failure Modes
-</h2>
+                    {/* Section 2 (FMEDA) */}
+                    <section className="doc-card mb-8 shadow-xl border-emerald-900/50" data-aos="fade-up">
+                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-emerald-800 pb-3">
+                            <span className="bg-emerald-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">2</span> 
+                            Functional Safety: Preliminary Architectural FMEDA
+                        </h2>
+                        
+                        <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                            In preparation for ASIL-B/D certification during the NRE phase, the following Architectural Level FMEDA outlines the primary failure modes and existing safety mechanisms. <strong>Note:</strong> Implementation details such as the deterministic matrix are functionally abstracted to protect proprietary combinational logic designs.
+                        </p>
 
-<div className="highlight-box text-left mb-6 shadow-lg">
-<h3 className="text-emerald-400 font-bold text-base mb-2">The Core Insight: Rules Precede Execution</h3>
-<p className="text-slate-200 text-sm leading-relaxed mb-3">
-Traditional safety architectures ask: <em>"What happens when the system fails?"</em> (Fail-Safe).<br/>
-SVG inverts this question: <strong>"How do we ensure non-compliant instructions never reach the actuator in the first place?"</strong>
-</p>
-<p className="text-slate-300 text-sm leading-relaxed">
-By utilizing a statically compiled, hardware-loaded <strong>Versioned Rulepack</strong>, hallucinated commands have no physical path to execution. <strong>Rulepack completeness — not hardware redundancy — is the primary safety lever.</strong>
-</p>
-</div>
+                        <div className="overflow-x-auto rounded-lg border border-slate-700 mb-4 shadow-lg">
+                            <table className="w-full text-sm text-left">
+                                <thead className="bg-slate-900 text-slate-300">
+                                    <tr>
+                                        <th className="p-3 border-b border-slate-700">Functional Block</th>
+                                        <th className="p-3 border-b border-slate-700">Potential Failure Mode</th>
+                                        <th className="p-3 border-b border-slate-700">Effect</th>
+                                        <th className="p-3 border-b border-slate-700">Severity</th>
+                                        <th className="p-3 border-b border-slate-700 text-emerald-400">Safety Mechanism</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="text-slate-300">
+                                    <tr className="border-b border-slate-800 bg-slate-800/20 hover:bg-slate-800/40 transition-colors">
+                                        <td className="p-3 font-bold text-white">Deterministic Adjudication Engine</td>
+                                        <td className="p-3">State anomaly or illegal state entry</td>
+                                        <td className="p-3 text-rose-400">Evaluation failure; non-compliant bypass</td>
+                                        <td className="p-3">High</td>
+                                        <td className="p-3 text-emerald-300">Watchdog + Periodic State Check + Monotonic Counter</td>
+                                    </tr>
+                                    <tr className="border-b border-slate-800 hover:bg-slate-800/40 transition-colors">
+                                        <td className="p-3 font-bold text-white">Deterministic Adjudication Engine</td>
+                                        <td className="p-3">Combinational logic evaluation error (e.g., bit flip)</td>
+                                        <td className="p-3 text-rose-400">False positive / False negative actuation</td>
+                                        <td className="p-3">High</td>
+                                        <td className="p-3 text-emerald-300">Parity + State Validation (Dual Rail planned for Phase 3)</td>
+                                    </tr>
+                                    <tr className="border-b border-slate-800 bg-slate-800/20 hover:bg-slate-800/40 transition-colors">
+                                        <td className="p-3 font-bold text-white">RulePack Loader & Validator</td>
+                                        <td className="p-3">Data corruption or version downgrade</td>
+                                        <td className="p-3 text-rose-400">Security boundary compromised</td>
+                                        <td className="p-3">High</td>
+                                        <td className="p-3 text-emerald-300">Crypto Signature Verification + Anti-rollback</td>
+                                    </tr>
+                                    <tr className="border-b border-slate-800 hover:bg-slate-800/40 transition-colors">
+                                        <td className="p-3 font-bold text-white">Hardware Crypto Engine</td>
+                                        <td className="p-3">Hash/Crypto computation error</td>
+                                        <td className="p-3 text-rose-400">Governance evidence invalid/forged</td>
+                                        <td className="p-3">Med-High</td>
+                                        <td className="p-3 text-emerald-300">BIST + Dual-computation Verification</td>
+                                    </tr>
+                                    <tr className="bg-slate-800/20 hover:bg-slate-800/40 transition-colors">
+                                        <td className="p-3 font-bold text-white">Unidirectional Interface</td>
+                                        <td className="p-3">Reverse data leakage or bypass</td>
+                                        <td className="p-3 text-rose-400">AI environment interference</td>
+                                        <td className="p-3">High</td>
+                                        <td className="p-3 text-emerald-300">Hardware-enforced physical diode + Isolation</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="text-xs text-slate-500 italic space-y-1">
+                            <p>* Detailed FMEDA including precise FIT (Failures In Time) rates and SPFM/LFM/PMHF metrics will be executed during the SoC integration (Phase 3 NRE) using the target advanced node cell library.</p>
+                            <p>* Dual Rail implementation detail subject to Phase 3 RTL freeze; corresponding patent claim under preparation.</p>
+                        </div>
+                    </section>
 
-<h4 className="text-white font-bold mb-4">Timing Analysis: 8,000× Safety Margin</h4>
-<div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-2">
-<div className="bg-slate-800/50 border border-slate-700 p-4 rounded text-center">
-<div className="text-emerald-400 font-bold text-xl mb-1">4.561 ns</div>
-<div className="text-slate-400 text-xs">Single Adjudication</div>
-</div>
-<div className="bg-slate-800/50 border border-slate-700 p-4 rounded text-center">
-<div className="text-blue-400 font-bold text-xl mb-1">&lt; 1 μs</div>
-<div className="text-slate-400 text-xs">10+ Auto-Heal Retries</div>
-</div>
-<div className="bg-slate-800/50 border border-slate-700 p-4 rounded text-center opacity-70">
-<div className="text-rose-400 font-bold text-xl mb-1">8 ms</div>
-<div className="text-slate-400 text-xs">Brake Actuation Window</div>
-</div>
-<div className="bg-emerald-900/30 border border-emerald-500/50 p-4 rounded text-center">
-<div className="text-emerald-400 font-black text-2xl mb-1">8,000×</div>
-<div className="text-slate-300 text-xs font-bold">Safety Margin</div>
-</div>
-</div>
-<div className="text-right text-xs text-slate-500 italic mb-4">
-* Single adjudication latency; end-to-end system latency subject to Phase 3 Tier-1 bus integration validation.
-</div>
-</section>
+                    {/* Section 3 (Pareto) */}
+                    <section className="doc-card mb-8 shadow-xl" data-aos="fade-up">
+                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
+                            <span className="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">3</span> 
+                            Architecture Evolution: The Pareto Improvement
+                        </h2>
+                        
+                        <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                            Phase 2 was deliberately scoped as a minimal PoC (601 LUTs) without the Crypto Engine or Offline Queue. Phase 2.5 is the first integration of the <strong>complete patent family</strong>. Paradoxically, this resulted in smaller area and higher performance due to <strong>Memory-Aware Synthesis</strong> replacing LUT-simulated register arrays with native BSRAM on the 55nm physical architecture.
+                        </p>
 
-{/* Section 2 (FMEDA) */}
-<section className="doc-card mb-8 shadow-xl border-emerald-900/50" data-aos="fade-up">
-<h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-emerald-800 pb-3">
-<span className="bg-emerald-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">2</span> 
-Functional Safety: Preliminary Architectural FMEDA
-</h2>
+                        <div className="overflow-x-auto rounded-lg border border-slate-700 mb-6">
+                            <table className="w-full text-sm text-left">
+                                <thead className="bg-slate-900 text-slate-300">
+                                    <tr>
+                                        <th className="p-4 border-b border-slate-700 w-1/3">Metric</th>
+                                        <th className="p-4 border-b border-slate-700 w-1/3">Phase 2<br/><span className="text-xs text-slate-500 font-normal">(55nm Baseline)</span></th>
+                                        <th className="p-4 border-b border-slate-700 text-cyan-400 font-bold w-1/3">Phase 2.5<br/><span className="text-xs text-cyan-700 font-normal">(55nm Optimized)</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody className="text-slate-300">
+                                    <tr className="border-b border-slate-800 bg-slate-800/20">
+                                        <td className="p-4 font-bold text-white">Routing Delay</td>
+                                        <td className="p-4 border-r border-slate-800">17.360 ns</td>
+                                        <td className="p-4 text-cyan-300 font-medium">4.561 ns <span className="text-emerald-400 text-xs ml-2">(-73%)</span></td>
+                                    </tr>
+                                    <tr className="border-b border-slate-800">
+                                        <td className="p-4 font-bold text-white">Max Freq (Fmax)</td>
+                                        <td className="p-4 border-r border-slate-800">56.3 MHz</td>
+                                        <td className="p-4 text-cyan-300 font-medium">217.5 MHz <span className="text-emerald-400 text-xs ml-2">(+286%)</span></td>
+                                    </tr>
+                                    <tr className="border-b border-slate-800 bg-slate-800/20">
+                                        <td className="p-4 font-bold text-white">Logic Area</td>
+                                        <td className="p-4 border-r border-slate-800">601 LUTs</td>
+                                        <td className="p-4 text-cyan-300 font-medium">142 LUTs + 3 BSRAM <span className="text-emerald-400 text-xs ml-2">(-70%)</span></td>
+                                    </tr>
+                                    <tr className="border-b border-slate-800">
+                                        <td className="p-4 font-bold text-white">Logic Levels</td>
+                                        <td className="p-4 border-r border-slate-800">10</td>
+                                        <td className="p-4 text-cyan-300 font-medium">5 <span className="text-emerald-400 text-xs ml-2">(-50%)</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div className="bg-blue-900/20 border-l-4 border-blue-500 p-4 rounded text-sm text-slate-300 italic">
+                            <strong>Technical Note:</strong> Achieving simultaneous improvement across Area, Speed, and Power (PPA) while adding features is a rare Pareto Improvement, indicative of successfully resolving Phase 2's structural inefficiency via native BSRAM mapping on the 55nm layer.
+                        </div>
+                    </section>
 
-<p className="text-slate-300 text-sm leading-relaxed mb-4">
-In preparation for ASIL-B/D certification during the NRE phase, the following Architectural Level FMEDA outlines the primary failure modes and existing safety mechanisms. <strong>Note:</strong> Implementation details such as the deterministic matrix are functionally abstracted to protect proprietary combinational logic designs.
-</p>
+                    {/* Section 4 (Competitive) */}
+                    <section className="doc-card mb-8 shadow-xl" data-aos="fade-up">
+                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
+                            <span className="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">4</span> 
+                            Competitive Positioning: Zero-Software Overhead
+                        </h2>
 
-<div className="overflow-x-auto rounded-lg border border-slate-700 mb-4 shadow-lg">
-<table className="w-full text-sm text-left">
-<thead className="bg-slate-900 text-slate-300">
-<tr>
-<th className="p-3 border-b border-slate-700">Functional Block</th>
-<th className="p-3 border-b border-slate-700">Potential Failure Mode</th>
-<th className="p-3 border-b border-slate-700">Effect</th>
-<th className="p-3 border-b border-slate-700">Severity</th>
-<th className="p-3 border-b border-slate-700 text-emerald-400">Safety Mechanism</th>
-</tr>
-</thead>
-<tbody className="text-slate-300">
-<tr className="border-b border-slate-800 bg-slate-800/20 hover:bg-slate-800/40 transition-colors">
-<td className="p-3 font-bold text-white">Deterministic Adjudication Engine</td>
-<td className="p-3">State anomaly or illegal state entry</td>
-<td className="p-3 text-rose-400">Evaluation failure; non-compliant bypass</td>
-<td className="p-3">High</td>
-<td className="p-3 text-emerald-300">Watchdog + Periodic State Check + Monotonic Counter</td>
-</tr>
-<tr className="border-b border-slate-800 hover:bg-slate-800/40 transition-colors">
-<td className="p-3 font-bold text-white">Deterministic Adjudication Engine</td>
-<td className="p-3">Combinational logic evaluation error (e.g., bit flip)</td>
-<td className="p-3 text-rose-400">False positive / False negative actuation</td>
-<td className="p-3">High</td>
-<td className="p-3 text-emerald-300">Parity + State Validation (Dual Rail planned for Phase 3)</td>
-</tr>
-<tr className="border-b border-slate-800 bg-slate-800/20 hover:bg-slate-800/40 transition-colors">
-<td className="p-3 font-bold text-white">RulePack Loader & Validator</td>
-<td className="p-3">Data corruption or version downgrade</td>
-<td className="p-3 text-rose-400">Security boundary compromised</td>
-<td className="p-3">High</td>
-<td className="p-3 text-emerald-300">Crypto Signature Verification + Anti-rollback</td>
-</tr>
-<tr className="border-b border-slate-800 hover:bg-slate-800/40 transition-colors">
-<td className="p-3 font-bold text-white">Hardware Crypto Engine</td>
-<td className="p-3">Hash/Crypto computation error</td>
-<td className="p-3 text-rose-400">Governance evidence invalid/forged</td>
-<td className="p-3">Med-High</td>
-<td className="p-3 text-emerald-300">BIST + Dual-computation Verification</td>
-</tr>
-<tr className="bg-slate-800/20 hover:bg-slate-800/40 transition-colors">
-<td className="p-3 font-bold text-white">Unidirectional Interface</td>
-<td className="p-3">Reverse data leakage or bypass</td>
-<td className="p-3 text-rose-400">AI environment interference</td>
-<td className="p-3">High</td>
-<td className="p-3 text-emerald-300">Hardware-enforced physical diode + Isolation</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div className="text-xs text-slate-500 italic space-y-1">
-<p>* Detailed FMEDA including precise FIT (Failures In Time) rates and SPFM/LFM/PMHF metrics will be executed during the SoC integration (Phase 3 NRE) using the target advanced node cell library.</p>
-<p>* Dual Rail implementation detail subject to Phase 3 RTL freeze; corresponding patent claim under preparation.</p>
-</div>
-</section>
+                        <p className="text-slate-300 text-sm mb-4">
+                            While modern Safety MCUs utilize Hardware Security Modules (HSM) and Lockstep architectures to achieve robust security, they do so at the cost of immense software validation and processing overhead. <strong>WesmartAI SVG shifts the paradigm by eliminating the software layer entirely, achieving physical isolation through pure static logic.</strong>
+                        </p>
+                        
+                        <div className="overflow-x-auto rounded-lg border border-slate-700 mb-6">
+                            <table className="w-full text-sm text-left">
+                                <thead className="bg-slate-900 text-slate-300">
+                                    <tr>
+                                        <th className="p-3 border-b border-slate-700">Dimension</th>
+                                        <th className="p-3 border-b border-slate-700">Software Guardrails (NPU)</th>
+                                        <th className="p-3 border-b border-slate-700">Safety MCU Island (w/ HSM)</th>
+                                        <th className="p-3 border-b border-slate-700 text-emerald-400 font-bold">WesmartAI SVG</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="text-slate-300">
+                                    <tr className="border-b border-slate-800 bg-slate-800/20">
+                                        <td className="p-3 font-bold text-white">Fault Containment</td>
+                                        <td className="p-3 text-rose-400">Low (Shared Resources)</td>
+                                        <td className="p-3 text-amber-300">High (Lockstep CPU Overhead)</td>
+                                        <td className="p-3 text-emerald-300 font-bold">Absolute (Physical Data Diode)</td>
+                                    </tr>
+                                    <tr className="border-b border-slate-800">
+                                        <td className="p-3 font-bold text-white">Code Injection Risk</td>
+                                        <td className="p-3 text-rose-400">High (OS Level)</td>
+                                        <td className="p-3 text-amber-300">Mitigated via HSM (Requires SW updates)</td>
+                                        <td className="p-3 text-emerald-300 font-bold">Zero (Static RTL Logic)</td>
+                                    </tr>
+                                    <tr className="border-b border-slate-800 bg-slate-800/20">
+                                        <td className="p-3 font-bold text-white">Regulatory Audit</td>
+                                        <td className="p-3 text-slate-400">Validate millions LOC</td>
+                                        <td className="p-3 text-slate-400">Exhaustive RTOS & Firmware V&V</td>
+                                        <td className="p-3 text-emerald-300">STA + Crypto Hash Chain Proofs</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="p-3 font-bold text-white">Policy Update Mechanism</td>
+                                        <td className="p-3 text-slate-400">Full SW stack re-deploy</td>
+                                        <td className="p-3 text-slate-400">Complex Firmware OTA</td>
+                                        <td className="p-3 text-emerald-300">Rulepack only; Hardware unchanged</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
 
-{/* Section 3 (Pareto) */}
-<section className="doc-card mb-8 shadow-xl" data-aos="fade-up">
-<h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
-<span className="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">3</span> 
-Architecture Evolution: The Pareto Improvement
-</h2>
+                    {/* Section 5 (Commercial) */}
+                    <section className="doc-card mb-8 shadow-xl border-sky-900/50" data-aos="fade-up">
+                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
+                            <span className="bg-sky-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">5</span> 
+                            Commercial Advantages: Est. $140 – $480 USD Savings / Vehicle
+                        </h2>
+                        <p className="text-slate-300 mb-6 text-sm">By completely replacing equivalent software monitors and dedicated Safety MCU cores, OEMs/Tier-1s unlock superlinear cost advantages across four key dimensions:</p>
+                        
+                        <div className="grid md:grid-cols-2 gap-4 mb-4">
+                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
+                                <h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-microchip text-sky-400 mr-2 w-5"></i>Compute &amp; BOM</span> <span className="text-emerald-400">$60 - $180</span></h4>
+                                <p className="text-slate-400 text-xs">Eliminates the need for dedicated ASIL monitoring cores (e.g., Cortex-R52 dual-core lockstep footprint).</p>
+                            </div>
+                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
+                                <h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-code-branch text-sky-400 mr-2 w-5"></i>V&amp;V Amortization</span> <span className="text-emerald-400">$40 - $150</span></h4>
+                                <p className="text-slate-400 text-xs">Drastically reduces software engineering human-months required for exhaustive ASIL-D firmware V&amp;V.</p>
+                            </div>
+                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
+                                <h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-thermometer-half text-sky-400 mr-2 w-5"></i>Thermal &amp; Power</span> <span className="text-emerald-400">$20 - $80</span></h4>
+                                <p className="text-slate-400 text-xs">Removes 5-15% constant CPU polling overhead, simplifying cooling system requirements.</p>
+                            </div>
+                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
+                                <h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-shield-alt text-sky-400 mr-2 w-5"></i>Liability Exposure</span> <span className="text-emerald-400">$20 - $70</span></h4>
+                                <p className="text-slate-400 text-xs">Cryptographic evidence chain drastically clarifies accident liability and reduces legal discovery costs.</p>
+                            </div>
+                        </div>
 
-<p className="text-slate-300 text-sm leading-relaxed mb-6">
-Phase 2 was deliberately scoped as a minimal PoC (601 LUTs) without the Crypto Engine or Offline Queue. Phase 2.5 is the first integration of the <strong>complete patent family</strong>. Paradoxically, this resulted in smaller area and higher performance due to <strong>Memory-Aware Synthesis</strong> replacing LUT-simulated register arrays with native BSRAM on the 55nm physical architecture.
-</p>
-
-<div className="overflow-x-auto rounded-lg border border-slate-700 mb-6">
-<table className="w-full text-sm text-left">
-<thead className="bg-slate-900 text-slate-300">
-<tr>
-<th className="p-4 border-b border-slate-700 w-1/3">Metric</th>
-<th className="p-4 border-b border-slate-700 w-1/3">Phase 2<br/><span className="text-xs text-slate-500 font-normal">(55nm Baseline)</span></th>
-<th className="p-4 border-b border-slate-700 text-cyan-400 font-bold w-1/3">Phase 2.5<br/><span className="text-xs text-cyan-700 font-normal">(55nm Optimized)</span></th>
-</tr>
-</thead>
-<tbody className="text-slate-300">
-<tr className="border-b border-slate-800 bg-slate-800/20">
-<td className="p-4 font-bold text-white">Routing Delay</td>
-<td className="p-4 border-r border-slate-800">17.360 ns</td>
-<td className="p-4 text-cyan-300 font-medium">4.561 ns <span className="text-emerald-400 text-xs ml-2">(-73%)</span></td>
-</tr>
-<tr className="border-b border-slate-800">
-<td className="p-4 font-bold text-white">Max Freq (Fmax)</td>
-<td className="p-4 border-r border-slate-800">56.3 MHz</td>
-<td className="p-4 text-cyan-300 font-medium">217.5 MHz <span className="text-emerald-400 text-xs ml-2">(+286%)</span></td>
-</tr>
-<tr className="border-b border-slate-800 bg-slate-800/20">
-<td className="p-4 font-bold text-white">Logic Area</td>
-<td className="p-4 border-r border-slate-800">601 LUTs</td>
-<td className="p-4 text-cyan-300 font-medium">142 LUTs + 3 BSRAM <span className="text-emerald-400 text-xs ml-2">(-70%)</span></td>
-</tr>
-<tr>
-<td className="p-4 font-bold text-white">Logic Levels</td>
-<td className="p-4 border-r border-slate-800">10</td>
-<td className="p-4 text-cyan-300 font-medium">5 <span className="text-emerald-400 text-xs ml-2">(-50%)</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-
-<div className="bg-blue-900/20 border-l-4 border-blue-500 p-4 rounded text-sm text-slate-300 italic">
-<strong>Technical Note:</strong> Achieving simultaneous improvement across Area, Speed, and Power (PPA) while adding features is a rare Pareto Improvement, indicative of successfully resolving Phase 2's structural inefficiency via native BSRAM mapping on the 55nm layer.
-</div>
-</section>
-
-{/* Section 4 (Competitive) */}
-<section className="doc-card mb-8 shadow-xl" data-aos="fade-up">
-<h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
-<span className="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">4</span> 
-Competitive Positioning: Zero-Software Overhead
-</h2>
-
-<p className="text-slate-300 text-sm mb-4">
-While modern Safety MCUs utilize Hardware Security Modules (HSM) and Lockstep architectures to achieve robust security, they do so at the cost of immense software validation and processing overhead. <strong>WesmartAI SVG shifts the paradigm by eliminating the software layer entirely, achieving physical isolation through pure static logic.</strong>
-</p>
-
-<div className="overflow-x-auto rounded-lg border border-slate-700 mb-6">
-<table className="w-full text-sm text-left">
-<thead className="bg-slate-900 text-slate-300">
-<tr>
-<th className="p-3 border-b border-slate-700">Dimension</th>
-<th className="p-3 border-b border-slate-700">Software Guardrails (NPU)</th>
-<th className="p-3 border-b border-slate-700">Safety MCU Island (w/ HSM)</th>
-<th className="p-3 border-b border-slate-700 text-emerald-400 font-bold">WesmartAI SVG</th>
-</tr>
-</thead>
-<tbody className="text-slate-300">
-<tr className="border-b border-slate-800 bg-slate-800/20">
-<td className="p-3 font-bold text-white">Fault Containment</td>
-<td className="p-3 text-rose-400">Low (Shared Resources)</td>
-<td className="p-3 text-amber-300">High (Lockstep CPU Overhead)</td>
-<td className="p-3 text-emerald-300 font-bold">Absolute (Physical Data Diode)</td>
-</tr>
-<tr className="border-b border-slate-800">
-<td className="p-3 font-bold text-white">Code Injection Risk</td>
-<td className="p-3 text-rose-400">High (OS Level)</td>
-<td className="p-3 text-amber-300">Mitigated via HSM (Requires SW updates)</td>
-<td className="p-3 text-emerald-300 font-bold">Zero (Static RTL Logic)</td>
-</tr>
-<tr className="border-b border-slate-800 bg-slate-800/20">
-<td className="p-3 font-bold text-white">Regulatory Audit</td>
-<td className="p-3 text-slate-400">Validate millions LOC</td>
-<td className="p-3 text-slate-400">Exhaustive RTOS & Firmware V&V</td>
-<td className="p-3 text-emerald-300">STA + Crypto Hash Chain Proofs</td>
-</tr>
-<tr>
-<td className="p-3 font-bold text-white">Policy Update Mechanism</td>
-<td className="p-3 text-slate-400">Full SW stack re-deploy</td>
-<td className="p-3 text-slate-400">Complex Firmware OTA</td>
-<td className="p-3 text-emerald-300">Rulepack only; Hardware unchanged</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-
-{/* Section 5 (Commercial) */}
-<section className="doc-card mb-8 shadow-xl border-sky-900/50" data-aos="fade-up">
-<h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
-<span className="bg-sky-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">5</span> 
-Commercial Advantages: Est. $140 – $480 USD Savings / Vehicle
-</h2>
-<p className="text-slate-300 mb-6 text-sm">By completely replacing equivalent software monitors and dedicated Safety MCU cores, OEMs/Tier-1s unlock superlinear cost advantages across four key dimensions:</p>
-
-<div className="grid md:grid-cols-2 gap-4 mb-4">
-<div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-<h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-microchip text-sky-400 mr-2 w-5"></i>Compute &amp; BOM</span> <span className="text-emerald-400">$60 - $180</span></h4>
-<p className="text-slate-400 text-xs">Eliminates the need for dedicated ASIL monitoring cores (e.g., Cortex-R52 dual-core lockstep footprint).</p>
-</div>
-<div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-<h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-code-branch text-sky-400 mr-2 w-5"></i>V&amp;V Amortization</span> <span className="text-emerald-400">$40 - $150</span></h4>
-<p className="text-slate-400 text-xs">Drastically reduces software engineering human-months required for exhaustive ASIL-D firmware V&amp;V.</p>
-</div>
-<div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-<h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-thermometer-half text-sky-400 mr-2 w-5"></i>Thermal &amp; Power</span> <span className="text-emerald-400">$20 - $80</span></h4>
-<p className="text-slate-400 text-xs">Removes 5-15% constant CPU polling overhead, simplifying cooling system requirements.</p>
-</div>
-<div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-<h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-shield-alt text-sky-400 mr-2 w-5"></i>Liability Exposure</span> <span className="text-emerald-400">$20 - $70</span></h4>
-<p className="text-slate-400 text-xs">Cryptographic evidence chain drastically clarifies accident liability and reduces legal discovery costs.</p>
-</div>
-</div>
-
-<div className="bg-slate-900/80 border border-slate-600 p-3 rounded-md text-xs text-slate-400">
-                            <strong>*Base Assumptions for Economic Modeling:</strong> Estimates are calculated based on an annual production volume of 200,000 units per OEM platform. Baseline benchmarks utilize standard Tier-1 licensing, integration, and lifetime RTOS maintenance costs for a conventional dual-core ASIL-D lockstep MCU architecture versus the negligible marginal cost of a sub-0.0005 mm² static RTL macro. Cost advantages scale superlinearly at higher volumes.
+                        <div className="bg-slate-900/80 border border-slate-600 p-3 rounded-md text-xs text-slate-400">
                             <strong>*Base Assumptions for Economic Modeling:</strong> Estimates are calculated based on an annual production volume of 200,000 units per OEM platform. Baseline benchmarks utilize standard Tier-1 licensing, integration, and lifetime RTOS maintenance costs for a conventional dual-core ASIL-D lockstep MCU architecture versus the negligible marginal cost of a sub-0.1 mm² static RTL macro (including dedicated SRAM). Cost advantages scale superlinearly at higher volumes.
-</div>
-</section>
+                        </div>
+                    </section>
 
-@@ -372,7 +372,7 @@
-<ul className="space-y-3 text-sm text-slate-300">
-<li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>Interface:</strong> Standard AXI-Lite output.</li>
-<li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>Form Factor:</strong> Hard macro insertion between NPU and Actuator Bus.</li>
-                                    <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>Footprint:</strong> &lt; 0.0005 mm² estimated area on 5nm nodes.</li>
+                    {/* Section 6 (SoC) */}
+                    <section className="doc-card mb-8 shadow-xl bg-slate-900 border-indigo-900/50" data-aos="fade-up">
+                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-indigo-800 pb-3">
+                            <span className="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">6</span> 
+                            SoC Integration &amp; IP Moat
+                        </h2>
+                        
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 className="text-indigo-300 font-bold mb-3 text-sm uppercase tracking-wider">Integration Path</h3>
+                                <ul className="space-y-3 text-sm text-slate-300">
+                                    <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>Interface:</strong> Standard AXI-Lite output.</li>
+                                    <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>Form Factor:</strong> Hard macro insertion between NPU and Actuator Bus.</li>
                                     <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>Footprint:</strong> &lt; 0.1 mm² total estimated area on 5nm nodes (Memory + Logic).</li>
-</ul>
-</div>
-<div className="border-l border-slate-700 pl-6">
-@@ -386,7 +386,7 @@
-</div>
-</section>
+                                </ul>
+                            </div>
+                            <div className="border-l border-slate-700 pl-6">
+                                <h3 className="text-indigo-300 font-bold mb-3 text-sm uppercase tracking-wider">The 3-Layer IP Moat</h3>
+                                <ol className="list-decimal list-inside space-y-2 text-sm text-slate-300">
+                                    <li><strong className="text-white">Cross-Domain Expertise:</strong> Merges ASIL hardware, AI policy, and Crypto mechanics.</li>
+                                    <li><strong className="text-white">Memory-Aware RTL:</strong> Complete RTL rewrite for BSRAM timing control, unachievable via generic synthesis.</li>
+                                    <li><strong className="text-white">Patent Depth:</strong> Covers gate, Rulepack OTA, evidence chain, and offline buffering universally.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </section>
 
-                    {/* Section 7 (Roadmap) */}
-                    {/* Section 7 (Roadmap & Economics - UPDATED WITH 256KB SRAM) */}
-<section className="doc-card mb-8 shadow-xl border-rose-900/50" data-aos="fade-up">
-<h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-rose-800 pb-3">
-<span className="bg-rose-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">7</span> 
-@@ -458,41 +458,41 @@
-</div>
-</div>
+                    {/* Section 7 (Roadmap & Economics) */}
+                    <section className="doc-card mb-8 shadow-xl border-rose-900/50" data-aos="fade-up">
+                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-rose-800 pb-3">
+                            <span className="bg-rose-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">7</span> 
+                            The Most Cost-Effective Hardware Path to L4/L5
+                        </h2>
+                        
+                        {/* 7.1 */}
+                        <div className="mb-8">
+                            <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">7.1 The ASIL-D Bottleneck</h3>
+                            <p className="text-slate-300 text-sm leading-relaxed mb-4">
+                                Commercial deployment of L4/L5 autonomous vehicles has a hard regulatory prerequisite: <strong>ISO 26262 ASIL-D certification</strong>. The question is not "can it be achieved," but "what architecture achieves it with the lowest time and cost?" Traditional software monitoring architectures face severe structural barriers:
+                            </p>
+                            <div className="overflow-x-auto rounded-lg border border-slate-700">
+                                <table className="w-full text-sm text-left">
+                                    <thead className="bg-slate-900 text-slate-300">
+                                        <tr>
+                                            <th className="p-3 border-b border-slate-700">Certification Challenge</th>
+                                            <th className="p-3 border-b border-slate-700">Software Monitor Architecture</th>
+                                            <th className="p-3 border-b border-slate-700 text-emerald-400 font-bold">WesmartAI SVG</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="text-slate-300">
+                                        <tr className="border-b border-slate-800 bg-slate-800/20">
+                                            <td className="p-3 font-bold text-white">Verification Scope</td>
+                                            <td className="p-3 text-rose-400">Millions of Lines of Code (LOC)</td>
+                                            <td className="p-3 text-emerald-300">142 LUTs (Static RTL Logic)</td>
+                                        </tr>
+                                        <tr className="border-b border-slate-800">
+                                            <td className="p-3 font-bold text-white">Timing Determinism</td>
+                                            <td className="p-3 text-rose-400">Statistical Simulation (Informal)</td>
+                                            <td className="p-3 text-emerald-300">Post-Route STA (Formal Physical Proof)</td>
+                                        </tr>
+                                        <tr className="border-b border-slate-800 bg-slate-800/20">
+                                            <td className="p-3 font-bold text-white">OS Uncertainty</td>
+                                            <td className="p-3 text-rose-400">Requires full RTOS certification</td>
+                                            <td className="p-3 text-emerald-300">Zero OS dependency (Pure physics)</td>
+                                        </tr>
+                                        <tr className="border-b border-slate-800">
+                                            <td className="p-3 font-bold text-white">Certification Target</td>
+                                            <td className="p-3 text-rose-400">Multi-year software iterations</td>
+                                            <td className="p-3 text-emerald-300">Hardware-accelerated timeline</td>
+                                        </tr>
+                                        <tr className="bg-slate-800/20">
+                                            <td className="p-3 font-bold text-white">Update Re-certification</td>
+                                            <td className="p-3 text-rose-400">Full stack re-validation</td>
+                                            <td className="p-3 text-emerald-300">Rulepack version certification only</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        {/* 7.2 */}
+                        <div className="mb-8">
+                            <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">7.2 Why SVG's Path is Structurally Shorter</h3>
+                            <div className="grid md:grid-cols-3 gap-4">
+                                <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
+                                    <h4 className="text-white font-bold mb-2">① Determinism</h4>
+                                    <p className="text-slate-400 text-xs leading-relaxed">5 logic levels with Zero STA Violation. ASIL-D determinism is an inherent physical property, not an extrapolated simulation.</p>
+                                </div>
+                                <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
+                                    <h4 className="text-white font-bold mb-2">② Traceability</h4>
+                                    <p className="text-slate-400 text-xs leading-relaxed">Hardware-anchored cryptographic evidence chain natively satisfies ASIL-D accident reconstruction requirements.</p>
+                                </div>
+                                <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
+                                    <h4 className="text-white font-bold mb-2">③ Fault Containment</h4>
+                                    <p className="text-slate-400 text-xs leading-relaxed">Physical unidirectional data diode guarantees AI failures cannot propagate to execution. True physical isolation.</p>
+                                </div>
+                            </div>
+                        </div>
 
                         {/* 7.3 */}
-                        {/* 7.3 - UPDATED WITH 256KB SRAM */}
-<div className="mb-8">
-                            <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">7.3 The Silicon Economics: 4nm/5nm Target</h3>
+                        <div className="mb-8">
                             <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">7.3 The Silicon Economics: 4nm/5nm Target & 10-Year OTA Headroom</h3>
-<div className="bg-slate-900 p-4 rounded-lg font-mono text-sm text-sky-300 border border-slate-700 mb-6 overflow-x-auto">
-// SVG Die Area Estimation for Advanced Automotive Node (4nm/5nm)<br/>
-                                142 LUTs × 7 gate equivalents = ~1,000 gates<br/>
-                                1,000 gates ÷ 130,000,000 gates/mm² ≈ 0.0000076 mm²<br/>
-                                + 3 BSRAM overhead (High-Density 5nm Node) ≈ 0.0001 mm²<br/>
+                            <div className="bg-slate-900 p-4 rounded-lg font-mono text-sm text-sky-300 border border-slate-700 mb-6 overflow-x-auto">
+                                // SVG Die Area Estimation for Advanced Automotive Node (4nm/5nm)<br/>
                                 Logic Core: 142 LUTs (~1,000 gates) = &lt; 0.0001 mm²<br/>
                                 RulePack Memory: 256 KB Dedicated Secure SRAM = ~0.08 mm²<br/>
                                 (SRAM Capacity: 16,000+ Hardware Rules @ 128-bit wide)<br/>
-----------------------------------------<br/>
-                                Total Estimated Area: &lt; 0.0005 mm²
+                                ----------------------------------------<br/>
                                 Total Estimated Area: &lt; 0.1 mm²
-</div>
-<div className="grid md:grid-cols-2 gap-4">
-<div className="bg-emerald-900/20 border border-emerald-700/50 p-4 rounded">
-                                    <div className="text-emerald-400 font-bold text-xl mb-1">&lt; 0.0005%</div>
-                                    <div className="text-white font-bold text-sm mb-1">of Main AI SoC Area</div>
-                                    <div className="text-slate-400 text-xs">Based on ~100mm² main die. Zero impact on yield.</div>
+                            </div>
+                            <div className="grid md:grid-cols-2 gap-4">
+                                <div className="bg-emerald-900/20 border border-emerald-700/50 p-4 rounded">
                                     <div className="text-emerald-400 font-bold text-xl mb-1">&lt; 0.1 mm²</div>
                                     <div className="text-white font-bold text-sm mb-1">Total Die Area (Logic + Memory)</div>
                                     <div className="text-slate-400 text-xs">Based on high-density 5nm SRAM node. Absolutely zero impact on SoC yield.</div>
@@ -412,27 +479,125 @@ Commercial Advantages: Est. $140 – $480 USD Savings / Vehicle
                                     <div className="text-blue-400 font-bold text-xl mb-1">16,000+ Rules</div>
                                     <div className="text-white font-bold text-sm mb-1">OTA Future-Proofing</div>
                                     <div className="text-slate-400 text-xs">A massive 256KB hard-coded boundary easily supports 10+ years of L4/L5 policy updates without hardware obsolescence.</div>
-</div>
-<div className="bg-emerald-900/20 border border-emerald-700/50 p-4 rounded">
-<div className="text-emerald-400 font-bold text-xl mb-1">vs. Cortex-R52</div>
-<div className="text-white font-bold text-sm mb-1">Area Comparison</div>
-                                    <div className="text-slate-400 text-xs">Occupies &lt; 1% of a standard Safety Island CPU footprint.</div>
+                                </div>
+                                <div className="bg-emerald-900/20 border border-emerald-700/50 p-4 rounded">
+                                    <div className="text-emerald-400 font-bold text-xl mb-1">vs. Cortex-R52</div>
+                                    <div className="text-white font-bold text-sm mb-1">Area Comparison</div>
+                                    <div className="text-slate-400 text-xs">Occupies a fraction of a percent of a standard Safety CPU + L1/L2 Cache footprint.</div>
                                 </div>
                                 <div className="bg-blue-900/20 border border-blue-700/50 p-4 rounded">
-                                    <div className="text-blue-400 font-bold text-xl mb-1">$0.5 – $2 / Vehicle</div>
-                                    <div className="text-white font-bold text-sm mb-1">Realistic IP Licensing</div>
-                                    <div className="text-slate-400 text-xs">Fractions of software V&amp;V amortization.</div>
-                                    <div className="text-slate-400 text-xs">Occupies a fraction of a percent of a standard Safety CPU + L1/L2 Cache footprint.</div>
-</div>
-<div className="bg-blue-900/20 border border-blue-700/50 p-4 rounded">
-<div className="text-blue-400 font-bold text-xl mb-1">$140 – $480 / Vehicle</div>
-<div className="text-white font-bold text-sm mb-1">Net OEM Savings</div>
-                                    <div className="text-slate-400 text-xs">100x–300x ROI on license fee.</div>
+                                    <div className="text-blue-400 font-bold text-xl mb-1">$140 – $480 / Vehicle</div>
+                                    <div className="text-white font-bold text-sm mb-1">Net OEM Savings</div>
                                     <div className="text-slate-400 text-xs">100x–300x ROI on license fee by replacing software monitors.</div>
-</div>
-</div>
-<p className="text-slate-300 text-sm mt-4 italic border-l-4 border-emerald-500 pl-4">
-                                <strong>Conclusion:</strong> Trading less than <strong>0.0005 mm²</strong> in silicon area to secure the shortest path to ASIL-D. We provide more rigorous physical deterministic isolation than a dual-core Lock-step CPU, at a fraction of a percent of its die cost.
+                                </div>
+                            </div>
+                            <p className="text-slate-300 text-sm mt-4 italic border-l-4 border-emerald-500 pl-4">
                                 <strong>Conclusion:</strong> Trading less than <strong>0.1 mm²</strong> in silicon area to secure the shortest path to ASIL-D. By intentionally over-provisioning the physical SRAM to 256 KB, the architecture guarantees a decade of secure RulePack OTA updates while remaining a fraction of the cost of a dual-core Lock-step CPU.
-</p>
-</div>
+                            </p>
+                        </div>
+
+                        {/* 7.4 */}
+                        <div>
+                            <h3 className="text-rose-400 font-bold mb-4 text-sm uppercase tracking-wider">7.4 Execution Roadmap</h3>
+                            <div className="overflow-x-auto rounded-lg border border-slate-700 shadow-lg">
+                                <table className="w-full text-sm text-left">
+                                    <thead className="bg-slate-900 text-slate-300">
+                                        <tr>
+                                            <th className="p-4 border-b border-slate-700 w-1/4">Milestone Phase</th>
+                                            <th className="p-4 border-b border-slate-700 w-1/2">Key Deliverables</th>
+                                            <th className="p-4 border-b border-slate-700 w-1/4 text-center">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="text-slate-300 bg-slate-800/20">
+                                        <tr className="border-b border-slate-800 hover:bg-slate-800/50 transition-colors">
+                                            <td className="p-4 align-top">
+                                                <div className="font-bold text-emerald-400 text-base">Near-Term</div>
+                                                <div className="text-xs text-slate-500 mt-1">Pre-Certification</div>
+                                            </td>
+                                            <td className="p-4 align-top">
+                                                <ul className="list-disc list-inside space-y-2 text-slate-300">
+                                                    <li>RTL Freeze & Emulation (Palladium/Zebu)</li>
+                                                    <li>ASIL-B Fault Injection Simulation (EDA Level)</li>
+                                                    <li>Initial Tier-1 Safety Assessment</li>
+                                                </ul>
+                                            </td>
+                                            <td className="p-4 align-top text-center">
+                                                <span className="inline-block bg-emerald-900/40 border border-emerald-500/50 text-emerald-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
+                                                    Active Phase
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr className="border-b border-slate-800 hover:bg-slate-800/50 transition-colors">
+                                            <td className="p-4 align-top">
+                                                <div className="font-bold text-sky-400 text-base">Mid-Term</div>
+                                                <div className="text-xs text-slate-500 mt-1">Integration & Cert</div>
+                                            </td>
+                                            <td className="p-4 align-top">
+                                                <ul className="list-disc list-inside space-y-2 text-slate-300">
+                                                    <li>Tier-1 SoC Silicon Integration (PoC)</li>
+                                                    <li>Formal <strong>ASIL-B/D</strong> Certification</li>
+                                                    <li>Safety Case Complete (HARA / FTA / FMEDA)</li>
+                                                </ul>
+                                            </td>
+                                            <td className="p-4 align-top text-center">
+                                                <span className="inline-block bg-slate-800 border border-slate-600 text-slate-300 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
+                                                    Planned
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr className="hover:bg-slate-800/50 transition-colors">
+                                            <td className="p-4 align-top">
+                                                <div className="font-bold text-purple-400 text-base">Long-Term</div>
+                                                <div className="text-xs text-slate-500 mt-1">Commercial Scaling</div>
+                                            </td>
+                                            <td className="p-4 align-top">
+                                                <ul className="list-disc list-inside space-y-2 text-slate-300">
+                                                    <li>L4/L5 OEM Platform Fleet Deployment</li>
+                                                    <li>Rulepack Supply Chain Ecosystem</li>
+                                                </ul>
+                                            </td>
+                                            <td className="p-4 align-top text-center">
+                                                <span className="inline-block bg-purple-900/20 border border-purple-500/30 text-purple-400 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
+                                                    Target
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Conclusion */}
+                    <section className="doc-card shadow-xl bg-gradient-to-br from-slate-800/80 to-slate-900/80" data-aos="fade-up">
+                        <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                            <i className="fas fa-rocket text-blue-500"></i>
+                            Next Steps: Emulation &amp; Pre-Certification
+                        </h2>
+                        <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                            When the industry struggles with the complexity of software-based ASIL-D certification, WesmartAI SVG provides a static hardware architecture that structurally bypasses the bottleneck. With Phase 2.5 complete, we are engaging Tier-1 partners for <strong>AXI-Lite Emulation (Palladium/Zebu)</strong> and initiating the formal fault injection validation roadmap.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 items-center">
+                            <a href="mailto:weshuangimpact@gmail.com" className="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition text-center shadow-lg shadow-blue-500/20">
+                                Schedule a Deep-Dive Tech DD Meeting
+                            </a>
+                        </div>
+                    </section>
+
+                </div>
+            );
+        };
+
+        const App = () => (
+            <>
+                <Navbar />
+                <TechDDPage />
+                <Footer />
+            </>
+        );
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
