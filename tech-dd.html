@@ -95,8 +95,23 @@
             return (
                 <div className="max-w-4xl mx-auto px-6 pt-12 pb-24">
                     
+                    {/* Top Level Architecture Diagram */}
+                    <div className="mb-12" data-aos="fade-down">
+                        <img 
+                            src="pic16.jpg" 
+                            alt="Silicon Verdict Gate RTL Wrapper" 
+                            className="w-full object-contain bg-white rounded-lg shadow-2xl border border-slate-700 mb-4" 
+                        />
+                        <div className="bg-slate-800/60 border-l-4 border-blue-500 p-5 rounded-r-lg shadow-md">
+                            <h3 className="text-white font-bold text-base mb-2">Architecture Interface: Silicon_Verdict_Gate (core_inst)</h3>
+                            <p className="text-sm text-slate-300 leading-relaxed">
+                                此頂層 RTL 實體化視圖展示了 SVG 的物理隔離架構。左側定義控制輸入端點，包含 NPU 扭力請求 (`npu_torque_req`) 及規則包安全雜湊 (`rulepack_version_hash`)；右側定義實體輸出端點，包含硬體致動許可 (`gate_allow`)、防降級退回訊號 (`version_rejected`)，以及完全獨立於 OS 的合規紀錄匯流排 (`ledger_event_data`、`ledger_sequence_id`)。此介面直接證實了 AI 決策治理已降級為純粹的硬體邏輯控制。
+                            </p>
+                        </div>
+                    </div>
+
                     {/* Header & Disclosures */}
-                    <div className="mb-12 text-center" data-aos="fade-down">
+                    <div className="mb-12 text-center" data-aos="fade-up">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/30 border border-blue-700/50 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
                             Executive Summary
                         </div>
@@ -570,67 +585,4 @@
 
                     {/* Section 8 (Zero-Overhead Logging) */}
                     <section className="doc-card mb-8 shadow-xl border-amber-900/50" data-aos="fade-up">
-                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-amber-800 pb-3">
-                            <span className="bg-amber-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">8</span> 
-                            Zero-Overhead Compliance: Concurrent Immutable Logging
-                        </h2>
-                        
-                        <div className="highlight-box text-left mb-6 shadow-lg" style={{ background: 'rgba(245, 158, 11, 0.1)', borderLeftColor: '#f59e0b' }}>
-                            <h3 className="text-amber-400 font-bold text-base mb-2">EU AI Act Alignment: The Ultimate Evidentiary Defense</h3>
-                            <p className="text-slate-200 text-sm leading-relaxed mb-3">
-                                Article 12 of the EU AI Act mandates automatic record-keeping for high-risk AI systems. While software-based logs can theoretically comply, they consume critical MPU cycles and remain inherently vulnerable to OS-level tampering or crash events.
-                            </p>
-                            <p className="text-slate-300 text-sm leading-relaxed">
-                                WesmartAI SVG resolves this by completely decoupling the <strong>adjudication datapath</strong> from the <strong>evidence generation datapath</strong> at the RTL logic level. It generates mathematically undeniable evidence at the physical execution layer, rendering it completely immune to software manipulation without taxing the NPU.
-                            </p>
-                        </div>
-
-                        <div className="grid md:grid-cols-3 gap-4 mb-4">
-                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-                                <h4 className="text-white font-bold mb-2 flex items-center gap-2"><i className="fas fa-bolt text-amber-400"></i> Synchronous Capture</h4>
-                                <p className="text-slate-400 text-xs leading-relaxed">Every adjudication event—whether ALLOW, DENY, PENDING, or AUTO-HEAL—is captured simultaneously by parallel registers at the exact clock cycle of execution, ensuring 100% evidentiary completeness with zero gaps.</p>
-                            </div>
-                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-                                <h4 className="text-white font-bold mb-2 flex items-center gap-2"><i className="fas fa-random text-amber-400"></i> Parallel Export Channel</h4>
-                                <p className="text-slate-400 text-xs leading-relaxed">Cryptographically bound evidence packets are exported concurrently via a dedicated secondary hardware bypass (e.g., isolated AXI-Stream). The channel includes <strong>hardware-managed FIFO buffering</strong> to handle backpressure under peak loads, maintaining zero latency penalty to the critical control loop.</p>
-                            </div>
-                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-                                <h4 className="text-white font-bold mb-2 flex items-center gap-2"><i className="fas fa-database text-amber-400"></i> Storage Agnostic</h4>
-                                <p className="text-slate-400 text-xs leading-relaxed">The IP does not hardcode storage topology. SoC vendors retain architectural flexibility to route the ledger to Secure SRAM, external Flash, or a TrustZone enclave. <strong>Storage endpoint selection and its corresponding ASIL qualification remain the SoC integrator's responsibility</strong> under the system-level safety case.</p>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Conclusion */}
-                    <section className="doc-card shadow-xl bg-gradient-to-br from-slate-800/80 to-slate-900/80" data-aos="fade-up">
-                        <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                            <i className="fas fa-rocket text-blue-500"></i>
-                            Next Steps: Emulation &amp; Pre-Certification
-                        </h2>
-                        <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                            When the industry struggles with the complexity of software-based ASIL-D certification, WesmartAI SVG provides a static hardware architecture that structurally bypasses the bottleneck. With Phase 2.5 complete, we are engaging Tier-1 partners for <strong>AXI-Lite Emulation (Palladium/Zebu)</strong> and initiating the formal fault injection validation roadmap.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-4 items-center">
-                            <a href="mailto:weshuangimpact@gmail.com" className="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition text-center shadow-lg shadow-blue-500/20">
-                                Schedule a Deep-Dive Tech DD Meeting
-                            </a>
-                        </div>
-                    </section>
-
-                </div>
-            );
-        };
-
-        const App = () => (
-            <>
-                <Navbar />
-                <TechDDPage />
-                <Footer />
-            </>
-        );
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
-</body>
-</html>
+                        <h2
