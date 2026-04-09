@@ -46,14 +46,15 @@
 
         const Icons = {
             ShieldCheck: <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z m-3 10 2 2 4-4" />,
-            ArrowRight: <g><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></g>,
+            ArrowRight: <g><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 19" /></g>,
             Cpu: <g><rect x="4" y="4" width="16" height="16" rx="2" ry="2" /><rect x="9" y="9" width="6" height="6" /><line x1="9" y1="1" x2="9" y2="4" /><line x1="15" y1="1" x2="15" y2="4" /><line x1="9" y1="20" x2="9" y2="23" /><line x1="15" y1="20" x2="15" y2="23" /><line x1="20" y1="9" x2="23" y2="9" /><line x1="20" y1="14" x2="23" y2="14" /><line x1="1" y1="9" x2="4" y2="9" /><line x1="1" y1="14" x2="4" y2="14" /></g>,
             Lock: <g><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></g>,
             Zap: <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />,
             Server: <g><rect x="2" y="2" width="20" height="8" rx="2" ry="2" /><rect x="2" y="14" width="20" height="8" rx="2" ry="2" /><line x1="6" y1="6" x2="6.01" y2="6" /><line x1="6" y1="18" x2="6.01" y2="18" /></g>,
             Car: <g><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9L2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></g>,
             Target: <g><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></g>,
-            Activity: <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            Activity: <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />,
+            Gavel: <g><path d="M14 13l-3 3M9.7 17.3l-4.6 4.6a2 2 0 0 1-2.8-2.8l4.6-4.6M14 13l6-6a2 2 0 0 0-2.8-2.8l-6 6M14 13l-4-4M10 9l-2-2M22 22H11" /></g>
         };
 
         const WIcon = ({ name, className, size }) => <Icon path={Icons[name]} className={className} size={size} />;
@@ -81,6 +82,7 @@
                             <ul className="space-y-2 text-sm">
                                 <li><a href="index.html" className="hover:text-blue-400 transition text-left block">Corporate Home</a></li>
                                 <li><a href="ohacss.html" className="hover:text-blue-400 transition text-left block">OHACSS Platform</a></li>
+                                <li><a href="report.html" className="hover:text-blue-400 transition text-left block">FPGA Report</a></li>
                                 <li><a href="tech-dd.html" className="hover:text-blue-400 transition text-left block">Tech DD</a></li>
                                 <li><a href="rtl-wrapper.html" className="hover:text-blue-400 transition text-left block">RTL Wrapper</a></li>
                                 <li><a href="founder.html" className="hover:text-blue-400 transition text-left block">About Founder</a></li>
@@ -180,6 +182,43 @@
                                             <div className="text-xs text-slate-300">4.561 ns Post-Route STA</div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* NEW: Design Philosophy / EU AI Act Section */}
+                    <section className="py-24 bg-[#0a0f1c] relative border-t border-white/5">
+                        <div className="max-w-7xl mx-auto px-6 relative z-10">
+                            <div className="text-center mb-16" data-aos="fade-up">
+                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-900/30 border border-rose-700/50 text-rose-400 text-xs font-bold uppercase tracking-widest mb-4">
+                                    The Impending Standard
+                                </div>
+                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">Design Philosophy: EU AI Act Compliance</h2>
+                                <p className="text-slate-400 max-w-3xl mx-auto leading-relaxed text-lg">
+                                    With the EU AI Act enforcing strict obligations for high-risk systems by August 2026 (and Taiwan's AI Basic Act in Jan 2026), probabilistic "AI Alignment" is no longer legally sufficient. We provide the <strong>Layer 0 Physical Foundation</strong> for absolute admissibility.
+                                </p>
+                            </div>
+
+                            <div className="grid md:grid-cols-2 gap-8">
+                                <div className="glass-card p-8 rounded-2xl border border-blue-500/20 hover:border-blue-500/50 transition-all group" data-aos="fade-right">
+                                    <div className="w-12 h-12 rounded-lg bg-blue-900/30 flex items-center justify-center text-blue-400 mb-6 border border-blue-700/50 group-hover:scale-110 transition-transform">
+                                        <WIcon name="Lock" size={24} />
+                                    </div>
+                                    <h3 className="text-xl font-bold text-white mb-3">Article 14: Human Oversight at Machine Speed</h3>
+                                    <p className="text-slate-400 text-sm leading-relaxed">
+                                        How do humans supervise an Agentic AI acting at 100km/h? Traditional software dictates human-in-the-loop intervention, which is physically impossible at vehicular speeds. SVG solves this by codifying <em>human intent</em> into the hardware-loaded RulePack. At 4.561 ns, the hardware strictly executes this human will (ALLOW / DENY / PENDING), providing the only viable form of human oversight at machine speed.
+                                    </p>
+                                </div>
+                                
+                                <div className="glass-card p-8 rounded-2xl border border-emerald-500/20 hover:border-emerald-500/50 transition-all group" data-aos="fade-left">
+                                    <div className="w-12 h-12 rounded-lg bg-emerald-900/30 flex items-center justify-center text-emerald-400 mb-6 border border-emerald-700/50 group-hover:scale-110 transition-transform">
+                                        <WIcon name="ShieldCheck" size={24} />
+                                    </div>
+                                    <h3 className="text-xl font-bold text-white mb-3">Article 12: Absolute Record-Keeping</h3>
+                                    <p className="text-slate-400 text-sm leading-relaxed">
+                                        Software logs are inherently vulnerable to OS crashes or kernel-level tampering. SVG structurally eliminates this vulnerability: the physical actuation verdict and the cryptographic evidence (Hardware Hash Chain) are generated concurrently within the <em>exact same clock cycle</em>. In this architecture, it is physically impossible for an AI action to occur without leaving a legally admissible record.
+                                    </p>
                                 </div>
                             </div>
                         </div>
