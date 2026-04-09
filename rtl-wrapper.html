@@ -81,6 +81,7 @@
                                 <li><a href="ohacss.html" className="hover:text-blue-400 transition text-left block">OHACSS Platform</a></li>
                                 <li><a href="report.html" className="hover:text-blue-400 transition text-left block">FPGA Report</a></li>
                                 <li><a href="tech-dd.html" className="hover:text-blue-400 transition text-left block">Tech DD</a></li>
+                                <li><a href="rtl-wrapper.html" className="hover:text-blue-400 transition text-left block">RTL Wrapper</a></li>
                                 <li><a href="founder.html" className="hover:text-blue-400 transition text-left block">About Founder</a></li>
                             </ul>
                         </div>
@@ -144,13 +145,21 @@
                     {/* Top Level Architecture Diagram */}
                     <div className="mb-12 doc-card shadow-2xl p-0 overflow-hidden" data-aos="fade-up">
                         <div className="p-6 border-b border-slate-700 bg-slate-800/50">
-                            <h3 className="text-white font-bold text-lg">Silicon_Verdict_Gate (core_inst)</h3>
-                            <p className="text-sm text-slate-400 mt-1">EDA Physical Instantiation View</p>
+                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div>
+                                    <h3 className="text-white font-bold text-lg">Silicon_Verdict_Gate (core_inst)</h3>
+                                    <p className="text-sm text-slate-400 mt-1">EDA Physical Instantiation View</p>
+                                </div>
+                                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-blue-900/20 border border-blue-700/30 text-blue-300 text-xs shadow-inner">
+                                    <i className="fas fa-check-circle text-blue-500"></i>
+                                    <span>Generated via <strong>GOWIN FPGA Designer</strong>. Actual Synthesized RTL Interface.</span>
+                                </div>
+                            </div>
                         </div>
                         <div className="p-8 bg-white flex justify-center">
                             <img 
                                 src="pic16.jpg" 
-                                alt="Silicon Verdict Gate RTL Wrapper" 
+                                alt="Silicon Verdict Gate RTL Wrapper generated via GOWIN FPGA Designer" 
                                 className="max-w-full h-auto object-contain" 
                             />
                         </div>
