@@ -133,11 +133,25 @@
                                 </p>
                             </div>
 
-                            <div className="ai-act-box p-5 rounded-lg shadow-lg">
-                                <h4 className="text-blue-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-gavel mr-2"></i>Design Philosophy: EU AI Act Compliance (Layer 0)</h4>
-                                <p className="text-slate-300 text-sm leading-relaxed">
-                                    Our architecture shifts the locus of trust from probabilistic "AI Alignment" to deterministic "Hardware Enforcement." By decoupling the adjudication path at the RTL level, SVG provides the <strong>Layer 0 Physical Foundation</strong> required by the EU AI Act (Article 12: Record-keeping & Article 14: Human Oversight), ensuring that every AI action is admissible, traceable, and bounded by law.
+                            <div className="ai-act-box p-6 rounded-lg shadow-lg mt-2">
+                                <h4 className="text-blue-400 font-bold text-base mb-4 flex items-center"><i className="fas fa-gavel mr-2"></i>Design Philosophy: EU AI Act Compliance (Layer 0)</h4>
+                                <p className="text-slate-300 text-sm leading-relaxed mb-5">
+                                    Our architecture shifts the locus of trust from probabilistic "AI Alignment" to deterministic "Hardware Enforcement," translating regulatory mandates directly into physical silicon logic:
                                 </p>
+                                <div className="space-y-5">
+                                    <div className="pl-4 border-l-2 border-blue-500">
+                                        <h5 className="text-blue-300 font-bold text-sm mb-1">Article 14: Human Oversight at Machine Speed</h5>
+                                        <p className="text-slate-400 text-xs leading-relaxed">
+                                            How do humans supervise an Agentic AI acting at 100km/h? Traditional software dictates human-in-the-loop intervention, which is physically impossible at vehicular speeds. SVG solves this by codifying <em>human intent</em> into the hardware-loaded RulePack prior to deployment. At 4.561 ns, the hardware strictly executes this human will. If a scenario is uncertain, the hardware triggers a <strong>PENDING</strong> state, physically isolating the action and reverting control back to human judgment or safety fallbacks. This is the only viable form of human oversight at machine speed.
+                                        </p>
+                                    </div>
+                                    <div className="pl-4 border-l-2 border-emerald-500">
+                                        <h5 className="text-emerald-300 font-bold text-sm mb-1">Article 12: Absolute Record-Keeping</h5>
+                                        <p className="text-slate-400 text-xs leading-relaxed">
+                                            Software logs are inherently vulnerable to OS crashes or kernel-level tampering, leading to scenarios where a fatal adjudication occurs but the record is lost. SVG structurally eliminates this vulnerability: the physical actuation verdict and the cryptographic evidence (Hardware Hash Chain) are generated concurrently within the <em>exact same clock cycle</em>. In this architecture, it is physically impossible for an AI action to occur without leaving a tamper-proof, legally admissible record.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -217,6 +231,8 @@
                             <SignalRow name="pending_output_lock" type="OUT" color="transparent" desc="Physical isolation lock signal activated when entering the PENDING state." />
                             <SignalRow name="backpressure_signal" type="OUT" color="transparent" desc="Hardware backpressure signal used to force-pause NPU data input during critical anomalies." />
                             <SignalRow name="trigger_hvx_heal" type="OUT" color="transparent" desc="Hardware trigger signal initiating the auto-calibration and recovery mechanism." />
+                            <SignalRow name="hvx_heal_done(0)" type="IN" color="transparent" desc="Hardware handshake receiving recovery completion status (default bound to logic 0)." />
+                            <SignalRow name="hvx_heal_success(0)" type="IN" color="transparent" desc="Hardware handshake receiving recovery success boolean (default bound to logic 0)." />
                         </div>
                     </section>
 
@@ -287,6 +303,7 @@
                         <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-2">
                             <SignalRow name="sync_tx_valid" type="OUT" color="transparent" desc="Synchronization transmission valid flag." />
                             <SignalRow name="sync_tx_data[127:0]" type="OUT" color="transparent" desc="128-bit high-bandwidth data bus for external storage/Cloud sync." />
+                            <SignalRow name="network_online_status(0)" type="IN" color="transparent" desc="Hardware confirmation of external connection status to determine dynamic sync strategies (default bound to logic 0)." />
                         </div>
                     </section>
 
