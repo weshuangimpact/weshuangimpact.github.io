@@ -23,7 +23,6 @@
         .signal-badge { display: inline-flex; align-items: center; justify-content: center; padding: 0.1rem 0.5rem; border-radius: 0.25rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
         .sig-in { background-color: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
         .sig-out { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
-        .ai-act-box { background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.1)); border: 1px solid rgba(255, 255, 255, 0.1); border-left: 4px solid #60a5fa; }
     </style>
 </head>
 <body class="antialiased selection:bg-blue-500/30 pt-20">
@@ -132,27 +131,6 @@
                                     To strictly protect our proprietary combinational logic and core trade secrets during the <strong>Qualcomm Technical Due Diligence</strong> phase, this technical document exposes only the <strong>Top-Level RTL Wrapper (Silicon_Verdict_Gate)</strong>. This serves as the standard technical reference for assessing integration feasibility with Snapdragon-class Automotive architectures.
                                 </p>
                             </div>
-
-                            <div className="ai-act-box p-6 rounded-lg shadow-lg mt-2">
-                                <h4 className="text-blue-400 font-bold text-base mb-4 flex items-center"><i className="fas fa-gavel mr-2"></i>Design Philosophy: EU AI Act Compliance (Layer 0)</h4>
-                                <p className="text-slate-300 text-sm leading-relaxed mb-5">
-                                    Our architecture shifts the locus of trust from probabilistic "AI Alignment" to deterministic "Hardware Enforcement," translating regulatory mandates directly into physical silicon logic:
-                                </p>
-                                <div className="space-y-5">
-                                    <div className="pl-4 border-l-2 border-blue-500">
-                                        <h5 className="text-blue-300 font-bold text-sm mb-1">Article 14: Human Oversight at Machine Speed</h5>
-                                        <p className="text-slate-400 text-xs leading-relaxed">
-                                            How do humans supervise an Agentic AI acting at 100km/h? Traditional software dictates human-in-the-loop intervention, which is physically impossible at vehicular speeds. SVG solves this by codifying <em>human intent</em> into the hardware-loaded RulePack prior to deployment. At 4.561 ns, the hardware strictly executes this human will. If a scenario is uncertain, the hardware triggers a <strong>PENDING</strong> state, physically isolating the action and reverting control back to human judgment or safety fallbacks. This is the only viable form of human oversight at machine speed.
-                                        </p>
-                                    </div>
-                                    <div className="pl-4 border-l-2 border-emerald-500">
-                                        <h5 className="text-emerald-300 font-bold text-sm mb-1">Article 12: Absolute Record-Keeping</h5>
-                                        <p className="text-slate-400 text-xs leading-relaxed">
-                                            Software logs are inherently vulnerable to OS crashes or kernel-level tampering, leading to scenarios where a fatal adjudication occurs but the record is lost. SVG structurally eliminates this vulnerability: the physical actuation verdict and the cryptographic evidence (Hardware Hash Chain) are generated concurrently within the <em>exact same clock cycle</em>. In this architecture, it is physically impossible for an AI action to occur without leaving a tamper-proof, legally admissible record.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
 
@@ -252,7 +230,7 @@
                         </div>
                     </section>
 
-                    {/* NEW SECTION 5: RulePack Design & SSRAM */}
+                    {/* Section 5: RulePack Design & SSRAM */}
                     <section className="mb-10" data-aos="fade-up">
                         <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
                             <i className="fas fa-database text-cyan-400"></i> 5. RulePack Dynamic Loading & SSRAM Isolation
@@ -271,7 +249,7 @@
                         </div>
                     </section>
 
-                    {/* NEW SECTION 6: WORM Evidence Ledger */}
+                    {/* Section 6: WORM Evidence Ledger */}
                     <section className="mb-10" data-aos="fade-up">
                         <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
                             <i className="fas fa-link text-indigo-400"></i> 6. WORM Evidence Ledger & Blockchain-on-Silicon
