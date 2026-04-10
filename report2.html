@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>矽智財技術報告 | 硬體強制裁決系統</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', 'Noto Sans TC', system-ui, -apple-system, sans-serif; background-color: #0f172a; color: #e2e8e0; }
+        .glass-nav { background: rgba(11, 17, 32, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .accent-gradient { background: linear-gradient(135deg, #2563eb, #10b981); }
+        .section-card { background-color: #1e293b; border: 1px solid #334155; border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 1.5rem; }
+        h1, h2, h3, h4 { color: #f8fafc; font-weight: 600; }
+        .data-value { color: #38bdf8; font-weight: 700; font-size: 1.5rem; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { border: 1px solid #334155; padding: 0.75rem; text-align: left; font-size: 0.875rem; }
+        th { background-color: #0f172a; color: #94a3b8; font-size: 0.875rem; }
+        tr:nth-child(even) { background-color: #0f172a; }
+        
+        /* Image Preview Styles */
+        .preview-container {
+            max-width: 800px;
+            margin: 0 auto;
+            cursor: zoom-in;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .preview-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -10px rgba(56, 189, 248, 0.2);
+        }
+        #imageModal {
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="antialiased pt-20 flex flex-col min-h-screen">
+
+    <nav class="fixed w-full top-0 z-50 glass-nav transition-all">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="index2.html" class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
+                <div class="w-8 h-8 accent-gradient rounded flex items-center justify-center shadow-lg shadow-blue-500/20">
+                    <span class="font-bold text-white">W</span>
+                </div>
+                <div>
+                    <div class="font-bold text-lg tracking-tight text-white">可信智慧整合</div>
+                    <div class="text-[10px] text-slate-400 uppercase tracking-widest">WesmartAI Co., Ltd.</div>
+                </div>
+            </a>
+            <div class="hidden md:flex text-sm font-medium text-slate-300 gap-8 items-center">
+                <a href="index2.html" class="hover:text-white transition">架構總覽</a>
+                <a href="ohacss2.html" class="hover:text-white transition">產品</a>
+                <span class="text-blue-400 cursor-default border-b-2 border-blue-400 pb-1">FPGA 報告</span>
+                <a href="tech-dd2.html" class="hover:text-white transition">Tech DD</a>
+                <a href="rtl-wrapper2.html" class="hover:text-white transition">RTL 規格</a>
+                <a href="founder.html" class="hover:text-white transition">創辦人</a>
+                <a href="report.html" class="px-3 py-1 rounded-full border border-slate-600 hover:bg-slate-800 hover:text-white transition text-xs font-bold tracking-wider">EN</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pt-12 mb-8 text-center">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/30 border border-blue-700/50 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
+                執行摘要
+            </div>
+            <h1 class="text-3xl md:text-5xl font-black text-white mb-6 leading-tight tracking-tight">
+                矽智財技術報告 <br/>
+                <span class="text-2xl md:text-3xl text-slate-400 font-medium">矽級治理：賦予邊緣 AI 法律可採信性</span>
+            </h1>
+            <p class="text-slate-400 mt-2 mb-8">55 奈米極致優化與架構可行性報告</p>
+            
+            <div class="preview-container relative group" onclick="openModal('pic15.jpg')">
+                <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+                <div class="relative bg-slate-900 rounded-xl overflow-hidden border border-slate-700">
+                    <img src="pic15.jpg" alt="WesmartAI SVG Architecture Overview" class="w-full h-auto shadow-2xl">
+                    <div class="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <div class="bg-slate-900/90 px-4 py-2 rounded-full border border-blue-400/50 text-blue-400 text-sm font-bold">
+                            <i class="fas fa-search-plus mr-2"></i> 點擊放大架構圖
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="max-w-3xl mx-auto mt-4 text-left">
+                <p class="text-emerald-400/90 text-xs leading-relaxed border-l-2 border-emerald-500 pl-3">
+                    <strong>* 硬體驗證聲明：</strong> 本次佈線後靜態時序分析 (Post-route STA) 係於 Gowin GW2A-18 (20K FPGA) 上執行，採用成熟的 <strong>55奈米製程</strong>。在 55奈米節點上達成 4.561 奈秒延遲且零時序違規，證明了我們記憶體感知 RTL 設計的極致效率。這顯示在未來遷移至先進車用 ASIC 節點 (例如 28nm/4nm) 時，將能輕鬆實現次奈秒 (Sub-nanosecond) 等級的物理延遲。
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 pb-12 flex-grow mt-6">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <section class="section-card">
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">1. 專案概述</h2>
+                <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                    邊緣 AI 系統日益需要具備確定性且在法律上具備可採信性的控制機制。本專案開發了一套以矽智財 (Silicon IP) 形式實作的硬體強制裁決引擎。它能將機率性的 AI 輸出轉化為具備法律防禦力、可被驗證的物理執行動作。
+                </p>
+                <ul class="list-disc list-inside text-sm text-slate-300">
+                    <li><strong>目標：</strong> 在零 NPU 負擔下，實現 100% 的物理合規性與證據生成。</li>
+                    <li><strong>應用場景：</strong> 高風險環境 (如：軟體定義汽車 SDV、工業自動化)。</li>
+                </ul>
+            </section>
+
+            <section class="section-card">
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">2. 系統架構</h2>
+                <div class="bg-slate-900 p-4 rounded text-sm font-mono text-slate-300 border border-slate-700">
+                    <p class="text-slate-400">AI 推論引擎 (MPU)</p>
+                    <p class="text-slate-500 py-1 pl-4">↓ (單向硬體閘門)</p>
+                    <p class="text-sky-400 font-bold">硬體裁決矽智財 (WesmartAI SVG)</p>
+                    <p class="text-slate-500 py-1 pl-4">├─ 物理決策 → <span class="text-emerald-400">致動器控制 (Actuator Control)</span></p>
+                    <p class="text-slate-500 pl-4">└─ 合規證據 → <span class="text-indigo-400">不可變分類帳 (Immutable Ledger)</span></p>
+                </div>
+            </section>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <section class="section-card">
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">3. 核心功能區塊</h2>
+                <div class="bg-slate-900 p-4 rounded border border-slate-700 text-slate-300 font-mono text-sm leading-loose">
+                    [+] 推論隔離介面 (RX)<br>
+                    [+] 確定性策略引擎 (WesmartAI SVG)<br>
+                    [+] 物理閘門控制器 (Physical Gate Controller)<br>
+                    [+] 硬體錨定證據生成器 (Evidence Generator)
+                </div>
+            </section>
+
+            <section class="section-card">
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">4. 硬體資料流向</h2>
+                <ul class="space-y-3 text-sm text-slate-300">
+                    <li><strong class="text-sky-400">輸入 (來自 AI MPU)：</strong> 單向資料二極體 (Data diode)，接收非確定性酬載與置信度陣列。</li>
+                    <li><strong class="text-emerald-400">控制輸出 (至 致動器)：</strong> 嚴格的確定性執行狀態 (允許 ALLOW、拒絕 DENY、待決 PENDING)。</li>
+                    <li><strong class="text-indigo-400">證據輸出：</strong> 密碼學綁定的雜湊值，將決策與物理硬體狀態直接連結。</li>
+                </ul>
+            </section>
+        </div>
+
+        <section class="section-card border-cyan-900/30">
+            <div class="flex justify-between items-center border-b border-slate-600 mb-4 pb-2">
+                <h2 class="text-xl">5. 記憶體感知合成驗證 (階段 2.5)</h2>
+                <span class="bg-cyan-900/40 border border-cyan-500/50 text-cyan-400 text-xs px-2 py-1 rounded uppercase tracking-wider">55奈米 STA 數據</span>
+            </div>
+            
+            <div class="mb-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2">
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        為確保能順利遷移至 Tier-1 車用 SoC 的 ASIC 先進製程，RTL 邏輯已在 55奈米 FPGA 架構 (Gowin 20K) 上進行了根本性的優化。透過整合 100% 的專利請求項——包含硬體密碼學引擎——我們啟動了進階的「記憶體感知合成 (Memory-Aware Synthesis)」，即使在成熟製程節點上，也達成了指數級的效能躍升。
+                    </p>
+                </div>
+                
+                <div class="bg-cyan-900/20 border border-cyan-700/50 rounded-lg p-4 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
+                    <h4 class="text-cyan-400 text-sm font-bold mb-2"><i class="fas fa-microchip mr-2"></i>架構優化里程碑</h4>
+                    <p class="text-slate-300 text-xs leading-relaxed">
+                        將邏輯映射轉換為利用 55奈米架構上的原生 BSRAM，導致了 <strong>70% 的邏輯面積縮減</strong>，以及 <strong>286% 的運作頻率躍升</strong>。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <section class="section-card">
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">6. 階段 2 與 2.5 效能演進</h2>
+                <table class="text-center">
+                    <thead>
+                        <tr>
+                            <th class="text-left w-1/3">評估指標</th>
+                            <th class="text-center w-1/3">階段 2<br/><span class="text-xs text-slate-500 font-normal">(55奈米 基準線)</span></th>
+                            <th class="text-center text-cyan-400 w-1/3">階段 2.5<br/><span class="text-xs text-cyan-700 font-normal">(55奈米 極限優化)</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-medium text-slate-200 text-left">O(1) 佈線延遲</td>
+                            <td class="text-slate-400">17.360 ns</td>
+                            <td class="text-cyan-400 font-bold">4.561 ns</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-slate-200 text-left">實際最高頻率 (Fmax)</td>
+                            <td class="text-slate-400">56.3 MHz</td>
+                            <td class="text-cyan-400 font-bold">217.5 MHz</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-slate-200 text-left">邏輯面積 (LUTs)</td>
+                            <td class="text-slate-400">601</td>
+                            <td class="text-cyan-400 font-bold">142 + 3 BSRAM</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-slate-200 text-left">組合邏輯層數</td>
+                            <td class="text-slate-400">10</td>
+                            <td class="text-cyan-400 font-bold">5</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text-slate-400 text-[10px] mt-3 italic">* 這些縮減直接歸功於記憶體感知合成技術，以及在 GW2A-18 物理層上的 O(1) 反應優化。</p>
+            </section>
+
+            <section class="section-card bg-slate-800/30">
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">7. ISO 26262 壓力測試</h2>
+                <div class="bg-slate-900 p-5 rounded border border-slate-700">
+                    <div class="flex justify-between items-center w-full mb-3">
+                        <div class="text-slate-400 text-xs uppercase tracking-wider text-left">絕對確定性 <br><span class="text-sky-500 font-bold normal-case text-sm">無抖動執行 (Jitter-Free)</span></div>
+                        <div class="text-cyan-400 font-bold text-3xl">4.561 <span class="text-xl">ns</span></div>
+                    </div>
+                    <div class="border-t border-slate-700/50 pt-3 mt-2 text-left">
+                        <span class="inline-block bg-blue-900/50 text-blue-300 text-[10px] px-2 py-0.5 rounded mb-2">規則擴展性已驗證</span>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            佈線後 STA 驗證確認，硬體管線始終維持在精確的 <strong>5 層邏輯深度</strong>。這確保了即使未來擴展更多的安全規則，物理延遲也將保持完美的恆定時間。
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <section class="section-card border-emerald-700 bg-slate-800/50">
+            <h2 class="text-xl mb-4 border-b border-emerald-800 pb-2 text-emerald-400">8. 競爭定位與市場護城河</h2>
+            <p class="text-slate-300 text-sm mb-4">為何傳統的隔離架構不足以應付 Agentic AI 的高風險執行要求。</p>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm min-w-[600px]">
+                    <thead>
+                        <tr>
+                            <th class="bg-slate-900 text-center">防禦架構</th>
+                            <th class="bg-slate-900 text-center">隔離層級</th>
+                            <th class="bg-slate-900 text-center">NPU 運算負擔</th>
+                            <th class="bg-slate-900 text-center">對 OS 崩潰之免疫力</th>
+                            <th class="bg-slate-900 text-emerald-400 border-emerald-700/50 text-center">可信智慧整合 SVG</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-semibold text-slate-200 text-center">純軟體防護欄 (Software Guardrails)</td>
+                            <td class="text-slate-400 text-center">應用程式層 (Application Layer)</td>
+                            <td class="text-rose-400 text-center">高 (與模型共用算力)</td>
+                            <td class="text-rose-400 text-center">無</td>
+                            <td rowspan="3" class="bg-emerald-900/20 border-emerald-700/50 align-top p-4">
+                                <ul class="space-y-2 text-emerald-300 text-left mx-auto w-fit">
+                                    <li><i class="fas fa-check mr-2"></i><strong>硬體連線矽智財</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>零 NPU 負擔</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>100% OS 崩潰免疫</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>恆定時間確定性</strong></li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-slate-200 text-center">ARM TrustZone</td>
+                            <td class="text-slate-400 text-center">安全作業系統 / 邏輯隔離</td>
+                            <td class="text-yellow-400 text-center">中 (需 Context switch)</td>
+                            <td class="text-yellow-400 text-center">部分免疫</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-slate-200 text-center">安全微控制器 (Safety Island MCU)</td>
+                            <td class="text-slate-400 text-center">實體 MCU 隔離</td>
+                            <td class="text-emerald-400 text-center">零</td>
+                            <td class="text-emerald-400 text-center">高</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="text-slate-400 text-xs mt-3 italic">* 與可寫入程式的 Safety Island MCU 不同，我們靜態的 SVG 架構從根本上杜絕了運行時 (runtime) 的惡意程式碼注入風險。</p>
+        </section>
+
+    </main>
+    
+    <footer class="bg-[#070b14] border-t border-slate-800 pt-16 pb-8 text-slate-400 mt-auto">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div>
+                    <h4 class="text-white text-lg font-bold mb-4">可信智慧整合</h4>
+                    <p class="text-sm leading-relaxed mb-4">
+                        讓信任清晰可見。<br/>
+                        矽級別的物理隔離：Agentic AI 的終極合規防禦。
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white text-lg font-bold mb-4">聯絡我們</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><i class="fas fa-map-marker-alt mr-2 w-4 text-center"></i>台南市佳里區光明街68號1樓</li>
+                        <li><i class="fas fa-phone mr-2 w-4 text-center"></i>+886-912-310570</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white text-lg font-bold mb-4">網站導覽</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index2.html" class="hover:text-blue-400 transition text-left block">首頁</a></li>
+                        <li><a href="ohacss2.html" class="hover:text-blue-400 transition text-left block">OHACSS 產品</a></li>
+                        <li><a href="tech-dd2.html" class="hover:text-blue-400 transition text-left block">技術盡職調查 (Tech DD)</a></li>
+                        <li><a href="rtl-wrapper2.html" class="hover:text-blue-400 transition text-left block">RTL 架構規格</a></li>
+                        <li><a href="founder.html" class="hover:text-blue-400 transition text-left block">創辦人</a></li>
+                        <li class="pt-2"><a href="report.html" class="text-blue-400 hover:text-blue-300 font-bold transition text-left block flex items-center gap-2"><i class="fas fa-globe"></i> English (EN)</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
+                <p>&copy; 2026 可信智慧整合有限公司 (WesmartAI Co., Ltd.). All rights reserved.</p>
+                <p class="mt-2 md:mt-0">統一編號: 42917004</p>
+            </div>
+        </div>
+    </footer>
+
+    <div id="imageModal" class="fixed inset-0 z-[100] hidden bg-black/95 flex flex-col justify-center items-center p-4">
+        <span class="absolute top-6 right-8 text-white text-4xl cursor-pointer hover:text-red-500 transition" onclick="closeModal()">&times;</span>
+        <img id="modalImage" class="max-w-full max-h-[85vh] object-contain rounded-lg border-2 border-slate-700 shadow-2xl" src="">
+        <p id="modalCaption" class="mt-6 text-slate-300 text-lg font-bold"></p>
+    </div>
+
+    <script>
+        function openModal(imgSrc) {
+            document.getElementById('modalImage').src = imgSrc;
+            document.getElementById('modalCaption').innerText = "WesmartAI SVG 核心架構 (基於 55奈米 Gowin 20K 驗證)";
+            document.getElementById('imageModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.addEventListener('keydown', (e) => { if (e.key === "Escape") closeModal(); });
+    </script>
+</body>
+</html>
