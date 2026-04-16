@@ -130,7 +130,7 @@
                             <div className="bg-amber-900/20 border border-amber-600/50 p-5 rounded-lg shadow-lg">
                                 <h4 className="text-amber-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-shield-alt mr-2"></i>Intellectual Property Protection Notice</h4>
                                 <p className="text-slate-300 text-sm leading-relaxed">
-                                    To strictly protect our proprietary combinational logic and core trade secrets during the <strong>Qualcomm Technical Due Diligence</strong> phase, this technical document exposes only the <strong>Top-Level RTL Wrapper (Silicon_Verdict_Gate)</strong>. This serves as the standard technical reference for assessing integration feasibility with Snapdragon-class Automotive architectures.
+                                    To strictly protect our proprietary combinational logic and core trade secrets during the <strong>Qualcomm Technical Due Diligence</strong> phase, this technical document exposes only the <strong>Top-Level RTL Wrapper (SVG_FPGA_Wrapper_UART)</strong>. This serves as the standard technical reference for assessing integration feasibility with Snapdragon-class Automotive architectures.
                                 </p>
                             </div>
                         </div>
@@ -141,7 +141,7 @@
                         <div className="p-6 border-b border-slate-700 bg-slate-800/50">
                             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
-                                    <h3 className="text-white font-bold text-lg">Silicon_Verdict_Gate (core_inst)</h3>
+                                    <h3 className="text-white font-bold text-lg">SVG_FPGA_Wrapper_UART (Phase 2.5)</h3>
                                     <p className="text-sm text-slate-400 mt-1">EDA Physical Instantiation View</p>
                                 </div>
                                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-blue-900/20 border border-blue-700/30 text-blue-300 text-xs shadow-inner">
@@ -152,7 +152,7 @@
                         </div>
                         <div className="p-8 bg-white flex justify-center">
                             <img 
-                                src="pic16.jpg" 
+                                src="wrapper.jpg" 
                                 alt="Silicon Verdict Gate RTL Wrapper generated via GOWIN FPGA Designer" 
                                 className="max-w-full h-auto object-contain" 
                             />
@@ -163,127 +163,62 @@
                             <ul className="space-y-3 text-sm text-slate-300">
                                 <li><strong className="text-white">Dataflow Routing:</strong> Left pins indicate <span className="text-emerald-400">Inputs</span>. Right pins indicate <span className="text-blue-400">Outputs</span>.</li>
                                 <li className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-[#00FF00]"></div> <strong className="text-white">Green Wire:</strong> Dedicated Clock Net routing.</li>
-                                <li className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-[#00FFFF]"></div> <strong className="text-white">Light Blue Wire:</strong> 1-bit scalar signal (logical triggers/enables).</li>
-                                <li className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-[#0000FF]"></div> <strong className="text-white">Dark Blue Wire:</strong> Multi-bit vector bus (torque values, hashes, memory data).</li>
+                                <li className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-[#00FFFF]"></div> <strong className="text-white">Light Blue Wire:</strong> 1-bit scalar signal (logical triggers/enables/UART).</li>
+                                <li className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-[#0000FF]"></div> <strong className="text-white">Dark Blue Wire:</strong> Multi-bit vector bus (32-bit hashes, I/O probes).</li>
                             </ul>
                         </div>
                     </div>
 
-                    {/* Section 1: System Control */}
+                    {/* Section 1: System Control & UART */}
                     <section className="mb-10" data-aos="fade-up">
                         <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
-                            <i className="fas fa-microchip text-slate-400"></i> 1. System Base Control Signals
+                            <i className="fas fa-microchip text-slate-400"></i> 1. System Base Control & UART Interface
                         </h2>
                         <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-2">
                             <SignalRow name="clk" type="IN" color="#00FF00" desc="System clock signal driving the internal Finite State Machine (FSM) and registers." />
                             <SignalRow name="rst_n" type="IN" color="#00FFFF" desc="Active-low hardware reset signal." />
-                            <SignalRow name="npu_req_valid" type="IN" color="#00FFFF" desc="NPU inference request valid flag; triggers the hardware adjudication engine to start." />
+                            <SignalRow name="uart_rx" type="IN" color="#00FFFF" desc="UART receive pin for external data ingestion (Simulating NPU inference requests and RulePack updates in Phase 2.5)." />
                         </div>
                     </section>
 
-                    {/* Section 2: Core Adjudication */}
+                    {/* Section 2: External Indicators & Probes */}
                     <section className="mb-10" data-aos="fade-up">
                         <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
-                            <i className="fas fa-filter text-emerald-500"></i> 2. Core Adjudication Dataflow (1st Defense Line)
+                            <i className="fas fa-lightbulb text-emerald-500"></i> 2. Real-Time Physical Indicators
+                        </h2>
+                        <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-2">
+                            <SignalRow name="led_allow" type="OUT" color="#00FFFF" desc="Hardware indicator. Illuminates when the inference request passes Adjudication." />
+                            <SignalRow name="led_deny" type="OUT" color="#00FFFF" desc="Hardware indicator. Illuminates when the inference request violates RulePack policies." />
+                            <SignalRow name="probe_hash[31:0]" type="OUT" color="#0000FF" desc="32-bit parallel hardware probe. Exports the real-time cryptographic hash generated by the internal Crypto Engine." />
+                        </div>
+                    </section>
+
+                    {/* Section 3: Core Adjudication */}
+                    <section className="mb-10" data-aos="fade-up">
+                        <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
+                            <i className="fas fa-filter text-emerald-500"></i> 3. Internal Adjudication Dataflow (Abstracted)
                         </h2>
                         <div className="highlight-box mb-4 shadow-md">
                             <h3 className="text-emerald-400 font-bold text-sm mb-1">Patent Claim Mapping: Claim 1 (b) (ii) & Claim 2</h3>
                             <p className="text-slate-300 text-xs leading-relaxed">Ensures NPU inference requests enter the SVG module strictly "one-way," completely blocking non-deterministic environments from probing the internal adjudication block.</p>
                         </div>
-                        <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-2">
-                            <SignalRow name="npu_torque_req[15:0]" type="IN" color="#0000FF" desc="16-bit inference request value generated from the AI model." />
-                            <SignalRow name="rule_max_torque[15:0]" type="IN" color="#0000FF" desc="16-bit maximum allowable physical threshold defined by the RulePack." />
-                            <SignalRow name="gate_allow" type="OUT" color="#00FFFF" desc="Adjudication passed; triggers the 1-bit physical execution allow signal." />
-                            <SignalRow name="fsm_deny" type="OUT" color="#00FFFF" desc="Adjudication violated; triggers the 1-bit physical cutoff and hard-drop signal." />
+                        <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-4 text-sm text-slate-400 italic">
+                            * Core logic signals (e.g., 32-bit torque requests, SSRAM rule bounds, Gate Allow/Deny) are fully encapsulated within the `SVG_FPGA_Wrapper_UART` module to protect proprietary IP. The internal deterministic logic evaluates data ingested via `uart_rx` and strictly outputs results to the physical LEDs and cryptographic probes.
                         </div>
                     </section>
 
-                    {/* Section 3: Exception Handling */}
+                    {/* Section 4: RulePack Design & SSRAM */}
                     <section className="mb-10" data-aos="fade-up">
                         <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
-                            <i className="fas fa-random text-blue-500"></i> 3. Exception Handling & Flow Control
-                        </h2>
-                        <div className="bg-blue-900/10 border-l-4 border-blue-500 p-4 mb-4 rounded-r shadow-md">
-                            <h3 className="text-blue-400 font-bold text-sm mb-1">Patent Claim Mapping: Claim 15 & Claim 18</h3>
-                            <p className="text-slate-300 text-xs leading-relaxed">Features non-blocking processing architecture. When an anomaly is physically locked for healing, subsequent valid inference data can still pass smoothly.</p>
-                        </div>
-                        <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-2">
-                            <SignalRow name="pending_output_lock" type="OUT" color="transparent" desc="Physical isolation lock signal activated when entering the PENDING state." />
-                            <SignalRow name="backpressure_signal" type="OUT" color="transparent" desc="Hardware backpressure signal used to force-pause NPU data input during critical anomalies." />
-                            <SignalRow name="trigger_hvx_heal" type="OUT" color="transparent" desc="Hardware trigger signal initiating the auto-calibration and recovery mechanism." />
-                            <SignalRow name="hvx_heal_done(0)" type="IN" color="transparent" desc="Hardware handshake receiving recovery completion status (default bound to logic 0)." />
-                            <SignalRow name="hvx_heal_success(0)" type="IN" color="transparent" desc="Hardware handshake receiving recovery success boolean (default bound to logic 0)." />
-                        </div>
-                    </section>
-
-                    {/* Section 4: Anti-Rollback */}
-                    <section className="mb-10" data-aos="fade-up">
-                        <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
-                            <i className="fas fa-lock text-rose-500"></i> 4. Rule Validation & Anti-Rollback (4th Defense Line)
-                        </h2>
-                        <div className="bg-rose-900/10 border-l-4 border-rose-500 p-4 mb-4 rounded-r shadow-md">
-                            <h3 className="text-rose-400 font-bold text-sm mb-1">Patent Claim Mapping: Claim 9 & Claim 10</h3>
-                            <p className="text-slate-300 text-xs leading-relaxed">The RulePack Hash is bound to an underlying physical monotonic counter. If the version is below safety requirements, the hardware explicitly rejects the downgrade.</p>
-                        </div>
-                        <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-2">
-                            <SignalRow name="rulepack_version_hash[31:0]" type="IN" color="#0000FF" desc="32-bit RulePack version hash for static integrity verification." />
-                            <SignalRow name="rulepack_min_version[15:0]" type="IN" color="#0000FF" desc="16-bit minimum allowed version permitted by the system." />
-                            <SignalRow name="version_rejected" type="OUT" color="transparent" desc="Hardware rejection signal triggered on safety version failure." />
-                        </div>
-                    </section>
-
-                    {/* Section 5: RulePack Design & SSRAM */}
-                    <section className="mb-10" data-aos="fade-up">
-                        <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
-                            <i className="fas fa-database text-cyan-400"></i> 5. RulePack Dynamic Loading & SSRAM Isolation
+                            <i className="fas fa-database text-cyan-400"></i> 4. RulePack Dynamic Loading & SSRAM Isolation
                         </h2>
                         <div className="bg-cyan-900/10 border-l-4 border-cyan-500 p-4 mb-4 rounded-r shadow-md">
                             <h3 className="text-cyan-400 font-bold text-sm mb-1">Patent Claim Mapping: Claim 1, 9 & 10</h3>
                             <p className="text-slate-300 text-xs leading-relaxed">
-                                <strong>Mechanism:</strong> Versioned RulePacks are loaded into a <strong>dedicated 256KB SSRAM</strong> via high-bandwidth dark blue vector buses. This memory is physically isolated from the NPU's main memory.
+                                <strong>Mechanism:</strong> Versioned RulePacks are loaded into a <strong>dedicated SSRAM array</strong> (Verified in Phase 2.5). This memory is physically isolated from the NPU's main memory.
                                 <br/><br/>
-                                <strong>Strategic Value:</strong> The 256KB space is intentionally over-provisioned to support <strong>10+ years of L4/L5 policy updates via OTA</strong>. OEMs can convert real-world driving data into a proprietary "Safety IP Database," building an insurmountable technical moat while adaptation occurs through continuous road-test refinement.
+                                <strong>Strategic Value:</strong> The memory space is intentionally architected to support <strong>10+ years of L4/L5 policy updates via OTA</strong>. OEMs can convert real-world driving data into a proprietary "Safety IP Database," building an insurmountable technical moat while adaptation occurs through continuous road-test refinement.
                             </p>
-                        </div>
-                        <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-2 font-mono text-[10px] text-slate-500 p-4">
-                            // SSRAM Capacity: 16,000+ Hardware Rules @ 128-bit wide <br/>
-                            // Interface: High-Bandwidth Dedicated Bus to Adjudication Core
-                        </div>
-                    </section>
-
-                    {/* Section 6: WORM Evidence Ledger */}
-                    <section className="mb-10" data-aos="fade-up">
-                        <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
-                            <i className="fas fa-link text-indigo-400"></i> 6. WORM Evidence Ledger & Blockchain-on-Silicon
-                        </h2>
-                        <div className="bg-indigo-900/10 border-l-4 border-indigo-500 p-4 mb-4 rounded-r shadow-md">
-                            <h3 className="text-indigo-400 font-bold text-sm mb-1">Patent Claim Mapping: Claim 11, 12, 14 & 16</h3>
-                            <p className="text-slate-300 text-xs leading-relaxed">
-                                <strong>Mechanism:</strong> Every adjudication event <strong>synchronously triggers</strong> the encapsulation logic. Verdicts are written to an isolated <strong>WORM (Write Once Read Many)</strong> storage area through dedicated output buses.
-                                <br/><br/>
-                                <strong>Compliance & Defense:</strong> This creates an undeniable physical blockchain using forward hash links (binding current hash with previous). Even during a major accident or total OS failure, the pre-crash records are preserved and immune to tampering, satisfying the EU AI Act's "Automatic Record-keeping" requirements.
-                            </p>
-                        </div>
-                        <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-2">
-                            <SignalRow name="ledger_write_enable" type="OUT" color="transparent" desc="1-bit enable triggering atomic ledger write." />
-                            <SignalRow name="ledger_prev_hash_link[31:0]" type="OUT" color="#0000FF" desc="32-bit forward hash link tying the previous record to the current state." />
-                            <SignalRow name="ledger_event_data[31:0]" type="OUT" color="#0000FF" desc="Raw AI event data captured at the cycle of execution." />
-                        </div>
-                    </section>
-
-                    {/* Section 7: External Sync */}
-                    <section className="mb-10" data-aos="fade-up">
-                        <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
-                            <i className="fas fa-cloud-upload-alt text-sky-500"></i> 7. External Data Offloading
-                        </h2>
-                        <div className="bg-sky-900/10 border-l-4 border-sky-500 p-4 mb-4 rounded-r shadow-md">
-                            <h3 className="text-sky-400 font-bold text-sm mb-1">Patent Claim Mapping: Claim 16 & Claim 17</h3>
-                            <p className="text-slate-300 text-xs leading-relaxed">Supports hardware-isolated buffering during offline states. Upon reconnection, data is batch-synced to verification servers.</p>
-                        </div>
-                        <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-2">
-                            <SignalRow name="sync_tx_valid" type="OUT" color="transparent" desc="Synchronization transmission valid flag." />
-                            <SignalRow name="sync_tx_data[127:0]" type="OUT" color="transparent" desc="128-bit high-bandwidth data bus for external storage/Cloud sync." />
-                            <SignalRow name="network_online_status(0)" type="IN" color="transparent" desc="Hardware confirmation of external connection status to determine dynamic sync strategies (default bound to logic 0)." />
                         </div>
                     </section>
 
@@ -294,7 +229,7 @@
                             Future Integration: Emulation & Pre-Certification
                         </h2>
                         <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                            With Phase 2.5 extreme optimization complete, we are ready for <strong>AXI-Lite Emulation (Palladium/Zebu)</strong>. Our hardware-enforced governance bypasses the soft-error bottleneck, providing a direct, silicon-accelerated path to ASIL-D and AI Act admissibility.
+                            With Phase 2.5 extreme optimization complete on 55nm FPGA, exposing a clean UART interface, we are ready for <strong>AXI-Lite Emulation (Palladium/Zebu)</strong>. Our hardware-enforced governance bypasses the soft-error bottleneck, providing a direct, silicon-accelerated path to ASIL-D and AI Act admissibility.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 items-center">
                             <a href="mailto:weshuangimpact@gmail.com" className="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition text-center shadow-lg shadow-blue-500/20">
