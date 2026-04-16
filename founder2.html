@@ -87,7 +87,7 @@
                                 <li><a href="report2.html" className="hover:text-blue-400 transition text-left block">FPGA 技術報告</a></li>
                                 <li><a href="tech-dd2.html" className="hover:text-blue-400 transition text-left block">技術盡職調查 (Tech DD)</a></li>
                                 <li><a href="rtl-wrapper2.html" className="hover:text-blue-400 transition text-left block">RTL 架構規格</a></li>
-                                <li><a href="founder2.html" className="hover:text-blue-400 transition text-left block">關於創辦人</a></li>
+                                <li><a href="founder2.html" className="hover:text-blue-400 transition text-left block">創辦人</a></li>
                                 <li className="pt-2"><a href="founder.html" className="text-blue-400 hover:text-blue-300 font-bold transition text-left block flex items-center gap-2"><i className="fas fa-globe"></i> English (EN)</a></li>
                             </ul>
                         </div>
@@ -122,7 +122,7 @@
                                 </div>
                             </a>
                             <div className="hidden md:flex text-sm font-medium text-slate-300 gap-8 items-center">
-                                <a href="index2.html" className="hover:text-white transition">架構總覽</a>
+                                <a href="index2.html#architecture" className="hover:text-white transition">系統架構</a>
                                 <a href="ohacss2.html" className="hover:text-white transition">產品</a>
                                 <a href="report2.html" className="hover:text-white transition">FPGA 報告</a>
                                 <a href="tech-dd2.html" className="hover:text-white transition">Tech DD</a>
@@ -191,7 +191,7 @@
                                         我們開發的不是一個「車用修補程式」。我們打造的是「通用硬體治理矽智財 (Universal Hardware Governance IP)」，並刻意選擇了地球上最不容出錯、高風險的環境——ISO 26262 汽車安全標準——作為我們的終極壓力測試。
                                     </p>
                                     
-                                    <p>因為，如果我們的架構能夠在數學與物理上保證自駕車達到 4.561 奈秒的絕對確定性與安全性，那麼將其整合到 AI PC 或智慧製造平台中，將會是輕而易舉的降維打擊。</p>
+                                    <p>因為，如果我們的架構能夠在數學與物理上保證自駕車達到 5.136 奈秒的絕對確定性與安全性，那麼將其整合到 AI PC 或智慧製造平台中，將會是輕而易舉的降維打擊。</p>
 
                                     {/* AI Tech */}
                                     <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
@@ -260,7 +260,7 @@
                                             <div className="pl-4 border-l-2 border-teal-400">
                                                 <h4 className="text-sm font-bold text-teal-700 uppercase tracking-wide mb-1">階段 5 — 矽智財與硬體強制信任邊界 (2026年3-4月)</h4>
                                                 <p className="text-sm text-slate-600 leading-relaxed">
-                                                    最終層：將確定性裁決深植於物理晶片邏輯中。從軟體到矽架構的過渡現已完全實現。我們最初的 55 奈米 FPGA 原型達成了 17.360 奈秒的恆定延遲。為進一步提升架構，我們在「階段 2.5」成功進行了極限優化，在同一個 55 奈米物理層上將佇列映射到原生的硬體 SRAM，將核心面積縮減至僅 142 個 LUT，並在 217.5 MHz 的時脈下將物理佈線延遲壓縮至驚人的 4.561 奈秒。達成零 NPU 負擔，我們提供了一個即使在作業系統 (OS) 崩潰時也能堅守防線的硬體閘門。這是在最關鍵時刻發揮作用的基礎設施——現已準備好進入先進車用 SoC 模擬與 Tier-1 供應鏈整合。
+                                                    最終層：將確定性裁決深植於物理晶片邏輯中。從軟體到矽架構的過渡現已完全實現。我們最初的 55 奈米 FPGA 原型達成了 17.360 奈秒的恆定延遲。為進一步提升架構，我們在「階段 2.5」成功進行了極限優化，在同一個 55 奈米物理層上將邏輯直接映射到原生的硬體 SRAM，將核心面積縮減至僅 142 個 LUTs，並在 217.5 MHz 的時脈下將物理邏輯運算延遲壓縮至驚人的 4.561 奈秒。達成零 NPU 負擔，我們提供了一個即使在作業系統 (OS) 崩潰時也能堅守防線的硬體閘門。這是在最關鍵時刻發揮作用的基礎設施——現已準備好進入先進車用 SoC 模擬與 Tier-1 供應鏈整合。
                                                 </p>
                                             </div>
                                         </div>
@@ -281,7 +281,7 @@
                                             如果您仔細觀察我們的開發里程碑，您會注意到一條刻意規劃的軌跡。我們開發高通 (Qualcomm) UNO-Q 原型機或 Gowin FPGA 開發板，並不是為了賣硬體。
                                         </p>
                                         <p className="text-slate-300 font-medium leading-relaxed mb-4">
-                                            <strong>我們接上的每一塊實體板、測量的每一微瓦功耗、生成的每一筆 4.561 奈秒的延遲日誌，都完全是為了服務、驗證並包裝我們真正的核心資產：矽智財 (Silicon Soft IP / RTL)。</strong>
+                                            <strong>我們接上的每一塊實體板、測量的每一微瓦功耗、生成的每一筆 5.136 奈秒的延遲日誌，都完全是為了服務、驗證並包裝我們真正的核心資產：矽智財 (Silicon Soft IP / RTL)。</strong>
                                         </p>
                                         <p className="text-slate-400 text-sm leading-relaxed border-l-2 border-sky-500 pl-4">
                                             我們在 Agentic AI 時代採取類似 Arm 的 IP 授權商業模式。實驗數據證明了我們在物理上的絕對可行性；專利提供了深厚的法律護城河。硬體只是載具，IP 才是最終的戰略目標。
@@ -468,7 +468,7 @@
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-cyan-600 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">2026年4月</span>
                                             <p className="font-bold text-slate-800 text-sm leading-tight">極限優化：55奈米記憶體感知合成驗證</p>
-                                            <p className="text-xs text-slate-600 mt-1">佈線後靜態時序分析 (STA) 證實，透過原生 BSRAM 映射，在成熟 55 奈米製程上達到 4.561 奈秒 O(1) 物理延遲與 217.5 MHz Fmax。</p>
+                                            <p className="text-xs text-slate-600 mt-1">佈線後靜態時序分析 (STA) 證實，透過原生 SSRAM 映射，在成熟 55 奈米製程上達到 5.136 奈秒 O(1) 核心物理延遲與 54.85 MHz Fmax。</p>
                                             <span className="inline-block mt-1 text-[10px] bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded border border-cyan-200">階段 2.5 STA 數據</span>
                                         </div>
 
