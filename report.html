@@ -85,7 +85,7 @@
             </div>
             <div class="max-w-3xl mx-auto mt-4 text-left">
                 <p class="text-emerald-400/90 text-xs leading-relaxed border-l-2 border-emerald-500 pl-3">
-                    <strong>* Note on Hardware Validation:</strong> This post-route Static Timing Analysis (STA) was executed on the Gowin GW2A-18 (20K FPGA), utilizing a mature <strong>55nm process</strong>. Achieving 6.173 ns latency and zero violations on a 55nm node proves the extreme efficiency of our memory-aware RTL design. This indicates that sub-nanosecond physical latency will be easily achievable upon migration to advanced Automotive ASIC nodes (e.g., 28nm/4nm).
+                    <strong>* Note on Hardware Validation:</strong> This post-route Static Timing Analysis (STA) was executed on the Gowin GW2A-18 (20K FPGA), utilizing a mature <strong>55nm process</strong>. Achieving 5.136 ns core logic latency and zero timing violations proves the extreme efficiency of our memory-aware RTL design. This indicates that sub-nanosecond physical latency will be easily achievable upon migration to advanced Automotive ASIC nodes (e.g., 28nm/4nm).
                 </p>
             </div>
         </div>
@@ -154,14 +154,14 @@
                 <div class="bg-cyan-900/20 border border-cyan-700/50 rounded-lg p-4 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
                     <h4 class="text-cyan-400 text-sm font-bold mb-2"><i class="fas fa-microchip mr-2"></i>Architectural Milestone</h4>
                     <p class="text-slate-300 text-xs leading-relaxed">
-                        Transitioning our logic mapping to utilize SSRAM on the 55nm architecture resulted in an optimal footprint of <strong>&lt;1% utilization</strong> and a stabilized operating frequency of <strong>170.999 MHz</strong>.
+                        Transitioning our logic mapping to utilize SSRAM on the 55nm architecture resulted in an optimal footprint of <strong>134 LUTs and 106 REGs</strong> (&lt;1% utilization), successfully establishing a physical operating limit of <strong>54.85 MHz</strong>.
                     </p>
                 </div>
 
                 <div class="bg-emerald-900/20 border border-emerald-700/50 rounded-lg p-4 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
                     <h4 class="text-emerald-400 text-sm font-bold mb-2"><i class="fas fa-bolt mr-2"></i>Why SSRAM? The O(1) Determinism</h4>
                     <p class="text-slate-300 text-xs leading-relaxed">
-                        By mapping the Versioned Rulepack directly to native SSRAM blocks, the architecture achieves <strong>O(1) deterministic lookup</strong>. This ensures physical routing latency remains perfectly constant regardless of how many safety rules are scaled, physically blocking non-compliant AI instructions from reaching the actuator.
+                        By mapping the Versioned Rulepack directly to native SSRAM blocks, the architecture achieves <strong>O(1) deterministic lookup</strong>. This ensures physical logic computation depth perfectly remains at exactly 6 levels regardless of how many safety rules are scaled, physically blocking non-compliant AI instructions from reaching the actuator.
                     </p>
                 </div>
             </div>
@@ -180,19 +180,19 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">Data Arrival Time</td>
+                            <td class="font-medium text-slate-200 text-left">Core Logic Latency</td>
                             <td class="text-slate-400">17.360 ns</td>
-                            <td class="text-cyan-400 font-bold">6.173 ns</td>
+                            <td class="text-cyan-400 font-bold">5.136 ns</td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">Max Freq (Fmax)</td>
+                            <td class="font-medium text-slate-200 text-left">Actual System Fmax</td>
                             <td class="text-slate-400">56.3 MHz</td>
-                            <td class="text-cyan-400 font-bold">170.999 MHz</td>
+                            <td class="text-cyan-400 font-bold">54.85 MHz</td>
                         </tr>
                         <tr>
                             <td class="font-medium text-slate-200 text-left">Logic Area</td>
                             <td class="text-slate-400">601 LUTs</td>
-                            <td class="text-cyan-400 font-bold">172 資源 (含 4 SSRAM)</td>
+                            <td class="text-cyan-400 font-bold">134 LUTs + 106 REGs + SSRAM</td>
                         </tr>
                         <tr>
                             <td class="font-medium text-slate-200 text-left">Combinational Logic Levels</td>
@@ -209,7 +209,7 @@
                 <div class="bg-slate-900 p-5 rounded border border-slate-700">
                     <div class="flex justify-between items-center w-full mb-3">
                         <div class="text-slate-400 text-xs uppercase tracking-wider text-left">Absolute Determinism <br><span class="text-sky-500 font-bold normal-case text-sm">Jitter-Free Execution</span></div>
-                        <div class="text-cyan-400 font-bold text-3xl">6.173 <span class="text-xl">ns</span></div>
+                        <div class="text-cyan-400 font-bold text-3xl">5.136 <span class="text-xl">ns</span></div>
                     </div>
                     <div class="border-t border-slate-700/50 pt-3 mt-2 text-left">
                         <span class="inline-block bg-blue-900/50 text-blue-300 text-[10px] px-2 py-0.5 rounded mb-2">Rule Scalability Verified</span>
