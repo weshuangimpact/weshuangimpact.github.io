@@ -151,9 +151,9 @@
                             </div>
                         </div>
                         <div className="p-8 bg-white flex justify-center">
-                            {/* BUG FIX: Changed src to wrapper.jpg as requested */}
+                            {/* BUG FIX: Corrected src to pic16.jpg */}
                             <img 
-                                src="wrapper.jpg" 
+                                src="pic16.jpg" 
                                 alt="Silicon Verdict Gate RTL Wrapper generated via GOWIN FPGA Designer" 
                                 className="max-w-full h-auto object-contain rounded-lg shadow-md" 
                             />
@@ -200,11 +200,11 @@
                             <i className="fas fa-filter text-emerald-500"></i> 3. 內部裁決資料流 (已抽象化)
                         </h2>
                         <div className="highlight-box mb-4 shadow-md">
-                            <h3 className="text-emerald-400 font-bold text-sm mb-1">專利請求項映射：Claim 1 (b) (ii) & Claim 2</h3>
+                            <h3 className="text-emerald-400 font-bold text-sm mb-1">專利請求項映射：Claim 1 (b) (ii) &amp; Claim 2</h3>
                             <p className="text-slate-300 text-xs leading-relaxed">確保 NPU 推論請求僅能以「單向」方式進入 SVG 模組，徹底阻斷非確定性環境對內部裁決區塊的任何探測。</p>
                         </div>
                         <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-4 text-sm text-slate-400 italic">
-                            * 為保護專屬矽智財，核心邏輯訊號 (如 32-bit 扭力請求、SSRAM 規則邊界、Gate Allow/Deny 等) 已完全封裝於 `SVG_FPGA_Wrapper_UART` 模組內部。內部確定性邏輯會評估經由 `uart_rx` 匯入的資料，並嚴格限制僅能輸出結果至物理 LED 與密碼學探針。
+                            * 為保護專屬矽智財，核心邏輯訊號已完全封裝於 `SVG_FPGA_Wrapper_UART` 模組內部。內部確定性邏輯會評估經由 `uart_rx` 匯入的資料，並嚴格限制僅能輸出結果至物理 LED 與密碼學探針。
                         </div>
                     </section>
 
@@ -214,11 +214,24 @@
                             <i className="fas fa-database text-cyan-400"></i> 4. RulePack 動態載入與 SSRAM 隔離
                         </h2>
                         <div className="bg-cyan-900/10 border-l-4 border-cyan-500 p-4 mb-4 rounded-r shadow-md">
-                            <h3 className="text-cyan-400 font-bold text-sm mb-1">專利請求項映射：Claim 1, 9 & 10</h3>
+                            <h3 className="text-cyan-400 font-bold text-sm mb-1">專利請求項映射：Claim 1, 9 &amp; 10</h3>
                             <p className="text-slate-300 text-xs leading-relaxed">
-                                <strong>硬體機制：</strong> 版本化的 RulePacks 被載入至<strong>專屬的 SSRAM 陣列</strong>中 (已於 Phase 2.5 驗證)。該記憶體與 NPU 主記憶體完全實體隔離。
+                                <strong>硬體機制：</strong> 版本化的 RulePacks 被載入至<strong>專屬的 SSRAM 陣列</strong>中 (已於 Phase 2.5 驗證)。該記憶體與 NPU 主記憶體完全實體隔離，並已從外部介面隱藏。
                                 <br/><br/>
                                 <strong>戰略價值：</strong> 此記憶體空間是刻意架構的，旨在支援 <strong>10年以上 L4/L5 政策 OTA 更新</strong>。車廠能將真實路測數據轉化為專屬的「安全矽智財資料庫」，在持續的路測優化中建立無法逾越的技術護城河。
+                            </p>
+                        </div>
+                    </section>
+                    
+                    {/* Section 5: WORM Evidence Ledger */}
+                    <section className="mb-10" data-aos="fade-up">
+                        <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
+                            <i className="fas fa-link text-indigo-400"></i> 5. WORM 不可變證據鏈與矽上區塊鏈
+                        </h2>
+                        <div className="bg-indigo-900/10 border-l-4 border-indigo-500 p-4 mb-4 rounded-r shadow-md">
+                            <h3 className="text-indigo-400 font-bold text-sm mb-1">專利請求項映射：Claim 11, 12, 14 &amp; 16</h3>
+                            <p className="text-slate-300 text-xs leading-relaxed">
+                                <strong>硬體機制：</strong> 每一次裁決事件都會<strong>同步觸發</strong>封裝邏輯。判決結果會透過專屬內部匯流排寫入隔離的 <strong>WORM (單寫多讀)</strong> 儲存區。此過程完全隱藏於封裝介面內部，以確保密碼學完整性。
                             </p>
                         </div>
                     </section>
