@@ -12,10 +12,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
     <style>
-        body { font-family: 'Inter', sans-serif; overflow-x: hidden; background-color: #0b1120; color: #e2e8f0; }
+        body { font-family: 'Inter', 'Noto Sans TC', sans-serif; overflow-x: hidden; background-color: #0b1120; color: #e2e8f0; }
         .glass-nav { background: rgba(11, 17, 32, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
         .accent-gradient { background: linear-gradient(135deg, #2563eb, #10b981); }
         .doc-card { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 0.75rem; padding: 2rem; }
@@ -31,21 +31,21 @@
         const Navbar = () => (
             <nav className="fixed w-full top-0 z-50 glass-nav transition-all">
                 <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                    <a href="index.html" className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
+                    <a href="index2.html" className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
                         <div className="w-8 h-8 accent-gradient rounded flex items-center justify-center shadow-lg shadow-blue-500/20">
                             <span className="font-bold text-white">W</span>
                         </div>
                         <div>
-                            <div className="font-bold text-lg tracking-tight text-white">WesmartAI</div>
-                            <div className="text-[10px] text-slate-400 uppercase tracking-widest">可信智慧整合有限公司</div>
+                            <div className="font-bold text-lg tracking-tight text-white">可信智慧整合</div>
+                            <div className="text-[10px] text-slate-400 uppercase tracking-widest">WesmartAI Co., Ltd.</div>
                         </div>
                     </a>
                     <div className="hidden md:flex text-sm font-medium text-slate-300 gap-8 items-center">
-                        <a href="index.html#architecture" className="hover:text-white transition">系統架構</a>
-                        <a href="ohacss.html" className="hover:text-white transition">平台產品</a>
-                        <a href="report.html" className="hover:text-white transition">FPGA 報告</a>
-                        <span className="text-blue-400 cursor-default">技術盡職調查</span>
-                        <a href="rtl-wrapper.html" className="hover:text-white transition">RTL 封裝</a>
+                        <a href="index2.html#architecture" className="hover:text-white transition">系統架構</a>
+                        <a href="ohacss2.html" className="hover:text-white transition">產品</a>
+                        <a href="report2.html" className="hover:text-white transition">FPGA 報告</a>
+                        <span className="text-blue-400 cursor-default border-b-2 border-blue-400 pb-1">技術盡職調查</span>
+                        <a href="rtl-wrapper2.html" className="hover:text-white transition">RTL 規格</a>
                         <a href="founder.html" className="hover:text-white transition">創辦人</a>
                         <a href="tech-dd.html" className="px-3 py-1 rounded-full border border-slate-600 hover:bg-slate-800 hover:text-white transition text-xs font-bold tracking-wider">EN</a>
                     </div>
@@ -58,10 +58,10 @@
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="grid md:grid-cols-3 gap-8 mb-12">
                         <div>
-                            <h4 className="text-white text-lg font-bold mb-4">WesmartAI</h4>
+                            <h4 className="text-white text-lg font-bold mb-4">可信智慧整合</h4>
                             <p className="text-sm leading-relaxed mb-4">
-                                讓信任透明化。<br/>
-                                晶片級實體隔離：Agentic AI 的終極合規防禦。
+                                讓信任清晰可見。<br/>
+                                矽級別的物理隔離：Agentic AI 的終極合規防禦。
                             </p>
                         </div>
                         <div>
@@ -72,13 +72,14 @@
                             </ul>
                         </div>
                         <div>
-                            <h4 className="text-white text-lg font-bold mb-4">探索</h4>
+                            <h4 className="text-white text-lg font-bold mb-4">網站導覽</h4>
                             <ul className="space-y-2 text-sm">
-                                <li><a href="index.html" className="hover:text-blue-400 transition text-left block">企業首頁</a></li>
-                                <li><a href="ohacss.html" className="hover:text-blue-400 transition text-left block">OHACSS 平台</a></li>
-                                <li><a href="report.html" className="hover:text-blue-400 transition text-left block">FPGA 實測報告</a></li>
-                                <li><a href="rtl-wrapper.html" className="hover:text-blue-400 transition text-left block">RTL 架構</a></li>
-                                <li><a href="founder.html" className="hover:text-blue-400 transition text-left block">關於創辦人</a></li>
+                                <li><a href="index2.html" className="hover:text-blue-400 transition text-left block">首頁</a></li>
+                                <li><a href="ohacss2.html" className="hover:text-blue-400 transition text-left block">OHACSS 產品</a></li>
+                                <li><a href="report2.html" className="hover:text-blue-400 transition text-left block">FPGA 報告</a></li>
+                                <li><a href="tech-dd2.html" className="hover:text-blue-400 transition text-left block">技術盡職調查 (Tech DD)</a></li>
+                                <li><a href="rtl-wrapper2.html" className="hover:text-blue-400 transition text-left block">RTL 架構規格</a></li>
+                                <li><a href="founder.html" className="hover:text-blue-400 transition text-left block">創辦人</a></li>
                                 <li className="pt-2"><a href="tech-dd.html" className="text-blue-400 hover:text-blue-300 font-bold transition text-left block flex items-center gap-2"><i className="fas fa-globe"></i> English (EN)</a></li>
                             </ul>
                         </div>
@@ -112,7 +113,7 @@
                         <div className="grid md:grid-cols-2 gap-4 mb-8 text-left">
                             <div className="bg-amber-900/20 border border-amber-600/50 p-4 rounded-lg shadow-lg">
                                 <h4 className="text-amber-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-microchip mr-2"></i>揭露聲明：55nm 實體驗證</h4>
-                                <p className="text-slate-300 text-xs leading-relaxed">Phase 2.5 效能數據（佈線延遲 2.844 ns，邏輯潛力 171 MHz，資源佔用 134 LUTs）源自 Gowin GW2A-18 FPGA (55nm 製程) 的物理實測與佈線後靜態時序分析 (STA)，並採用原生 SSRAM 記憶體感知映射。在成熟 55nm 節點上達成 sub-3ns 的佈線延遲，印證了極致的架構效率。推估遷移至先進車規 ASIC 節點（如 28nm/4nm）時，將能實現真正的亞奈秒級延遲。</p>
+                                <p className="text-slate-300 text-xs leading-relaxed">Phase 2.5 效能數據（5.136 ns 核心邏輯延遲，54.85 MHz 物理極限頻率，134 LUTs）源自 Gowin GW2A-18 FPGA (55nm 製程) 的物理實測與佈線後靜態時序分析 (STA)，並採用原生 SSRAM 區塊的記憶體感知映射。在成熟 55nm 節點上達成接近零延遲的表現，印證了極致的架構效率。這表明未來遷移至先進車規 ASIC 節點（如 28nm/4nm）時，將能輕鬆實現真正的亞奈秒級延遲。</p>
                             </div>
                             <div className="bg-orange-900/20 border border-orange-600/50 p-4 rounded-lg shadow-lg">
                                 <h4 className="text-orange-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-info-circle mr-2"></i>目標對齊：ASIL-B / 具備 ASIL-D 潛力</h4>
@@ -142,12 +143,12 @@
                         <h4 className="text-white font-bold mb-4">時序分析：巨大的安全裕度</h4>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-2">
                             <div className="bg-slate-800/50 border border-slate-700 p-4 rounded text-center">
-                                <div className="text-emerald-400 font-bold text-xl mb-1">2.844 ns</div>
-                                <div className="text-slate-400 text-xs">單次判決延遲</div>
+                                <div className="text-emerald-400 font-bold text-xl mb-1">5.136 ns</div>
+                                <div className="text-slate-400 text-xs">核心判決延遲</div>
                             </div>
                             <div className="bg-slate-800/50 border border-slate-700 p-4 rounded text-center">
-                                <div className="text-blue-400 font-bold text-xl mb-1">171 MHz</div>
-                                <div className="text-slate-400 text-xs">邏輯處理極限潛力</div>
+                                <div className="text-blue-400 font-bold text-xl mb-1">54.85 MHz</div>
+                                <div className="text-slate-400 text-xs">物理系統極限頻率</div>
                             </div>
                             <div className="bg-slate-800/50 border border-slate-700 p-4 rounded text-center opacity-70">
                                 <div className="text-rose-400 font-bold text-xl mb-1">8 ms</div>
@@ -231,7 +232,7 @@
                         </h2>
                         
                         <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                            Phase 2 定義為極簡的 PoC 概念驗證。<strong>Phase 2.5 (現階段)</strong> 則首次整合了完整的專利族，透過在 55nm FPGA 上的原生「記憶體感知綜合 (Memory-Aware Synthesis)」，我們實現了罕見的帕雷托改進 (Pareto Improvement)——在增加功能的同時，達成了面積更小、功耗更低、速度更快的優異表現。<strong>Phase 3</strong> 則描繪了商用量產規格，藉由擴充記憶體以支援長達 10 年以上的規則包更新，同時維持嚴格的確定性佈線延遲。
+                            Phase 2 定義為極簡的 PoC 概念驗證。<strong>Phase 2.5 (現階段)</strong> 則首次整合了完整的專利族，透過在 55nm FPGA 上的原生「記憶體感知綜合 (Memory-Aware Synthesis)」，達成了極致的面積與速度優化。<strong>Phase 3</strong> 則描繪了商用量產規格，藉由擴充記憶體以支援長達 10 年以上的規則包更新，同時維持嚴格的確定性佈線延遲。
                         </p>
 
                         <div className="overflow-x-auto rounded-lg border border-slate-700 mb-6">
@@ -240,7 +241,7 @@
                                     <tr>
                                         <th className="p-4 border-b border-slate-700">指標 (Metric)</th>
                                         <th className="p-4 border-b border-slate-700">Phase 2<br/><span className="text-xs text-slate-500 font-normal">(55nm 基準)</span></th>
-                                        <th className="p-4 border-b border-slate-700 text-cyan-400 font-bold">Phase 2.5 (現階段)<br/><span className="text-xs text-cyan-700 font-normal">(55nm 實測)</span></th>
+                                        <th className="p-4 border-b border-slate-700 text-cyan-400 font-bold">Phase 2.5 (現階段)<br/><span className="text-xs text-cyan-700 font-normal">(55nm STA 實測)</span></th>
                                         <th className="p-4 border-b border-slate-700 text-amber-400 font-bold">Phase 3 (商用)<br/><span className="text-xs text-amber-700 font-normal">(量產規格)</span></th>
                                         <th className="p-4 border-b border-slate-700 text-purple-400 font-bold">先進製程<br/><span className="text-xs text-purple-700 font-normal">(28nm/7nm ASIC)</span></th>
                                     </tr>
@@ -249,7 +250,7 @@
                                     <tr className="border-b border-slate-800 bg-slate-800/20">
                                         <td className="p-4 font-bold text-white">儲存架構</td>
                                         <td className="p-4 border-r border-slate-800">暫存器陣列 (Registers)</td>
-                                        <td className="p-4 text-cyan-300">4 組 SSRAMs</td>
+                                        <td className="p-4 text-cyan-300">原生 SSRAMs</td>
                                         <td className="p-4 text-amber-300">整合型記憶體系統</td>
                                         <td className="p-4 text-purple-300">SRAM Compiler / ROM</td>
                                     </tr>
@@ -261,23 +262,23 @@
                                         <td className="p-4 text-purple-300">256 KB+ (具備擴展性)</td>
                                     </tr>
                                     <tr className="border-b border-slate-800 bg-slate-800/20">
-                                        <td className="p-4 font-bold text-white">佈線延遲 (Routing)</td>
+                                        <td className="p-4 font-bold text-white">核心邏輯延遲</td>
                                         <td className="p-4 border-r border-slate-800">17.360 ns</td>
-                                        <td className="p-4 text-cyan-300 font-bold">2.844 ns <span className="text-emerald-400 text-xs ml-1">(-83%)</span></td>
+                                        <td className="p-4 text-cyan-300 font-bold">5.136 ns <span className="text-emerald-400 text-xs ml-1">(-70%)</span></td>
                                         <td className="p-4 text-amber-300">~4.2 ns (預估)</td>
                                         <td className="p-4 text-purple-300">&lt; 0.8 ns</td>
                                     </tr>
                                     <tr className="border-b border-slate-800">
-                                        <td className="p-4 font-bold text-white">最高頻率 (邏輯潛力)</td>
+                                        <td className="p-4 font-bold text-white">系統最高頻率 (極限)</td>
                                         <td className="p-4 border-r border-slate-800">56.3 MHz</td>
-                                        <td className="p-4 text-cyan-300">171 MHz</td>
+                                        <td className="p-4 text-cyan-300">54.85 MHz</td>
                                         <td className="p-4 text-amber-300">120~150 MHz</td>
                                         <td className="p-4 text-purple-300">450 MHz ~ 1.2 GHz</td>
                                     </tr>
                                     <tr className="border-b border-slate-800 bg-slate-800/20">
                                         <td className="p-4 font-bold text-white">邏輯面積 (Logic Area)</td>
                                         <td className="p-4 border-r border-slate-800">601 LUTs</td>
-                                        <td className="p-4 text-cyan-300">134 LUTs</td>
+                                        <td className="p-4 text-cyan-300">134 LUTs + 106 REGs</td>
                                         <td className="p-4 text-amber-300">~250 LUTs</td>
                                         <td className="p-4 text-purple-300">&lt; 5,000 Gates</td>
                                     </tr>
@@ -519,7 +520,7 @@
                             下一步：硬體模擬與預認證
                         </h2>
                         <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                            Phase 2.5 已在 55nm FPGA 晶片上完成驗證，確立了 134 LUTs 資源佔用與 sub-3ns 延遲的基準。我們目前正與 Tier-1 夥伴展開 <strong>AXI-Lite 硬體模擬 (基於 Palladium/Zebu)</strong>，並積極整合具備擴充性的 256KB 商用記憶體規格 (Phase 3)。
+                            Phase 2.5 已在 55nm FPGA 晶片上完成驗證，確立了 134 LUTs 資源佔用與 5.136 ns 核心延遲的極致基準。我們目前正與 Tier-1 夥伴展開 <strong>AXI-Lite 硬體模擬 (基於 Palladium/Zebu)</strong>，並積極整合具備擴充性的 256KB 商用記憶體規格 (Phase 3)。
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 items-center">
                             <a href="mailto:weshuangimpact@gmail.com" className="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition text-center shadow-lg shadow-blue-500/20">
