@@ -85,7 +85,7 @@
             </div>
             <div class="max-w-3xl mx-auto mt-4 text-left">
                 <p class="text-emerald-400/90 text-xs leading-relaxed border-l-2 border-emerald-500 pl-3">
-                    <strong>* 硬體驗證聲明：</strong> 本次佈線後靜態時序分析 (Post-route STA) 係於 Gowin GW2A-18 (20K FPGA) 上執行，採用成熟的 <strong>55奈米製程</strong>。在 55奈米節點上達成 6.173 奈秒延遲且零時序違規，證明了我們記憶體感知 RTL 設計的極致效率。這顯示在未來遷移至先進車用 ASIC 節點 (例如 28nm/4nm) 時，將能輕鬆實現次奈秒 (Sub-nanosecond) 等級的物理延遲。
+                    <strong>* 硬體驗證聲明：</strong> 本次佈線後靜態時序分析 (Post-route STA) 係於 Gowin GW2A-18 (20K FPGA) 上執行，採用成熟的 <strong>55奈米製程</strong>。在 55奈米節點上達成 5.136 奈秒核心延遲且零時序違規，證明了我們記憶體感知 RTL 設計的極致效率。這顯示在未來遷移至先進車用 ASIC 節點 (例如 28nm/4nm) 時，將能輕鬆實現次奈秒 (Sub-nanosecond) 等級的物理延遲。
                 </p>
             </div>
         </div>
@@ -154,14 +154,14 @@
                 <div class="bg-cyan-900/20 border border-cyan-700/50 rounded-lg p-4 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
                     <h4 class="text-cyan-400 text-sm font-bold mb-2"><i class="fas fa-microchip mr-2"></i>架構優化里程碑</h4>
                     <p class="text-slate-300 text-xs leading-relaxed">
-                        將邏輯映射轉換為利用 55奈米架構上的原生 SSRAM，導致了面積降至 <strong>小於 1% 的極低使用率</strong>，並確保了 <strong>170.999 MHz</strong> 的穩定運作頻率。
+                        將邏輯映射轉換為利用 55奈米架構上的原生 SSRAM，導致了面積降至 <strong>134 LUTs 與 106 REGs</strong> (小於 1% 的使用率)，並成功確立了 <strong>54.85 MHz</strong> 的物理運行極限。
                     </p>
                 </div>
 
                 <div class="bg-emerald-900/20 border border-emerald-700/50 rounded-lg p-4 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
                     <h4 class="text-emerald-400 text-sm font-bold mb-2"><i class="fas fa-bolt mr-2"></i>為何採用 SSRAM？實現 O(1) 確定性</h4>
                     <p class="text-slate-300 text-xs leading-relaxed">
-                        透過將版本化的規則包 (Versioned Rulepack) 直接映射至原生的 SSRAM 區塊，本架構實現了 <strong>O(1) 恆定時間查找</strong>。這確保了無論安全規則擴展到多大規模，物理佈線延遲都將保持完美的恆定不變，從而在物理層面上徹底阻斷不合規的 AI 指令接觸致動器。
+                        透過將版本化的規則包 (Versioned Rulepack) 直接映射至原生的 SSRAM 區塊，本架構實現了 <strong>O(1) 恆定時間查找</strong>。這確保了無論安全規則擴展到多大規模，物理邏輯運算深度都將完美維持在精確的 6 層，從而在物理層面上徹底阻斷不合規的 AI 指令接觸致動器。
                     </p>
                 </div>
             </div>
@@ -180,19 +180,19 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">資料抵達時間 (Data Arrival Time)</td>
+                            <td class="font-medium text-slate-200 text-left">核心邏輯延遲 (Core Logic Latency)</td>
                             <td class="text-slate-400">17.360 ns</td>
-                            <td class="text-cyan-400 font-bold">6.173 ns</td>
+                            <td class="text-cyan-400 font-bold">5.136 ns</td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">實際最高頻率 (Fmax)</td>
+                            <td class="font-medium text-slate-200 text-left">實際系統最高頻率 (Fmax)</td>
                             <td class="text-slate-400">56.3 MHz</td>
-                            <td class="text-cyan-400 font-bold">170.999 MHz</td>
+                            <td class="text-cyan-400 font-bold">54.85 MHz</td>
                         </tr>
                         <tr>
                             <td class="font-medium text-slate-200 text-left">邏輯資源耗用</td>
                             <td class="text-slate-400">601 LUTs</td>
-                            <td class="text-cyan-400 font-bold">172 資源 (含 4 SSRAM)</td>
+                            <td class="text-cyan-400 font-bold">134 LUTs + 106 REGs + SSRAM</td>
                         </tr>
                         <tr>
                             <td class="font-medium text-slate-200 text-left">組合邏輯層數</td>
@@ -209,7 +209,7 @@
                 <div class="bg-slate-900 p-5 rounded border border-slate-700">
                     <div class="flex justify-between items-center w-full mb-3">
                         <div class="text-slate-400 text-xs uppercase tracking-wider text-left">絕對確定性 <br><span class="text-sky-500 font-bold normal-case text-sm">無抖動執行 (Jitter-Free)</span></div>
-                        <div class="text-cyan-400 font-bold text-3xl">6.173 <span class="text-xl">ns</span></div>
+                        <div class="text-cyan-400 font-bold text-3xl">5.136 <span class="text-xl">ns</span></div>
                     </div>
                     <div class="border-t border-slate-700/50 pt-3 mt-2 text-left">
                         <span class="inline-block bg-blue-900/50 text-blue-300 text-[10px] px-2 py-0.5 rounded mb-2">規則擴展性已驗證</span>
