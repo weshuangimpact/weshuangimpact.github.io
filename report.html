@@ -144,7 +144,7 @@
                 <span class="bg-cyan-900/40 border border-cyan-500/50 text-cyan-400 text-xs px-2 py-1 rounded uppercase tracking-wider">55nm STA Data</span>
             </div>
             
-            <div class="mb-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="lg:col-span-2">
                     <p class="text-slate-300 text-sm leading-relaxed mb-4">
                         To guarantee ASIC migration readiness for Tier-1 automotive SoCs, the RTL logic was fundamentally optimized on the 55nm FPGA architecture (Gowin 20K). By integrating 100% of the patented claims—including the Hardware Crypto Engine—we triggered advanced memory-aware synthesis, yielding an exponential performance leap even on a mature process node.
@@ -155,6 +155,13 @@
                     <h4 class="text-cyan-400 text-sm font-bold mb-2"><i class="fas fa-microchip mr-2"></i>Architectural Milestone</h4>
                     <p class="text-slate-300 text-xs leading-relaxed">
                         Transitioning our logic mapping to utilize SSRAM on the 55nm architecture resulted in an optimal footprint of <strong>&lt;1% utilization</strong> and a stabilized operating frequency of <strong>170.999 MHz</strong>.
+                    </p>
+                </div>
+
+                <div class="bg-emerald-900/20 border border-emerald-700/50 rounded-lg p-4 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+                    <h4 class="text-emerald-400 text-sm font-bold mb-2"><i class="fas fa-bolt mr-2"></i>Why SSRAM? The O(1) Determinism</h4>
+                    <p class="text-slate-300 text-xs leading-relaxed">
+                        By mapping the Versioned Rulepack directly to native SSRAM blocks, the architecture achieves <strong>O(1) deterministic lookup</strong>. This ensures physical routing latency remains perfectly constant regardless of how many safety rules are scaled, physically blocking non-compliant AI instructions from reaching the actuator.
                     </p>
                 </div>
             </div>
