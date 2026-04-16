@@ -85,7 +85,7 @@
             </div>
             <div class="max-w-3xl mx-auto mt-4 text-left">
                 <p class="text-emerald-400/90 text-xs leading-relaxed border-l-2 border-emerald-500 pl-3">
-                    <strong>* Note on Hardware Validation:</strong> This post-route Static Timing Analysis (STA) was executed on the Gowin GW2A-18 (20K FPGA), utilizing a mature <strong>55nm process</strong>. Achieving 4.561 ns latency and zero violations on a 55nm node proves the extreme efficiency of our memory-aware RTL design. This indicates that sub-nanosecond physical latency will be easily achievable upon migration to advanced Automotive ASIC nodes (e.g., 28nm/4nm).
+                    <strong>* Note on Hardware Validation:</strong> This post-route Static Timing Analysis (STA) was executed on the Gowin GW2A-18 (20K FPGA), utilizing a mature <strong>55nm process</strong>. Achieving 6.173 ns latency and zero violations on a 55nm node proves the extreme efficiency of our memory-aware RTL design. This indicates that sub-nanosecond physical latency will be easily achievable upon migration to advanced Automotive ASIC nodes (e.g., 28nm/4nm).
                 </p>
             </div>
         </div>
@@ -154,7 +154,7 @@
                 <div class="bg-cyan-900/20 border border-cyan-700/50 rounded-lg p-4 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
                     <h4 class="text-cyan-400 text-sm font-bold mb-2"><i class="fas fa-microchip mr-2"></i>Architectural Milestone</h4>
                     <p class="text-slate-300 text-xs leading-relaxed">
-                        Transitioning our logic mapping to utilize native BSRAM on the 55nm architecture resulted in a <strong>70% reduction in logic footprint</strong> and a <strong>286% leap in operating frequency</strong>.
+                        Transitioning our logic mapping to utilize SSRAM on the 55nm architecture resulted in an optimal footprint of <strong>&lt;1% utilization</strong> and a stabilized operating frequency of <strong>170.999 MHz</strong>.
                     </p>
                 </div>
             </div>
@@ -173,24 +173,24 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">O(1) Routing Delay</td>
+                            <td class="font-medium text-slate-200 text-left">Data Arrival Time</td>
                             <td class="text-slate-400">17.360 ns</td>
-                            <td class="text-cyan-400 font-bold">4.561 ns</td>
+                            <td class="text-cyan-400 font-bold">6.173 ns</td>
                         </tr>
                         <tr>
                             <td class="font-medium text-slate-200 text-left">Max Freq (Fmax)</td>
                             <td class="text-slate-400">56.3 MHz</td>
-                            <td class="text-cyan-400 font-bold">217.5 MHz</td>
+                            <td class="text-cyan-400 font-bold">170.999 MHz</td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">Logic Area (LUTs)</td>
-                            <td class="text-slate-400">601</td>
-                            <td class="text-cyan-400 font-bold">142 + 3 BSRAM</td>
+                            <td class="font-medium text-slate-200 text-left">Logic Area</td>
+                            <td class="text-slate-400">601 LUTs</td>
+                            <td class="text-cyan-400 font-bold">172 資源 (含 4 SSRAM)</td>
                         </tr>
                         <tr>
                             <td class="font-medium text-slate-200 text-left">Combinational Logic Levels</td>
                             <td class="text-slate-400">10</td>
-                            <td class="text-cyan-400 font-bold">5</td>
+                            <td class="text-cyan-400 font-bold">6</td>
                         </tr>
                     </tbody>
                 </table>
@@ -202,12 +202,12 @@
                 <div class="bg-slate-900 p-5 rounded border border-slate-700">
                     <div class="flex justify-between items-center w-full mb-3">
                         <div class="text-slate-400 text-xs uppercase tracking-wider text-left">Absolute Determinism <br><span class="text-sky-500 font-bold normal-case text-sm">Jitter-Free Execution</span></div>
-                        <div class="text-cyan-400 font-bold text-3xl">4.561 <span class="text-xl">ns</span></div>
+                        <div class="text-cyan-400 font-bold text-3xl">6.173 <span class="text-xl">ns</span></div>
                     </div>
                     <div class="border-t border-slate-700/50 pt-3 mt-2 text-left">
                         <span class="inline-block bg-blue-900/50 text-blue-300 text-[10px] px-2 py-0.5 rounded mb-2">Rule Scalability Verified</span>
                         <p class="text-slate-300 text-sm leading-relaxed">
-                            Post-Route STA verifies the hardware pipeline maintains resolution in exactly <strong>5 logic levels</strong>, ensuring perfectly constant physical delay even when scaling safety rules.
+                            Post-Route STA verifies the hardware pipeline maintains resolution in exactly <strong>6 logic levels</strong>, ensuring perfectly constant physical delay even when scaling safety rules.
                         </p>
                     </div>
                 </div>
