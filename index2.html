@@ -464,6 +464,54 @@
                         </div>
                     </section>
 
+                    {/* Architectural Advantage: Asynchronous Decoupling */}
+                    <section id="architecture-decoupling" className="py-20 bg-[#0a101d] relative border-t border-slate-800/50">
+                        <div className="max-w-7xl mx-auto px-6 relative z-10">
+                            <div className="glass-card p-10 rounded-2xl border border-blue-500/20 shadow-2xl relative overflow-hidden" data-aos="fade-up">
+                                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 blur-[80px] rounded-full pointer-events-none"></div>
+                                
+                                <div className="flex flex-col md:flex-row gap-12 items-center">
+                                    <div className="md:w-5/12">
+                                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-600 text-slate-300 text-xs font-bold uppercase tracking-widest mb-4">
+                                            核心架構優勢
+                                        </div>
+                                        <h3 className="text-2xl md:text-3xl font-black text-white mb-4 leading-tight">
+                                            非同步解耦執行架構
+                                        </h3>
+                                        <p className="text-slate-400 leading-relaxed text-sm">
+                                            我們的雙路徑硬體架構將「物理防護邊界」與「密碼學稽核軌跡」進行嚴格的非同步解耦。這確保了升級至金融級 SHA-256 引擎的合規運算能完全在背景獨立執行，絕不會卡死或拖累任務關鍵的確定性物理攔截。
+                                        </p>
+                                    </div>
+                                    
+                                    <div className="md:w-7/12 w-full grid grid-cols-1 sm:grid-cols-2 gap-6 relative">
+                                        {/* Connector icon for desktop */}
+                                        <div className="hidden sm:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 items-center justify-center text-slate-600 z-10 bg-[#0a101d] rounded-full border border-slate-700">
+                                            <i className="fas fa-layer-group text-sm"></i>
+                                        </div>
+                                        
+                                        <div className="bg-slate-900/80 p-6 rounded-xl border border-cyan-500/30 relative overflow-hidden group hover:border-cyan-400/60 transition-colors">
+                                            <div className="absolute top-0 left-0 w-1 h-full bg-cyan-500"></div>
+                                            <div className="text-4xl font-black text-cyan-400 mb-1 tracking-tight">6 <span className="text-lg font-bold text-cyan-500">ns</span></div>
+                                            <div className="text-xs font-bold text-white mb-2 uppercase tracking-wide">路徑一：即時實體攔截</div>
+                                            <p className="text-xs text-slate-400 leading-relaxed">
+                                                純確定性組合邏輯層。瞬間評估邊界條件並執行絕對的 ALLOW/DENY 實體閘門硬體決策。
+                                            </p>
+                                        </div>
+                                        
+                                        <div className="bg-slate-900/80 p-6 rounded-xl border border-purple-500/30 relative overflow-hidden group hover:border-purple-400/60 transition-colors">
+                                            <div className="absolute top-0 left-0 w-1 h-full bg-purple-500"></div>
+                                            <div className="text-4xl font-black text-purple-400 mb-1 tracking-tight">2.4 <span className="text-lg font-bold text-purple-500">μs</span></div>
+                                            <div className="text-xs font-bold text-white mb-2 uppercase tracking-wide">路徑二：背景治理證據鏈</div>
+                                            <p className="text-xs text-slate-400 leading-relaxed">
+                                                非同步 SHA-256 引擎。處理離線佇列生成不可竄改雜湊鏈，在下一次 AI 推論前具備 &gt;1000 倍以上的系統餘裕。
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
                     {/* PHASE 3: Tier-1 PoC */}
                     <section id="poc-target" className="py-24 bg-[#070b14] border-t border-white/5 relative overflow-hidden">
                         <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -531,7 +579,7 @@
         };
 
         // Attach global modal function for the onClick handler in the HTML
-        window.openModal = (imgSrc, caption = "Global IP Strategy & Patent Evolution Timeline") => {
+        window.openModal = (imgSrc, caption = "全球智財戰略與專利演進時間軸") => {
             document.getElementById('modalImage').src = imgSrc;
             document.getElementById('modalCaption').innerText = caption;
             document.getElementById('imageModal').classList.remove('hidden');
