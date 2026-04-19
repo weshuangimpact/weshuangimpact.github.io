@@ -176,7 +176,7 @@
                             <i className="fas fa-microchip text-slate-400"></i> 1. System Base Control &amp; UART Interface
                         </h2>
                         <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-2">
-                            <SignalRow name="clk" type="IN" color="#00FF00" desc="System clock signal driving the internal Finite State Machine (FSM) and registers (Verified at 54.85 MHz Fmax)." />
+                            <SignalRow name="clk" type="IN" color="#00FF00" desc="System clock signal driving the internal Finite State Machine (FSM) and registers (Verified at 55.752 MHz Fmax)." />
                             <SignalRow name="rst_n" type="IN" color="#00FFFF" desc="Active-low hardware reset signal." />
                             <SignalRow name="uart_rx" type="IN" color="#00FFFF" desc="UART receive pin for external data ingestion (Simulating NPU inference requests and RulePack updates in Phase 2.5)." />
                         </div>
@@ -204,7 +204,7 @@
                             <p className="text-slate-300 text-xs leading-relaxed">Ensures NPU inference requests enter the SVG module strictly "one-way," completely blocking non-deterministic environments from probing the internal adjudication block.</p>
                         </div>
                         <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-4 text-sm text-slate-400 italic">
-                            * Core logic signals (e.g., 32-bit torque requests, SSRAM rule bounds, Gate Allow/Deny) are fully encapsulated within the `SVG_FPGA_Wrapper_UART` module to protect proprietary IP. The internal deterministic logic evaluates data ingested via `uart_rx` through an ultra-shallow 6-level combinational depth and strictly outputs results to the physical LEDs and cryptographic probes.
+                            * Core logic signals (e.g., 32-bit torque requests, SSRAM rule bounds, Gate Allow/Deny) are fully encapsulated within the `SVG_FPGA_Wrapper_UART` module to protect proprietary IP. The internal deterministic logic evaluates data ingested via `uart_rx` through an ultra-shallow 3-level combinational depth and strictly outputs results to the physical LEDs and cryptographic probes.
                         </div>
                     </section>
 
@@ -216,7 +216,7 @@
                         <div className="bg-cyan-900/10 border-l-4 border-cyan-500 p-4 mb-4 rounded-r shadow-md">
                             <h3 className="text-cyan-400 font-bold text-sm mb-1">Patent Claim Mapping: Claim 1, 9 &amp; 10</h3>
                             <p className="text-slate-300 text-xs leading-relaxed">
-                                <strong>Mechanism:</strong> Versioned RulePacks are loaded into a <strong>dedicated SSRAM array</strong> (Verified in Phase 2.5 STA as natively mapped SSRAM blocks). This memory is physically isolated from the NPU's main memory, reducing the overall logic footprint to just 134 LUTs.
+                                <strong>Mechanism:</strong> Versioned RulePacks are loaded into a <strong>dedicated SSRAM array</strong> (Verified in Phase 2.5 STA as natively mapped SSRAM blocks). This memory is physically isolated from the NPU's main memory, resulting in an optimized logic footprint of 1212 LUTs alongside the 4 internal SSRAM blocks.
                                 <br/><br/>
                                 <strong>Strategic Value:</strong> The memory space is intentionally architected to support <strong>10+ years of L4/L5 policy updates via OTA</strong>. OEMs can convert real-world driving data into a proprietary "Safety IP Database," building an insurmountable technical moat while adaptation occurs through continuous road-test refinement.
                             </p>
@@ -230,7 +230,7 @@
                             Future Integration: Emulation &amp; Pre-Certification
                         </h2>
                         <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                            With Phase 2.5 extreme optimization complete on 55nm FPGA, exposing a clean UART interface and an optimized 5.136 ns latency core, we are ready for <strong>AXI-Lite Emulation (Palladium/Zebu)</strong>. Our hardware-enforced governance bypasses the soft-error bottleneck, providing a direct, silicon-accelerated path to ASIL-D and AI Act admissibility.
+                            With Phase 2.5 extreme optimization complete on 55nm FPGA, exposing a clean UART interface and an optimized 17.936 ns critical path latency core, we are ready for <strong>AXI-Lite Emulation (Palladium/Zebu)</strong>. Our hardware-enforced governance bypasses the soft-error bottleneck, providing a direct, silicon-accelerated path to ASIL-D and AI Act admissibility.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 items-center">
                             <a href="mailto:weshuangimpact@gmail.com" className="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition text-center shadow-lg shadow-blue-500/20">
