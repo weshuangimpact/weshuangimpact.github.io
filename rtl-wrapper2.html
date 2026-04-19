@@ -49,7 +49,7 @@
                         <a href="report2.html" className="hover:text-white transition">FPGA 報告</a>
                         <a href="tech-dd2.html" className="hover:text-white transition">Tech DD</a>
                         <span className="text-blue-400 cursor-default border-b-2 border-blue-400 pb-1">RTL 規格</span>
-                        <a href="founder2.html" className="hover:text-white transition">創辦人</a>
+                        <a href="founder.html" className="hover:text-white transition">創辦人</a>
                         <a href="rtl-wrapper.html" className="px-3 py-1 rounded-full border border-slate-600 hover:bg-slate-800 hover:text-white transition text-xs font-bold tracking-wider">EN</a>
                     </div>
                 </div>
@@ -175,7 +175,7 @@
                             <i className="fas fa-microchip text-slate-400"></i> 1. 系統基礎控制與 UART 介面
                         </h2>
                         <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-2">
-                            <SignalRow name="clk" type="IN" color="#00FF00" desc="系統時脈訊號，驅動內部的有限狀態機 (FSM) 與暫存器 (已驗證於 54.85 MHz Fmax)。" />
+                            <SignalRow name="clk" type="IN" color="#00FF00" desc="系統時脈訊號，驅動內部的有限狀態機 (FSM) 與暫存器 (已驗證於 55.752 MHz Fmax)。" />
                             <SignalRow name="rst_n" type="IN" color="#00FFFF" desc="硬體重置訊號 (低態致能, Active-low)。" />
                             <SignalRow name="uart_rx" type="IN" color="#00FFFF" desc="UART 接收引腳，用於外部資料匯入 (在 Phase 2.5 中模擬 NPU 推論請求與 RulePack 更新)。" />
                         </div>
@@ -203,7 +203,7 @@
                             <p className="text-slate-300 text-xs leading-relaxed">確保 NPU 推論請求僅能以「單向」方式進入 SVG 模組，徹底阻斷非確定性環境對內部裁決區塊的任何探測。</p>
                         </div>
                         <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-4 text-sm text-slate-400 italic">
-                            * 為保護專屬矽智財，核心邏輯訊號 (如：32位元扭力請求、SSRAM 規則邊界、閘門允許/拒絕) 已完全封裝於 `SVG_FPGA_Wrapper_UART` 模組內部。內部確定性邏輯透過極淺的 6 層組合邏輯深度，評估經由 `uart_rx` 匯入的資料，並嚴格限制僅能輸出結果至物理 LED 與密碼學探針。
+                            * 為保護專屬矽智財，核心邏輯訊號 (如：32位元扭力請求、SSRAM 規則邊界、閘門允許/拒絕) 已完全封裝於 `SVG_FPGA_Wrapper_UART` 模組內部。內部確定性邏輯透過極淺的 3 層組合邏輯深度，評估經由 `uart_rx` 匯入的資料，並嚴格限制僅能輸出結果至物理 LED 與密碼學探針。
                         </div>
                     </section>
 
@@ -215,7 +215,7 @@
                         <div className="bg-cyan-900/10 border-l-4 border-cyan-500 p-4 mb-4 rounded-r shadow-md">
                             <h3 className="text-cyan-400 font-bold text-sm mb-1">專利請求項映射：Claim 1, 9 &amp; 10</h3>
                             <p className="text-slate-300 text-xs leading-relaxed">
-                                <strong>硬體機制：</strong> 版本化的 RulePacks 被載入至<strong>專屬的 SSRAM 陣列</strong>中 (已於 Phase 2.5 STA 驗證為原生映射的 SSRAM 區塊)。該記憶體與 NPU 主記憶體完全實體隔離，並成功將整體邏輯面積大幅縮減至僅 134 LUTs。
+                                <strong>硬體機制：</strong> 版本化的 RulePacks 被載入至<strong>專屬的 SSRAM 陣列</strong>中 (已於 Phase 2.5 STA 驗證為原生映射的 SSRAM 區塊)。該記憶體與 NPU 主記憶體完全實體隔離，配合優化後的內部邏輯，整體資源佔用為 1212 LUTs 及 4 塊內部 SSRAM。
                                 <br/><br/>
                                 <strong>戰略價值：</strong> 此記憶體空間是刻意架構的，旨在支援 <strong>10年以上 L4/L5 政策 OTA 更新</strong>。車廠能將真實路測數據轉化為專屬的「安全矽智財資料庫」，在持續的路測優化中建立無法逾越的技術護城河。
                             </p>
@@ -242,7 +242,7 @@
                             未來整合：硬體模擬與預認證
                         </h2>
                         <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                            隨著階段 2.5 在 55nm FPGA 上的極致優化完成，暴露了簡潔的 UART 介面以及優化至 5.136 ns 的核心延遲，我們已準備好進入 <strong>AXI-Lite 硬體模擬 (Palladium/Zebu)</strong> 階段。我們硬體強制執行的治理架構繞過了軟體錯誤的瓶頸，提供了一條直達 ASIL-D 認證與 AI 法案法律可採信性的矽加速捷徑。
+                            隨著階段 2.5 在 55nm FPGA 上的極致優化完成，暴露了簡潔的 UART 介面以及優化至 17.936 ns 關鍵路徑延遲的核心邏輯，我們已準備好進入 <strong>AXI-Lite 硬體模擬 (Palladium/Zebu)</strong> 階段。我們硬體強制執行的治理架構繞過了軟體錯誤的瓶頸，提供了一條直達 ASIL-D 認證與 AI 法案法律可採信性的矽加速捷徑。
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 items-center">
                             <a href="mailto:weshuangimpact@gmail.com" className="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition text-center shadow-lg shadow-blue-500/20">
