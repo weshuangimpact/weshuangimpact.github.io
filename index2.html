@@ -165,7 +165,7 @@
                                         </div>
                                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-900/60 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
                                             <WIcon name="Activity" size={14} />
-                                            <span>階段 2.5：55奈米極致優化</span>
+                                            <span>階段 2.5：量產前置規則引擎</span>
                                         </div>
                                     </div>
                                     
@@ -193,8 +193,8 @@
                                             <WIcon name="Zap" size={24} />
                                         </div>
                                         <div>
-                                            <div className="text-sm font-bold text-white">超低延遲</div>
-                                            <div className="text-xs text-slate-300">5.136 奈秒 (核心邏輯延遲)</div>
+                                            <div className="text-sm font-bold text-white">絕對確定性</div>
+                                            <div className="text-xs text-slate-300">37 μs (滿載 1024 條規則最差執行時間)</div>
                                         </div>
                                     </div>
                                 </div>
@@ -222,7 +222,7 @@
                                     </div>
                                     <h3 className="text-xl font-bold text-white mb-3">第 14 條：機器速度下的人類監督</h3>
                                     <p className="text-slate-400 text-sm leading-relaxed">
-                                        人類如何監督以時速 100 公里運作的 Agentic AI？傳統軟體依賴「人在迴路 (Human-in-the-loop)」，這在車輛高速行駛時物理上根本不可行。SVG 透過在部署前將「人類意志」編碼至硬體載入的規則包 (RulePack) 中來解決此問題。在 5.136 奈秒內，硬體嚴格執行此人類意志 (ALLOW / DENY / PENDING)。若情境不確定，硬體將觸發 <strong>PENDING</strong> 狀態，物理隔離該動作並交由人類判斷或安全備援接管。這是機器速度下唯一可行的人類監督形式。
+                                        人類如何監督以時速 100 公里運作的 Agentic AI？傳統軟體依賴「人在迴路 (Human-in-the-loop)」，這在車輛高速行駛時物理上根本不可行。SVG 透過在部署前將「人類意志」編碼至硬體載入的規則包 (RulePack) 中來解決此問題。硬體持續在物理極限下運作，嚴格執行此人類意志 (ALLOW / DENY / PENDING)。若情境不確定，硬體將觸發 <strong>PENDING</strong> 狀態，物理隔離該動作並交由人類判斷或安全備援接管。這是機器速度下唯一可行的人類監督形式。
                                     </p>
                                 </div>
                                 
@@ -365,100 +365,88 @@
                                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-900/30 border border-blue-700/50 text-blue-400 text-xs font-bold uppercase tracking-widest mb-4">
                                         階段二：矽智財 MVP
                                     </div>
-                                    <h2 className="text-3xl md:text-4xl font-black text-white mb-3">矽智財與 FPGA 驗證 <br/><span className="text-xl text-slate-400 font-medium">(55奈米架構 - Gowin 9K)</span></h2>
-                                    <p className="text-slate-400">驗證確定性的物理邏輯轉換與基準能力。</p>
+                                    <h2 className="text-3xl md:text-4xl font-black text-white mb-3">RTL 物理層驗證 <br/><span className="text-xl text-slate-400 font-medium">(55奈米架構 - Gowin 9K)</span></h2>
+                                    <p className="text-slate-400">在進入完整引擎架構前，驗證絕對物理防禦邊界與硬體攔截基準能力。</p>
                                 </div>
                             </div>
                             
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="100">
                                     <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
                                         17.360 <span className="text-2xl">ns</span>
                                     </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">恆定延遲</div>
-                                    <p className="text-sm text-blue-100/60">絕對且確定性的物理資料路徑延遲。</p>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">概念驗證延遲</div>
+                                    <p className="text-sm text-blue-100/60">成功證明了在奈秒級速度下，純硬體物理攔截的絕對可行性。</p>
                                 </div>
                                 
                                 <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="200">
                                     <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
                                         601 <span className="text-2xl">LUTs</span>
                                     </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">邏輯面積</div>
-                                    <p className="text-sm text-blue-100/60">極輕量化的核心引擎，建立概念驗證 (PoC) 基準。</p>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">基礎邏輯面積</div>
+                                    <p className="text-sm text-blue-100/60">極輕量化的核心邏輯，為未來的解析引擎擴充奠定基礎。</p>
                                 </div>
                                 
                                 <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="300">
                                     <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
-                                        0.613 <span className="text-2xl">mW</span>
-                                    </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">動態功耗</div>
-                                    <p className="text-sm text-blue-100/60">對於能源敏感的邊緣 AI 環境幾乎零負擔。</p>
-                                </div>
-                                
-                                <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="400">
-                                    <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
                                         100%
                                     </div>
                                     <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">免疫 OS 崩潰</div>
-                                    <p className="text-sm text-blue-100/60">剝離所有韌體依賴的純物理邏輯執行。</p>
+                                    <p className="text-sm text-blue-100/60">剝離所有韌體依賴與作業系統漏洞的純物理邏輯執行。</p>
                                 </div>
                             </div>
                         </div>
                     </section>
 
-                    {/* PHASE 2.5: Advanced Node Scaling */}
+                    {/* PHASE 2.5: MP-Ready Rule Engine (REWRITTEN FOR V4.2) */}
                     <section id="phase-2-5" className="py-24 bg-[#080d1a] relative overflow-hidden border-t border-cyan-900/30">
                         <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-cyan-900/10 to-transparent pointer-events-none"></div>
                         <div className="max-w-7xl mx-auto px-6 relative z-10">
                             <div className="text-center mb-16" data-aos="fade-up">
                                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-900/40 border border-cyan-500/50 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-4 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
-                                    階段 2.5：記憶體感知合成
+                                    階段 2.5：量產前置 (MP-Ready) 規則引擎 (v4.2)
                                 </div>
                                 <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
-                                    完整請求項覆蓋與極致優化 <br/>
-                                    <span className="text-xl text-cyan-400/80 font-medium mt-2 block tracking-wide">(55奈米 Gowin 20K • 佈線後 STA)</span>
+                                    Rule-as-Data 數據化規則架構與全專利覆蓋 <br/>
+                                    <span className="text-xl text-cyan-400/80 font-medium mt-2 block tracking-wide">(55奈米 Gowin Tang Primer 20K • 超額配置容量)</span>
                                 </h2>
                                 <p className="text-slate-400 max-w-3xl mx-auto leading-relaxed text-lg">
-                                    在 55奈米 FPGA 架構上從根本優化 RTL，我們整合了 <strong className="text-white">100% 的專利請求項</strong>——包含 128-bit 離線儲存轉發佇列與硬體密碼學引擎。佈線後靜態時序分析 (STA) 證實，記憶體感知合成即使在成熟製程節點上，也能釋放極致的效能提升。
+                                    為了實現<strong>「治理即服務 (Governance-as-a-Service, GaaS)」</strong>的訂閱商業模式，商用車載 SoC 必須具備 10 年免改實體硬體的生命週期。在階段 2.5 中，我們實作了「循序解析引擎」與獨立的記憶體陣列。透過主動預留高達 <strong className="text-white">1,024 條合規規則</strong>的容量（為現行業界標準約 100 條的 10 倍），我們保證了系統具備完整的 OTA 更新能力，並能無縫整合 Tier-1 車廠的專有機密參數。
                                 </p>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                {/* Card 1: Latency */}
                                 <div className="glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]" data-aos="fade-up" data-aos-delay="100">
                                     <div className="text-5xl font-black text-cyan-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
-                                        5.136 <span className="text-2xl">ns</span>
+                                        37 <span className="text-2xl">μs</span>
                                     </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">核心邏輯延遲</div>
-                                    <p className="text-sm text-cyan-100/60">純物理運算時間。驗證了遷移至 ASIC 實現亞奈秒級延遲的潛力。</p>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">確定性最差執行時間</div>
+                                    <p className="text-sm text-cyan-100/60">掃描滿載 1,024 條規則的最差執行時間 (WCET)。在車控系統 33 毫秒的運作週期內，這依然是絕對的實體級零延遲攔截。</p>
                                 </div>
                                 
-                                {/* Card 2: Frequency */}
                                 <div className="glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]" data-aos="fade-up" data-aos-delay="200">
                                     <div className="text-5xl font-black text-cyan-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
-                                        54.85 <span className="text-2xl">MHz</span>
+                                        1,024
                                     </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">實際系統最高頻率 (Fmax)</div>
-                                    <p className="text-sm text-cyan-100/60">55奈米 FPGA 的物理運行極限。在 27MHz 下提供 +18.8ns 的安全餘裕。</p>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">規則包 (RulePack) 容量</div>
+                                    <p className="text-sm text-cyan-100/60">巨量超額配置的記憶體邊界。確保未來 10 年的法規演進彈性，並容納車廠專有的安全餘裕。</p>
                                 </div>
                                 
-                                {/* Card 3: Architecture */}
                                 <div className="glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]" data-aos="fade-up" data-aos-delay="300">
                                     <div className="text-5xl font-black text-cyan-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
-                                        6
+                                        SSRAM
                                     </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">邏輯層數</div>
-                                    <p className="text-sm text-cyan-100/60">極淺的組合邏輯深度，保證絕對的 O(1) 反應時間。</p>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">記憶體感知合成</div>
+                                    <p className="text-sm text-cyan-100/60">規則直接物理映射至晶片內建的 Shadow SRAM。完美實現了專利請求項中「純硬體可更新性」的要求。</p>
                                 </div>
                                 
-                                {/* Card 4: Resource */}
                                 <div className="glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]" data-aos="fade-up" data-aos-delay="400">
                                     <div className="text-5xl font-black text-cyan-400 mb-1 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
-                                        134 <span className="text-2xl">LUTs</span>
+                                        1,212 <span className="text-2xl">LUTs</span>
                                     </div>
-                                    <div className="text-lg font-bold text-cyan-300 mb-2">+ 106 REGs</div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">記憶體感知合成</div>
-                                    <p className="text-sm text-cyan-100/60">相較於階段二面積減少 77%。直接映射至硬體 <strong>SSRAM 區塊</strong>。</p>
+                                    <div className="text-lg font-bold text-cyan-300 mb-2">+ 120 REGs</div>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">硬體資源耗用</div>
+                                    <p className="text-sm text-cyan-100/60">滿載的有限狀態機 (FSM) 引擎僅消耗不到 <strong>7%</strong> 的基礎 20K FPGA 邏輯資源，確保未來轉移至 ASIC 時的面積開銷微乎其微。</p>
                                 </div>
                             </div>
                         </div>
@@ -491,10 +479,10 @@
                                         
                                         <div className="bg-slate-900/80 p-6 rounded-xl border border-cyan-500/30 relative overflow-hidden group hover:border-cyan-400/60 transition-colors">
                                             <div className="absolute top-0 left-0 w-1 h-full bg-cyan-500"></div>
-                                            <div className="text-4xl font-black text-cyan-400 mb-1 tracking-tight">5.136 <span className="text-lg font-bold text-cyan-500">ns</span></div>
+                                            <div className="text-4xl font-black text-cyan-400 mb-1 tracking-tight">37 <span className="text-lg font-bold text-cyan-500">μs</span></div>
                                             <div className="text-xs font-bold text-white mb-2 uppercase tracking-wide">路徑一：即時實體攔截</div>
                                             <p className="text-xs text-slate-400 leading-relaxed">
-                                                純確定性組合邏輯層。瞬間評估邊界條件並執行絕對的 ALLOW/DENY 實體閘門硬體決策。
+                                                循序狀態機引擎。瞬間評估多達 1,024 項合規邊界，並獨立執行絕對的 ALLOW/DENY 實體閘門決策。
                                             </p>
                                         </div>
                                         
@@ -503,7 +491,7 @@
                                             <div className="text-4xl font-black text-purple-400 mb-1 tracking-tight">2.4 <span className="text-lg font-bold text-purple-500">μs</span></div>
                                             <div className="text-xs font-bold text-white mb-2 uppercase tracking-wide">路徑二：背景治理證據鏈</div>
                                             <p className="text-xs text-slate-400 leading-relaxed">
-                                                非同步 SHA-256 引擎。處理離線佇列生成不可竄改雜湊鏈，在下一次 AI 推論前具備 &gt;1000 倍以上的系統餘裕。
+                                                非同步 SHA-256 引擎。處理離線佇列生成不可竄改雜湊鏈，在下一次 AI 推論前具備極大的時間餘裕。
                                             </p>
                                         </div>
                                     </div>
