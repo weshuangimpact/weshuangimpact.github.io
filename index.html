@@ -165,7 +165,7 @@
                                         </div>
                                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-900/60 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
                                             <WIcon name="Activity" size={14} />
-                                            <span>Phase 2.5: 55nm Optimized</span>
+                                            <span>Phase 2.5: MP-Ready Rule Engine</span>
                                         </div>
                                     </div>
                                     
@@ -193,8 +193,8 @@
                                             <WIcon name="Zap" size={24} />
                                         </div>
                                         <div>
-                                            <div className="text-sm font-bold text-white">Ultra-Low Latency</div>
-                                            <div className="text-xs text-slate-300">5.136 ns Core Logic Latency</div>
+                                            <div className="text-sm font-bold text-white">Absolute Determinism</div>
+                                            <div className="text-xs text-slate-300">37 μs Worst-Case Execution Time</div>
                                         </div>
                                     </div>
                                 </div>
@@ -363,98 +363,90 @@
                             <div className="flex flex-col md:flex-row justify-between items-end mb-12" data-aos="fade-up">
                                 <div>
                                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-900/30 border border-blue-700/50 text-blue-400 text-xs font-bold uppercase tracking-widest mb-4">
-                                        Phase 2: Silicon IP MVP
+                                        Phase 2: Silicon IP PoC
                                     </div>
-                                    <h2 className="text-3xl md:text-4xl font-black text-white mb-3">Silicon IP & FPGA Verification <br/><span className="text-xl text-slate-400 font-medium">(55nm Architecture - Gowin 9K)</span></h2>
-                                    <p className="text-slate-400">Proving deterministic physical logic transition and baseline capability.</p>
+                                    <h2 className="text-3xl md:text-4xl font-black text-white mb-3">RTL Physical Layer Verification <br/><span className="text-xl text-slate-400 font-medium">(55nm Architecture - Gowin 9K)</span></h2>
+                                    <p className="text-slate-400">Validating the absolute physical boundary and baseline capability before moving to engine architecture.</p>
                                 </div>
                             </div>
                             
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="100">
                                     <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
                                         17.360 <span className="text-2xl">ns</span>
                                     </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Constant Latency</div>
-                                    <p className="text-sm text-blue-100/60">Absolute and deterministic physical data path delay.</p>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">PoC Latency</div>
+                                    <p className="text-sm text-blue-100/60">Successfully proved the viability of hardwired physical intercept at nanosecond speeds.</p>
                                 </div>
                                 
                                 <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="200">
                                     <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
                                         601 <span className="text-2xl">LUTs</span>
                                     </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Logic Footprint</div>
-                                    <p className="text-sm text-blue-100/60">Ultra-lightweight core engine establishing a baseline PoC.</p>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Baseline Footprint</div>
+                                    <p className="text-sm text-blue-100/60">Ultra-lightweight core logic establishing the foundation for future engine expansion.</p>
                                 </div>
                                 
                                 <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="300">
                                     <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
-                                        0.613 <span className="text-2xl">mW</span>
-                                    </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Dynamic Power</div>
-                                    <p className="text-sm text-blue-100/60">Near-zero penalty for energy-critical Edge AI environments.</p>
-                                </div>
-                                
-                                <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="400">
-                                    <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
                                         100%
                                     </div>
                                     <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">OS Crash Immune</div>
-                                    <p className="text-sm text-blue-100/60">Pure physical logic execution stripped of all firmware dependencies.</p>
+                                    <p className="text-sm text-blue-100/60">Pure physical logic execution stripped of all firmware and OS vulnerabilities.</p>
                                 </div>
                             </div>
                         </div>
                     </section>
 
-                    {/* PHASE 2.5: Advanced Node Scaling */}
+                    {/* PHASE 2.5: MP-Ready Rule Engine (REWRITTEN FOR V4.2) */}
                     <section id="phase-2-5" className="py-24 bg-[#080d1a] relative overflow-hidden border-t border-cyan-900/30">
                         <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-cyan-900/10 to-transparent pointer-events-none"></div>
                         <div className="max-w-7xl mx-auto px-6 relative z-10">
                             <div className="text-center mb-16" data-aos="fade-up">
                                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-900/40 border border-cyan-500/50 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-4 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
-                                    Phase 2.5: Memory-Aware Synthesis
+                                    Phase 2.5: MP-Ready Rule Engine (v4.2)
                                 </div>
                                 <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
-                                    Full Claim Coverage & Extreme Optimization <br/>
-                                    <span className="text-xl text-cyan-400/80 font-medium mt-2 block tracking-wide">(55nm Gowin 20K • Post-Route STA)</span>
+                                    Rule-as-Data Architecture & Full Patent Coverage <br/>
+                                    <span className="text-xl text-cyan-400/80 font-medium mt-2 block tracking-wide">(55nm Gowin Tang Primer 20K • Over-provisioned Capacity)</span>
                                 </h2>
                                 <p className="text-slate-400 max-w-3xl mx-auto leading-relaxed text-lg">
-                                    Fundamentally optimizing our RTL on the 55nm FPGA architecture (Gowin 20K), we integrated <strong className="text-white">100% of our patented claims</strong>—including the 128-bit Offline Store & Forward queue and Hardware Crypto Engine. Post-route Static Timing Analysis (STA) confirms that memory-aware synthesis unlocks an extreme frequency boost even on a mature process node.
+                                    To unlock the <strong>Governance-as-a-Service (GaaS)</strong> subscription model, a commercial SoC requires 10 years of hardware lifespan without physical modifications. In Phase 2.5, we implemented a <em>Sequential Parsing Engine</em> and independent memory arrays. By actively reserving capacity for <strong className="text-white">1,024 compliance rules</strong> (10x the current industry requirement of ~100 rules), we guarantee complete OTA update capability and Tier-1 proprietary parameter integration.
                                 </p>
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                                 <div className="glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]" data-aos="fade-up" data-aos-delay="100">
                                     <div className="text-5xl font-black text-cyan-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
-                                        5.136 <span className="text-2xl">ns</span>
+                                        37 <span className="text-2xl">μs</span>
                                     </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Core Logic Latency</div>
-                                    <p className="text-sm text-cyan-100/60">Pure physical computation time. Validates sub-nanosecond potential for ASIC migration.</p>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Deterministic WCET</div>
+                                    <p className="text-sm text-cyan-100/60">Worst-Case Execution Time for scanning all 1,024 rules. An absolute physical intercept well within the 33ms vehicle control cycle.</p>
                                 </div>
                                 
                                 <div className="glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]" data-aos="fade-up" data-aos-delay="200">
                                     <div className="text-5xl font-black text-cyan-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
-                                        54.85 <span className="text-2xl">MHz</span>
+                                        1,024
                                     </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Actual System Fmax</div>
-                                    <p className="text-sm text-cyan-100/60">Physical operating limit on 55nm FPGA. Provides +18.8ns safety slack at 27MHz.</p>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">RulePack Capacity</div>
+                                    <p className="text-sm text-cyan-100/60">Massively over-provisioned memory boundary. Secures 10-year regulatory evolution and OEM's proprietary safety margins.</p>
                                 </div>
                                 
                                 <div className="glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]" data-aos="fade-up" data-aos-delay="300">
                                     <div className="text-5xl font-black text-cyan-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
-                                        6
+                                        SSRAM
                                     </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Logic Levels</div>
-                                    <p className="text-sm text-cyan-100/60">Ultra-shallow combinational depth guaranteeing absolute O(1) response.</p>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Memory-Aware Synthesis</div>
+                                    <p className="text-sm text-cyan-100/60">Rules are physically mapped directly to embedded Shadow SRAM. Fulfilling the patent claim for pure hardware updatability.</p>
                                 </div>
                                 
                                 <div className="glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]" data-aos="fade-up" data-aos-delay="400">
                                     <div className="text-5xl font-black text-cyan-400 mb-1 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
-                                        134 <span className="text-2xl">LUTs</span>
+                                        1,212 <span className="text-2xl">LUTs</span>
                                     </div>
-                                    <div className="text-lg font-bold text-cyan-300 mb-2">+ 106 REGs</div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Memory-Aware Synthesis</div>
-                                    <p className="text-sm text-cyan-100/60">77% area reduction from Phase 2. Mapped directly to <strong>SSRAM blocks</strong>.</p>
+                                    <div className="text-lg font-bold text-cyan-300 mb-2">+ 120 REGs</div>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">Resource Footprint</div>
+                                    <p className="text-sm text-cyan-100/60">Fully loaded FSM Engine consumes <strong>< 7%</strong> of the baseline 20K FPGA logic, ensuring negligible area overhead in ASIC migration.</p>
                                 </div>
                             </div>
                         </div>
@@ -487,10 +479,10 @@
                                         
                                         <div className="bg-slate-900/80 p-6 rounded-xl border border-cyan-500/30 relative overflow-hidden group hover:border-cyan-400/60 transition-colors">
                                             <div className="absolute top-0 left-0 w-1 h-full bg-cyan-500"></div>
-                                            <div className="text-4xl font-black text-cyan-400 mb-1 tracking-tight">5.136 <span className="text-lg font-bold text-cyan-500">ns</span></div>
+                                            <div className="text-4xl font-black text-cyan-400 mb-1 tracking-tight">37 <span className="text-lg font-bold text-cyan-500">μs</span></div>
                                             <div className="text-xs font-bold text-white mb-2 uppercase tracking-wide">Path 1: Physical Intercept</div>
                                             <p className="text-xs text-slate-400 leading-relaxed">
-                                                Deterministic combinatorial logic layer. Evaluates boundaries and executes the absolute ALLOW/DENY physical gate decision instantly.
+                                                Sequential FSM Engine. Evaluates up to 1,024 compliance boundaries and executes the absolute ALLOW/DENY physical gate decision independently.
                                             </p>
                                         </div>
                                         
@@ -499,7 +491,7 @@
                                             <div className="text-4xl font-black text-purple-400 mb-1 tracking-tight">2.4 <span className="text-lg font-bold text-purple-500">μs</span></div>
                                             <div className="text-xs font-bold text-white mb-2 uppercase tracking-wide">Path 2: Background Ledger</div>
                                             <p className="text-xs text-slate-400 leading-relaxed">
-                                                Asynchronous SHA-256 engine. Processes the offline queue to generate immutable hash chains with &gt;1000x timing slack before the next AI inference.
+                                                Asynchronous SHA-256 engine. Processes the offline queue to generate immutable hash chains with immense timing slack before the next AI inference.
                                             </p>
                                         </div>
                                     </div>
