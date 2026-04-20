@@ -135,7 +135,7 @@
 
                     <div className="pt-32 max-w-6xl mx-auto px-6">
                         
-                        {/* Header & Image */}
+                        {/* Wes Huang Header & Image */}
                         <div className="mb-16" data-aos="fade-down">
                             <div className="text-center max-w-3xl mx-auto mb-10">
                                 <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">
@@ -164,6 +164,35 @@
                                 <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 text-white">
                                     <p className="text-sm font-medium opacity-90 uppercase tracking-widest mb-1">現階段專注領域</p>
                                     <p className="text-xl md:text-2xl font-bold">為 AI 時代建立信任的物理邊界。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Rita Wu Header & Image */}
+                        <div className="mb-16 mt-20" data-aos="fade-down">
+                            <div className="text-center max-w-3xl mx-auto mb-10">
+                                <h1 className="text-4xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">
+                                    Rita Wu <span className="text-slate-400 font-light">吳直謙</span>
+                                </h1>
+                                <p className="text-xl text-slate-600 font-light tracking-wide">
+                                    💼 創業者 | 投資人 | 企業經營者
+                                </p>
+                            </div>
+
+                            <div className="relative w-full max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-slate-100 group bg-slate-100">
+                                <img 
+                                    src="pic18.jpg" 
+                                    alt="Rita Wu" 
+                                    className="w-full h-auto object-cover transform group-hover:scale-[1.01] transition-transform duration-700"
+                                    onError={(e) => {
+                                        if (e.target.src.includes('unsplash')) return;
+                                        e.target.src = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80';
+                                    }}
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-60"></div>
+                                <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 text-white">
+                                    <p className="text-sm font-medium opacity-90 uppercase tracking-widest mb-1">董事長</p>
+                                    <p className="text-xl md:text-2xl font-bold">以數十載企業經營實務，驅動創新成長。</p>
                                 </div>
                             </div>
                         </div>
@@ -324,7 +353,8 @@
                                         <WIcon name="Briefcase" className="text-blue-600" /> 現任職務
                                     </h3>
                                     <ul className="space-y-4 text-sm text-slate-600">
-                                        <li className="flex flex-col"><strong className="text-slate-800 text-base">執行長 (CEO)</strong><span>可信智慧整合有限公司 (WesmartAI)</span></li>
+                                        <li className="flex flex-col mb-4"><strong className="text-slate-800 text-base">執行長 (CEO)</strong><span>可信智慧整合有限公司 (WesmartAI)</span><span className="text-xs text-slate-400 mt-1">黃致維 (Wes Huang)</span></li>
+                                        <li className="flex flex-col"><strong className="text-slate-800 text-base">董事長 (Chairman)</strong><span>可信智慧整合有限公司 (WesmartAI)</span><span className="text-xs text-slate-400 mt-1">吳直謙 (Rita Wu)</span></li>
                                     </ul>
                                 </div>
 
