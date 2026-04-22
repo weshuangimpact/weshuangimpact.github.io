@@ -202,37 +202,50 @@
                         </div>
                     </section>
 
-                    {/* Design Philosophy / EU AI Act Section */}
+                    {/* Design Philosophy / EU AI Act Section (REWRITTEN FOR 3 COLUMNS) */}
                     <section className="py-24 bg-[#0a0f1c] relative border-t border-white/5">
                         <div className="max-w-7xl mx-auto px-6 relative z-10">
                             <div className="text-center mb-16" data-aos="fade-up">
                                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-rose-900/30 border border-rose-700/50 text-rose-400 text-xs font-bold uppercase tracking-widest mb-4">
                                     即將到來的全球標準
                                 </div>
-                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">設計哲學：符合歐盟《AI 法案》規範</h2>
-                                <p className="text-slate-400 max-w-3xl mx-auto leading-relaxed text-lg">
-                                    隨著歐盟《AI 法案》與台灣《人工智慧基本法》即將於 2026 年正式實施，機率性的「AI 對齊 (Alignment)」已無法滿足法規的究責標準。我們提供的是具備絕對法律可採信性 (Admissibility) 的 <strong>Layer 0 物理合規基礎設施</strong>。
+                                <h2 className="text-4xl md:text-5xl font-black text-white mb-6">歐盟《AI 法案》合規的終極硬體解決方案</h2>
+                                <p className="text-slate-300 max-w-4xl mx-auto leading-relaxed text-xl md:text-2xl font-medium">
+                                    機率性的「AI 對齊 (Alignment)」已無法滿足歐盟《AI 法案》的嚴苛義務。SVG 賦能 AI 車用晶片，提供<strong>唯一的 Layer 0 物理基礎設施</strong>，保證絕對的法律可採信性。
                                 </p>
                             </div>
 
-                            <div className="grid md:grid-cols-2 gap-8">
-                                <div className="glass-card p-8 rounded-2xl border border-blue-500/20 hover:border-blue-500/50 transition-all group" data-aos="fade-right">
-                                    <div className="w-12 h-12 rounded-lg bg-blue-900/30 flex items-center justify-center text-blue-400 mb-6 border border-blue-700/50 group-hover:scale-110 transition-transform">
-                                        <WIcon name="Lock" size={24} />
+                            <div className="grid md:grid-cols-3 gap-8">
+                                {/* Article 14 */}
+                                <div className="glass-card p-8 rounded-2xl border border-blue-500/20 hover:border-blue-500/50 transition-all group" data-aos="fade-up" data-aos-delay="100">
+                                    <div className="w-14 h-14 rounded-lg bg-blue-900/30 flex items-center justify-center text-blue-400 mb-6 border border-blue-700/50 group-hover:scale-110 transition-transform">
+                                        <WIcon name="Target" size={28} />
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-3">第 14 條：機器速度下的人類監督</h3>
-                                    <p className="text-slate-400 text-sm leading-relaxed">
-                                        人類如何監督以時速 100 公里運作的 Agentic AI？傳統軟體依賴「人在迴路 (Human-in-the-loop)」，這在車輛高速行駛時物理上根本不可行。SVG 透過在部署前將「人類意志」編碼至硬體載入的規則包 (RulePack) 中來解決此問題。硬體持續在物理極限下運作，嚴格執行此人類意志 (ALLOW / DENY / PENDING)。若情境不確定，硬體將觸發 <strong>PENDING</strong> 狀態，物理隔離該動作並交由人類判斷或安全備援接管。這是機器速度下唯一可行的人類監督形式。
+                                    <h3 className="text-2xl font-bold text-white mb-4">第 14 條：<br/>人類監督</h3>
+                                    <p className="text-slate-300 text-base leading-relaxed">
+                                        在車輛高速運作下，依賴軟體的人工介入在物理上已不可行。SVG 將人類意志編碼至硬體規則包 (RulePack) 中，提供在機器速度下唯一有效的人類監督機制。
                                     </p>
                                 </div>
                                 
-                                <div className="glass-card p-8 rounded-2xl border border-emerald-500/20 hover:border-emerald-500/50 transition-all group" data-aos="fade-left">
-                                    <div className="w-12 h-12 rounded-lg bg-emerald-900/30 flex items-center justify-center text-emerald-400 mb-6 border border-emerald-700/50 group-hover:scale-110 transition-transform">
-                                        <WIcon name="ShieldCheck" size={24} />
+                                {/* Article 12 */}
+                                <div className="glass-card p-8 rounded-2xl border border-emerald-500/20 hover:border-emerald-500/50 transition-all group" data-aos="fade-up" data-aos-delay="200">
+                                    <div className="w-14 h-14 rounded-lg bg-emerald-900/30 flex items-center justify-center text-emerald-400 mb-6 border border-emerald-700/50 group-hover:scale-110 transition-transform">
+                                        <WIcon name="Server" size={28} />
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-3">第 12 條：絕對的紀錄保存</h3>
-                                    <p className="text-slate-400 text-sm leading-relaxed">
-                                        軟體日誌天生容易受到 OS 崩潰或核心層級的竄改影響，導致發生致命裁決時紀錄遺失。SVG 從結構上消除了此漏洞：實體致動裁決與密碼學證據 (硬體雜湊鏈) 是在「同一個時脈週期內」同步生成的。在此硬體架構下，AI 的任何行動在物理上都不可能不留下防篡改且具備法律效力的證據。
+                                    <h3 className="text-2xl font-bold text-white mb-4">第 12 條：<br/>紀錄保存</h3>
+                                    <p className="text-slate-300 text-base leading-relaxed">
+                                        傳統軟體日誌在 OS 崩潰時極易遺失。SVG 在「同一個時脈週期內」同步生成實體致動裁決與密碼學證據，確保防竄改的絕對法律效力。
+                                    </p>
+                                </div>
+
+                                {/* Article 15 */}
+                                <div className="glass-card p-8 rounded-2xl border border-purple-500/20 hover:border-purple-500/50 transition-all group" data-aos="fade-up" data-aos-delay="300">
+                                    <div className="w-14 h-14 rounded-lg bg-purple-900/30 flex items-center justify-center text-purple-400 mb-6 border border-purple-700/50 group-hover:scale-110 transition-transform">
+                                        <WIcon name="ShieldCheck" size={28} />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-white mb-4">第 15 條：<br/>網路安全與強健性</h3>
+                                    <p className="text-slate-300 text-base leading-relaxed">
+                                        SVG 採用嚴格的單向實體資料二極體設計，徹底剝離作業系統依賴。無論是 AI 幻覺或對抗性攻擊，在物理上都絕對無法繞過這道終極安全防線。
                                     </p>
                                 </div>
                             </div>
@@ -398,7 +411,7 @@
                         </div>
                     </section>
 
-                    {/* PHASE 2.5: MP-Ready Rule Engine (REWRITTEN FOR V4.2) */}
+                    {/* PHASE 2.5: MP-Ready Rule Engine */}
                     <section id="phase-2-5" className="py-24 bg-[#080d1a] relative overflow-hidden border-t border-cyan-900/30">
                         <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-cyan-900/10 to-transparent pointer-events-none"></div>
                         <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -411,7 +424,7 @@
                                     <span className="text-xl text-cyan-400/80 font-medium mt-2 block tracking-wide">(55奈米 Gowin Tang Primer 20K • 超額配置容量)</span>
                                 </h2>
                                 <p className="text-slate-400 max-w-3xl mx-auto leading-relaxed text-lg">
-                                    為了實現<strong>「治理即服務 (Governance-as-a-Service, GaaS)」</strong>的訂閱商業模式，商用車載 SoC 必須具備 10 年免改實體硬體的生命週期。在階段 2.5 中，我們實作了「循序解析引擎」與獨立的記憶體陣列。透過主動預留高達 <strong className="text-white">1,024 條合規規則</strong>的容量（為現行業界標準約 100 條的 10 倍），我們保證了系統具備完整的 OTA 更新能力，並能無縫整合 Tier-1 車廠的專有機密參數。
+                                    為了實現<strong>「治理即服務 (GaaS)」</strong>的訂閱商業模式，商用車載 SoC 必須具備 10 年免改實體硬體的生命週期。在階段 2.5 中，我們實作了「循序解析引擎」與獨立的記憶體陣列。透過主動預留高達 <strong className="text-white">1,024 條合規規則</strong>的容量（為現行業界標準約 100 條的 10 倍），我們保證了系統具備完整的 OTA 更新能力，並能無縫整合 Tier-1 車廠的專有機密參數。
                                 </p>
                             </div>
 
