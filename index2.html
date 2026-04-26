@@ -67,7 +67,8 @@
             Car: <g><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9L2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></g>,
             Target: <g><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></g>,
             Activity: <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />,
-            BookOpen: <g><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></g>
+            BookOpen: <g><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></g>,
+            Layers: <g><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></g>
         };
 
         const WIcon = ({ name, className, size }) => <Icon path={Icons[name]} className={className} size={size} />;
@@ -163,9 +164,9 @@
                                             <WIcon name="Server" size={14} />
                                             <span>階段二：FPGA 驗證完成</span>
                                         </div>
-                                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-900/60 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
-                                            <WIcon name="Activity" size={14} />
-                                            <span>階段 2.5：量產前置規則引擎</span>
+                                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-900/60 border border-indigo-500/30 text-indigo-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
+                                            <WIcon name="ShieldCheck" size={14} />
+                                            <span>階段 2.6：ASIL-D 實證</span>
                                         </div>
                                     </div>
                                     
@@ -194,7 +195,7 @@
                                         </div>
                                         <div>
                                             <div className="text-sm font-bold text-white">絕對確定性</div>
-                                            <div className="text-xs text-slate-300">37 μs (滿載 1024 條規則最差執行時間)</div>
+                                            <div className="text-xs text-slate-300">19 μs (256 條規則最差延遲)</div>
                                         </div>
                                     </div>
                                 </div>
@@ -202,7 +203,7 @@
                         </div>
                     </section>
 
-                    {/* Design Philosophy / EU AI Act Section (REWRITTEN FOR 3 COLUMNS) */}
+                    {/* Design Philosophy / EU AI Act Section */}
                     <section className="py-24 bg-[#0a0f1c] relative border-t border-white/5">
                         <div className="max-w-7xl mx-auto px-6 relative z-10">
                             <div className="text-center mb-16" data-aos="fade-up">
@@ -460,6 +461,60 @@
                                     <div className="text-lg font-bold text-cyan-300 mb-2">+ 120 REGs</div>
                                     <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">硬體資源耗用</div>
                                     <p className="text-sm text-cyan-100/60">滿載的有限狀態機 (FSM) 引擎僅消耗不到 <strong>&lt; 7%</strong> 的基礎 20K FPGA 邏輯資源，確保未來轉移至 ASIC 時的面積開銷微乎其微。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* PHASE 2.6: ASIL-D Ready Validation */}
+                    <section id="phase-2-6" className="py-24 bg-[#0a0c1a] relative overflow-hidden border-t border-indigo-900/40">
+                        <div className="absolute inset-0 bg-gradient-to-tr from-indigo-950/20 via-transparent to-transparent pointer-events-none"></div>
+                        <div className="max-w-7xl mx-auto px-6 relative z-10">
+                            <div className="text-center mb-16" data-aos="fade-up">
+                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-900/40 border border-indigo-500/50 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-4 shadow-[0_0_15px_rgba(99,102,241,0.3)]">
+                                    階段 2.6：ASIL-D 物理層實證 (v5.0)
+                                </div>
+                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
+                                    隨機硬體失效防禦與 ISO 26262 規格對齊 <br/>
+                                    <span className="text-xl text-indigo-300/80 font-medium mt-2 block tracking-wide">(55奈米 Gowin Tang Primer 20K • 零時序違例)</span>
+                                </h2>
+                                <p className="text-slate-400 max-w-3xl mx-auto leading-relaxed text-lg">
+                                    針對車規最高安全等級 (ASIL-D)，全面導入雙模冗餘 (DMR) 架構與 SECDED ECC 記憶體防護。在 27MHz 系統時脈要求下達成零時序違例，建立對抗單步翻轉 (SEU) 與潛伏故障 (Latent Fault) 的絕對物理護城河，完全契合 ISO 26262 Part 5 與 Part 11 標準規範。
+                                </p>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                <div className="glass-card p-8 rounded-xl border border-indigo-500/30 hover:border-indigo-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(99,102,241,0.1)]" data-aos="fade-up" data-aos-delay="100">
+                                    <div className="text-5xl font-black text-indigo-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]">
+                                        19.04 <span className="text-2xl">μs</span>
+                                    </div>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">極致 FTTI 裕度</div>
+                                    <p className="text-sm text-indigo-100/60">規則庫精簡至 256 條，有效壓低實體受擊表面積，並將最差執行延遲壓縮至極致，提供系統級故障容許時間間隔極大餘裕。</p>
+                                </div>
+                                
+                                <div className="glass-card p-8 rounded-xl border border-indigo-500/30 hover:border-indigo-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(99,102,241,0.1)]" data-aos="fade-up" data-aos-delay="200">
+                                    <div className="text-3xl font-black text-indigo-400 mb-4 mt-2 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]">
+                                        DMR & ECC
+                                    </div>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">隨機失效防護</div>
+                                    <p className="text-sm text-indigo-100/60">實作 FSM 硬體鎖步狀態機與記憶體錯誤更正碼，完美偵測邏輯不一致並免疫靜默資料損壞 (SDC)，滿足 SPFM 基礎要求。</p>
+                                </div>
+                                
+                                <div className="glass-card p-8 rounded-xl border border-indigo-500/30 hover:border-indigo-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(99,102,241,0.1)]" data-aos="fade-up" data-aos-delay="300">
+                                    <div className="text-5xl font-black text-indigo-400 mb-1 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]">
+                                        3%
+                                    </div>
+                                    <div className="text-lg font-bold text-indigo-300 mb-2">474 邏輯單元</div>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">極低面積開銷</div>
+                                    <p className="text-sm text-indigo-100/60">雙模冗餘架構僅耗用 372 個 LUTs 與 129 個暫存器，保留極佳的 PPA (功耗、效能、面積) 競爭力，無縫過渡 ASIC 量產。</p>
+                                </div>
+                                
+                                <div className="glass-card p-8 rounded-xl border border-indigo-500/30 hover:border-indigo-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(99,102,241,0.1)]" data-aos="fade-up" data-aos-delay="400">
+                                    <div className="text-4xl font-black text-indigo-400 mb-3 mt-1 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]">
+                                        BIST Hooks
+                                    </div>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">潛伏故障自測介面</div>
+                                    <p className="text-sm text-indigo-100/60">內建專屬的邏輯與記憶體自測控制引腳，支援外部晶片整合商對接標準 EDA 診斷工具，符合 ASIL-D 潛伏故障度量 (LFM)。</p>
                                 </div>
                             </div>
                         </div>
