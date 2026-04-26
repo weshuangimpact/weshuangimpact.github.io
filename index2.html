@@ -164,6 +164,10 @@
                                             <WIcon name="Server" size={14} />
                                             <span>階段二：FPGA 驗證完成</span>
                                         </div>
+                                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-900/60 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
+                                            <WIcon name="Activity" size={14} />
+                                            <span>階段 2.5：量產前置規則引擎</span>
+                                        </div>
                                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-900/60 border border-indigo-500/30 text-indigo-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
                                             <WIcon name="ShieldCheck" size={14} />
                                             <span>階段 2.6：ASIL-D 實證</span>
@@ -515,6 +519,43 @@
                                     </div>
                                     <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">潛伏故障自測介面</div>
                                     <p className="text-sm text-indigo-100/60">內建專屬的邏輯與記憶體自測控制引腳，支援外部晶片整合商對接標準 EDA 診斷工具，符合 ASIL-D 潛伏故障度量 (LFM)。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* ISO 26262 Integration Section */}
+                    <section id="iso26262-compliance" className="py-24 bg-[#0a101d] relative border-t border-indigo-900/30">
+                        <div className="max-w-7xl mx-auto px-6 relative z-10">
+                            <div className="text-center mb-16" data-aos="fade-up">
+                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-900/30 border border-indigo-700/50 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-4">
+                                    ISO 26262 規格對齊
+                                </div>
+                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">符合 ASIL-D 規範之硬體架構</h2>
+                                <p className="text-slate-400 max-w-3xl mx-auto leading-relaxed text-lg">
+                                    為了滿足 ISO 26262 Part 5 與 Part 11 嚴苛的車用功能安全標準，我們徹底重構了 RTL 邏輯，以在物理層面減輕隨機硬體失效與潛伏故障的風險。
+                                </p>
+                            </div>
+                            <div className="grid md:grid-cols-2 gap-8">
+                                {/* Box 1: DMR */}
+                                <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-indigo-500/50 transition-all" data-aos="fade-up" data-aos-delay="100">
+                                    <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-3"><WIcon name="Cpu" size={24} className="text-indigo-400" /> 雙模冗餘 (DMR)</h3>
+                                    <p className="text-slate-400 text-sm leading-relaxed">核心控制流全面採用 FSM 硬體鎖步 (Lockstep)。系統能即時偵測狀態不一致，並透過實體硬體比較器強制進入安全狀態，滿足嚴格的單點故障度量 (SPFM) 要求。</p>
+                                </div>
+                                {/* Box 2: SECDED ECC */}
+                                <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-indigo-500/50 transition-all" data-aos="fade-up" data-aos-delay="200">
+                                    <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-3"><WIcon name="ShieldCheck" size={24} className="text-indigo-400" /> SECDED ECC 防護</h3>
+                                    <p className="text-slate-400 text-sm leading-relaxed">儲存合規規則包的記憶體陣列受單錯更正、雙錯偵測 (SECDED) 保護。這使矽晶片對阿爾法粒子與宇宙射線引起的軟錯誤 (Soft Errors) 及靜默資料損壞 (SDC) 免疫。</p>
+                                </div>
+                                {/* Box 3: BIST Hooks */}
+                                <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-indigo-500/50 transition-all" data-aos="fade-up" data-aos-delay="300">
+                                    <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-3"><WIcon name="Activity" size={24} className="text-indigo-400" /> 潛伏故障 BIST 介面</h3>
+                                    <p className="text-slate-400 text-sm leading-relaxed">內建測試引腳允許外部安全 MCU 或標準 EDA 診斷工具在每次開機 (Key-on) 時觸發高覆蓋率自測，滿足潛伏故障度量 (LFM) 規範。</p>
+                                </div>
+                                {/* Box 4: CDC */}
+                                <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-indigo-500/50 transition-all" data-aos="fade-up" data-aos-delay="400">
+                                    <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-3"><WIcon name="Lock" size={24} className="text-indigo-400" /> CDC 與亞穩態預防</h3>
+                                    <p className="text-slate-400 text-sm leading-relaxed">跨所有非同步 ASIL-D 控制引腳實作專屬的雙階同步器 (2-stage synchronizers)。徹底消除外部中斷帶來的亞穩態風險，確保絕對的時序收斂與信號完整性。</p>
                                 </div>
                             </div>
                         </div>
