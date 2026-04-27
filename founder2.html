@@ -220,7 +220,7 @@
                                         我們開發的不是一個「車用修補程式」。我們打造的是「通用硬體治理矽智財 (Universal Hardware Governance IP)」，並刻意選擇了地球上最不容出錯、高風險的環境——ISO 26262 汽車安全標準——作為我們的終極壓力測試。
                                     </p>
                                     
-                                    <p>因為，如果我們的架構能夠在數學與物理上保證自駕車達到 17.936 奈秒的絕對確定性與安全性，那麼將其整合到 AI PC 或智慧製造平台中，將會是輕而易舉的降維打擊。</p>
+                                    <p>因為，如果我們的架構能夠在數學與物理上保證自駕車達到 7.934 奈秒的物理極限延遲與 19.04 微秒的絕對確定性執行，那麼將其整合到 AI PC 或智慧製造平台中，將會是輕而易舉的降維打擊。</p>
 
                                     {/* AI Tech */}
                                     <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
@@ -289,7 +289,7 @@
                                             <div className="pl-4 border-l-2 border-teal-400">
                                                 <h4 className="text-sm font-bold text-teal-700 uppercase tracking-wide mb-1">階段 5 — 矽智財與硬體強制信任邊界 (2026年3-4月)</h4>
                                                 <p className="text-sm text-slate-600 leading-relaxed">
-                                                    最終層：將確定性裁決深植於物理晶片邏輯中。從軟體到矽架構的過渡現已完全實現。我們最初的 55 奈米 FPGA 原型達成了 17.360 奈秒的恆定延遲。為進一步提升架構，我們在「階段 2.5」成功進行了極限優化，在同一個 55 奈米物理層上將邏輯直接映射到原生的硬體 SRAM，以支援 1,024 條規則與硬體加密引擎，同時將核心面積縮減至僅 1212 個 LUTs，並在 55.752 MHz 的時脈下將物理邏輯運算延遲壓縮至 17.936 奈秒。達成零 NPU 負擔，我們提供了一個即使在作業系統 (OS) 崩潰時也能堅守防線的硬體閘門。這是在最關鍵時刻發揮作用的基礎設施——現已準備好進入先進車用 SoC 模擬與 Tier-1 供應鏈整合。
+                                                    最終層：將確定性裁決深植於物理晶片邏輯中。從軟體到矽架構的過渡現已完全實現。我們最初的 55 奈米 FPGA 原型達成了 17.360 奈秒的恆定延遲。為進一步提升架構，我們在「階段 2.6 (ASIL-D 實體驗證)」成功進行了商用最佳化，在同一個 55 奈米物理層上將邏輯直接映射到原生的硬體 SRAM，將核心面積極度縮減至 434 個 LUTs (僅 3% 資源佔用)，以支援符合自駕車規的 256 條規則與 ASIL-D 雙模冗餘 (DMR) 及 SECDED ECC 防護。我們在 126.035 MHz 的頻率下將物理邏輯極限延遲壓縮至不可思議的 7.934 奈秒，確保在標準車規時脈下嚴格遵守 19.04 微秒的最差執行時間 (WCET)。達成零 NPU 負擔，我們提供了一個即使在作業系統 (OS) 崩潰時也能堅守防線的硬體閘門。這是在最關鍵時刻發揮作用的基礎設施——現已準備好進入先進車用 SoC 模擬與 Tier-1 供應鏈整合。
                                                 </p>
                                             </div>
                                         </div>
@@ -310,7 +310,7 @@
                                             如果您仔細觀察我們的開發里程碑，您會注意到一條刻意規劃的軌跡。我們開發高通 (Qualcomm) UNO-Q 原型機或 Gowin FPGA 開發板，並不是為了賣硬體。
                                         </p>
                                         <p className="text-slate-300 font-medium leading-relaxed mb-4">
-                                            <strong>我們接上的每一塊實體板、測量的每一微瓦功耗、生成的每一筆 17.936 奈秒的延遲日誌，都完全是為了服務、驗證並包裝我們真正的核心資產：矽智財 (Silicon Soft IP / RTL)。</strong>
+                                            <strong>我們接上的每一塊實體板、測量的每一微瓦功耗、生成的每一筆 7.934 奈秒的延遲日誌，都完全是為了服務、驗證並包裝我們真正的核心資產：矽智財 (Silicon Soft IP / RTL)。</strong>
                                         </p>
                                         <p className="text-slate-400 text-sm leading-relaxed border-l-2 border-sky-500 pl-4">
                                             我們在 Agentic AI 時代採取類似 Arm 的 IP 授權商業模式。實驗數據證明了我們在物理上的絕對可行性；專利提供了深厚的法律護城河。硬體只是載具，IP 才是最終的戰略目標。
@@ -469,15 +469,7 @@
                                             <span className="inline-block mt-1 text-[10px] bg-cyan-50 text-cyan-700 px-2 py-0.5 rounded border border-cyan-100">矽智財 MVP</span>
                                         </div>
 
-                                        {/* 12. QITC */}
-                                        <div className="relative pl-6 border-l-2 border-slate-200">
-                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-purple-400 rounded-full"></div>
-                                            <span className="text-xs font-mono text-slate-400 block mb-1">2026年3月</span>
-                                            <p className="font-bold text-slate-800 text-sm leading-tight">參賽 2026 高通台灣創新競賽 (QITC)</p>
-                                            <span className="inline-block mt-1 text-[10px] bg-purple-50 text-purple-700 px-2 py-0.5 rounded border border-purple-100">國際賽事</span>
-                                        </div>
-
-                                        {/* 13. Patent Granted */}
+                                        {/* 12. Patent Granted */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-green-500 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">2026年3月</span>
@@ -485,7 +477,7 @@
                                             <span className="inline-block mt-1 text-[10px] bg-green-100 text-green-800 px-2 py-0.5 rounded border border-green-200">發明專利獲准 (TIPO)</span>
                                         </div>
 
-                                        {/* 14. Global IP Strategy (PPH + USPTO) */}
+                                        {/* 13. Global IP Strategy (PPH + USPTO) */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-blue-600 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">2026年3月</span>
@@ -493,20 +485,20 @@
                                             <span className="inline-block mt-1 text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded border border-blue-200">國際專利策略</span>
                                         </div>
 
-                                        {/* 15. Phase 2.5 Validation */}
+                                        {/* 14. Phase 2.6 Validation */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-cyan-600 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">2026年4月</span>
-                                            <p className="font-bold text-slate-800 text-sm leading-tight">極限優化：55奈米記憶體感知合成驗證</p>
-                                            <p className="text-xs text-slate-600 mt-1">佈線後靜態時序分析 (STA) 證實，透過原生 SSRAM 映射，在成熟 55 奈米製程上達到 17.936 奈秒 O(1) 核心物理延遲與 55.752 MHz Fmax。</p>
-                                            <span className="inline-block mt-1 text-[10px] bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded border border-cyan-200">階段 2.5 STA 數據</span>
+                                            <p className="font-bold text-slate-800 text-sm leading-tight">ASIL-D 物理層實體驗證 (v5.0)</p>
+                                            <p className="text-xs text-slate-600 mt-1">佈線後靜態時序分析 (STA) 證實，在 55 奈米製程上達到 7.934 奈秒的核心物理極限延遲與 126.035 MHz 頻率。成功整合 256 條商用規則目標與 ASIL-D 安全防護，達成零時序違例與絕對確定性的 19.04 微秒系統執行總耗時。</p>
+                                            <span className="inline-block mt-1 text-[10px] bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded border border-cyan-200">階段 2.6 STA 數據</span>
                                         </div>
 
-                                        {/* 16. Best AI Awards Finalist */}
+                                        {/* 15. Best AI Awards Finalist */}
                                         <div className="relative pl-6 border-l-2 border-transparent">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-yellow-400 rounded-full animate-pulse"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">2026年4月</span>
-                                            <p className="font-bold text-slate-900 text-sm leading-tight">2026 智慧創新大賞</p>
+                                            <p className="font-bold text-slate-900 text-sm leading-tight">2026 智慧創新大賞 (Best AI Awards)</p>
                                             <p className="text-xs text-slate-600 mt-1">IC 設計類 - 新創與中小企業組。參賽項目：Silicon Verdict Gate。</p>
                                             <span className="inline-block mt-1 text-[10px] bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded border border-yellow-200">決賽入圍</span>
                                         </div>
