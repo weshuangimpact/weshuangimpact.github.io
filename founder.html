@@ -220,7 +220,7 @@
                                         We didn't build an "automotive patch." We built a Universal Hardware Governance IP, and we deliberately chose the most unforgiving, high-stakes environment on earth—ISO 26262 Automotive Safety—as our ultimate stress test.
                                     </p>
                                     
-                                    <p>Because if our architecture can mathematically guarantee 17.936 ns of absolute deterministic logic computation for a self-driving car, integrating it into AI PCs or smart manufacturing platforms becomes a trivial task.</p>
+                                    <p>Because if our architecture can mathematically guarantee a 7.934 ns physical logic delay and 19.04 μs deterministic execution for a self-driving car, integrating it into AI PCs or smart manufacturing platforms becomes a trivial task.</p>
 
                                     {/* AI Tech */}
                                     <h3 className="text-2xl font-bold text-slate-900 mt-10 mb-4 flex items-center gap-2">
@@ -289,7 +289,7 @@
                                             <div className="pl-4 border-l-2 border-teal-400">
                                                 <h4 className="text-sm font-bold text-teal-700 uppercase tracking-wide mb-1">Phase 5 — Silicon IP & Hardware-Enforced Trust Boundary (Mar-Apr 2026)</h4>
                                                 <p className="text-sm text-slate-600 leading-relaxed">
-                                                    The final layer: embedding deterministic adjudication within the physical chip logic. This transition from software to silicon architecture is now fully realized. Our baseline 55nm FPGA prototype initially achieved a constant-time latency of 17.360 ns. Elevating the architecture further, our Phase 2.5 extreme optimization successfully mapped logic directly to native BSRAM on the same 55nm physical layer, expanding the core footprint to 1212 LUTs to support 1,024 rules and hardware crypto, yet compressing physical logic delay to an incredible 17.936 ns at 55.752 MHz. Achieving zero NPU overhead, we deliver a hardware gate that holds even when the OS crashes. Infrastructure that works where it matters most—ready for advanced Automotive SoC Emulation and Tier-1 integration.
+                                                    The final layer: embedding deterministic adjudication within the physical chip logic. This transition from software to silicon architecture is now fully realized. Our baseline 55nm FPGA prototype initially achieved a constant-time latency of 17.360 ns. Elevating the architecture further, our Phase 2.6 ASIL-D optimization successfully mapped logic directly to native BSRAM on the same 55nm physical layer, optimizing the core footprint to just 434 LUTs (3% utilization) to support a 256-rule commercial target alongside ASIL-D Dual Modular Redundancy (DMR) and SECDED ECC. We compressed the physical logic delay to an incredible 7.934 ns at 126.035 MHz, ensuring a strict 19.04 μs worst-case execution time (WCET). Achieving zero NPU overhead, we deliver a hardware gate that holds even when the OS crashes. Infrastructure that works where it matters most—ready for advanced Automotive SoC Emulation and Tier-1 integration.
                                                 </p>
                                             </div>
                                         </div>
@@ -468,15 +468,7 @@
                                             <span className="inline-block mt-1 text-[10px] bg-cyan-50 text-cyan-700 px-2 py-0.5 rounded border border-cyan-100">Silicon IP MVP</span>
                                         </div>
 
-                                        {/* 12. QITC */}
-                                        <div className="relative pl-6 border-l-2 border-slate-200">
-                                            <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-purple-400 rounded-full"></div>
-                                            <span className="text-xs font-mono text-slate-400 block mb-1">Mar 2026</span>
-                                            <p className="font-bold text-slate-800 text-sm leading-tight">Participant in 8th Qualcomm Innovate in Taiwan Challenge (QITC 2026)</p>
-                                            <span className="inline-block mt-1 text-[10px] bg-purple-50 text-purple-700 px-2 py-0.5 rounded border border-purple-100">Startup Challenge</span>
-                                        </div>
-
-                                        {/* 13. Patent Granted */}
+                                        {/* 12. Patent Granted */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-green-500 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Mar 2026</span>
@@ -484,7 +476,7 @@
                                             <span className="inline-block mt-1 text-[10px] bg-green-100 text-green-800 px-2 py-0.5 rounded border border-green-200">Invention Patent Approved (TIPO)</span>
                                         </div>
 
-                                        {/* 14. Global IP Strategy (PPH + USPTO) */}
+                                        {/* 13. Global IP Strategy (PPH + USPTO) */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-blue-600 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Mar 2026</span>
@@ -492,21 +484,21 @@
                                             <span className="inline-block mt-1 text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded border border-blue-200">International Patent Layout</span>
                                         </div>
 
-                                        {/* 15. Phase 2.5 Validation */}
+                                        {/* 14. Phase 2.6 Validation */}
                                         <div className="relative pl-6 border-l-2 border-slate-200">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-cyan-600 rounded-full"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Apr 2026</span>
-                                            <p className="font-bold text-slate-800 text-sm leading-tight">Extreme Optimization: 55nm Memory-Aware Synthesis Validation</p>
-                                            <p className="text-xs text-slate-600 mt-1">Post-route STA confirms 17.936 ns O(1) physical core latency and 55.752 MHz Fmax on mature 55nm silicon via native SSRAM mapping.</p>
-                                            <span className="inline-block mt-1 text-[10px] bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded border border-cyan-200">Phase 2.5 STA Data</span>
+                                            <p className="font-bold text-slate-800 text-sm leading-tight">ASIL-D Physical Layer Validation (v5.0)</p>
+                                            <p className="text-xs text-slate-600 mt-1">Post-route STA confirms 7.934 ns physical critical path delay and 126.035 MHz Fmax on 55nm silicon. Achieved absolute deterministic 19.04 μs WCET for a 256-rule commercial target with zero timing violations.</p>
+                                            <span className="inline-block mt-1 text-[10px] bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded border border-cyan-200">Phase 2.6 STA Data</span>
                                         </div>
 
-                                        {/* 16. Best AI Awards Finalist */}
+                                        {/* 15. Best AI Awards Finalist */}
                                         <div className="relative pl-6 border-l-2 border-transparent">
                                             <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 bg-yellow-400 rounded-full animate-pulse"></div>
                                             <span className="text-xs font-mono text-slate-400 block mb-1">Apr 2026</span>
                                             <p className="font-bold text-slate-900 text-sm leading-tight">Finalist: 2026 Best AI Awards</p>
-                                            <p className="text-xs text-slate-600 mt-1">IC Design - Startup & SME Category. Project: Silicon Verdict Gate.</p>
+                                            <p className="text-xs text-slate-600 mt-1">Startup IC Design Category at the MOEA Smart Innovation Awards. Project: Silicon Verdict Gate.</p>
                                             <span className="inline-block mt-1 text-[10px] bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded border border-yellow-200">Competition Finalist</span>
                                         </div>
 
