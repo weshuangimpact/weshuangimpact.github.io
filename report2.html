@@ -68,9 +68,9 @@
             </div>
             <h1 class="text-3xl md:text-5xl font-black text-white mb-6 leading-tight tracking-tight">
                 矽智財技術報告 <br/>
-                <span class="text-2xl md:text-3xl text-slate-400 font-medium">矽級治理：賦予邊緣 AI 法律可採信性</span>
+                <span class="text-2xl md:text-3xl text-slate-400 font-medium">矽級治理：讓實體 AI 具備絕對決定性</span>
             </h1>
-            <p class="text-slate-400 mt-2 mb-8">55 奈米極致優化與架構可行性報告</p>
+            <p class="text-slate-400 mt-2 mb-8">ASIL-D 實體層驗證與 55 奈米架構報告</p>
             
             <div class="preview-container relative group" onclick="openModal('pic15.jpg')">
                 <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
@@ -85,7 +85,7 @@
             </div>
             <div class="max-w-3xl mx-auto mt-4 text-left">
                 <p class="text-emerald-400/90 text-xs leading-relaxed border-l-2 border-emerald-500 pl-3">
-                    <strong>* 硬體驗證聲明：</strong> 本次佈線後靜態時序分析 (Post-route STA) 係於 Gowin GW2A-18 (20K FPGA) 上執行，採用成熟的 <strong>55奈米製程</strong>。在 55奈米節點上達成精確的 3 層邏輯深度、17.936 奈秒關鍵路徑延遲 (55.752 MHz Fmax) 且零時序違規，證明了我們記憶體感知 RTL 設計的極致效率。這顯示在未來遷移至先進車用 ASIC 節點 (例如 28nm/4nm) 時，將能輕鬆實現次奈秒 (Sub-nanosecond) 等級的物理延遲。
+                    <strong>* 硬體驗證聲明：</strong> 本次佈線後靜態時序分析 (Post-route STA) 係於 Gowin GW2A-18 (20K FPGA) 上執行，採用成熟的 <strong>55奈米製程</strong>。達成精確的 7 層邏輯深度、7.934 奈秒關鍵路徑延遲 (126.035 MHz Fmax) 且零時序違規，證明了我們記憶體感知 RTL 設計的極致效率。此架構將合規任務卸載至實體矽智財閘門，直接解放 VLA 模型的 Token 算力。
                 </p>
             </div>
         </div>
@@ -97,22 +97,22 @@
             <section class="section-card">
                 <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">1. 專案概述</h2>
                 <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                    邊緣 AI 系統日益需要具備確定性且在法律上具備可採信性的控制機制。本專案開發了一套以矽智財 (Silicon IP) 形式實作的硬體強制裁決引擎。它能將機率性的 AI 輸出轉化為具備法律防禦力、可被驗證的物理執行動作。
+                    實體 AI (Physical AI) 系統日益需要具備絕對確定性且法律可採信的控制機制。本專案開發了一套以矽智財 (Silicon IP) 實作的硬體強制裁決引擎，能將機率性的 AI 輸出 (包含幻覺) 強制轉換為具備法律防禦力、100% 絕對物理邊界限制的實體動作。
                 </p>
                 <ul class="list-disc list-inside text-sm text-slate-300">
-                    <li><strong>目標：</strong> 在零 NPU 負擔下，實現 100% 的物理合規性與證據生成。</li>
-                    <li><strong>應用場景：</strong> 高風險環境 (如：軟體定義汽車 SDV、工業自動化)。</li>
+                    <li><strong>目標：</strong> 合規設計一體化 (Safety & Compliance by Design)，確保 100% 物理執行精度。</li>
+                    <li><strong>應用場景：</strong> 高風險環境 (智慧工廠、自動駕駛、醫療手術機器人)。</li>
                 </ul>
             </section>
 
             <section class="section-card">
                 <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">2. 系統架構</h2>
                 <div class="bg-slate-900 p-4 rounded text-sm font-mono text-slate-300 border border-slate-700">
-                    <p class="text-slate-400">AI 推論引擎 (MPU)</p>
-                    <p class="text-slate-500 py-1 pl-4">↓ (單向硬體閘門)</p>
-                    <p class="text-sky-400 font-bold">硬體裁決矽智財 (WesmartAI SVG)</p>
-                    <p class="text-slate-500 py-1 pl-4">├─ 物理決策 → <span class="text-emerald-400">致動器控制 (Actuator Control)</span></p>
-                    <p class="text-slate-500 pl-4">└─ 合規證據 → <span class="text-indigo-400">不可變分類帳 (Immutable Ledger)</span></p>
+                    <p class="text-slate-400">AI 推論大腦 (NPU/GPU)</p>
+                    <p class="text-slate-500 py-1 pl-4">↓ (機率性意圖)</p>
+                    <p class="text-sky-400 font-bold">硬體裁決矽智財 (Silicon Verdict Gate)</p>
+                    <p class="text-slate-500 py-1 pl-4">├─ 確定性規則 → <span class="text-emerald-400">致動器實體控制</span></p>
+                    <p class="text-slate-500 pl-4">└─ 硬體級證據 → <span class="text-indigo-400">不可篡改 SHA-256 日誌</span></p>
                 </div>
             </section>
         </div>
@@ -121,47 +121,47 @@
             <section class="section-card">
                 <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">3. 核心功能區塊</h2>
                 <div class="bg-slate-900 p-4 rounded border border-slate-700 text-slate-300 font-mono text-sm leading-loose">
-                    [+] 推論隔離介面 (RX)<br>
-                    [+] 確定性策略引擎 (WesmartAI SVG)<br>
-                    [+] 物理閘門控制器 (Physical Gate Controller)<br>
-                    [+] 硬體錨定證據生成器 (Evidence Generator)
+                    [+] 單向實體隔離介面 (RX)<br>
+                    [+] RTL 強制確定性策略引擎<br>
+                    [+] 物理閘門控制器 (零時序抖動)<br>
+                    [+] 密碼學分類帳生成器 (符合 ASIL-D 要求)
                 </div>
             </section>
 
             <section class="section-card">
                 <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">4. 硬體資料流向</h2>
                 <ul class="space-y-3 text-sm text-slate-300">
-                    <li><strong class="text-sky-400">輸入 (來自 AI MPU)：</strong> 單向資料二極體 (Data diode)，接收非確定性酬載與置信度陣列。</li>
-                    <li><strong class="text-emerald-400">控制輸出 (至 致動器)：</strong> 嚴格的確定性執行狀態 (允許 ALLOW、拒絕 DENY、待決 PENDING)。</li>
-                    <li><strong class="text-indigo-400">證據輸出：</strong> 密碼學綁定的雜湊值，將決策與物理硬體狀態直接連結。</li>
+                    <li><strong class="text-sky-400">輸入 (來自 AI 大腦)：</strong> 專屬單向通道，接收非確定性的酬載與軌跡規劃指令。</li>
+                    <li><strong class="text-emerald-400">控制輸出 (至 致動器)：</strong> 嚴格的確定性執行狀態 (允許/拒絕)，於物理層面強制攔截越界動作。</li>
+                    <li><strong class="text-indigo-400">證據輸出：</strong> 密碼學綁定的雜湊值，將物理攔截事件與硬體底層狀態直接連結。</li>
                 </ul>
             </section>
         </div>
 
         <section class="section-card border-cyan-900/30">
             <div class="flex justify-between items-center border-b border-slate-600 mb-4 pb-2">
-                <h2 class="text-xl">5. 記憶體感知合成驗證 (階段 2.5)</h2>
+                <h2 class="text-xl">5. ASIL-D 實體層驗證 (階段 2.6)</h2>
                 <span class="bg-cyan-900/40 border border-cyan-500/50 text-cyan-400 text-xs px-2 py-1 rounded uppercase tracking-wider">55奈米 STA 數據</span>
             </div>
             
             <div class="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="lg:col-span-2">
                     <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                        為確保能順利遷移至 Tier-1 車用 SoC 的 ASIC 先進製程，RTL 邏輯已在 55奈米 FPGA 架構 (Gowin 20K) 上進行了根本性的優化。透過整合 100% 的專利請求項——包含循序狀態機引擎與硬體密碼學雜湊——我們啟動了進階的「記憶體感知合成 (Memory-Aware Synthesis)」，即使在成熟製程節點上，也達成了指數級的效能躍升。
+                        為確保能順利遷移至 Tier-1 邊緣運算 SoC，RTL 邏輯已在 55 奈米 FPGA 架構上針對 256 條商業規則進行了極致優化。透過整合 100% 的專利請求項——包含 128-bit 離線儲存轉發佇列與硬體密碼學引擎——我們解鎖了極高的系統頻率，且完美維持 O(1) 的絕對決定性保證。
                     </p>
                 </div>
                 
                 <div class="bg-cyan-900/20 border border-cyan-700/50 rounded-lg p-4 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
-                    <h4 class="text-cyan-400 text-sm font-bold mb-2"><i class="fas fa-microchip mr-2"></i>架構優化里程碑</h4>
+                    <h4 class="text-cyan-400 text-sm font-bold mb-2"><i class="fas fa-microchip mr-2"></i>超輕量化資源覆印</h4>
                     <p class="text-slate-300 text-xs leading-relaxed">
-                        將邏輯映射轉換為利用 55奈米架構上的原生 SSRAM，導致了面積降至 <strong>1212 LUTs、120 REGs 與 4 塊 SSRAM</strong> (約 7% 邏輯使用率)，並成功確立了 <strong>55.752 MHz</strong> 的物理運行極限。
+                        透過記憶體感知合成 (Memory-aware synthesis) 將邏輯映射至 55奈米架構的原生 SSRAM，達成了 <strong>434 LUTs、129 REGs 與 8 塊 SSRAM</strong> (<3% 邏輯使用率) 的極致足跡，並確立了 <strong>126.035 MHz</strong> 的系統最高頻率 (Fmax)。換算為 ASIC 晶片面積小於 0.05 mm²，帶來近乎零的矽成本負擔。
                     </p>
                 </div>
 
                 <div class="bg-emerald-900/20 border border-emerald-700/50 rounded-lg p-4 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
-                    <h4 class="text-emerald-400 text-sm font-bold mb-2"><i class="fas fa-bolt mr-2"></i>為何採用 SSRAM？實現 O(1) 確定性</h4>
+                    <h4 class="text-emerald-400 text-sm font-bold mb-2"><i class="fas fa-bolt mr-2"></i>O(1) 絕對常數時間</h4>
                     <p class="text-slate-300 text-xs leading-relaxed">
-                        透過將版本化的規則包 (Versioned Rulepack) 直接映射至原生的 SSRAM 區塊，本架構實現了 <strong>O(1) 恆定時間查找</strong>。這確保了無論安全規則擴展到多大規模，物理邏輯運算深度都將完美維持在精確的 <strong>3 層</strong>，從而在物理層面上徹底阻斷不合規的 AI 指令接觸致動器。
+                        將版本化的規則包 (Versioned Rulepack) 直接映射至原生 SSRAM，架構可在精確的 <strong>19.04 µs</strong> 內完成 256 條合規法則全掃描。這保證了物理反應徹底免於作業系統排程器所帶來的抖動 (Jitter)，為關鍵工廠機具強制設立不可逾越的安全邊界。
                     </p>
                 </div>
             </div>
@@ -169,52 +169,52 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">6. 階段 2 與 2.5 效能演進</h2>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">6. 商業化目標優化進程</h2>
                 <table class="text-center">
                     <thead>
                         <tr>
                             <th class="text-left w-1/3">評估指標</th>
-                            <th class="text-center w-1/3">階段 2<br/><span class="text-xs text-slate-500 font-normal">(55奈米 基準線)</span></th>
-                            <th class="text-center text-cyan-400 w-1/3">階段 2.5<br/><span class="text-xs text-cyan-700 font-normal">(55奈米 極限優化)</span></th>
+                            <th class="text-center w-1/3">階段 2.5<br/><span class="text-xs text-slate-500 font-normal">(1,024條規則 壓力測試)</span></th>
+                            <th class="text-center text-cyan-400 w-1/3">階段 2.6<br/><span class="text-xs text-cyan-700 font-normal">(256條規則 商業最佳化)</span></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">關鍵路徑延遲 (Critical Path Latency)</td>
-                            <td class="text-slate-400">17.360 ns</td>
-                            <td class="text-cyan-400 font-bold">17.936 ns</td>
-                        </tr>
-                        <tr>
                             <td class="font-medium text-slate-200 text-left">實際系統最高頻率 (Fmax)</td>
-                            <td class="text-slate-400">56.3 MHz</td>
-                            <td class="text-cyan-400 font-bold">55.752 MHz</td>
+                            <td class="text-slate-400">55.752 MHz</td>
+                            <td class="text-cyan-400 font-bold">126.035 MHz</td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">邏輯資源耗用</td>
-                            <td class="text-slate-400">601 LUTs</td>
-                            <td class="text-cyan-400 font-bold">1212 LUTs + 120 REGs + 4 SSRAM</td>
+                            <td class="font-medium text-slate-200 text-left">關鍵路徑延遲 (Critical Path)</td>
+                            <td class="text-slate-400">17.936 ns</td>
+                            <td class="text-cyan-400 font-bold">7.934 ns</td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">組合邏輯層數</td>
-                            <td class="text-slate-400">10</td>
-                            <td class="text-cyan-400 font-bold">3</td>
+                            <td class="font-medium text-slate-200 text-left">核心邏輯佔用</td>
+                            <td class="text-slate-400">1,212 LUTs + 4 SSRAM</td>
+                            <td class="text-cyan-400 font-bold">434 LUTs + 8 SSRAM</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-slate-200 text-left">決定性掃描時間 (WCET)</td>
+                            <td class="text-slate-400">-</td>
+                            <td class="text-cyan-400 font-bold">19.04 µs</td>
                         </tr>
                     </tbody>
                 </table>
-                <p class="text-slate-400 text-[10px] mt-3 italic">* 擴展至 1,024 條規則容量並加入並行密碼學雜湊，雖然自然增加了 LUT 的消耗，但記憶體感知合成成功將邏輯深度大幅壓縮至驚人的 3 層。</p>
+                <p class="text-slate-400 text-[10px] mt-3 italic">* 在成功通過 2.5 階段的大容量壓力測試後，我們將核心優化至完美覆蓋現行自駕與工控規範所需的 50-100 條合規標準。此舉不僅大幅提升了時脈速度，更為 ASIL-D 故障檢測機制釋放了大量矽空間。</p>
             </section>
 
             <section class="section-card bg-slate-800/30">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">7. ISO 26262 壓力測試</h2>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">7. ISO 26262 時序收斂</h2>
                 <div class="bg-slate-900 p-5 rounded border border-slate-700">
                     <div class="flex justify-between items-center w-full mb-3">
-                        <div class="text-slate-400 text-xs uppercase tracking-wider text-left">絕對確定性 <br><span class="text-sky-500 font-bold normal-case text-sm">無抖動執行 (Jitter-Free)</span></div>
-                        <div class="text-cyan-400 font-bold text-3xl">17.936 <span class="text-xl">ns</span></div>
+                        <div class="text-slate-400 text-xs uppercase tracking-wider text-left">最差執行時間 (WCET)<br><span class="text-sky-500 font-bold normal-case text-sm">零時序違規</span></div>
+                        <div class="text-cyan-400 font-bold text-3xl">19.04 <span class="text-xl">µs</span></div>
                     </div>
                     <div class="border-t border-slate-700/50 pt-3 mt-2 text-left">
-                        <span class="inline-block bg-blue-900/50 text-blue-300 text-[10px] px-2 py-0.5 rounded mb-2">規則擴展性已驗證</span>
+                        <span class="inline-block bg-blue-900/50 text-blue-300 text-[10px] px-2 py-0.5 rounded mb-2">達成 0.000 TNS</span>
                         <p class="text-slate-300 text-sm leading-relaxed">
-                            佈線後 STA 驗證確認，硬體管線始終維持在精確的 <strong>3 層邏輯深度</strong>，確保即使在滿載 1,024 條安全規則的情況下，物理延遲也將保持完美的恆定時間。
+                            在嚴苛的 27MHz 車載/工控時脈約束下，達成<strong>零時序違規 (0.000 TNS)</strong>。這確認了強健的 ASIL-D 時序收斂與絕對確定性的任務完成能力，使作業系統 (OS) 崩潰對物理安全不再具有任何威脅。
                         </p>
                     </div>
                 </div>
@@ -222,39 +222,39 @@
         </div>
 
         <section class="section-card">
-            <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">8. 功耗效率與物理隔離實證</h2>
+            <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">8. 功耗效率與物理隔離數據</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="bg-slate-900 p-5 rounded border border-slate-700 hover:border-cyan-500/50 transition">
                     <h3 class="text-emerald-400 font-bold mb-3"><i class="fas fa-leaf mr-2"></i>超低功耗覆印</h3>
                     <ul class="text-sm text-slate-300 space-y-2">
-                        <li class="flex justify-between"><span>總功耗 (Total Power):</span> <strong>125.353 mW</strong></li>
-                        <li class="flex justify-between border-b border-slate-700 pb-2"><span>靜態功耗 (Quiescent):</span> <span>121.163 mW</span></li>
-                        <li class="flex justify-between text-cyan-400 font-bold pt-1"><span>動態功耗 (Dynamic):</span> <span>4.189 mW</span></li>
+                        <li class="flex justify-between"><span>總功耗 (Total Power):</span> <strong>122.525 mW</strong></li>
+                        <li class="flex justify-between border-b border-slate-700 pb-2"><span>靜態功耗 (Quiescent):</span> <span>121.155 mW</span></li>
+                        <li class="flex justify-between text-cyan-400 font-bold pt-1"><span>核心動態功耗 (Core Dynamic):</span> <span>1.370 mW</span></li>
                     </ul>
-                    <p class="text-[10px] text-slate-500 mt-3 leading-relaxed">極低的動態熱影響，確保其作為獨立微核心 (micro-core) 整合至高密度車用 SoC 的可行性。</p>
+                    <p class="text-[10px] text-slate-500 mt-3 leading-relaxed">雙核 FSM 動態功耗僅以極低的 0.114 mW 運行。趨近於零的功耗懲罰使其完美適應受散熱限制的邊緣 AI 與機器人終端設備。</p>
                 </div>
                 <div class="bg-slate-900 p-5 rounded border border-slate-700 hover:border-indigo-500/50 transition">
                     <h3 class="text-indigo-400 font-bold mb-3"><i class="fas fa-network-wired mr-2"></i>硬體接腳物理驗證</h3>
                     <ul class="text-sm text-slate-300 space-y-2 font-mono">
-                        <li><span class="text-slate-500 text-xs">輸入:</span> uart_rx <span class="text-xs text-slate-500">(資料二極體)</span></li>
-                        <li><span class="text-slate-500 text-xs">閘門輸出:</span> led_allow, led_deny</li>
-                        <li><span class="text-slate-500 text-xs">稽核輸出:</span> probe_hash[1:0]</li>
+                        <li><span class="text-slate-500 text-xs">潛伏故障測試:</span> logic_bist_en, sram_bist_en</li>
+                        <li><span class="text-slate-500 text-xs">硬體錯誤告警:</span> dmr_fault_alert, ecc_uncorrectable</li>
+                        <li><span class="text-slate-500 text-xs">物理閘門控制:</span> led_allow, led_deny</li>
                     </ul>
-                    <p class="text-[10px] text-slate-500 mt-3 leading-relaxed">綜合報告中的接腳配置，證實了即時致動閘門與非同步密碼學稽核軌跡之間嚴格的物理層解耦。</p>
+                    <p class="text-[10px] text-slate-500 mt-3 leading-relaxed">合成腳位佈局驗證了專屬單向資料通道的存在，並整合了 ISO 26262 要求的 BIST 檢測掛勾與 SECDED ECC 就緒能力。</p>
                 </div>
             </div>
         </section>
 
         <section class="section-card border-emerald-700 bg-slate-800/50">
             <h2 class="text-xl mb-4 border-b border-emerald-800 pb-2 text-emerald-400">9. 競爭定位與市場護城河</h2>
-            <p class="text-slate-300 text-sm mb-4">為何傳統的隔離架構不足以應付 Agentic AI 的高風險執行要求。</p>
+            <p class="text-slate-300 text-sm mb-4">為何純軟體架構無法通過 Physical AI 的實體部署考驗。</p>
             <div class="overflow-x-auto">
                 <table class="w-full text-sm min-w-[600px]">
                     <thead>
                         <tr>
                             <th class="bg-slate-900 text-center">防禦架構</th>
                             <th class="bg-slate-900 text-center">隔離層級</th>
-                            <th class="bg-slate-900 text-center">NPU 運算負擔</th>
+                            <th class="bg-slate-900 text-center">AI Token 算力能力</th>
                             <th class="bg-slate-900 text-center">對 OS 崩潰之免疫力</th>
                             <th class="bg-slate-900 text-emerald-400 border-emerald-700/50 text-center">可信智慧整合 SVG</th>
                         </tr>
@@ -262,34 +262,34 @@
                     <tbody>
                         <tr>
                             <td class="font-semibold text-slate-200 text-center">純軟體防護欄 (Software Guardrails)</td>
-                            <td class="text-slate-400 text-center">應用程式層 (Application Layer)</td>
-                            <td class="text-rose-400 text-center">高 (與模型共用算力)</td>
+                            <td class="text-slate-400 text-center">應用程式層 (App Layer)</td>
+                            <td class="text-rose-400 text-center">妥協 (與模型爭奪算力)</td>
                             <td class="text-rose-400 text-center">無</td>
                             <td rowspan="3" class="bg-emerald-900/20 border-emerald-700/50 align-top p-4">
                                 <ul class="space-y-2 text-emerald-300 text-left mx-auto w-fit">
                                     <li><i class="fas fa-check mr-2"></i><strong>硬體連線矽智財</strong></li>
-                                    <li><i class="fas fa-check mr-2"></i><strong>零 NPU 負擔</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>100% 解放 AI Token</strong></li>
                                     <li><i class="fas fa-check mr-2"></i><strong>100% OS 崩潰免疫</strong></li>
-                                    <li><i class="fas fa-check mr-2"></i><strong>恆定時間確定性</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>O(1) 物理絕對決定性</strong></li>
                                 </ul>
                             </td>
                         </tr>
                         <tr>
                             <td class="font-semibold text-slate-200 text-center">ARM TrustZone</td>
                             <td class="text-slate-400 text-center">安全作業系統 / 邏輯隔離</td>
-                            <td class="text-yellow-400 text-center">中 (需 Context switch)</td>
+                            <td class="text-yellow-400 text-center">折損 (需 Context Switch)</td>
                             <td class="text-yellow-400 text-center">部分免疫</td>
                         </tr>
                         <tr>
                             <td class="font-semibold text-slate-200 text-center">安全微控制器 (Safety Island MCU)</td>
                             <td class="text-slate-400 text-center">實體 MCU 隔離</td>
-                            <td class="text-emerald-400 text-center">零</td>
-                            <td class="text-emerald-400 text-center">高</td>
+                            <td class="text-emerald-400 text-center">完整保留</td>
+                            <td class="text-emerald-400 text-center">高 (仍受限於韌體漏洞)</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <p class="text-slate-400 text-xs mt-3 italic">* 與可寫入程式的 Safety Island MCU 不同，我們靜態的 SVG 架構從根本上杜絕了運行時 (runtime) 的惡意程式碼注入風險。</p>
+            <p class="text-slate-400 text-xs mt-3 italic">* 與可寫入程式的 Safety Island MCU 不同，我們靜態的 SVG RTL 架構從根本上杜絕了運行時 (runtime) 的惡意程式碼注入與排程器抖動。</p>
         </section>
 
     </main>
@@ -301,7 +301,7 @@
                     <h4 class="text-white text-lg font-bold mb-4">可信智慧整合</h4>
                     <p class="text-sm leading-relaxed mb-4">
                         讓信任清晰可見。<br/>
-                        矽級別的物理隔離：Agentic AI 的終極合規防禦。
+                        矽級別的物理隔離：實體 AI (Physical AI) 的終極合規防禦。
                     </p>
                 </div>
                 <div>
