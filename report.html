@@ -68,9 +68,9 @@
             </div>
             <h1 class="text-3xl md:text-5xl font-black text-white mb-6 leading-tight tracking-tight">
                 Silicon IP Technical Brief <br/>
-                <span class="text-2xl md:text-3xl text-slate-400 font-medium">Silicon-Governed: Making Edge AI Admissible</span>
+                <span class="text-2xl md:text-3xl text-slate-400 font-medium">Silicon-Governed: Making Physical AI Deterministic</span>
             </h1>
-            <p class="text-slate-400 mt-2 mb-8">55nm Extreme Optimization & Architectural Feasibility Report</p>
+            <p class="text-slate-400 mt-2 mb-8">ASIL-D Physical Layer Validation & 55nm Architecture Report</p>
             
             <div class="preview-container relative group" onclick="openModal('pic15.jpg')">
                 <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
@@ -85,7 +85,7 @@
             </div>
             <div class="max-w-3xl mx-auto mt-4 text-left">
                 <p class="text-emerald-400/90 text-xs leading-relaxed border-l-2 border-emerald-500 pl-3">
-                    <strong>* Note on Hardware Validation:</strong> This post-route Static Timing Analysis (STA) was executed on the Gowin GW2A-18 (20K FPGA), utilizing a mature <strong>55nm process</strong>. Achieving exactly 3 levels of logic depth, 17.936 ns critical path latency (55.752 MHz Fmax) and zero timing violations proves the extreme efficiency of our memory-aware RTL design. This indicates that sub-nanosecond physical latency will be easily achievable upon migration to advanced Automotive ASIC nodes (e.g., 28nm/4nm).
+                    <strong>* Note on Hardware Validation:</strong> This post-route Static Timing Analysis (STA) was executed on the Gowin GW2A-18 (20K FPGA), utilizing a mature <strong>55nm process</strong>. Achieving 7 levels of logic depth, 7.934 ns critical path latency (126.035 MHz Fmax) and zero timing violations proves the extreme efficiency of our memory-aware RTL design. This architecture directly liberates VLA tokens by offloading compliance to a physical silicon gate.
                 </p>
             </div>
         </div>
@@ -97,22 +97,22 @@
             <section class="section-card">
                 <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">1. Project Overview</h2>
                 <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                    Edge AI systems increasingly require deterministic and legally admissible control mechanisms. This project develops a hardware-enforced adjudication engine implemented as Silicon IP. It translates probabilistic AI outputs into legally defensible, verifiable physical execution.
+                    Physical AI systems increasingly require deterministic and legally admissible control mechanisms. This project develops a hardware-enforced adjudication engine implemented as Silicon IP. It translates probabilistic AI outputs (hallucinations) into legally defensible, verifiable physical execution with an absolute deterministic boundary.
                 </p>
                 <ul class="list-disc list-inside text-sm text-slate-300">
-                    <li><strong>Objective:</strong> 100% physical compliance and evidence generation without NPU overhead.</li>
-                    <li><strong>Target:</strong> High-stakes environments (Automotive SDV, Industrial Automation).</li>
+                    <li><strong>Objective:</strong> Safety & Compliance by Design. 100% physical execution accuracy.</li>
+                    <li><strong>Target:</strong> High-stakes environments (Smart Factories, Autonomous Vehicles, Surgical Robotics).</li>
                 </ul>
             </section>
 
             <section class="section-card">
                 <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">2. System Architecture</h2>
                 <div class="bg-slate-900 p-4 rounded text-sm font-mono text-slate-300 border border-slate-700">
-                    <p class="text-slate-400">AI Inference Engine (MPU)</p>
-                    <p class="text-slate-500 py-1 pl-4">↓ (One-way Hardware Gate)</p>
-                    <p class="text-sky-400 font-bold">Hardware Adjudication IP (WesmartAI SVG)</p>
-                    <p class="text-slate-500 py-1 pl-4">├─ Decision → <span class="text-emerald-400">Actuator Control</span></p>
-                    <p class="text-slate-500 pl-4">└─ Evidence → <span class="text-indigo-400">Immutable Ledger</span></p>
+                    <p class="text-slate-400">AI Inference Engine (NPU/GPU)</p>
+                    <p class="text-slate-500 py-1 pl-4">↓ (Probabilistic Intent)</p>
+                    <p class="text-sky-400 font-bold">Hardware Adjudication IP (Silicon Verdict Gate)</p>
+                    <p class="text-slate-500 py-1 pl-4">├─ Deterministic Rule → <span class="text-emerald-400">Actuator Control</span></p>
+                    <p class="text-slate-500 pl-4">└─ Hardware Evidence → <span class="text-indigo-400">Immutable SHA-256 Ledger</span></p>
                 </div>
             </section>
         </div>
@@ -121,47 +121,47 @@
             <section class="section-card">
                 <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">3. Conceptual Functional Blocks</h2>
                 <div class="bg-slate-900 p-4 rounded border border-slate-700 text-slate-300 font-mono text-sm leading-loose">
-                    [+] Inference Isolation Interface (RX)<br>
-                    [+] Deterministic Policy Engine (WesmartAI SVG)<br>
-                    [+] Physical Gate Controller<br>
-                    [+] Hardware-Anchored Evidence Generator
+                    [+] One-way Physical Isolation Interface (RX)<br>
+                    [+] RTL-Enforced Deterministic Policy Engine<br>
+                    [+] Physical Gate Controller (Zero Jitter)<br>
+                    [+] Cryptographic Ledger Generator (ASIL-D Ready)
                 </div>
             </section>
 
             <section class="section-card">
                 <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">4. Hardware Data Flow</h2>
                 <ul class="space-y-3 text-sm text-slate-300">
-                    <li><strong class="text-sky-400">Input (From AI MPU):</strong> Unidirectional data diode receiving non-deterministic payloads and confidence arrays.</li>
-                    <li><strong class="text-emerald-400">Control Output (To Actuator):</strong> Strict deterministic execution states (ALLOW, DENY, PENDING).</li>
-                    <li><strong class="text-indigo-400">Evidence Output:</strong> Cryptographically bound hash linking the decision directly to the physical hardware state.</li>
+                    <li><strong class="text-sky-400">Input (From AI Brain):</strong> Unidirectional routing receiving non-deterministic payloads and trajectories.</li>
+                    <li><strong class="text-emerald-400">Control Output (To Actuator):</strong> Strict deterministic execution states (ALLOW, DENY) intercepting physical boundary breaches.</li>
+                    <li><strong class="text-indigo-400">Evidence Output:</strong> Cryptographically bound hash linking the physical interception directly to the hardware state.</li>
                 </ul>
             </section>
         </div>
 
         <section class="section-card border-cyan-900/30">
             <div class="flex justify-between items-center border-b border-slate-600 mb-4 pb-2">
-                <h2 class="text-xl">5. Memory-Aware Synthesis Validation (Phase 2.5)</h2>
+                <h2 class="text-xl">5. ASIL-D Physical Layer Validation (Phase 2.6)</h2>
                 <span class="bg-cyan-900/40 border border-cyan-500/50 text-cyan-400 text-xs px-2 py-1 rounded uppercase tracking-wider">55nm STA Data</span>
             </div>
             
             <div class="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="lg:col-span-2">
                     <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                        To guarantee ASIC migration readiness for Tier-1 automotive SoCs, the RTL logic was fundamentally optimized on the 55nm FPGA architecture (Gowin 20K). By integrating 100% of the patented claims—including the Sequential FSM Engine and Hardware Crypto hashing—we triggered advanced memory-aware synthesis, yielding an exponential performance leap even on a mature process node.
+                        To guarantee ASIC migration readiness for Tier-1 Edge SoCs, the RTL logic was fundamentally optimized to a 256-rule commercial target on the 55nm FPGA architecture. By integrating 100% of the patented claims—including the 128-bit Offline Store & Forward queue and Hardware Crypto Engine—we unlocked an extreme frequency boost without breaking our deterministic O(1) guarantee.
                     </p>
                 </div>
                 
                 <div class="bg-cyan-900/20 border border-cyan-700/50 rounded-lg p-4 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
-                    <h4 class="text-cyan-400 text-sm font-bold mb-2"><i class="fas fa-microchip mr-2"></i>Architectural Milestone</h4>
+                    <h4 class="text-cyan-400 text-sm font-bold mb-2"><i class="fas fa-microchip mr-2"></i>Ultra-Lightweight Footprint</h4>
                     <p class="text-slate-300 text-xs leading-relaxed">
-                        Transitioning our logic mapping to utilize SSRAM on the 55nm architecture resulted in an optimal footprint of <strong>1212 LUTs, 120 REGs, and 4 SSRAM blocks</strong> (~7% logic utilization), successfully establishing a physical operating limit of <strong>55.752 MHz</strong>.
+                        Transitioning our logic mapping to utilize SSRAM on the 55nm architecture resulted in an optimal footprint of <strong>434 LUTs, 129 REGs, and 8 SSRAM blocks</strong> (&lt;3% logic utilization), successfully establishing an actual system Fmax of <strong>126.035 MHz</strong>. This translates to an ASIC die area of &lt;0.05 mm², introducing near-zero silicon cost.
                     </p>
                 </div>
 
                 <div class="bg-emerald-900/20 border border-emerald-700/50 rounded-lg p-4 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
-                    <h4 class="text-emerald-400 text-sm font-bold mb-2"><i class="fas fa-bolt mr-2"></i>Why SSRAM? The O(1) Determinism</h4>
+                    <h4 class="text-emerald-400 text-sm font-bold mb-2"><i class="fas fa-bolt mr-2"></i>O(1) Deterministic Response</h4>
                     <p class="text-slate-300 text-xs leading-relaxed">
-                        By mapping the Versioned Rulepack directly to native SSRAM blocks, the architecture achieves <strong>O(1) deterministic lookup</strong>. This ensures physical logic computation depth perfectly remains at exactly <strong>3 levels</strong> regardless of how many safety rules are scaled, physically blocking non-compliant AI instructions from reaching the actuator.
+                        By mapping the Versioned Rulepack directly to native SSRAM blocks via memory-aware synthesis, the architecture achieves a full 256-rule scan in exactly <strong>19.04 µs</strong>. This guarantees a physical response free from OS-scheduler jitter, strictly enforcing safety boundaries for critical factory actuators.
                     </p>
                 </div>
             </div>
@@ -169,52 +169,52 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">6. Phase 2 vs 2.5 Evolution</h2>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">6. Commercial Target Optimization</h2>
                 <table class="text-center">
                     <thead>
                         <tr>
                             <th class="text-left w-1/3">Metric</th>
-                            <th class="text-center w-1/3">Phase 2<br/><span class="text-xs text-slate-500 font-normal">(55nm Baseline)</span></th>
-                            <th class="text-center text-cyan-400 w-1/3">Phase 2.5<br/><span class="text-xs text-cyan-700 font-normal">(55nm Optimized)</span></th>
+                            <th class="text-center w-1/3">Phase 2.5<br/><span class="text-xs text-slate-500 font-normal">(1,024-Rule Stress Test)</span></th>
+                            <th class="text-center text-cyan-400 w-1/3">Phase 2.6<br/><span class="text-xs text-cyan-700 font-normal">(256-Rule Target)</span></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">Critical Path Latency</td>
-                            <td class="text-slate-400">17.360 ns</td>
-                            <td class="text-cyan-400 font-bold">17.936 ns</td>
-                        </tr>
-                        <tr>
                             <td class="font-medium text-slate-200 text-left">Actual System Fmax</td>
-                            <td class="text-slate-400">56.3 MHz</td>
-                            <td class="text-cyan-400 font-bold">55.752 MHz</td>
+                            <td class="text-slate-400">55.752 MHz</td>
+                            <td class="text-cyan-400 font-bold">126.035 MHz</td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">Logic Area</td>
-                            <td class="text-slate-400">601 LUTs</td>
-                            <td class="text-cyan-400 font-bold">1212 LUTs + 120 REGs + 4 SSRAM</td>
+                            <td class="font-medium text-slate-200 text-left">Critical Path Delay</td>
+                            <td class="text-slate-400">17.936 ns</td>
+                            <td class="text-cyan-400 font-bold">7.934 ns</td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">Combinational Logic Levels</td>
-                            <td class="text-slate-400">10</td>
-                            <td class="text-cyan-400 font-bold">3</td>
+                            <td class="font-medium text-slate-200 text-left">Core Logic Area</td>
+                            <td class="text-slate-400">1,212 LUTs + 4 SSRAM</td>
+                            <td class="text-cyan-400 font-bold">434 LUTs + 8 SSRAM</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium text-slate-200 text-left">Deterministic WCET</td>
+                            <td class="text-slate-400">-</td>
+                            <td class="text-cyan-400 font-bold">19.04 µs</td>
                         </tr>
                     </tbody>
                 </table>
-                <p class="text-slate-400 text-[10px] mt-3 italic">* Scaling to 1,024 rules capacity with parallel cryptographic hashing naturally expanded LUT consumption, but memory-aware synthesis successfully compressed the logic depth down to an astonishing 3 levels.</p>
+                <p class="text-slate-400 text-[10px] mt-3 italic">* After successfully stress-testing capacity in Phase 2.5, we optimized the core to perfectly cover the 50-100 compliance rules required by current autonomous specifications, unlocking extreme frequency boosts while freeing up silicon for ASIL-D fault hooks.</p>
             </section>
 
             <section class="section-card bg-slate-800/30">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">7. ISO 26262 Stress Testing</h2>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">7. Iso 26262 Timing Closure</h2>
                 <div class="bg-slate-900 p-5 rounded border border-slate-700">
                     <div class="flex justify-between items-center w-full mb-3">
-                        <div class="text-slate-400 text-xs uppercase tracking-wider text-left">Absolute Determinism <br><span class="text-sky-500 font-bold normal-case text-sm">Jitter-Free Execution</span></div>
-                        <div class="text-cyan-400 font-bold text-3xl">17.936 <span class="text-xl">ns</span></div>
+                        <div class="text-slate-400 text-xs uppercase tracking-wider text-left">Worst-Case Execution Time<br><span class="text-sky-500 font-bold normal-case text-sm">Zero Timing Violation</span></div>
+                        <div class="text-cyan-400 font-bold text-3xl">19.04 <span class="text-xl">µs</span></div>
                     </div>
                     <div class="border-t border-slate-700/50 pt-3 mt-2 text-left">
-                        <span class="inline-block bg-blue-900/50 text-blue-300 text-[10px] px-2 py-0.5 rounded mb-2">Rule Scalability Verified</span>
+                        <span class="inline-block bg-blue-900/50 text-blue-300 text-[10px] px-2 py-0.5 rounded mb-2">0.000 TNS Achieved</span>
                         <p class="text-slate-300 text-sm leading-relaxed">
-                            Post-Route STA verifies the hardware pipeline maintains resolution in exactly <strong>3 logic levels</strong>, ensuring perfectly constant physical delay even when fully populated with 1,024 safety rules.
+                            Delivering <strong>Zero Timing Violation (0.000 TNS)</strong> under strict 27MHz vehicular/industrial clock constraints. This confirms robust ASIL-D timing closure and perfectly deterministic task completion, rendering OS crashes completely irrelevant to physical safety.
                         </p>
                     </div>
                 </div>
@@ -227,34 +227,34 @@
                 <div class="bg-slate-900 p-5 rounded border border-slate-700 hover:border-cyan-500/50 transition">
                     <h3 class="text-emerald-400 font-bold mb-3"><i class="fas fa-leaf mr-2"></i>Ultra-Low Power Footprint</h3>
                     <ul class="text-sm text-slate-300 space-y-2">
-                        <li class="flex justify-between"><span>Total Power:</span> <strong>125.353 mW</strong></li>
-                        <li class="flex justify-between border-b border-slate-700 pb-2"><span>Quiescent Power:</span> <span>121.163 mW</span></li>
-                        <li class="flex justify-between text-cyan-400 font-bold pt-1"><span>Dynamic Power:</span> <span>4.189 mW</span></li>
+                        <li class="flex justify-between"><span>Total Power:</span> <strong>122.525 mW</strong></li>
+                        <li class="flex justify-between border-b border-slate-700 pb-2"><span>Quiescent Power:</span> <span>121.155 mW</span></li>
+                        <li class="flex justify-between text-cyan-400 font-bold pt-1"><span>Core Dynamic Power:</span> <span>1.370 mW</span></li>
                     </ul>
-                    <p class="text-[10px] text-slate-500 mt-3 leading-relaxed">Minimal dynamic thermal impact ensures viable integration as a dedicated micro-core within dense Automotive SoCs.</p>
+                    <p class="text-[10px] text-slate-500 mt-3 leading-relaxed">Dual-core FSM dynamic power runs at an ultra-low 0.114 mW. This near-zero power penalty makes it perfectly suited for thermal-constrained Edge AI and robotic end devices.</p>
                 </div>
                 <div class="bg-slate-900 p-5 rounded border border-slate-700 hover:border-indigo-500/50 transition">
                     <h3 class="text-indigo-400 font-bold mb-3"><i class="fas fa-network-wired mr-2"></i>Hardwired Pin Verification</h3>
                     <ul class="text-sm text-slate-300 space-y-2 font-mono">
-                        <li><span class="text-slate-500 text-xs">Input:</span> uart_rx <span class="text-xs text-slate-500">(Data Diode)</span></li>
-                        <li><span class="text-slate-500 text-xs">Gate Out:</span> led_allow, led_deny</li>
-                        <li><span class="text-slate-500 text-xs">Audit Out:</span> probe_hash[1:0]</li>
+                        <li><span class="text-slate-500 text-xs">Latent Fault:</span> logic_bist_en, sram_bist_en</li>
+                        <li><span class="text-slate-500 text-xs">HW Fault Alert:</span> dmr_fault_alert, ecc_uncorrectable</li>
+                        <li><span class="text-slate-500 text-xs">Gate Control:</span> led_allow, led_deny</li>
                     </ul>
-                    <p class="text-[10px] text-slate-500 mt-3 leading-relaxed">Synthesis pinout confirms strict physical decoupling between real-time actuation gates and asynchronous cryptographic audit trails.</p>
+                    <p class="text-[10px] text-slate-500 mt-3 leading-relaxed">Synthesis pinout confirms dedicated unidirectional data channels, alongside ISO 26262 required Latent Fault BIST hooks and SECDED ECC readiness.</p>
                 </div>
             </div>
         </section>
 
         <section class="section-card border-emerald-700 bg-slate-800/50">
             <h2 class="text-xl mb-4 border-b border-emerald-800 pb-2 text-emerald-400">9. Competitive Positioning & Market Moat</h2>
-            <p class="text-slate-300 text-sm mb-4">Why traditional isolation architectures are insufficient for Agentic AI execution.</p>
+            <p class="text-slate-300 text-sm mb-4">Why pure software architectures fail the Physical AI deployment test.</p>
             <div class="overflow-x-auto">
                 <table class="w-full text-sm min-w-[600px]">
                     <thead>
                         <tr>
                             <th class="bg-slate-900 text-center">Architecture</th>
                             <th class="bg-slate-900 text-center">Isolation Level</th>
-                            <th class="bg-slate-900 text-center">NPU Overhead</th>
+                            <th class="bg-slate-900 text-center">AI Token Capability</th>
                             <th class="bg-slate-900 text-center">Immunity to OS Crash</th>
                             <th class="bg-slate-900 text-emerald-400 border-emerald-700/50 text-center">WesmartAI SVG</th>
                         </tr>
@@ -263,33 +263,33 @@
                         <tr>
                             <td class="font-semibold text-slate-200 text-center">Software Guardrails</td>
                             <td class="text-slate-400 text-center">Application Layer</td>
-                            <td class="text-rose-400 text-center">High (Shares compute)</td>
+                            <td class="text-rose-400 text-center">Compromised (Shares Compute)</td>
                             <td class="text-rose-400 text-center">None</td>
                             <td rowspan="3" class="bg-emerald-900/20 border-emerald-700/50 align-top p-4">
                                 <ul class="space-y-2 text-emerald-300 text-left mx-auto w-fit">
                                     <li><i class="fas fa-check mr-2"></i><strong>Hardwired Silicon IP</strong></li>
-                                    <li><i class="fas fa-check mr-2"></i><strong>Zero NPU Overhead</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>Liberates 100% AI Tokens</strong></li>
                                     <li><i class="fas fa-check mr-2"></i><strong>100% OS Crash Immune</strong></li>
-                                    <li><i class="fas fa-check mr-2"></i><strong>Constant-time Determinism</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>O(1) Physical Determinism</strong></li>
                                 </ul>
                             </td>
                         </tr>
                         <tr>
                             <td class="font-semibold text-slate-200 text-center">ARM TrustZone</td>
                             <td class="text-slate-400 text-center">Secure OS / Logical</td>
-                            <td class="text-yellow-400 text-center">Medium (Context switch)</td>
+                            <td class="text-yellow-400 text-center">Reduced (Context Switch)</td>
                             <td class="text-yellow-400 text-center">Partial</td>
                         </tr>
                         <tr>
                             <td class="font-semibold text-slate-200 text-center">Safety Island (MCU)</td>
                             <td class="text-slate-400 text-center">Physical MCU</td>
-                            <td class="text-emerald-400 text-center">Zero</td>
-                            <td class="text-emerald-400 text-center">High</td>
+                            <td class="text-emerald-400 text-center">Intact</td>
+                            <td class="text-emerald-400 text-center">High (Subject to firmware bugs)</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <p class="text-slate-400 text-xs mt-3 italic">* Unlike a programmable Safety Island MCU, our static SVG architecture prevents runtime code injection entirely.</p>
+            <p class="text-slate-400 text-xs mt-3 italic">* Unlike a programmable Safety Island MCU, our static SVG RTL architecture prevents runtime code injection and scheduler jitter entirely.</p>
         </section>
 
     </main>
@@ -301,7 +301,7 @@
                     <h4 class="text-white text-lg font-bold mb-4">WesmartAI</h4>
                     <p class="text-sm leading-relaxed mb-4">
                         Making Trust Transparent.<br/>
-                        Silicon-level physical isolation: The ultimate compliance defense for Agentic AI.
+                        Silicon-level physical isolation: The ultimate compliance defense for Physical AI.
                     </p>
                 </div>
                 <div>
