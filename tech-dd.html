@@ -61,7 +61,7 @@
                             <h4 className="text-white text-lg font-bold mb-4">WesmartAI</h4>
                             <p className="text-sm leading-relaxed mb-4">
                                 Making Trust Transparent.<br/>
-                                Silicon-level physical isolation: The ultimate compliance defense for Agentic AI.
+                                Silicon-level physical isolation: The ultimate compliance defense for Physical AI.
                             </p>
                         </div>
                         <div>
@@ -105,18 +105,18 @@
                             Executive Summary
                         </div>
                         <h1 className="text-3xl md:text-5xl font-black text-white mb-8 leading-tight tracking-tight">
-                            Deterministic SDV Safety Governance <br/>
+                            Deterministic Physical AI Safety Governance <br/>
                             <span className="text-2xl md:text-3xl text-slate-400 font-medium">Tech Due Diligence Whitepaper</span>
                         </h1>
                         
                         <div className="grid md:grid-cols-2 gap-4 mb-8 text-left">
                             <div className="bg-amber-900/20 border border-amber-600/50 p-4 rounded-lg shadow-lg">
                                 <h4 className="text-amber-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-microchip mr-2"></i>Disclosure Notice: 55nm Physical Validation</h4>
-                                <p className="text-slate-300 text-xs leading-relaxed">Phase 2.5 performance data (17.936 ns critical path delay, 55.752 MHz actual Fmax limit, 1212 LUTs) is derived from physical test and post-route Static Timing Analysis (STA) on the Gowin GW2A-18 FPGA (55nm process) using memory-aware RTL mapping to native SSRAM blocks. Achieving this near-zero delay on a mature 55nm node proves extreme architectural efficiency, indicating that migrating to advanced Automotive ASIC nodes (e.g., 28nm/4nm) will easily yield true sub-nanosecond latency.</p>
+                                <p className="text-slate-300 text-xs leading-relaxed">Phase 2.6 performance data (7.934 ns critical path delay, 126.035 MHz actual Fmax limit, 434 LUTs) is derived from physical test and post-route Static Timing Analysis (STA) on the Gowin GW2A-18 FPGA (55nm process) using memory-aware RTL mapping to native SSRAM blocks. Achieving this near-zero delay on a mature 55nm node proves extreme architectural efficiency, indicating that migrating to advanced Edge ASIC nodes (e.g., 28nm/4nm) will yield virtually zero latency.</p>
                             </div>
                             <div className="bg-orange-900/20 border border-orange-600/50 p-4 rounded-lg shadow-lg">
-                                <h4 className="text-orange-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-info-circle mr-2"></i>Target Alignment: ASIL-B / D Ready</h4>
-                                <p className="text-slate-300 text-xs leading-relaxed">The accurate current certification target is <strong>ASIL-B</strong>, formally validated during Phase 3 fault injection. The SVG hardware architecture is designed with ASIL-D upgrade headroom — formal ASIL-D certification is strategically planned for Phase 4 with Dual Rail logic redundancy validation.</p>
+                                <h4 className="text-orange-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-info-circle mr-2"></i>Target Alignment: ASIL-D Ready</h4>
+                                <p className="text-slate-300 text-xs leading-relaxed">The SVG hardware architecture is purposefully designed from the ground up to meet strict <strong>ISO 26262 ASIL-D</strong> compliance for Physical AI. Built-in hooks for Latent Fault BIST, Dual Modular Redundancy (DMR), and SECDED ECC are verified at the pinout level, ensuring formal ASIL-D certification readiness without software overhead.</p>
                             </div>
                         </div>
                     </div>
@@ -131,27 +131,27 @@
                         <div className="highlight-box text-left mb-6 shadow-lg">
                             <h3 className="text-emerald-400 font-bold text-base mb-2">The Core Insight: Rules Precede Execution</h3>
                             <p className="text-slate-200 text-sm leading-relaxed mb-3">
-                                Traditional safety architectures ask: <em>"What happens when the system fails?"</em> (Fail-Safe).<br/>
-                                SVG inverts this question: <strong>"How do we ensure non-compliant instructions never reach the actuator in the first place?"</strong>
+                                Traditional safety architectures ask: <em>"What happens when the software system fails?"</em> (Fail-Safe).<br/>
+                                SVG inverts this question: <strong>"How do we ensure hallucinated, non-compliant physical trajectories never reach the actuator in the first place?"</strong>
                             </p>
                             <p className="text-slate-300 text-sm leading-relaxed">
-                                By utilizing a statically compiled, hardware-loaded <strong>Versioned Rulepack</strong> mapped directly to memory blocks, hallucinated commands have no physical path to execution. <strong>Rulepack completeness — not hardware redundancy — is the primary safety lever.</strong>
+                                By utilizing a statically compiled, hardware-loaded <strong>Versioned Rulepack</strong> mapped directly to memory blocks, hallucinated AI commands have no physical path to execution. <strong>Hardware deterministic interception — not software guardrails — is the primary safety lever for Physical AI.</strong>
                             </p>
                         </div>
 
                         <h4 className="text-white font-bold mb-4">Timing Analysis: Massive Safety Margin</h4>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-2">
                             <div className="bg-slate-800/50 border border-slate-700 p-4 rounded text-center">
-                                <div className="text-emerald-400 font-bold text-xl mb-1">17.936 ns</div>
+                                <div className="text-emerald-400 font-bold text-xl mb-1">7.934 ns</div>
                                 <div className="text-slate-400 text-xs">Critical Path Delay</div>
                             </div>
                             <div className="bg-slate-800/50 border border-slate-700 p-4 rounded text-center">
-                                <div className="text-blue-400 font-bold text-xl mb-1">55.752 MHz</div>
+                                <div className="text-blue-400 font-bold text-xl mb-1">126.035 MHz</div>
                                 <div className="text-slate-400 text-xs">Physical System Fmax</div>
                             </div>
-                            <div className="bg-slate-800/50 border border-slate-700 p-4 rounded text-center opacity-70">
-                                <div className="text-rose-400 font-bold text-xl mb-1">8 ms</div>
-                                <div className="text-slate-400 text-xs">Brake Actuation Window</div>
+                            <div className="bg-slate-800/50 border border-slate-700 p-4 rounded text-center">
+                                <div className="text-rose-400 font-bold text-xl mb-1">19.04 µs</div>
+                                <div className="text-slate-400 text-xs">Deterministic WCET Scan</div>
                             </div>
                             <div className="bg-emerald-900/30 border border-emerald-500/50 p-4 rounded text-center">
                                 <div className="text-emerald-400 font-black text-2xl mb-1">Constant</div>
@@ -168,7 +168,7 @@
                         </h2>
                         
                         <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                            In preparation for ASIL-B/D certification during the NRE phase, the following Architectural Level FMEDA outlines the primary failure modes and existing safety mechanisms.
+                            In preparation for ASIL-D certification during the NRE phase, the following Architectural Level FMEDA outlines the primary failure modes and existing safety mechanisms.
                         </p>
 
                         <div className="overflow-x-auto rounded-lg border border-slate-700 mb-4 shadow-lg">
@@ -195,21 +195,21 @@
                                         <td className="p-3">Combinational logic evaluation error</td>
                                         <td className="p-3 text-rose-400">False positive / False negative actuation</td>
                                         <td className="p-3">High</td>
-                                        <td className="p-3 text-emerald-300">Parity + State Validation (Dual Rail planned for Phase 3)</td>
+                                        <td className="p-3 text-emerald-300">Parity + Hardware DMR Fault Hooks</td>
                                     </tr>
                                     <tr className="border-b border-slate-800 bg-slate-800/20 hover:bg-slate-800/40 transition-colors">
                                         <td className="p-3 font-bold text-white">RulePack Memory Controller</td>
                                         <td className="p-3">Data corruption or version downgrade</td>
                                         <td className="p-3 text-rose-400">Security boundary compromised</td>
                                         <td className="p-3">High</td>
-                                        <td className="p-3 text-emerald-300">Crypto Signature Verification + Anti-rollback</td>
+                                        <td className="p-3 text-emerald-300">SECDED ECC + Crypto Signature Verification</td>
                                     </tr>
                                     <tr className="border-b border-slate-800 hover:bg-slate-800/40 transition-colors">
                                         <td className="p-3 font-bold text-white">Hardware Crypto Engine</td>
                                         <td className="p-3">Hash/Crypto computation error</td>
                                         <td className="p-3 text-rose-400">Governance evidence invalid/forged</td>
                                         <td className="p-3">Med-High</td>
-                                        <td className="p-3 text-emerald-300">BIST + Dual-computation Verification</td>
+                                        <td className="p-3 text-emerald-300">Latent Fault BIST + Dual-computation Verification</td>
                                     </tr>
                                     <tr className="bg-slate-800/20 hover:bg-slate-800/40 transition-colors">
                                         <td className="p-3 font-bold text-white">Unidirectional Interface</td>
@@ -231,7 +231,7 @@
                         </h2>
                         
                         <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                            Phase 2 was a minimal PoC. <strong>Phase 2.5 (Current)</strong> integrates the complete patent family, resulting in an extreme area and speed optimization via native Memory-Aware Synthesis on 55nm FPGA. <strong>Phase 3</strong> projects the commercial specification, scaling memory to support 10+ years of Rulepack updates while maintaining strictly deterministic routing latency.
+                            <strong>Phase 2.6 (Current)</strong> integrates the complete patent family, resulting in an extreme area and speed optimization via native Memory-Aware Synthesis on 55nm FPGA targeted at a 256-rule commercial specification. <strong>Phase 3</strong> projects the production specification, scaling memory to support extensive Rulepack updates while maintaining strictly deterministic routing latency.
                         </p>
 
                         <div className="overflow-x-auto rounded-lg border border-slate-700 mb-6">
@@ -239,60 +239,53 @@
                                 <thead className="bg-slate-900 text-slate-300">
                                     <tr>
                                         <th className="p-4 border-b border-slate-700">Metric</th>
-                                        <th className="p-4 border-b border-slate-700">Phase 2<br/><span className="text-xs text-slate-500 font-normal">(55nm Baseline)</span></th>
-                                        <th className="p-4 border-b border-slate-700 text-cyan-400 font-bold">Phase 2.5 (Current)<br/><span className="text-xs text-cyan-700 font-normal">(55nm STA Verified)</span></th>
+                                        <th className="p-4 border-b border-slate-700">Phase 2.5<br/><span className="text-xs text-slate-500 font-normal">(1,024-Rule Stress Test)</span></th>
+                                        <th className="p-4 border-b border-slate-700 text-cyan-400 font-bold">Phase 2.6 (Current)<br/><span className="text-xs text-cyan-700 font-normal">(55nm STA Verified)</span></th>
                                         <th className="p-4 border-b border-slate-700 text-amber-400 font-bold">Phase 3 (Commercial)<br/><span className="text-xs text-amber-700 font-normal">(Production Spec)</span></th>
                                         <th className="p-4 border-b border-slate-700 text-purple-400 font-bold">Advanced Node<br/><span className="text-xs text-purple-700 font-normal">(28nm/7nm ASIC)</span></th>
                                     </tr>
                                 </thead>
                                 <tbody className="text-slate-300">
                                     <tr className="border-b border-slate-800 bg-slate-800/20">
-                                        <td className="p-4 font-bold text-white">Storage Architecture</td>
-                                        <td className="p-4 border-r border-slate-800">Register-based</td>
-                                        <td className="p-4 text-cyan-300">Native SSRAMs</td>
-                                        <td className="p-4 text-amber-300">Integrated Memory Sys</td>
-                                        <td className="p-4 text-purple-300">SRAM Compiler / ROM</td>
-                                    </tr>
-                                    <tr className="border-b border-slate-800">
                                         <td className="p-4 font-bold text-white">Rule Capacity</td>
-                                        <td className="p-4 border-r border-slate-800">Minimal (Static)</td>
-                                        <td className="p-4 text-cyan-300">1,024 Rules</td>
+                                        <td className="p-4 border-r border-slate-800">1,024 Rules</td>
+                                        <td className="p-4 text-cyan-300">256 Rules</td>
                                         <td className="p-4 text-amber-300 font-bold">256 Kbyte (Full Rulepack)</td>
                                         <td className="p-4 text-purple-300">256 KB+ (Scalable)</td>
                                     </tr>
-                                    <tr className="border-b border-slate-800 bg-slate-800/20">
+                                    <tr className="border-b border-slate-800">
                                         <td className="p-4 font-bold text-white">Core Logic Delay</td>
-                                        <td className="p-4 border-r border-slate-800">17.360 ns</td>
-                                        <td className="p-4 text-cyan-300 font-bold">17.936 ns</td>
+                                        <td className="p-4 border-r border-slate-800">17.936 ns</td>
+                                        <td className="p-4 text-cyan-300 font-bold">7.934 ns</td>
                                         <td className="p-4 text-amber-300">~10 ns (Est.)</td>
                                         <td className="p-4 text-purple-300">&lt; 0.8 ns</td>
                                     </tr>
-                                    <tr className="border-b border-slate-800">
+                                    <tr className="border-b border-slate-800 bg-slate-800/20">
                                         <td className="p-4 font-bold text-white">System Fmax (Limit)</td>
-                                        <td className="p-4 border-r border-slate-800">56.3 MHz</td>
-                                        <td className="p-4 text-cyan-300">55.752 MHz</td>
+                                        <td className="p-4 border-r border-slate-800">55.752 MHz</td>
+                                        <td className="p-4 text-cyan-300">126.035 MHz</td>
                                         <td className="p-4 text-amber-300">120~150 MHz</td>
                                         <td className="p-4 text-purple-300">450 MHz ~ 1.2 GHz</td>
                                     </tr>
-                                    <tr className="border-b border-slate-800 bg-slate-800/20">
+                                    <tr className="border-b border-slate-800">
                                         <td className="p-4 font-bold text-white">Logic Area</td>
-                                        <td className="p-4 border-r border-slate-800">601 LUTs</td>
-                                        <td className="p-4 text-cyan-300">1212 LUTs + 120 REGs</td>
+                                        <td className="p-4 border-r border-slate-800">1212 LUTs + 120 REGs</td>
+                                        <td className="p-4 text-cyan-300">434 LUTs + 129 REGs + 8 SSRAM</td>
                                         <td className="p-4 text-amber-300">~1500 LUTs</td>
                                         <td className="p-4 text-purple-300">&lt; 15,000 Gates</td>
                                     </tr>
-                                    <tr className="border-b border-slate-800">
+                                    <tr className="border-b border-slate-800 bg-slate-800/20">
                                         <td className="p-4 font-bold text-white">Logic Levels</td>
-                                        <td className="p-4 border-r border-slate-800">10</td>
-                                        <td className="p-4 text-cyan-300">3</td>
+                                        <td className="p-4 border-r border-slate-800">3</td>
+                                        <td className="p-4 text-cyan-300">7</td>
                                         <td className="p-4 text-amber-300">7~8</td>
                                         <td className="p-4 text-purple-300">6</td>
                                     </tr>
-                                    <tr className="border-b border-slate-800 bg-slate-800/20">
-                                        <td className="p-4 font-bold text-white">Dynamic Power</td>
-                                        <td className="p-4 border-r border-slate-800">-</td>
-                                        <td className="p-4 text-cyan-300 font-bold">4.189 mW</td>
-                                        <td className="p-4 text-amber-300">~15 mW</td>
+                                    <tr className="border-b border-slate-800">
+                                        <td className="p-4 font-bold text-white">Core Dynamic Power</td>
+                                        <td className="p-4 border-r border-slate-800">4.189 mW</td>
+                                        <td className="p-4 text-cyan-300 font-bold">1.370 mW</td>
+                                        <td className="p-4 text-amber-300">~5 mW</td>
                                         <td className="p-4 text-purple-300">&lt; 0.5 mW</td>
                                     </tr>
                                 </tbody>
@@ -300,7 +293,7 @@
                         </div>
                         
                         <div className="bg-blue-900/20 border-l-4 border-blue-500 p-4 rounded text-sm text-slate-300 italic">
-                            <strong>Technical Note:</strong> The transition to a 256 Kbyte internal memory space in Phase 3 supports processing up to 5,000+ conditional logic variables autonomously without host OS intervention. The O(1) determinism of BSRAM ensures routing delay variations remain unnoticeable at the system level.
+                            <strong>Technical Note:</strong> The transition to a 256 Kbyte internal memory space in Phase 3 supports processing up to 5,000+ conditional logic variables autonomously without host OS intervention. The O(1) determinism of the native memory blocks ensures routing delay variations remain unnoticeable at the physical system level.
                         </div>
                     </section>
 
@@ -312,7 +305,7 @@
                         </h2>
 
                         <p className="text-slate-300 text-sm mb-4">
-                            While modern Safety MCUs utilize Hardware Security Modules (HSM) and Lockstep architectures to achieve robust security, they do so at the cost of immense software validation and processing overhead. <strong>WesmartAI SVG shifts the paradigm by eliminating the software layer entirely, achieving physical isolation through pure static logic.</strong>
+                            While modern Safety MCUs utilize Hardware Security Modules (HSM) and Lockstep architectures to achieve robust security, they do so at the cost of immense software validation and processing overhead. <strong>WesmartAI SVG shifts the paradigm by eliminating the software layer entirely, achieving physical isolation through pure static logic and liberating 100% of the AI brain's compute tokens.</strong>
                         </p>
                         
                         <div className="overflow-x-auto rounded-lg border border-slate-700 mb-6">
@@ -335,7 +328,7 @@
                                     <tr className="border-b border-slate-800">
                                         <td className="p-3 font-bold text-white">Code Injection Risk</td>
                                         <td className="p-3 text-rose-400">High (OS Level)</td>
-                                        <td className="p-3 text-amber-300">Mitigated via HSM</td>
+                                        <td className="p-3 text-amber-300">Mitigated via Firmware</td>
                                         <td className="p-3 text-emerald-300 font-bold">Zero (Static RTL Logic)</td>
                                     </tr>
                                     <tr className="border-b border-slate-800 bg-slate-800/20">
@@ -359,26 +352,26 @@
                     <section className="doc-card mb-8 shadow-xl border-sky-900/50" data-aos="fade-up">
                         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
                             <span className="bg-sky-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">5</span> 
-                            Commercial Advantages: Est. $140 – $480 USD Savings / Vehicle
+                            Commercial Advantages: Unlocking Edge AI Economies
                         </h2>
                         <p className="text-slate-300 mb-6 text-sm">By completely replacing equivalent software monitors and dedicated Safety MCU cores, OEMs/Tier-1s unlock superlinear cost advantages across four key dimensions:</p>
                         
                         <div className="grid md:grid-cols-2 gap-4 mb-4">
                             <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-                                <h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-microchip text-sky-400 mr-2 w-5"></i>Compute &amp; BOM</span> <span className="text-emerald-400">$60 - $180</span></h4>
-                                <p className="text-slate-400 text-xs">Eliminates the need for dedicated ASIL monitoring cores (e.g., Cortex-R52 dual-core lockstep footprint).</p>
+                                <h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-microchip text-sky-400 mr-2 w-5"></i>Compute &amp; BOM</span> <span className="text-emerald-400">Zero Penalty</span></h4>
+                                <p className="text-slate-400 text-xs">Eliminates the need for dedicated ASIL monitoring cores (e.g., Cortex-R52 dual-core lockstep footprint), liberating AI inference capacity.</p>
                             </div>
                             <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-                                <h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-code-branch text-sky-400 mr-2 w-5"></i>V&amp;V Amortization</span> <span className="text-emerald-400">$40 - $150</span></h4>
-                                <p className="text-slate-400 text-xs">Drastically reduces software engineering human-months required for exhaustive ASIL-D firmware V&amp;V.</p>
+                                <h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-code-branch text-sky-400 mr-2 w-5"></i>V&amp;V Amortization</span> <span className="text-emerald-400">Massive Savings</span></h4>
+                                <p className="text-slate-400 text-xs">Drastically reduces software engineering human-months required for exhaustive ASIL-D OS and firmware validation.</p>
                             </div>
                             <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-                                <h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-thermometer-half text-sky-400 mr-2 w-5"></i>Thermal &amp; Power</span> <span className="text-emerald-400">$20 - $80</span></h4>
-                                <p className="text-slate-400 text-xs">Removes constant CPU polling overhead, simplifying cooling system requirements. Dynamic power is sub-5mW.</p>
+                                <h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-thermometer-half text-sky-400 mr-2 w-5"></i>Thermal &amp; Power</span> <span className="text-emerald-400">1.370 mW Core</span></h4>
+                                <p className="text-slate-400 text-xs">Removes constant CPU polling overhead, simplifying cooling system requirements. Core dynamic power is near-zero.</p>
                             </div>
                             <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-                                <h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-shield-alt text-sky-400 mr-2 w-5"></i>Liability Exposure</span> <span className="text-emerald-400">$20 - $70</span></h4>
-                                <p className="text-slate-400 text-xs">Cryptographic evidence chain drastically clarifies accident liability and reduces legal discovery costs.</p>
+                                <h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-shield-alt text-sky-400 mr-2 w-5"></i>Liability Exposure</span> <span className="text-emerald-400">Ultimate Defense</span></h4>
+                                <p className="text-slate-400 text-xs">Cryptographic evidence chain drastically clarifies accident liability for physical automation and reduces legal discovery costs.</p>
                             </div>
                         </div>
                     </section>
@@ -394,17 +387,17 @@
                             <div>
                                 <h3 className="text-indigo-300 font-bold mb-3 text-sm uppercase tracking-wider">Integration Path</h3>
                                 <ul className="space-y-3 text-sm text-slate-300">
-                                    <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>Interface:</strong> Standard AXI-Lite output.</li>
-                                    <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>Form Factor:</strong> Hard macro insertion between NPU and Actuator Bus.</li>
-                                    <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>Footprint:</strong> &lt; 0.1 mm² total estimated area on 5nm nodes (Memory + Logic).</li>
+                                    <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>Interface:</strong> Standard AXI-Lite / APB compatible.</li>
+                                    <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>Form Factor:</strong> Hard macro insertion between AI Brain and Actuator Bus.</li>
+                                    <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>Footprint:</strong> &lt; 0.05 mm² total estimated area on advanced SoC nodes.</li>
                                 </ul>
                             </div>
                             <div className="border-l border-slate-700 pl-6">
                                 <h3 className="text-indigo-300 font-bold mb-3 text-sm uppercase tracking-wider">The 3-Layer IP Moat</h3>
                                 <ol className="list-decimal list-inside space-y-2 text-sm text-slate-300">
                                     <li><strong className="text-white">Cross-Domain Expertise:</strong> Merges ASIL hardware, AI policy, and Crypto mechanics.</li>
-                                    <li><strong className="text-white">Memory-Aware RTL:</strong> Custom mapping to SSRAM/BSRAM blocks, ensuring scaling deterministic boundaries.</li>
-                                    <li><strong className="text-white">Patent Depth:</strong> Covers gate, Rulepack OTA, evidence chain, and offline buffering universally.</li>
+                                    <li><strong className="text-white">Memory-Aware RTL:</strong> Custom mapping to SSRAM blocks, ensuring scaling deterministic boundaries.</li>
+                                    <li><strong className="text-white">Patent Depth:</strong> Covers physical gate, Rulepack OTA, evidence chain, and offline buffering universally.</li>
                                 </ol>
                             </div>
                         </div>
@@ -414,14 +407,14 @@
                     <section className="doc-card mb-8 shadow-xl border-rose-900/50" data-aos="fade-up">
                         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-rose-800 pb-3">
                             <span className="bg-rose-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">7</span> 
-                            The Most Cost-Effective Hardware Path to L4/L5
+                            The Most Cost-Effective Hardware Path to Autonomous Physical AI
                         </h2>
                         
                         {/* 7.1 */}
                         <div className="mb-8">
                             <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">7.1 The ASIL-D Bottleneck</h3>
                             <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                                Commercial deployment of L4/L5 autonomous vehicles has a hard regulatory prerequisite: <strong>ISO 26262 ASIL-D certification</strong>. SVG architecture provides the shortest path:
+                                Commercial deployment of autonomous physical systems (e.g., L4/L5 SDVs, Smart Factories) has a hard regulatory prerequisite: <strong>ISO 26262 ASIL-D certification</strong>. SVG architecture provides the shortest path:
                             </p>
                             <div className="overflow-x-auto rounded-lg border border-slate-700">
                                 <table className="w-full text-sm text-left">
@@ -436,7 +429,7 @@
                                         <tr className="border-b border-slate-800 bg-slate-800/20">
                                             <td className="p-3 font-bold text-white">Verification Scope</td>
                                             <td className="p-3 text-rose-400">Millions of Lines of Code (LOC)</td>
-                                            <td className="p-3 text-emerald-300">1212 LUTs (Static RTL Logic)</td>
+                                            <td className="p-3 text-emerald-300">434 LUTs (Static RTL Logic)</td>
                                         </tr>
                                         <tr className="border-b border-slate-800">
                                             <td className="p-3 font-bold text-white">Timing Determinism</td>
@@ -455,29 +448,29 @@
 
                         {/* 7.3 */}
                         <div className="mb-8">
-                            <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">7.2 The Silicon Economics: 4nm/5nm Target & 10-Year OTA Headroom</h3>
+                            <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">7.2 The Silicon Economics: 4nm/5nm Target & OTA Headroom</h3>
                             <div className="bg-slate-900 p-4 rounded-lg font-mono text-sm text-sky-300 border border-slate-700 mb-6 overflow-x-auto">
-                                // SVG Die Area Estimation for Advanced Automotive Node (4nm/5nm)<br/>
-                                Logic Core: 1212 LUTs (~10,000 gates) = &lt; 0.001 mm²<br/>
-                                RulePack Memory: 256 KByte Dedicated Secure SRAM = ~0.08 mm²<br/>
+                                // SVG Die Area Estimation for Advanced Edge Node (4nm/5nm)<br/>
+                                Logic Core: 434 LUTs (~4,000 gates) = &lt; 0.005 mm²<br/>
+                                RulePack Memory: 256 KByte Dedicated Secure SRAM = ~0.04 mm²<br/>
                                 (SRAM Capacity: Extensive Hardware Rules @ 128-bit wide)<br/>
                                 ----------------------------------------<br/>
-                                Total Estimated Area: &lt; 0.1 mm²
+                                Total Estimated Area: &lt; 0.05 mm²
                             </div>
                             <div className="grid md:grid-cols-2 gap-4">
                                 <div className="bg-emerald-900/20 border border-emerald-700/50 p-4 rounded">
-                                    <div className="text-emerald-400 font-bold text-xl mb-1">&lt; 0.1 mm²</div>
+                                    <div className="text-emerald-400 font-bold text-xl mb-1">&lt; 0.05 mm²</div>
                                     <div className="text-white font-bold text-sm mb-1">Total Die Area (Logic + Memory)</div>
                                     <div className="text-slate-400 text-xs">Based on high-density 5nm SRAM node. Absolutely zero impact on SoC yield.</div>
                                 </div>
                                 <div className="bg-blue-900/20 border border-blue-700/50 p-4 rounded">
                                     <div className="text-blue-400 font-bold text-xl mb-1">256 Kbyte</div>
                                     <div className="text-white font-bold text-sm mb-1">OTA Future-Proofing</div>
-                                    <div className="text-slate-400 text-xs">A massive 256KB hard-coded memory boundary easily supports 10+ years of L4/L5 policy updates.</div>
+                                    <div className="text-slate-400 text-xs">A massive 256KB hard-coded memory boundary easily supports 10+ years of Physical AI policy updates.</div>
                                 </div>
                             </div>
                             <p className="text-slate-300 text-sm mt-4 italic border-l-4 border-emerald-500 pl-4">
-                                <strong>Conclusion:</strong> Trading less than <strong>0.1 mm²</strong> in silicon area to secure the shortest path to ASIL-D. By intentionally over-provisioning the physical SRAM to 256 Kbyte, the architecture guarantees a decade of secure RulePack OTA updates while remaining a fraction of the cost of a dual-core Lock-step CPU.
+                                <strong>Conclusion:</strong> Trading less than <strong>0.05 mm²</strong> in silicon area to secure the shortest path to ASIL-D. By intentionally over-provisioning the physical SRAM to 256 Kbyte, the architecture guarantees a decade of secure RulePack OTA updates while remaining a fraction of the cost of a dual-core Lock-step CPU.
                             </p>
                         </div>
                     </section>
@@ -519,7 +512,7 @@
                             Next Steps: Emulation &amp; Pre-Certification
                         </h2>
                         <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                            With Phase 2.5 successfully verified on 55nm FPGA silicon, establishing a 1212 LUTs footprint with 17.936 ns latency, we are engaging Tier-1 partners for <strong>AXI-Lite Emulation (Palladium/Zebu)</strong> to integrate the scalable 256KB commercial memory configuration (Phase 3).
+                            With Phase 2.6 successfully verified on 55nm FPGA silicon, establishing an ultra-lightweight 434 LUTs footprint with 19.04 µs deterministic latency, we are engaging Tier-1 partners for <strong>AXI-Lite Emulation (Palladium/Zebu)</strong> to integrate the scalable 256KB commercial memory configuration.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 items-center">
                             <a href="mailto:weshuangimpact@gmail.com" className="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition text-center shadow-lg shadow-blue-500/20">
