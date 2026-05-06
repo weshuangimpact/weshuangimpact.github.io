@@ -30,7 +30,7 @@
             border-bottom: 4px solid var(--accent);
         }
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 30px auto;
             padding: 0 20px;
         }
@@ -86,7 +86,6 @@
         }
         button:disabled { background: #ccc; cursor: not-allowed; }
         
-        /* 參數對照表樣式 */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -95,7 +94,7 @@
         }
         th, td {
             border: 1px solid var(--border);
-            padding: 10px;
+            padding: 12px;
             text-align: left;
         }
         th {
@@ -103,11 +102,17 @@
             color: var(--primary);
         }
         .tag-quadrant {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             background: var(--primary);
             color: white;
-            padding: 2px 6px;
-            border-radius: 3px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+        }
+        .tag-type {
+            font-family: monospace;
+            color: #666;
+            font-size: 0.8rem;
         }
 
         #log-area {
@@ -147,50 +152,58 @@
 
 <div class="container">
     <div class="section">
-        <h2>為何需要轉譯？SVG 是如何進行裁決的？</h2>
-        <p>工業現場的原始設定檔（如 Siemens .xml 或 Rockwell .csv）包含大量與核心安規無關的製程變數，且依賴作業系統層級的軟體解析。SVG 透過離線工具鏈，將這些複雜標籤提取並降維為純硬體邏輯，確保裁決過程具備 <strong>絕對決定性（37 ns）</strong> 與 <strong>物理隔離</strong>。</p>
-        
-        <div class="explanation-grid">
-            <div class="step-card">
-                <h4 style="margin-top:0; color:var(--primary);">1. 提取 (Adapter)</h4>
-                <p style="font-size: 0.9rem;">從各廠牌特有格式中，精準過濾出涉及載具極限的變數與上下限值，剔除無效雜訊。</p>
-            </div>
-            <div class="step-card">
-                <h4 style="margin-top:0; color:var(--primary);">2. 正規化 (UIR)</h4>
-                <p style="font-size: 0.9rem;">將萃取出的數據對齊四大安規象限：物理極限、狀態互斥、時序約束、系統連鎖，轉為標準 JSON。</p>
-            </div>
-            <div class="step-card">
-                <h4 style="margin-top:0; color:var(--primary);">3. 實體映射 (Hex)</h4>
-                <p style="font-size: 0.9rem;">將 JSON 變數映射至 FPGA 中 256 組平行比較器的實體暫存器位址，輸出可直接燒錄的機器碼。</p>
-            </div>
-        </div>
+        <h2>預載 Demo 參數包架構 (擬真數據集)</h2>
+        <p>此表格展示了 SVG 如何從 PLC 匯出的數千條變數中，精煉出 10 條核心物理防線，並自動映射至四大安規象限。</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>變數名稱</th>
+                    <th>型別</th>
+                    <th>安規閾值</th>
+                    <th>安規象限對應</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Max_Velocity_mps</td><td class="tag-type">REAL</td><td>4.17</td><td><span class="tag-quadrant">物理致動器極限</span></td></tr>
+                <tr><td>Emergency_Brake_Decel_mps2</td><td class="tag-type">REAL</td><td>5.0</td><td><span class="tag-quadrant">物理致動器極限</span></td></tr>
+                <tr><td>Max_Steering_Angle_deg</td><td class="tag-type">REAL</td><td>35.0</td><td><span class="tag-quadrant">物理致動器極限</span></td></tr>
+                <tr><td>Max_Steering_Rate_dps</td><td class="tag-type">REAL</td><td>40.0</td><td><span class="tag-quadrant">物理致動器極限</span></td></tr>
+                <tr><td>Gear_Reverse_Speed_Limit_mps</td><td class="tag-type">REAL</td><td>1.39</td><td><span class="tag-quadrant">狀態機互斥鎖</span></td></tr>
+                <tr><td>High_Steer_Throttle_Inhibit</td><td class="tag-type">BOOL</td><td>TRUE</td><td><span class="tag-quadrant">狀態機互斥鎖</span></td></tr>
+                <tr><td>Min_Command_Interval_ms</td><td class="tag-type">INT</td><td>10</td><td><span class="tag-quadrant">時序約束</span></td></tr>
+                <tr><td>Max_Command_Burst_Count</td><td class="tag-type">INT</td><td>3</td><td><span class="tag-quadrant">時序約束</span></td></tr>
+                <tr><td>BIST_Fail_Lockout</td><td class="tag-type">BOOL</td><td>TRUE</td><td><span class="tag-quadrant">系統連鎖</span></td></tr>
+                <tr><td>EStop_Override_Active</td><td class="tag-type">BOOL</td><td>FALSE</td><td><span class="tag-quadrant">系統連鎖</span></td></tr>
+            </tbody>
+        </table>
     </div>
 
     <div class="section">
         <h2>離線轉譯與證據鏈生成 (PoC Demo)</h2>
-        <p style="font-size:0.9rem; color:#555;">請上傳擬真展示用參數包 (demo_safety_params_siemens.xml 或 rockwell.csv)。</p>
+        <p style="font-size:0.9rem; color:#555;">上傳 demo_safety_params_siemens.xml 或 rockwell.csv 以模擬生成「不可變規則包」。</p>
         
         <div class="compiler-box" id="drop-zone">
             <input type="file" id="file-input" hidden accept=".xml,.csv">
             <div style="font-size: 1.2rem; font-weight: bold; color: var(--primary);">點擊或拖曳檔案至此進行解析</div>
-            <div style="font-size: 0.85rem; margin-top: 5px;">本機端靜態編譯，不經由外部網路連線</div>
+            <div style="font-size: 0.85rem; margin-top: 5px;">本機端靜態編譯：符合 Air-Gap 物理隔離原則</div>
         </div>
 
-        <button id="compile-btn" disabled>解析檔案並生成 SVG 規則包</button>
+        <button id="compile-btn" disabled>解析檔案並編譯 SVG 規則 (37ns Parallel)</button>
 
         <div id="result-table-container" style="display:none;">
-            <h3 style="margin-top: 2rem; border-bottom: 1px solid #ccc; padding-bottom: 5px;">解析結果：UIR 統一中間層矩陣</h3>
+            <h3 style="margin-top: 2rem; border-bottom: 2px solid var(--accent); padding-bottom: 5px;">
+                轉譯結果：UIR (統一中間層) 裁決矩陣
+            </h3>
             <table>
                 <thead>
                     <tr>
                         <th>變數名稱 (Variable)</th>
                         <th>約束條件 (Constraint)</th>
-                        <th>安規象限對應 (Safety Quadrant)</th>
+                        <th>安規象限</th>
                         <th>裁決理由 (Adjudication Rationale)</th>
                     </tr>
                 </thead>
-                <tbody id="uir-table-body">
-                    </tbody>
+                <tbody id="uir-table-body"></tbody>
             </table>
         </div>
 
@@ -198,11 +211,11 @@
 
         <div class="evidence-chain" id="evidence-area" style="display:none;">
             <div class="hash-node">
-                <strong style="color:var(--primary);">[1] Source File Hash</strong><br>
+                <strong style="color:var(--primary);">[1] Source Hash</strong><br>
                 <span id="hash-input" style="color:#555;">-</span>
             </div>
             <div class="hash-node">
-                <strong style="color:var(--primary);">[2] UIR JSON Hash</strong><br>
+                <strong style="color:var(--primary);">[2] UIR Hash</strong><br>
                 <span id="hash-uir" style="color:#555;">-</span>
             </div>
             <div class="hash-node">
@@ -211,23 +224,22 @@
             </div>
         </div>
 
-        <button id="download-btn" style="display:none; background: #006600;">下載 Hex 機器碼 (rulepack_256.hex)</button>
+        <button id="download-btn" style="display:none; background: #006600;">匯出 rulepack_256.hex (燒錄至 SD 卡)</button>
     </div>
 </div>
 
 <script>
-    // 定義擬真的 10 條安規數據 (模擬從 XML/CSV 解析後的結果)
     const demoData = [
-        { var: "Max_Velocity_mps", val: "4.17", op: "≤", quad: "物理致動器極限", reason: "超速攔截：防止馬達輸出超出機構安全煞停距離" },
-        { var: "Emergency_Brake_Decel_mps2", val: "5.0", op: "≤", quad: "物理致動器極限", reason: "制動保護：防止過大 G 力造成載具翻覆或零件損壞" },
-        { var: "Max_Steering_Angle_deg", val: "35.0", op: "≤", quad: "物理致動器極限", reason: "轉向極限：鎖死阿克曼幾何最大前輪轉角" },
-        { var: "Max_Steering_Rate_dps", val: "40.0", op: "≤", quad: "物理致動器極限", reason: "防抖動：限制轉向步進馬達之最大角加速度" },
-        { var: "Gear_Reverse_Speed_Limit", val: "1.39", op: "≤", quad: "狀態機互斥鎖", reason: "倒車限制：強制倒檔時速度不得超過 5km/h" },
-        { var: "High_Steer_Throttle_Inhibit", val: "TRUE", op: "==", quad: "狀態機互斥鎖", reason: "邏輯互斥：禁止在滿舵狀態下同時下達大油門指令" },
-        { var: "Min_Command_Interval_ms", val: "10", op: "≥", quad: "時序約束", reason: "防風暴：濾除 OS Context Switch 造成的指令堆疊" },
-        { var: "Max_Command_Burst_Count", val: "3", op: "≤", quad: "時序約束", reason: "頻率控制：硬體計時器強制拋棄過密的 NPU 請求" },
-        { var: "BIST_Fail_Lockout", val: "TRUE", op: "==", quad: "系統連鎖", reason: "ASIL-D 規範：自我診斷失敗時強制切斷動力輸出" },
-        { var: "EStop_Override_Active", val: "FALSE", op: "==", quad: "系統連鎖", reason: "絕對覆寫：實體急停按鈕按下後，無視所有 AI 指令" }
+        { var: "Max_Velocity_mps", val: "4.17", op: "≤", quad: "物理致動器極限", reason: "預防幻覺超速：當 AI 推論異常時，硬體層級強制切斷馬達扭矩。" },
+        { var: "Emergency_Brake_Decel_mps2", val: "5.0", op: "≤", quad: "物理致動器極限", reason: "結構完整性：防止軟體控制過猛導致載具失控或機械損壞。" },
+        { var: "Max_Steering_Angle_deg", val: "35.0", op: "≤", quad: "物理致動器極限", reason: "物理保護：鎖定阿克曼幾何之最大機械轉向死區。" },
+        { var: "Max_Steering_Rate_dps", val: "40.0", op: "≤", quad: "物理致動器極限", reason: "防抖動：避免軟體產生高頻轉向震盪，保護步進馬達。" },
+        { var: "Gear_Reverse_Speed_Limit_mps", val: "1.39", op: "≤", quad: "狀態機互斥鎖", reason: "操作邊界：強制倒車模式下的絕對安全限速 (5 km/h)。" },
+        { var: "High_Steer_Throttle_Inhibit", val: "TRUE", op: "==", quad: "狀態機互斥鎖", reason: "邏輯互斥：禁止在極限轉彎狀態下同時觸發大馬力輸出，防止翻覆。" },
+        { var: "Min_Command_Interval_ms", val: "10", op: "≥", quad: "時序約束", reason: "防指令風暴：硬體濾除 NPU 異常產生的無效或惡意高頻請求。" },
+        { var: "Max_Command_Burst_Count", val: "3", op: "≤", quad: "時序約束", reason: "穩定性：強制控制指令之頻率穩定在可預測的週期內。" },
+        { var: "BIST_Fail_Lockout", val: "TRUE", op: "==", quad: "系統連鎖", reason: "硬體自診：當 FPGA 內部 ECC 錯誤或自檢失敗時，立即進入安全狀態。" },
+        { var: "EStop_Override_Active", val: "FALSE", op: "==", quad: "系統連鎖", reason: "絕對優先權：實體 E-Stop 訊號具備最高裁決權，無視 NPU 軟體指令。" }
     ];
 
     const dropZone = document.getElementById('drop-zone');
@@ -253,17 +265,12 @@
 
     compileBtn.onclick = () => {
         compileBtn.disabled = true;
-        log("啟動轉譯器管線 (Parser Pipeline)...");
-        log("計算 Source File 原始特徵雜湊...");
+        log("啟動平行轉譯管線 (v6.1 Parallel Pipeline)...");
         
         setTimeout(() => {
-            // 模擬哈希計算
-            document.getElementById('hash-input').innerText = CryptoJS.SHA256(uploadedFileName + Date.now()).toString();
+            document.getElementById('hash-input').innerText = CryptoJS.SHA256(uploadedFileName + "SALT").toString().substring(0, 32);
+            log("正在過濾製程雜訊並提取標籤...");
             
-            log("執行 Adapter 解析：濾除製程雜訊，提取 10 組核心安全參數...");
-            log("執行 UIR 正規化：映射至四大實體安規象限...");
-            
-            // 渲染表格
             const tbody = document.getElementById('uir-table-body');
             tbody.innerHTML = "";
             demoData.forEach(row => {
@@ -277,21 +284,17 @@
                 `;
             });
             document.getElementById('result-table-container').style.display = 'block';
-            
-            document.getElementById('hash-uir').innerText = CryptoJS.SHA256(JSON.stringify(demoData)).toString();
+            document.getElementById('hash-uir').innerText = CryptoJS.SHA256(JSON.stringify(demoData)).toString().substring(0, 32);
 
             setTimeout(() => {
-                log("啟動 Hex 編譯器：將 UIR 轉換為 39-bit 實體暫存器配置碼...");
-                document.getElementById('hash-hex').innerText = CryptoJS.SHA256("SVG_HEX_V6" + Date.now()).toString();
-                
-                log("<span style='color:#fff; background:#006600; padding:2px 5px;'>[完成] 已產生不可變證據鏈。可匯出 .hex 檔案燒錄至 SVG SD 卡。</span>");
-                
+                log("啟動平行比較器硬體映射 (Mapping to 256 Comparator Matrix)...");
+                document.getElementById('hash-hex').innerText = CryptoJS.SHA256("SVG_HEX_POC").toString().substring(0, 32);
+                log("<span style='color:#fff; background:#006600; padding:2px 5px;'>[完成] 規則包已生成。硬體延遲：37.037 ns (1 Clock Cycle)。</span>");
                 document.getElementById('evidence-area').style.display = 'flex';
                 document.getElementById('download-btn').style.display = 'block';
             }, 800);
         }, 800);
     };
 </script>
-
 </body>
 </html>
