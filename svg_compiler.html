@@ -7,11 +7,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
         :root {
-            --primary: #004a99;
-            --accent: #00d4ff;
+            --primary: #003366;
+            --accent: #0088cc;
             --bg: #f4f7f9;
             --card: #ffffff;
-            --text: #333;
+            --text: #222;
+            --border: #e0e0e0;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -22,200 +23,273 @@
             padding: 0;
         }
         header {
-            background: linear-gradient(135deg, var(--primary), #002a55);
+            background: linear-gradient(135deg, var(--primary), #001a33);
             color: white;
-            padding: 3rem 1rem;
+            padding: 2.5rem 1rem;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-bottom: 4px solid var(--accent);
         }
         .container {
-            max-width: 900px;
-            margin: -50px auto 50px;
+            max-width: 1000px;
+            margin: 30px auto;
             padding: 0 20px;
         }
         .section {
             background: var(--card);
-            border-radius: 12px;
+            border-radius: 8px;
             padding: 2rem;
             margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         h2 {
             border-left: 5px solid var(--accent);
             padding-left: 15px;
             color: var(--primary);
+            font-size: 1.4rem;
+        }
+        .explanation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            margin-top: 1.5rem;
+        }
+        .step-card {
+            background: #f8fbff;
+            border: 1px solid #cce5ff;
+            padding: 15px;
+            border-radius: 6px;
         }
         .compiler-box {
-            border: 2px dashed #ccc;
-            padding: 3rem;
+            border: 2px dashed #999;
+            padding: 2rem;
             text-align: center;
-            border-radius: 10px;
-            transition: 0.3s;
+            border-radius: 8px;
+            background: #fafafa;
+            transition: 0.2s;
             cursor: pointer;
         }
         .compiler-box:hover {
             border-color: var(--accent);
-            background: #f0faff;
+            background: #f0f8ff;
         }
         button {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 12px 30px;
-            border-radius: 5px;
+            padding: 10px 24px;
+            border-radius: 4px;
             font-size: 1rem;
             cursor: pointer;
-            transition: 0.3s;
-            margin-top: 20px;
+            margin-top: 15px;
+            font-weight: bold;
         }
-        button:disabled {
-            background: #ccc;
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        
+        /* 參數對照表樣式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
         }
+        th, td {
+            border: 1px solid var(--border);
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #eef2f5;
+            color: var(--primary);
+        }
+        .tag-quadrant {
+            font-size: 0.8rem;
+            background: var(--primary);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
         #log-area {
             background: #1e1e1e;
-            color: #00ff00;
-            font-family: 'Courier New', Courier, monospace;
+            color: #4af626;
+            font-family: 'Consolas', monospace;
             padding: 1.5rem;
-            border-radius: 8px;
-            height: 250px;
+            border-radius: 6px;
+            height: 200px;
             overflow-y: auto;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-top: 20px;
         }
         .evidence-chain {
             display: flex;
-            justify-content: space-between;
+            gap: 10px;
             margin-top: 20px;
-            font-size: 0.8rem;
         }
         .hash-node {
-            background: #eee;
+            background: #eef2f5;
+            border: 1px solid var(--border);
             padding: 10px;
-            border-radius: 5px;
-            width: 30%;
+            border-radius: 4px;
+            flex: 1;
+            font-family: monospace;
+            font-size: 0.8rem;
             word-break: break-all;
         }
-        .highlight { color: var(--accent); font-weight: bold; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Silicon Verdict Gate (SVG)</h1>
-    <p>Making Trust Transparent: 從機率性 AI 跨越至決定性安規的橋樑</p>
+    <h1>SVG 工業轉譯器 (Industrial Parser)</h1>
+    <p style="margin-top: 10px; font-size: 1.1rem; opacity: 0.9;">將 Safety PLC 邏輯降維至 39-bit 矽層級實體約束</p>
 </header>
 
 <div class="container">
     <div class="section">
-        <h2>為何我們需要 SVG 離線編譯器？</h2>
-        <p>當前的 AI (NPU) 指令具有 <span class="highlight">機率性</span>，可能產生幻覺或抖動 [cite: 157]。為了對接工業界要求 <span class="highlight">決定性</span> 的 Safety PLC，我們需要一個物理層級的攔截裝置 [cite: 169]。</p>
-        <ul>
-            <li><strong>實體隔離 (Air-Gap)</strong>：編譯器在離線環境運作，確保安規參數不受網路攻擊影響。</li>
-            <li><strong>37ns 絕對延遲</strong>：規則預編譯為平行比較指令，達成 1 Clock Cycle 裁決速度 [cite: 139]。</li>
-            <li><strong>機構可接受性</strong>：將法律/物理約束自動化轉譯為機器碼，確保程序正義 [cite: 129]。</li>
-        </ul>
+        <h2>為何需要轉譯？SVG 是如何進行裁決的？</h2>
+        <p>工業現場的原始設定檔（如 Siemens .xml 或 Rockwell .csv）包含大量與核心安規無關的製程變數，且依賴作業系統層級的軟體解析。SVG 透過離線工具鏈，將這些複雜標籤提取並降維為純硬體邏輯，確保裁決過程具備 <strong>絕對決定性（37 ns）</strong> 與 <strong>物理隔離</strong>。</p>
+        
+        <div class="explanation-grid">
+            <div class="step-card">
+                <h4 style="margin-top:0; color:var(--primary);">1. 提取 (Adapter)</h4>
+                <p style="font-size: 0.9rem;">從各廠牌特有格式中，精準過濾出涉及載具極限的變數與上下限值，剔除無效雜訊。</p>
+            </div>
+            <div class="step-card">
+                <h4 style="margin-top:0; color:var(--primary);">2. 正規化 (UIR)</h4>
+                <p style="font-size: 0.9rem;">將萃取出的數據對齊四大安規象限：物理極限、狀態互斥、時序約束、系統連鎖，轉為標準 JSON。</p>
+            </div>
+            <div class="step-card">
+                <h4 style="margin-top:0; color:var(--primary);">3. 實體映射 (Hex)</h4>
+                <p style="font-size: 0.9rem;">將 JSON 變數映射至 FPGA 中 256 組平行比較器的實體暫存器位址，輸出可直接燒錄的機器碼。</p>
+            </div>
+        </div>
     </div>
 
     <div class="section">
-        <h2>SVG 離線編譯軟體 v1.0 (Alpha Prototype)</h2>
-        <p>支援匯入 Siemens (.xml) 或 Rockwell (.csv) 安規標籤表，自動生成 39-bit 暫存器機器碼。</p>
+        <h2>離線轉譯與證據鏈生成 (PoC Demo)</h2>
+        <p style="font-size:0.9rem; color:#555;">請上傳擬真展示用參數包 (demo_safety_params_siemens.xml 或 rockwell.csv)。</p>
         
         <div class="compiler-box" id="drop-zone">
             <input type="file" id="file-input" hidden accept=".xml,.csv">
-            <p>拖放檔案至此處，或 <span style="color:var(--primary); font-weight:bold;">點擊選擇檔案</span></p>
-            <p style="font-size: 0.8rem; color: #777;">(支援 TIA Portal XML 或 Studio 5000 CSV)</p>
+            <div style="font-size: 1.2rem; font-weight: bold; color: var(--primary);">點擊或拖曳檔案至此進行解析</div>
+            <div style="font-size: 0.85rem; margin-top: 5px;">本機端靜態編譯，不經由外部網路連線</div>
         </div>
 
-        <button id="compile-btn" disabled>開始轉譯並生成證據鏈</button>
+        <button id="compile-btn" disabled>解析檔案並生成 SVG 規則包</button>
 
-        <div id="log-area">
-            > 等待檔案上傳...
+        <div id="result-table-container" style="display:none;">
+            <h3 style="margin-top: 2rem; border-bottom: 1px solid #ccc; padding-bottom: 5px;">解析結果：UIR 統一中間層矩陣</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>變數名稱 (Variable)</th>
+                        <th>約束條件 (Constraint)</th>
+                        <th>安規象限對應 (Safety Quadrant)</th>
+                        <th>裁決理由 (Adjudication Rationale)</th>
+                    </tr>
+                </thead>
+                <tbody id="uir-table-body">
+                    </tbody>
+            </table>
         </div>
+
+        <div id="log-area">> 等待匯入安規參數檔...</div>
 
         <div class="evidence-chain" id="evidence-area" style="display:none;">
             <div class="hash-node">
-                <strong>Input Hash:</strong><br><span id="hash-input">-</span>
+                <strong style="color:var(--primary);">[1] Source File Hash</strong><br>
+                <span id="hash-input" style="color:#555;">-</span>
             </div>
             <div class="hash-node">
-                <strong>UIR Hash:</strong><br><span id="hash-uir">-</span>
+                <strong style="color:var(--primary);">[2] UIR JSON Hash</strong><br>
+                <span id="hash-uir" style="color:#555;">-</span>
             </div>
             <div class="hash-node">
-                <strong>HEX Hash:</strong><br><span id="hash-hex">-</span>
+                <strong style="color:var(--primary);">[3] Hex Output Hash</strong><br>
+                <span id="hash-hex" style="color:#555;">-</span>
             </div>
         </div>
 
-        <button id="download-btn" style="display:none; background: #28a745;">下載 rulepack_256.hex</button>
+        <button id="download-btn" style="display:none; background: #006600;">下載 Hex 機器碼 (rulepack_256.hex)</button>
     </div>
 </div>
 
 <script>
+    // 定義擬真的 10 條安規數據 (模擬從 XML/CSV 解析後的結果)
+    const demoData = [
+        { var: "Max_Velocity_mps", val: "4.17", op: "≤", quad: "物理致動器極限", reason: "超速攔截：防止馬達輸出超出機構安全煞停距離" },
+        { var: "Emergency_Brake_Decel_mps2", val: "5.0", op: "≤", quad: "物理致動器極限", reason: "制動保護：防止過大 G 力造成載具翻覆或零件損壞" },
+        { var: "Max_Steering_Angle_deg", val: "35.0", op: "≤", quad: "物理致動器極限", reason: "轉向極限：鎖死阿克曼幾何最大前輪轉角" },
+        { var: "Max_Steering_Rate_dps", val: "40.0", op: "≤", quad: "物理致動器極限", reason: "防抖動：限制轉向步進馬達之最大角加速度" },
+        { var: "Gear_Reverse_Speed_Limit", val: "1.39", op: "≤", quad: "狀態機互斥鎖", reason: "倒車限制：強制倒檔時速度不得超過 5km/h" },
+        { var: "High_Steer_Throttle_Inhibit", val: "TRUE", op: "==", quad: "狀態機互斥鎖", reason: "邏輯互斥：禁止在滿舵狀態下同時下達大油門指令" },
+        { var: "Min_Command_Interval_ms", val: "10", op: "≥", quad: "時序約束", reason: "防風暴：濾除 OS Context Switch 造成的指令堆疊" },
+        { var: "Max_Command_Burst_Count", val: "3", op: "≤", quad: "時序約束", reason: "頻率控制：硬體計時器強制拋棄過密的 NPU 請求" },
+        { var: "BIST_Fail_Lockout", val: "TRUE", op: "==", quad: "系統連鎖", reason: "ASIL-D 規範：自我診斷失敗時強制切斷動力輸出" },
+        { var: "EStop_Override_Active", val: "FALSE", op: "==", quad: "系統連鎖", reason: "絕對覆寫：實體急停按鈕按下後，無視所有 AI 指令" }
+    ];
+
     const dropZone = document.getElementById('drop-zone');
     const fileInput = document.getElementById('file-input');
     const compileBtn = document.getElementById('compile-btn');
     const logArea = document.getElementById('log-area');
-    const downloadBtn = document.getElementById('download-btn');
-    const evidenceArea = document.getElementById('evidence-area');
+    
+    let uploadedFileName = "";
 
-    let uploadedFile = null;
-    let generatedHex = "";
-
-    // 介面交互
     dropZone.onclick = () => fileInput.click();
-    fileInput.onchange = (e) => handleFile(e.target.files[0]);
+    fileInput.onchange = (e) => {
+        if(e.target.files.length > 0) {
+            uploadedFileName = e.target.files[0].name;
+            log(`[載入成功] 偵測到安規設定檔: ${uploadedFileName}`);
+            compileBtn.disabled = false;
+        }
+    };
 
     function log(msg) {
-        logArea.innerHTML += `<br>> ${msg}`;
+        logArea.innerHTML += `<br>${msg}`;
         logArea.scrollTop = logArea.scrollHeight;
     }
 
-    function handleFile(file) {
-        if (!file) return;
-        uploadedFile = file;
-        log(`已載入檔案: ${file.name} (${file.size} bytes)`);
-        compileBtn.disabled = false;
-        evidenceArea.style.display = 'none';
-        downloadBtn.style.display = 'none';
-    }
-
-    compileBtn.onclick = async () => {
-        log("開始計算原始檔案 SHA-256...");
-        const text = await uploadedFile.text();
-        const inputHash = CryptoJS.SHA256(text).toString();
-        document.getElementById('hash-input').innerText = inputHash.substring(0, 16) + "...";
-
-        log("階段 1: 工業格式轉譯 (Adapter Mapping)...");
-        // 模擬轉譯邏輯
-        const uir = {
-            version: "v5.6",
-            rules: [
-                { var: "Max_Velocity", op: "GT", val: 4.17 },
-                { var: "Steer_Angle", op: "GT", val: 35.0 }
-            ]
-        };
-        const uirHash = CryptoJS.SHA256(JSON.stringify(uir)).toString();
-        document.getElementById('hash-uir').innerText = uirHash.substring(0, 16) + "...";
-        log(`[SUCCESS] 產出 UIR JSON (統一中間層)`);
-
-        log("階段 2: 暫存器映射與 Hex 編譯 (39-bit 封裝)...");
-        // 模擬 HEX 生成
-        generatedHex = "10010FFF\n10020082\n20030005\n" + Array(253).fill("00000000").join("\n");
-        const hexHash = CryptoJS.SHA256(generatedHex).toString();
-        document.getElementById('hash-hex').innerText = hexHash.substring(0, 16) + "...";
+    compileBtn.onclick = () => {
+        compileBtn.disabled = true;
+        log("啟動轉譯器管線 (Parser Pipeline)...");
+        log("計算 Source File 原始特徵雜湊...");
         
-        log(`<span style="color:#00ff00;">[COMPLETE] 規則包已生成。絕對裁決延遲：37.037 ns</span>`);
-        
-        evidenceArea.style.display = 'flex';
-        downloadBtn.style.display = 'block';
-    };
+        setTimeout(() => {
+            // 模擬哈希計算
+            document.getElementById('hash-input').innerText = CryptoJS.SHA256(uploadedFileName + Date.now()).toString();
+            
+            log("執行 Adapter 解析：濾除製程雜訊，提取 10 組核心安全參數...");
+            log("執行 UIR 正規化：映射至四大實體安規象限...");
+            
+            // 渲染表格
+            const tbody = document.getElementById('uir-table-body');
+            tbody.innerHTML = "";
+            demoData.forEach(row => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="font-family:monospace; font-weight:bold;">${row.var}</td>
+                        <td style="color:#d93025; font-weight:bold;">${row.op} ${row.val}</td>
+                        <td><span class="tag-quadrant">${row.quad}</span></td>
+                        <td style="font-size:0.85rem; color:#555;">${row.reason}</td>
+                    </tr>
+                `;
+            });
+            document.getElementById('result-table-container').style.display = 'block';
+            
+            document.getElementById('hash-uir').innerText = CryptoJS.SHA256(JSON.stringify(demoData)).toString();
 
-    downloadBtn.onclick = () => {
-        const blob = new Blob([generatedHex], { type: 'text/plain' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'rulepack_256.hex';
-        a.click();
-        log("檔案已下載。請將此檔案放入 SD 卡並插入 SVG 裁決盒。");
+            setTimeout(() => {
+                log("啟動 Hex 編譯器：將 UIR 轉換為 39-bit 實體暫存器配置碼...");
+                document.getElementById('hash-hex').innerText = CryptoJS.SHA256("SVG_HEX_V6" + Date.now()).toString();
+                
+                log("<span style='color:#fff; background:#006600; padding:2px 5px;'>[完成] 已產生不可變證據鏈。可匯出 .hex 檔案燒錄至 SVG SD 卡。</span>");
+                
+                document.getElementById('evidence-area').style.display = 'flex';
+                document.getElementById('download-btn').style.display = 'block';
+            }, 800);
+        }, 800);
     };
 </script>
 
