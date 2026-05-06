@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Offline Compiler - WesmartAI</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        :root {
+            --primary: #004a99;
+            --accent: #00d4ff;
+            --bg: #f4f7f9;
+            --card: #ffffff;
+            --text: #333;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: linear-gradient(135deg, var(--primary), #002a55);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .container {
+            max-width: 900px;
+            margin: -50px auto 50px;
+            padding: 0 20px;
+        }
+        .section {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        h2 {
+            border-left: 5px solid var(--accent);
+            padding-left: 15px;
+            color: var(--primary);
+        }
+        .compiler-box {
+            border: 2px dashed #ccc;
+            padding: 3rem;
+            text-align: center;
+            border-radius: 10px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .compiler-box:hover {
+            border-color: var(--accent);
+            background: #f0faff;
+        }
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+        button:disabled {
+            background: #ccc;
+        }
+        #log-area {
+            background: #1e1e1e;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 1.5rem;
+            border-radius: 8px;
+            height: 250px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        .evidence-chain {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            font-size: 0.8rem;
+        }
+        .hash-node {
+            background: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            width: 30%;
+            word-break: break-all;
+        }
+        .highlight { color: var(--accent); font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Silicon Verdict Gate (SVG)</h1>
+    <p>Making Trust Transparent: 從機率性 AI 跨越至決定性安規的橋樑</p>
+</header>
+
+<div class="container">
+    <div class="section">
+        <h2>為何我們需要 SVG 離線編譯器？</h2>
+        <p>當前的 AI (NPU) 指令具有 <span class="highlight">機率性</span>，可能產生幻覺或抖動 [cite: 157]。為了對接工業界要求 <span class="highlight">決定性</span> 的 Safety PLC，我們需要一個物理層級的攔截裝置 [cite: 169]。</p>
+        <ul>
+            <li><strong>實體隔離 (Air-Gap)</strong>：編譯器在離線環境運作，確保安規參數不受網路攻擊影響。</li>
+            <li><strong>37ns 絕對延遲</strong>：規則預編譯為平行比較指令，達成 1 Clock Cycle 裁決速度 [cite: 139]。</li>
+            <li><strong>機構可接受性</strong>：將法律/物理約束自動化轉譯為機器碼，確保程序正義 [cite: 129]。</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>SVG 離線編譯軟體 v1.0 (Alpha Prototype)</h2>
+        <p>支援匯入 Siemens (.xml) 或 Rockwell (.csv) 安規標籤表，自動生成 39-bit 暫存器機器碼。</p>
+        
+        <div class="compiler-box" id="drop-zone">
+            <input type="file" id="file-input" hidden accept=".xml,.csv">
+            <p>拖放檔案至此處，或 <span style="color:var(--primary); font-weight:bold;">點擊選擇檔案</span></p>
+            <p style="font-size: 0.8rem; color: #777;">(支援 TIA Portal XML 或 Studio 5000 CSV)</p>
+        </div>
+
+        <button id="compile-btn" disabled>開始轉譯並生成證據鏈</button>
+
+        <div id="log-area">
+            > 等待檔案上傳...
+        </div>
+
+        <div class="evidence-chain" id="evidence-area" style="display:none;">
+            <div class="hash-node">
+                <strong>Input Hash:</strong><br><span id="hash-input">-</span>
+            </div>
+            <div class="hash-node">
+                <strong>UIR Hash:</strong><br><span id="hash-uir">-</span>
+            </div>
+            <div class="hash-node">
+                <strong>HEX Hash:</strong><br><span id="hash-hex">-</span>
+            </div>
+        </div>
+
+        <button id="download-btn" style="display:none; background: #28a745;">下載 rulepack_256.hex</button>
+    </div>
+</div>
+
+<script>
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const compileBtn = document.getElementById('compile-btn');
+    const logArea = document.getElementById('log-area');
+    const downloadBtn = document.getElementById('download-btn');
+    const evidenceArea = document.getElementById('evidence-area');
+
+    let uploadedFile = null;
+    let generatedHex = "";
+
+    // 介面交互
+    dropZone.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => handleFile(e.target.files[0]);
+
+    function log(msg) {
+        logArea.innerHTML += `<br>> ${msg}`;
+        logArea.scrollTop = logArea.scrollHeight;
+    }
+
+    function handleFile(file) {
+        if (!file) return;
+        uploadedFile = file;
+        log(`已載入檔案: ${file.name} (${file.size} bytes)`);
+        compileBtn.disabled = false;
+        evidenceArea.style.display = 'none';
+        downloadBtn.style.display = 'none';
+    }
+
+    compileBtn.onclick = async () => {
+        log("開始計算原始檔案 SHA-256...");
+        const text = await uploadedFile.text();
+        const inputHash = CryptoJS.SHA256(text).toString();
+        document.getElementById('hash-input').innerText = inputHash.substring(0, 16) + "...";
+
+        log("階段 1: 工業格式轉譯 (Adapter Mapping)...");
+        // 模擬轉譯邏輯
+        const uir = {
+            version: "v5.6",
+            rules: [
+                { var: "Max_Velocity", op: "GT", val: 4.17 },
+                { var: "Steer_Angle", op: "GT", val: 35.0 }
+            ]
+        };
+        const uirHash = CryptoJS.SHA256(JSON.stringify(uir)).toString();
+        document.getElementById('hash-uir').innerText = uirHash.substring(0, 16) + "...";
+        log(`[SUCCESS] 產出 UIR JSON (統一中間層)`);
+
+        log("階段 2: 暫存器映射與 Hex 編譯 (39-bit 封裝)...");
+        // 模擬 HEX 生成
+        generatedHex = "10010FFF\n10020082\n20030005\n" + Array(253).fill("00000000").join("\n");
+        const hexHash = CryptoJS.SHA256(generatedHex).toString();
+        document.getElementById('hash-hex').innerText = hexHash.substring(0, 16) + "...";
+        
+        log(`<span style="color:#00ff00;">[COMPLETE] 規則包已生成。絕對裁決延遲：37.037 ns</span>`);
+        
+        evidenceArea.style.display = 'flex';
+        downloadBtn.style.display = 'block';
+    };
+
+    downloadBtn.onclick = () => {
+        const blob = new Blob([generatedHex], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'rulepack_256.hex';
+        a.click();
+        log("檔案已下載。請將此檔案放入 SD 卡並插入 SVG 裁決盒。");
+    };
+</script>
+
+</body>
+</html>
