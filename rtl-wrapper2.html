@@ -20,9 +20,13 @@
         .accent-gradient { background: linear-gradient(135deg, #2563eb, #10b981); }
         .doc-card { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 0.75rem; padding: 2rem; }
         .highlight-box { background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 1rem 1.5rem; border-radius: 0 0.5rem 0.5rem 0; }
-        .signal-badge { display: inline-flex; align-items: center; justify-content: center; padding: 0.1rem 0.5rem; border-radius: 0.25rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+        .signal-badge { display: inline-flex; align-items: center; justify-content: center; padding: 0.1rem 0.5rem; border-radius: 0.25rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; min-width: 40px;}
         .sig-in { background-color: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
         .sig-out { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+        
+        /* Image Preview Styles */
+        .preview-container { cursor: zoom-in; transition: transform 0.3s ease; }
+        .preview-container:hover { transform: translateY(-3px); }
     </style>
 </head>
 <body class="antialiased selection:bg-blue-500/30 pt-20">
@@ -81,7 +85,7 @@
                                 <li><a href="ohacss2.html" className="hover:text-blue-400 transition text-left block">OHACSS 產品</a></li>
                                 <li><a href="report2.html" className="hover:text-blue-400 transition text-left block">FPGA 技術報告</a></li>
                                 <li><a href="tech-dd2.html" className="hover:text-blue-400 transition text-left block">技術盡職調查 (Tech DD)</a></li>
-                                <li><a href="rtl-wrapper2.html" className="hover:text-blue-400 transition text-left block">RTL 架構規格</a></li>
+                                <li><span className="text-slate-500 cursor-default block">RTL 架構規格</span></li>
                                 <li><a href="founder.html" className="hover:text-blue-400 transition text-left block">創辦人</a></li>
                                 <li className="pt-2"><a href="rtl-wrapper.html" className="text-blue-400 hover:text-blue-300 font-bold transition text-left block flex items-center gap-2"><i className="fas fa-globe"></i> English (EN)</a></li>
                             </ul>
@@ -96,14 +100,14 @@
         );
 
         const SignalRow = ({ name, type, color, desc }) => (
-            <div className="border-b border-slate-800/50 py-3 flex flex-col md:flex-row md:items-center gap-2 hover:bg-slate-800/30 transition-colors px-2 rounded">
-                <div className="md:w-1/3 flex items-center gap-3">
+            <div className="border-b border-slate-800/50 py-2 flex flex-col sm:flex-row sm:items-center gap-2 hover:bg-slate-800/30 transition-colors px-2 rounded">
+                <div className="sm:w-2/5 flex items-center gap-3">
                     <span className={`signal-badge ${type === 'IN' ? 'sig-in' : 'sig-out'}`}>{type}</span>
-                    <code className="text-sm font-semibold text-slate-200">{name}</code>
+                    <code className="text-[13px] font-semibold text-slate-200">{name}</code>
                 </div>
-                <div className="md:w-2/3 flex items-center gap-3">
-                    <div className="hidden md:flex w-3 h-3 rounded-full shrink-0" style={{ backgroundColor: color }}></div>
-                    <p className="text-sm text-slate-400">{desc}</p>
+                <div className="sm:w-3/5 flex items-center gap-3">
+                    <div className="hidden md:block w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: color }}></div>
+                    <p className="text-xs text-slate-400 leading-relaxed">{desc}</p>
                 </div>
             </div>
         );
@@ -114,140 +118,153 @@
             }, []);
 
             return (
-                <div className="max-w-4xl mx-auto px-6 pt-12 pb-24">
+                <div className="max-w-6xl mx-auto px-6 pt-12 pb-24">
                     
-                    {/* Header & Strategic Positioning */}
+                    {/* Header */}
                     <div className="mb-10 text-center" data-aos="fade-down">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-900/30 border border-indigo-700/50 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-6">
                             技術規格書
                         </div>
                         <h1 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight tracking-tight">
-                            RTL 架構規格 <br/>
-                            <span className="text-2xl md:text-3xl text-slate-400 font-medium">實體 AI 介面與 ASIL-D 功能安全映射</span>
+                            RTL 架構子系統 <br/>
+                            <span className="text-2xl md:text-3xl text-slate-400 font-medium">頂層實例化介面規格</span>
                         </h1>
                         
-                        <div className="grid gap-4 text-left">
-                            <div className="bg-amber-900/20 border border-amber-600/50 p-5 rounded-lg shadow-lg">
-                                <h4 className="text-amber-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-shield-alt mr-2"></i>智慧財產權保護聲明</h4>
-                                <p className="text-slate-300 text-sm leading-relaxed">
-                                    為了在<strong>技術盡職調查 (Technical Due Diligence)</strong> 階段嚴格保護本公司的專有組合邏輯與核心營業秘密，本技術文件僅揭露<strong>頂層 RTL 封裝模組 (Silicon_Verdict_Gate_v5_3)</strong>。此文件作為評估硬體整合至 Tier-1 邊緣 AI 大腦 (如 Jetson Orin) 與致動器子系統可行性的標準技術參考。
-                                </p>
-                            </div>
+                        <div className="bg-amber-900/20 border border-amber-600/50 p-5 rounded-lg shadow-lg text-left max-w-4xl mx-auto">
+                            <h4 className="text-amber-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-shield-alt mr-2"></i>智慧財產權保護聲明</h4>
+                            <p className="text-slate-300 text-sm leading-relaxed">
+                                為了在<strong>技術盡職調查 (Technical Due Diligence)</strong> 階段嚴格保護本公司的專有組合邏輯與核心營業秘密，本技術文件僅揭露構成 SVG 架構的<strong>四個主要子模組</strong>的結構化 I/O 介面。這些由 EDA 生成的視覺化封裝介面，作為評估將矽裁決閘 (Silicon Verdict Gate) 整合至邊緣 AI SoC 的標準技術參考。
+                            </p>
                         </div>
                     </div>
 
-                    {/* Top Level Architecture Diagram */}
-                    <div className="mb-12 doc-card shadow-2xl p-0 overflow-hidden" data-aos="fade-up">
-                        <div className="p-6 border-b border-slate-700 bg-slate-800/50">
-                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                                <div>
-                                    <h3 className="text-white font-bold text-lg">Silicon_Verdict_Gate_v5_3 (Phase 2.6)</h3>
-                                    <p className="text-sm text-slate-400 mt-1">EDA 實體實例化視圖 (126.035 MHz 已驗證)</p>
-                                </div>
-                                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-blue-900/20 border border-blue-700/30 text-blue-300 text-xs shadow-inner">
-                                    <i className="fas fa-check-circle text-blue-500"></i>
-                                    <span>由 <strong>GOWIN EDA</strong> 產生。實際合成後之 RTL 介面。</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="p-8 bg-white flex justify-center">
-                            <img 
-                                src="pic16.jpg" 
-                                alt="Silicon Verdict Gate v5.3 RTL Wrapper generated via EDA" 
-                                className="max-w-full h-auto object-contain rounded-lg shadow-md" 
-                            />
-                        </div>
+                    <div className="grid grid-cols-1 gap-12">
                         
-                        <div className="p-6 bg-slate-900">
-                            <h4 className="text-blue-400 font-bold text-sm uppercase tracking-wider mb-4">EDA 視覺指南與線路定義</h4>
-                            <ul className="space-y-3 text-sm text-slate-300">
-                                <li><strong className="text-white">資料流向：</strong> 左側引腳代表 <span className="text-emerald-400">輸入 (Inputs)</span>。右側引腳代表 <span className="text-blue-400">輸出 (Outputs)</span>。</li>
-                                <li className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-[#00FF00]"></div> <strong className="text-white">綠色線路：</strong> 專屬時脈網路 (Clock Net) 佈線。</li>
-                                <li className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-[#00FFFF]"></div> <strong className="text-white">淺藍色線路：</strong> 1 位元純量訊號 (如：邏輯觸發、致能、狀態旗標)。</li>
-                                <li className="flex items-center gap-2"><div className="w-3 h-3 rounded-full bg-[#0000FF]"></div> <strong className="text-white">深藍色線路：</strong> 多位元向量匯流排 (如：32位元酬載、雜湊值、物理參數)。</li>
-                            </ul>
+                        {/* Module 1: SVG Core */}
+                        <div className="doc-card p-0 overflow-hidden" data-aos="fade-up">
+                            <div className="p-6 border-b border-slate-700 bg-slate-800/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div>
+                                    <h3 className="text-xl font-bold text-emerald-400 flex items-center gap-2"><i className="fas fa-brain"></i> 1. 核心大腦：矽裁決引擎</h3>
+                                    <p className="text-sm text-slate-300 mt-1">實例化名稱：<code>u_svg_core ($VG_Core_v5)</code></p>
+                                </div>
+                                <div className="text-xs text-slate-400 bg-slate-900 px-3 py-2 rounded border border-slate-700 text-right">
+                                    <strong>戰略價值：</strong> 實現 9.52 µs 絕對決定性延遲。純硬體組合邏輯，執行全平行的規則掃描。
+                                </div>
+                            </div>
+                            <div className="flex flex-col lg:flex-row">
+                                <div className="lg:w-1/3 p-6 bg-white flex items-center justify-center border-r border-slate-700 preview-container" onClick={() => window.openModal('jpg23.jpg', '模組一：矽裁決引擎 ($VG_Core_v5)')}>
+                                    <img src="jpg23.jpg" alt="SVG Core Wrapper" className="max-w-full h-auto object-contain drop-shadow-md" />
+                                </div>
+                                <div className="lg:w-2/3 p-6 bg-slate-900/50">
+                                    <h4 className="text-white font-bold text-sm mb-3 border-b border-slate-800 pb-2">介面訊號 (Interface Signals)</h4>
+                                    <SignalRow name="clk" type="IN" color="#00FF00" desc="系統時脈輸入。" />
+                                    <SignalRow name="rst_n" type="IN" color="#00FFFF" desc="低態致能重置訊號。" />
+                                    <SignalRow name="npu_id[11:0]" type="IN" color="#0000FF" desc="特定目標致動器/節點之識別碼。" />
+                                    <SignalRow name="npu_val[15:0]" type="IN" color="#0000FF" desc="由 AI 推論引擎輸入之機率性輸出參數。" />
+                                    <SignalRow name="config_addr[7:0]" type="IN" color="#0000FF" desc="用於將物理安全規則載入本地 SSRAM 的位址匯流排。" />
+                                    <SignalRow name="config_data[31:0]" type="IN" color="#0000FF" desc="安全規則酬載之資料匯流排。" />
+                                    <SignalRow name="config_we" type="IN" color="#00FFFF" desc="規則配置記憶體之寫入致能訊號。" />
+                                    <SignalRow name="violation_code[31:0]" type="OUT" color="#0000FF" desc="若攔截到 AI 幻覺，輸出所違反的確切規則 ID。" />
+                                    <SignalRow name="verdict" type="OUT" color="#00FFFF" desc="直接路由至致動器的確定性硬體控制狀態 (允許/阻擋)。" />
+                                </div>
+                            </div>
                         </div>
+
+                        {/* Module 2: Evidence FIFO */}
+                        <div className="doc-card p-0 overflow-hidden" data-aos="fade-up">
+                            <div className="p-6 border-b border-slate-700 bg-slate-800/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div>
+                                    <h3 className="text-xl font-bold text-sky-400 flex items-center gap-2"><i className="fas fa-shield-alt"></i> 2. 物理隔離：證據鏈緩衝區</h3>
+                                    <p className="text-sm text-slate-300 mt-1">實例化名稱：<code>u_evidence_fifo (Evidence_FIFO)</code></p>
+                                </div>
+                                <div className="text-xs text-slate-400 bg-slate-900 px-3 py-2 rounded border border-slate-700 text-right">
+                                    <strong>戰略價值：</strong> 非同步硬體 FIFO。當偵測到異常時，瞬間鎖存違規代碼與時間戳。確保資料零遺失的第一道硬體防線。
+                                </div>
+                            </div>
+                            <div className="flex flex-col lg:flex-row">
+                                <div className="lg:w-1/3 p-6 bg-white flex items-center justify-center border-r border-slate-700 preview-container" onClick={() => window.openModal('jpg24.jpg', '模組二：證據鏈緩衝區 (Evidence_FIFO)')}>
+                                    <img src="jpg24.jpg" alt="Evidence FIFO Wrapper" className="max-w-full h-auto object-contain drop-shadow-md" />
+                                </div>
+                                <div className="lg:w-2/3 p-6 bg-slate-900/50">
+                                    <h4 className="text-white font-bold text-sm mb-3 border-b border-slate-800 pb-2">介面訊號 (Interface Signals)</h4>
+                                    <SignalRow name="clk" type="IN" color="#00FF00" desc="系統時脈輸入。" />
+                                    <SignalRow name="rst_n" type="IN" color="#00FFFF" desc="低態致能重置訊號。" />
+                                    <SignalRow name="violation_detected" type="IN" color="#00FFFF" desc="當 SVG 核心攔截到異常時，觸發寫入之訊號。" />
+                                    <SignalRow name="violation_code[31:0]" type="IN" color="#0000FF" desc="規則違反識別碼酬載。" />
+                                    <SignalRow name="npu_id[11:0]" type="IN" color="#0000FF" desc="致動器節點識別碼。" />
+                                    <SignalRow name="npu_val[15:0]" type="IN" color="#0000FF" desc="AI 試圖執行之確切越界參數。" />
+                                    <SignalRow name="timestamp[31:0]" type="IN" color="#0000FF" desc="事件之硬體 RTC 同步時間戳記。" />
+                                    <SignalRow name="rd_en" type="IN" color="#00FFFF" desc="由下游治理總管控制之讀取致能訊號。" />
+                                    <SignalRow name="rd_data[255:0]" type="OUT" color="#0000FF" desc="256位元寬匯流排，安全匯出串接完成之完整證據封包。" />
+                                    <SignalRow name="empty" type="OUT" color="#0000FF" desc="FIFO 狀態旗標。" />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Module 3: MCU Wrapper */}
+                        <div className="doc-card p-0 overflow-hidden" data-aos="fade-up">
+                            <div className="p-6 border-b border-slate-700 bg-slate-800/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div>
+                                    <h3 className="text-xl font-bold text-amber-400 flex items-center gap-2"><i className="fas fa-server"></i> 3. 治理總管：RISC-V 軟核心</h3>
+                                    <p className="text-sm text-slate-300 mt-1">實例化名稱：<code>u_mcu (SVG_MCU_Wrapper)</code></p>
+                                </div>
+                                <div className="text-xs text-slate-400 bg-slate-900 px-3 py-2 rounded border border-slate-700 text-right">
+                                    <strong>戰略價值：</strong> PicoRV32 裸機運行 (無 OS)。以旁路架構接管 UART 通訊與 SD 卡寫入，確保複雜的 I/O 作業絕不拖累核心裁決的奈秒級延遲。
+                                </div>
+                            </div>
+                            <div className="flex flex-col lg:flex-row">
+                                <div className="lg:w-1/3 p-6 bg-white flex items-center justify-center border-r border-slate-700 preview-container" onClick={() => window.openModal('jpg25.jpg', '模組三：治理總管 (SVG_MCU_Wrapper)')}>
+                                    <img src="jpg25.jpg" alt="MCU Wrapper" className="max-w-full h-auto object-contain drop-shadow-md" />
+                                </div>
+                                <div className="lg:w-2/3 p-6 bg-slate-900/50">
+                                    <h4 className="text-white font-bold text-sm mb-3 border-b border-slate-800 pb-2">介面訊號 (Interface Signals)</h4>
+                                    <SignalRow name="clk" type="IN" color="#00FF00" desc="系統時脈輸入。" />
+                                    <SignalRow name="rst_n" type="IN" color="#00FFFF" desc="低態致能重置訊號。" />
+                                    <SignalRow name="uart_rx" type="IN" color="#00FFFF" desc="用於外部設定之序列接收線路。" />
+                                    <SignalRow name="fifo_rd_data[255:0]" type="IN" color="#0000FF" desc="接收來自隔離 FIFO 之證據封包。" />
+                                    <SignalRow name="fifo_empty" type="IN" color="#00FFFF" desc="監控 FIFO 狀態以觸發 SD 卡寫入。" />
+                                    <SignalRow name="sd_miso" type="IN" color="#00FFFF" desc="SD 卡介面之 SPI MISO 腳位。" />
+                                    <SignalRow name="uart_tx" type="OUT" color="#00FFFF" desc="序列傳送線路。" />
+                                    <SignalRow name="svg_config_addr[7:0]" type="OUT" color="#0000FF" desc="驅動規則更新至 SVG 核心 SSRAM。" />
+                                    <SignalRow name="svg_config_data[31:0]" type="OUT" color="#0000FF" desc="驅動規則酬載更新至 SVG 核心。" />
+                                    <SignalRow name="svg_config_en" type="OUT" color="#00FFFF" desc="發出規則寫入致能訊號。" />
+                                    <SignalRow name="sd_load_success" type="OUT" color="#00FFFF" desc="開機狀態旗標，確認已成功從 SD 卡載入規則包。" />
+                                    <SignalRow name="rtc_timestamp[31:0]" type="OUT" color="#0000FF" desc="提供實時時鐘 (RTC) 同步訊號至 FIFO。" />
+                                    <SignalRow name="fifo_rd_en" type="OUT" color="#00FFFF" desc="觸發證據 FIFO 之 Pop 讀取操作。" />
+                                    <SignalRow name="sd_cs / sd_clk / sd_mosi" type="OUT" color="#00FFFF" desc="用於非揮發性分類帳儲存之 SPI 控制線路。" />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Module 4: HDMI Top */}
+                        <div className="doc-card p-0 overflow-hidden" data-aos="fade-up">
+                            <div className="p-6 border-b border-slate-700 bg-slate-800/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div>
+                                    <h3 className="text-xl font-bold text-rose-400 flex items-center gap-2"><i className="fas fa-desktop"></i> 4. 即時告警：硬體視訊輸出</h3>
+                                    <p className="text-sm text-slate-300 mt-1">實例化名稱：<code>hdmi_inst (SVG_HDMI_Top_v1_1)</code></p>
+                                </div>
+                                <div className="text-xs text-slate-400 bg-slate-900 px-3 py-2 rounded border border-slate-700 text-right">
+                                    <strong>戰略價值：</strong> 實體層 TMDS 驅動。不依賴 OS 或 GPU，直接透過數位硬體訊號渲染螢幕像素，保證操作員能接收零延遲的通過/阻擋 (PASS/BLOCK) 視覺告警。
+                                </div>
+                            </div>
+                            <div className="flex flex-col lg:flex-row">
+                                <div className="lg:w-1/3 p-6 bg-white flex items-center justify-center border-r border-slate-700 preview-container" onClick={() => window.openModal('jpg26.jpg', '模組四：即時告警視訊輸出 (SVG_HDMI_Top)')}>
+                                    <img src="jpg26.jpg" alt="HDMI Wrapper" className="max-w-full h-auto object-contain drop-shadow-md" />
+                                </div>
+                                <div className="lg:w-2/3 p-6 bg-slate-900/50">
+                                    <h4 className="text-white font-bold text-sm mb-3 border-b border-slate-800 pb-2">介面訊號 (Interface Signals)</h4>
+                                    <SignalRow name="I_clk" type="IN" color="#00FF00" desc="專屬像素時脈 (例如：720p 為 74.25 MHz)。" />
+                                    <SignalRow name="I_rst_n" type="IN" color="#00FFFF" desc="低態致能重置訊號。" />
+                                    <SignalRow name="I_plc_verdict" type="IN" color="#00FFFF" desc="讀取來自 SVG 核心的絕對狀態 (ALLOW/BLOCK)。" />
+                                    <SignalRow name="I_violation_code[31:0]" type="IN" color="#0000FF" desc="接收特定的規則違反代碼以進行螢幕渲染。" />
+                                    <SignalRow name="I_npu_val[15:0]" type="IN" color="#0000FF" desc="接收異常參數數值以進行螢幕渲染。" />
+                                    <SignalRow name="O_tmds_p[2:0]" type="OUT" color="#0000FF" desc="驅動實體 HDMI 埠的差分 TMDS 資料通道。" />
+                                    <SignalRow name="O_tmds_clk_p" type="OUT" color="#00FFFF" desc="差分 TMDS 時脈通道。" />
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-
-                    {/* Section 1: System Control */}
-                    <section className="mb-10" data-aos="fade-up">
-                        <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
-                            <i className="fas fa-microchip text-slate-400"></i> 1. 系統基礎控制
-                        </h2>
-                        <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-2">
-                            <SignalRow name="clk" type="IN" color="#00FF00" desc="系統時脈訊號，驅動內部的有限狀態機 (FSM) 與證據分類帳 (時序已於 126.035 MHz 成功收斂)。" />
-                            <SignalRow name="rst_n" type="IN" color="#00FFFF" desc="硬體重置訊號 (低態致能, Active-low)。" />
-                        </div>
-                    </section>
-
-                    {/* Section 2: Physical AI Inference & RulePack Interface */}
-                    <section className="mb-10" data-aos="fade-up">
-                        <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
-                            <i className="fas fa-robot text-indigo-500"></i> 2. NPU 介面與 Rulepack 配置 (專利請求項 1 & 10)
-                        </h2>
-                        <div className="highlight-box mb-4 shadow-md">
-                            <p className="text-slate-300 text-xs leading-relaxed">實體資料二極體 (Data diode) 的硬體實例化。此區塊負責接收來自 AI 大腦的非確定性物理意圖，同時嚴格隔離內部裁決邏輯，阻絕反向探測。</p>
-                        </div>
-                        <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-2">
-                            <SignalRow name="npu_req_valid" type="IN" color="#00FFFF" desc="交握訊號，宣告有效的推論酬載已準備好進行裁決。" />
-                            <SignalRow name="npu_torque_req[15:0]" type="IN" color="#0000FF" desc="16位元多向量匯流排，直接接收來自 VLA 模型請求的物理參數 (例如：機械手臂力矩、速度極限)。" />
-                            <SignalRow name="rulepack_version_hash[31:0]" type="IN" color="#0000FF" desc="當前載入之安全規則包的密碼學雜湊綁定，用於防止未經授權的 OTA 版本降級。" />
-                            <SignalRow name="rulepack_min_version[15:0]" type="IN" color="#0000FF" desc="硬編碼的安全邊界，定義允許的最低規則包版本 (防降級 Anti-rollback 機制)。" />
-                            <SignalRow name="rulepack_version_seq[15:0]" type="IN" color="#0000FF" desc="序列計數器，用於驗證漸進式 OTA 安全更新的完整性。" />
-                            <SignalRow name="network_online_status" type="IN" color="#00FFFF" desc="狀態旗標，指示雲端連線狀態，以利非同步的證據卸載作業。" />
-                        </div>
-                    </section>
-
-                    {/* Section 3: ASIL-D Functional Safety & Healing Hooks */}
-                    <section className="mb-10" data-aos="fade-up">
-                        <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
-                            <i className="fas fa-shield-alt text-rose-500"></i> 3. ASIL-D 功能安全與自癒掛勾
-                        </h2>
-                        <div className="highlight-box mb-4 shadow-md">
-                            <p className="text-slate-300 text-xs leading-relaxed">專屬腳位設計以滿足 ISO 26262 ASIL-D 規範，包含潛伏故障測試 (Latent Fault)、雙模組冗餘 (DMR) 以及不依賴軟體的軟錯誤自癒 (Soft-Error Healing) 機制。</p>
-                        </div>
-                        <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-2">
-                            <SignalRow name="logic_bist_en" type="IN" color="#00FFFF" desc="觸發訊號，初始化核心組合邏輯的內建自測試 (BIST)。" />
-                            <SignalRow name="sram_bist_en" type="IN" color="#00FFFF" desc="觸發訊號，初始化專屬 Rulepack SSRAM 區塊的記憶體自測試 (MBIST)。" />
-                            <SignalRow name="bist_done" type="OUT" color="#00FFFF" desc="狀態旗標，確認 BIST 週期已成功完成。" />
-                            <SignalRow name="bist_fail" type="OUT" color="#00FFFF" desc="硬體告警，指示偵測到潛伏故障 (Latent Fault)。" />
-                            <SignalRow name="dmr_fault_alert" type="OUT" color="#00FFFF" desc="雙模組冗餘 (DMR) 告警。當核心內部偵測到邏輯評估分歧時觸發。" />
-                            <SignalRow name="ecc_uncorrectable" type="OUT" color="#00FFFF" desc="SECDED ECC 告警，指示 Rulepack 中發生無法糾正的多位元記憶體損毀。" />
-                            <SignalRow name="ecc_corrected" type="OUT" color="#00FFFF" desc="狀態旗標，指示單一位元錯誤已成功完成即時 (On-the-fly) 糾正。" />
-                            <SignalRow name="hvx_heal_done" type="IN" color="#00FFFF" desc="交握訊號，確認外部硬體虛擬化 (HVX) 復原程序已結束。" />
-                            <SignalRow name="hvx_heal_success" type="IN" color="#00FFFF" desc="狀態位元，驗證 HVX 復原程序已成功將系統恢復至安全狀態。" />
-                            <SignalRow name="trigger_hvx_heal" type="OUT" color="#00FFFF" desc="自動觸發訊號，當發生不可恢復之故障時，啟動物理邏輯區塊的重新實例化。" />
-                        </div>
-                    </section>
-
-                    {/* Section 4: Physical Adjudication Gates */}
-                    <section className="mb-10" data-aos="fade-up">
-                        <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
-                            <i className="fas fa-lock text-emerald-500"></i> 4. 物理裁決閘門 (專利請求項 2)
-                        </h2>
-                        <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-2">
-                            <SignalRow name="gate_allow" type="OUT" color="#00FFFF" desc="絕對確定性的允許 (ALLOW) 訊號。直接路由至物理致動器驅動層。" />
-                            <SignalRow name="fsm_deny" type="OUT" color="#00FFFF" desc="絕對確定性的拒絕 (DENY) 訊號。瞬間切斷物理執行 (在精確的 19.04 µs 內完成運算)。" />
-                            <SignalRow name="backpressure_signal" type="OUT" color="#00FFFF" desc="硬體流量控制，當內部裁決管線滿載時，暫停 NPU 資料流寫入。" />
-                        </div>
-                    </section>
-
-                    {/* Section 5: Immutable Ledger Generator */}
-                    <section className="mb-10" data-aos="fade-up">
-                        <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2 border-b border-slate-700 pb-2">
-                            <i className="fas fa-link text-amber-500"></i> 5. 不可變分類帳生成器 (專利請求項 1)
-                        </h2>
-                        <div className="highlight-box mb-4 shadow-md" style={{ background: 'rgba(245, 158, 11, 0.1)', borderLeftColor: '#f59e0b' }}>
-                            <p className="text-slate-300 text-xs leading-relaxed">並行的密碼學管線。當實體 AI 的決策被執行時，此區塊同步將事件脈絡綁定至不可篡改的雜湊鏈中，實現歐盟 AI 法案要求的終極究責能力。</p>
-                        </div>
-                        <div className="bg-slate-900/50 border border-slate-800 rounded-lg p-2">
-                            <SignalRow name="ledger_write_enable" type="OUT" color="#00FFFF" desc="閃控 (Strobe) 訊號，指令安全儲存區或 TrustZone 寫入已生成的證據封包。" />
-                            <SignalRow name="ledger_verdict[1:0]" type="OUT" color="#0000FF" desc="2位元向量，匯出確切的物理判決結果 (例如：01=ALLOW, 10=DENY)。" />
-                            <SignalRow name="ledger_event_data[31:0]" type="OUT" color="#0000FF" desc="32位元酬載，封裝了異常元數據以及被攔截的力矩/軌跡極限參數。" />
-                            <SignalRow name="ledger_prev_hash_link[31:0]" type="OUT" color="#0000FF" desc="32位元密碼學指標，將當前的物理事件與前一事件鏈結，保證資料不可篡改性。" />
-                        </div>
-                    </section>
-
                 </div>
             );
         };
@@ -257,8 +274,37 @@
                 <Navbar />
                 <RTLPage />
                 <Footer />
+                
+                {/* Image Modal */}
+                <div id="imageModal" className="fixed inset-0 z-[100] hidden bg-black/95 flex-col justify-center items-center p-4" style={{backdropFilter: 'blur(8px)', transition: 'all 0.3s ease'}}>
+                    <span className="absolute top-6 right-8 text-white text-4xl cursor-pointer hover:text-red-500 transition" onClick={() => {
+                        document.getElementById('imageModal').classList.add('hidden');
+                        document.body.style.overflow = 'auto';
+                    }}>&times;</span>
+                    <img id="modalImage" className="max-w-full max-h-[85vh] object-contain rounded-lg border-2 border-slate-700 shadow-2xl" src="" />
+                    <p id="modalCaption" className="mt-6 text-slate-300 text-lg font-bold"></p>
+                </div>
             </>
         );
+
+        // Global modal handler
+        window.openModal = (imgSrc, caption) => {
+            document.getElementById('modalImage').src = imgSrc;
+            document.getElementById('modalCaption').innerText = caption;
+            document.getElementById('imageModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        };
+        
+        // Escape key to close modal
+        document.addEventListener('keydown', (e) => { 
+            if (e.key === "Escape") {
+                const modal = document.getElementById('imageModal');
+                if(modal && !modal.classList.contains('hidden')) {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            } 
+        });
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
