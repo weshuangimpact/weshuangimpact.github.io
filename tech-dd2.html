@@ -20,6 +20,12 @@
         .accent-gradient { background: linear-gradient(135deg, #2563eb, #10b981); }
         .doc-card { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 0.75rem; padding: 2rem; }
         .highlight-box { background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 1rem 1.5rem; border-radius: 0 0.5rem 0.5rem 0; }
+        
+        /* Table Styles for DD specific matrices */
+        .dd-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        .dd-table th, .dd-table td { border: 1px solid #334155; padding: 1rem; text-align: left; }
+        .dd-table th { background-color: #0f172a; color: #94a3b8; font-size: 0.875rem; letter-spacing: 0.05em;}
+        .dd-table tr:nth-child(even) { background-color: rgba(30, 41, 59, 0.5); }
     </style>
 </head>
 <body class="antialiased selection:bg-blue-500/30 pt-20">
@@ -61,7 +67,7 @@
                             <h4 className="text-white text-lg font-bold mb-4">可信智慧整合</h4>
                             <p className="text-sm leading-relaxed mb-4">
                                 讓信任清晰可見。<br/>
-                                矽級別的物理隔離：實體 AI (Physical AI) 的終極合規防禦。
+                                矽級別的物理隔離：實體 Agentic AI 的終極合規防禦。
                             </p>
                         </div>
                         <div>
@@ -103,422 +109,124 @@
                     {/* Header & Disclosures */}
                     <div className="mb-12 text-center" data-aos="fade-down">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/30 border border-blue-700/50 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
-                            執行摘要 (Executive Summary)
+                            投資人盡職調查 (Investor Due Diligence)
                         </div>
                         <h1 className="text-3xl md:text-5xl font-black text-white mb-8 leading-tight tracking-tight">
-                            確定性實體 AI 安全治理 <br/>
-                            <span className="text-2xl md:text-3xl text-slate-400 font-medium">技術盡職調查白皮書</span>
+                            智財與工程護城河 <br/>
+                            <span className="text-2xl md:text-3xl text-slate-400 font-medium">確保實體 AI 治理市場的絕對獨佔</span>
                         </h1>
                         
-                        <div className="grid md:grid-cols-2 gap-4 mb-8 text-left">
-                            <div className="bg-amber-900/20 border border-amber-600/50 p-4 rounded-lg shadow-lg">
-                                <h4 className="text-amber-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-microchip mr-2"></i>揭露聲明：55nm 實體驗證</h4>
-                                <p className="text-slate-300 text-xs leading-relaxed">Phase 2.6 效能數據（7.934 ns 關鍵路徑延遲，126.035 MHz 物理極限頻率，434 LUTs）源自 Gowin GW2A-18 FPGA (55nm 製程) 的物理實測與佈線後靜態時序分析 (STA)，並採用原生 SSRAM 區塊的記憶體感知映射。在成熟 55nm 節點上達成接近零延遲的表現，印證了極致的架構效率。這表明未來遷移至先進邊緣運算 ASIC 節點（如 28nm/4nm）時，將能輕鬆實現趨近於零的極致物理延遲。</p>
-                            </div>
-                            <div className="bg-orange-900/20 border border-orange-600/50 p-4 rounded-lg shadow-lg">
-                                <h4 className="text-orange-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-info-circle mr-2"></i>目標對齊：ASIL-D 就緒</h4>
-                                <p className="text-slate-300 text-xs leading-relaxed">SVG 硬體架構從底層設計即以滿足嚴格的 <strong>ISO 26262 ASIL-D</strong> 實體 AI 合規標準為目標。內建的潛伏故障 BIST (Latent Fault BIST)、雙模組冗餘 (DMR) 與 SECDED ECC 掛勾已於腳位層級 (Pinout) 驗證完畢，確保在零軟體負擔下具備正式 ASIL-D 認證能力。</p>
-                            </div>
+                        <div className="bg-slate-800/50 border border-slate-600 p-6 rounded-xl shadow-lg text-left mb-8">
+                            <h4 className="text-white font-bold text-lg mb-3 border-b border-slate-700 pb-2">盡職調查核心焦點</h4>
+                            <p className="text-slate-300 text-sm leading-relaxed">
+                                對於深科技 (Deep Tech) 硬體新創而言，市場估值與「法理獨佔權的強度」及「工程複製的難度」成正比。本文件詳細揭露 WesmartAI 為封鎖競爭對手所設計的全面專利矩陣 (P1-P4)、透過 USPTO PPH 的全球佈局戰略，以及已經矽驗證的 RTL 實體壁壘。這些護城河確保了本公司的解決方案，是實現 Agentic AI 在歐盟《AI 法案》下合規的唯一可行路徑。
+                            </p>
                         </div>
                     </div>
 
-                    {/* Section 1 */}
-                    <section className="doc-card mb-8 shadow-xl" data-aos="fade-up">
+                    {/* Section 1: The Patent Moat */}
+                    <section className="doc-card mb-12 shadow-xl" data-aos="fade-up">
                         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
-                            <span className="bg-emerald-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">1</span> 
-                            主動治理：消除失效模式
+                            <span className="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">1</span> 
+                            專利封鎖矩陣：絕對的法理壟斷
                         </h2>
                         
-                        <div className="highlight-box text-left mb-6 shadow-lg">
-                            <h3 className="text-emerald-400 font-bold text-base mb-2">核心洞見：規則先於執行</h3>
+                        <div className="highlight-box text-left mb-8 shadow-lg">
+                            <h3 className="text-emerald-400 font-bold text-base mb-2">封堵策略：阻斷對手所有潛在的合規路徑</h3>
                             <p className="text-slate-200 text-sm leading-relaxed mb-3">
-                                傳統的安全架構通常著眼於：<em>「當軟體系統失效時該如何應對？」</em> (Fail-Safe)。<br/>
-                                SVG 顛覆了此一邏輯，將問題反轉為：<strong>「如何確保 AI 產生幻覺、不合規的物理軌跡指令，從一開始就無法觸及致動器？」</strong>
-                            </p>
-                            <p className="text-slate-300 text-sm leading-relaxed">
-                                透過採用靜態編譯且直接映射至硬體記憶體區塊的<strong>版本化規則包 (Rulepack)</strong>，AI 產生的幻覺指令在物理層面上將失去執行的路徑。<strong>硬體層級的確定性攔截——而非軟體防護欄——才是實體 AI (Physical AI) 的首要安全槓桿。</strong>
+                                我們的專利佈局並非僅為了保護單一產品，而是為了對「非確定性系統治理」建立<strong>結構性的法理壟斷</strong>。透過涵蓋不可變證據鏈 (P1-P2)、軟體定義裁決 (P3) 與硬體物理隔離 (P4)，我們已在市場上築起銅牆鐵壁。未來任何競爭對手，無論試圖利用純軟體、純硬體或軟硬混合的架構來實作 AI 安全防護與合規日誌，都將無可避免地踩入此專利地雷網。
                             </p>
                         </div>
 
-                        <h4 className="text-white font-bold mb-4">時序分析：巨大的安全裕度</h4>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-2">
-                            <div className="bg-slate-800/50 border border-slate-700 p-4 rounded text-center">
-                                <div className="text-emerald-400 font-bold text-xl mb-1">7.934 ns</div>
-                                <div className="text-slate-400 text-xs">關鍵路徑延遲</div>
-                            </div>
-                            <div className="bg-slate-800/50 border border-slate-700 p-4 rounded text-center">
-                                <div className="text-blue-400 font-bold text-xl mb-1">126.035 MHz</div>
-                                <div className="text-slate-400 text-xs">物理系統極限頻率</div>
-                            </div>
-                            <div className="bg-slate-800/50 border border-slate-700 p-4 rounded text-center">
-                                <div className="text-rose-400 font-bold text-xl mb-1">19.04 µs</div>
-                                <div className="text-slate-400 text-xs">決定性掃描時間 (WCET)</div>
-                            </div>
-                            <div className="bg-emerald-900/30 border border-emerald-500/50 p-4 rounded text-center">
-                                <div className="text-emerald-400 font-black text-2xl mb-1">恆定</div>
-                                <div className="text-slate-300 text-xs font-bold">O(1) 確定性檢索速率</div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Section 2 (FMEDA) */}
-                    <section className="doc-card mb-8 shadow-xl border-emerald-900/50" data-aos="fade-up">
-                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-emerald-800 pb-3">
-                            <span className="bg-emerald-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">2</span> 
-                            功能安全：初步架構級 FMEDA
-                        </h2>
-                        
-                        <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                            為準備 NRE 階段的 ASIL-D 認證，以下架構級失效模式與效應分析 (FMEDA) 概述了主要的失效模式及現行的安全機制。
-                        </p>
-
-                        <div className="overflow-x-auto rounded-lg border border-slate-700 mb-4 shadow-lg">
-                            <table className="w-full text-sm text-left">
-                                <thead className="bg-slate-900 text-slate-300">
+                        <div className="overflow-x-auto rounded-lg border border-slate-700">
+                            <table className="dd-table w-full">
+                                <thead>
                                     <tr>
-                                        <th className="p-3 border-b border-slate-700">功能區塊 (Functional Block)</th>
-                                        <th className="p-3 border-b border-slate-700">潛在失效模式 (Failure Mode)</th>
-                                        <th className="p-3 border-b border-slate-700">影響 (Effect)</th>
-                                        <th className="p-3 border-b border-slate-700">嚴重度</th>
-                                        <th className="p-3 border-b border-slate-700 text-emerald-400">安全機制 (Safety Mechanism)</th>
+                                        <th className="w-1/4">專利範疇</th>
+                                        <th className="w-1/4">技術特徵與請求項</th>
+                                        <th className="w-1/2">戰略壟斷目標</th>
                                     </tr>
                                 </thead>
-                                <tbody className="text-slate-300">
-                                    <tr className="border-b border-slate-800 bg-slate-800/20 hover:bg-slate-800/40 transition-colors">
-                                        <td className="p-3 font-bold text-white">確定性判決引擎</td>
-                                        <td className="p-3">狀態異常或非法狀態進入</td>
-                                        <td className="p-3 text-rose-400">評估失敗；不合規指令繞過</td>
-                                        <td className="p-3">高</td>
-                                        <td className="p-3 text-emerald-300">看門狗 (Watchdog) + 週期性狀態檢查 + 單調計數器</td>
+                                <tbody className="text-sm text-slate-300">
+                                    <tr>
+                                        <td className="font-bold text-emerald-400">P1 & P2<br/><span className="text-xs text-slate-400 font-normal">不可變證據鏈</span></td>
+                                        <td>定義了從非確定性 AI 生成防竄改、且具備密碼學綁定之紀錄的核心框架。</td>
+                                        <td><strong>封鎖日誌合規路徑：</strong> 任何試圖透過連續且不可竄改的狀態機，來滿足歐盟 AI 法案紀錄保存義務 (第 12 條) 的廠商，皆會落入此請求項的打擊範圍。</td>
                                     </tr>
-                                    <tr className="border-b border-slate-800 hover:bg-slate-800/40 transition-colors">
-                                        <td className="p-3 font-bold text-white">確定性判決引擎</td>
-                                        <td className="p-3">組合邏輯評估錯誤 (如 Bit Flip)</td>
-                                        <td className="p-3 text-rose-400">偽陽性 / 偽陰性致動</td>
-                                        <td className="p-3">高</td>
-                                        <td className="p-3 text-emerald-300">同位元檢查 (Parity) + 硬體 DMR 故障掛勾</td>
+                                    <tr>
+                                        <td className="font-bold text-sky-400">P3<br/><span className="text-xs text-slate-400 font-normal">軟體定義裁決</span></td>
+                                        <td>定義了在軟體層面進行可重放之裁決與治理機制。</td>
+                                        <td><strong>封鎖中介軟體解決方案：</strong> 全面捕捉試圖利用 RTOS、Hypervisor 或安全中介軟體 (Middleware) 來監控與限制 AI 輸出邊界的競爭對手。</td>
                                     </tr>
-                                    <tr className="border-b border-slate-800 bg-slate-800/20 hover:bg-slate-800/40 transition-colors">
-                                        <td className="p-3 font-bold text-white">規則包記憶體控制器</td>
-                                        <td className="p-3">資料損毀或版本降級 (Downgrade)</td>
-                                        <td className="p-3 text-rose-400">安全邊界遭破壞</td>
-                                        <td className="p-3">高</td>
-                                        <td className="p-3 text-emerald-300">SECDED ECC + 密碼學簽章驗證</td>
-                                    </tr>
-                                    <tr className="border-b border-slate-800 hover:bg-slate-800/40 transition-colors">
-                                        <td className="p-3 font-bold text-white">硬體加密引擎</td>
-                                        <td className="p-3">雜湊/加密運算錯誤</td>
-                                        <td className="p-3 text-rose-400">治理證據無效或遭偽造</td>
-                                        <td className="p-3">中高</td>
-                                        <td className="p-3 text-emerald-300">潛伏故障 BIST + 雙重運算驗證</td>
-                                    </tr>
-                                    <tr className="bg-slate-800/20 hover:bg-slate-800/40 transition-colors">
-                                        <td className="p-3 font-bold text-white">單向傳輸介面</td>
-                                        <td className="p-3">反向資料洩漏或繞過</td>
-                                        <td className="p-3 text-rose-400">外部干擾 AI 運行環境</td>
-                                        <td className="p-3">高</td>
-                                        <td className="p-3 text-emerald-300">硬體強制實體二極體 (Physical Diode) + 實體隔離</td>
+                                    <tr>
+                                        <td className="font-bold text-indigo-400">P4<br/><span className="text-xs text-slate-400 font-normal">硬體物理隔離</span></td>
+                                        <td>將抽象的 AI 治理規範，轉化為絕對的暫存器傳輸層 (RTL) 物理隔離邊界。</td>
+                                        <td><strong>封鎖矽智財 (IP) 競爭者：</strong> 鞏固最終戰略目標。任何試圖直接在晶片 (SoC) 內部燒錄「硬體 AI 安全閘門」的 IC 設計廠，皆會構成對本專利架構的侵權。</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </section>
 
-                    {/* Section 3 (Roadmap) */}
-                    <section className="doc-card mb-8 shadow-xl" data-aos="fade-up">
-                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
-                            <span className="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">3</span> 
-                            架構演進：量產藍圖 (Roadmap to Production)
-                        </h2>
-                        
-                        <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                            <strong>Phase 2.6 (現階段)</strong> 整合了完整的專利族，針對 256 條商業規則目標，在 55nm FPGA 上透過原生「記憶體感知綜合 (Memory-Aware Synthesis)」達成了極致的面積與速度優化。<strong>Phase 3</strong> 則描繪了商用量產規格，藉由擴充記憶體以支援大量的規則包更新，同時維持嚴格的確定性佈線延遲。
-                        </p>
-
-                        <div className="overflow-x-auto rounded-lg border border-slate-700 mb-6">
-                            <table className="w-full text-sm text-left whitespace-nowrap">
-                                <thead className="bg-slate-900 text-slate-300">
-                                    <tr>
-                                        <th className="p-4 border-b border-slate-700">指標 (Metric)</th>
-                                        <th className="p-4 border-b border-slate-700">Phase 2.5<br/><span className="text-xs text-slate-500 font-normal">(1,024條規則 壓力測試)</span></th>
-                                        <th className="p-4 border-b border-slate-700 text-cyan-400 font-bold">Phase 2.6 (現階段)<br/><span className="text-xs text-cyan-700 font-normal">(55nm STA 實測)</span></th>
-                                        <th className="p-4 border-b border-slate-700 text-amber-400 font-bold">Phase 3 (商用)<br/><span className="text-xs text-amber-700 font-normal">(量產規格)</span></th>
-                                        <th className="p-4 border-b border-slate-700 text-purple-400 font-bold">先進製程<br/><span className="text-xs text-purple-700 font-normal">(28nm/7nm ASIC)</span></th>
-                                    </tr>
-                                </thead>
-                                <tbody className="text-slate-300">
-                                    <tr className="border-b border-slate-800 bg-slate-800/20">
-                                        <td className="p-4 font-bold text-white">規則容量</td>
-                                        <td className="p-4 border-r border-slate-800">1,024 條規則</td>
-                                        <td className="p-4 text-cyan-300">256 條規則</td>
-                                        <td className="p-4 text-amber-300 font-bold">256 Kbyte (完整規則包)</td>
-                                        <td className="p-4 text-purple-300">256 KB+ (具備擴展性)</td>
-                                    </tr>
-                                    <tr className="border-b border-slate-800">
-                                        <td className="p-4 font-bold text-white">核心邏輯延遲</td>
-                                        <td className="p-4 border-r border-slate-800">17.936 ns</td>
-                                        <td className="p-4 text-cyan-300 font-bold">7.934 ns</td>
-                                        <td className="p-4 text-amber-300">~10 ns (預估)</td>
-                                        <td className="p-4 text-purple-300">&lt; 0.8 ns</td>
-                                    </tr>
-                                    <tr className="border-b border-slate-800 bg-slate-800/20">
-                                        <td className="p-4 font-bold text-white">系統最高頻率 (極限)</td>
-                                        <td className="p-4 border-r border-slate-800">55.752 MHz</td>
-                                        <td className="p-4 text-cyan-300">126.035 MHz</td>
-                                        <td className="p-4 text-amber-300">120~150 MHz</td>
-                                        <td className="p-4 text-purple-300">450 MHz ~ 1.2 GHz</td>
-                                    </tr>
-                                    <tr className="border-b border-slate-800">
-                                        <td className="p-4 font-bold text-white">邏輯面積 (Logic Area)</td>
-                                        <td className="p-4 border-r border-slate-800">1212 LUTs + 120 REGs</td>
-                                        <td className="p-4 text-cyan-300">434 LUTs + 129 REGs + 8 SSRAM</td>
-                                        <td className="p-4 text-amber-300">~1500 LUTs</td>
-                                        <td className="p-4 text-purple-300">&lt; 15,000 Gates</td>
-                                    </tr>
-                                    <tr className="border-b border-slate-800 bg-slate-800/20">
-                                        <td className="p-4 font-bold text-white">邏輯層級 (Levels)</td>
-                                        <td className="p-4 border-r border-slate-800">3</td>
-                                        <td className="p-4 text-cyan-300">7</td>
-                                        <td className="p-4 text-amber-300">7~8</td>
-                                        <td className="p-4 text-purple-300">6</td>
-                                    </tr>
-                                    <tr className="border-b border-slate-800">
-                                        <td className="p-4 font-bold text-white">核心動態功耗</td>
-                                        <td className="p-4 border-r border-slate-800">4.189 mW</td>
-                                        <td className="p-4 text-cyan-300 font-bold">1.370 mW</td>
-                                        <td className="p-4 text-amber-300">~5 mW</td>
-                                        <td className="p-4 text-purple-300">&lt; 0.5 mW</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <div className="bg-blue-900/20 border-l-4 border-blue-500 p-4 rounded text-sm text-slate-300 italic">
-                            <strong>技術備註：</strong> 在 Phase 3 中過渡到 256 Kbyte 內部記憶體空間，將可支援自主處理超過 5,000 個條件邏輯變數，且完全無需主機 OS 的介入。原生記憶體區塊具備 O(1) 確定性檢索特性，確保物理系統層級的延遲波動達到無感狀態。
-                        </div>
-                    </section>
-
-                    {/* Section 4 (Competitive) */}
-                    <section className="doc-card mb-8 shadow-xl" data-aos="fade-up">
-                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
-                            <span className="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">4</span> 
-                            競爭定位：零軟體負擔
-                        </h2>
-
-                        <p className="text-slate-300 text-sm mb-4">
-                            當代安全 MCU 普遍依賴硬體安全模組 (HSM) 與鎖步架構 (Lockstep) 來實現安全性，但伴隨而來的是龐大的軟體驗證成本與運算開銷。<strong>WesmartAI SVG 顛覆了此一典範，透過純粹的靜態邏輯實現物理隔離，徹底移除了軟體層的複雜度，並 100% 解放了 AI 大腦的運算 Token 算力。</strong>
-                        </p>
-                        
-                        <div className="overflow-x-auto rounded-lg border border-slate-700 mb-6">
-                            <table className="w-full text-sm text-left">
-                                <thead className="bg-slate-900 text-slate-300">
-                                    <tr>
-                                        <th className="p-3 border-b border-slate-700">評估維度</th>
-                                        <th className="p-3 border-b border-slate-700">軟體護欄 (NPU 內部)</th>
-                                        <th className="p-3 border-b border-slate-700">安全 MCU 孤島 (含 HSM)</th>
-                                        <th className="p-3 border-b border-slate-700 text-emerald-400 font-bold">WesmartAI SVG</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="text-slate-300">
-                                    <tr className="border-b border-slate-800 bg-slate-800/20">
-                                        <td className="p-3 font-bold text-white">失效抑制 (Fault Containment)</td>
-                                        <td className="p-3 text-rose-400">低 (共享系統資源)</td>
-                                        <td className="p-3 text-amber-300">高 (伴隨鎖步 CPU 效能開銷)</td>
-                                        <td className="p-3 text-emerald-300 font-bold">絕對 (實體資料二極體隔離)</td>
-                                    </tr>
-                                    <tr className="border-b border-slate-800">
-                                        <td className="p-3 font-bold text-white">代碼注入風險</td>
-                                        <td className="p-3 text-rose-400">高 (作業系統層級漏洞)</td>
-                                        <td className="p-3 text-amber-300">可控 (依賴韌體緩解)</td>
-                                        <td className="p-3 text-emerald-300 font-bold">零 (靜態 RTL 硬連線邏輯)</td>
-                                    </tr>
-                                    <tr className="border-b border-slate-800 bg-slate-800/20">
-                                        <td className="p-3 font-bold text-white">法規合規審計</td>
-                                        <td className="p-3 text-slate-400">需驗證數百萬行代碼 (LOC)</td>
-                                        <td className="p-3 text-slate-400">繁重的 RTOS & 韌體驗證 (V&V)</td>
-                                        <td className="p-3 text-emerald-300">STA 報告 + 密碼學雜湊鏈證明</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="p-3 font-bold text-white">策略更新機制</td>
-                                        <td className="p-3 text-slate-400">需重新部署完整軟體堆疊</td>
-                                        <td className="p-3 text-slate-400">複雜的韌體 OTA 流程</td>
-                                        <td className="p-3 text-emerald-300">僅更新規則包；硬體邏輯不變</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </section>
-
-                    {/* Section 5 (Commercial) */}
-                    <section className="doc-card mb-8 shadow-xl border-sky-900/50" data-aos="fade-up">
-                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
-                            <span className="bg-sky-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">5</span> 
-                            商業優勢：解鎖邊緣 AI 經濟學
-                        </h2>
-                        <p className="text-slate-300 mb-6 text-sm">透過全面替換同等效力的軟體監控器與專用安全 MCU 核心，OEM 與 Tier-1 供應商將在以下四個關鍵維度解鎖超線性的成本優勢：</p>
-                        
-                        <div className="grid md:grid-cols-2 gap-4 mb-4">
-                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-                                <h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-microchip text-sky-400 mr-2 w-5"></i>運算與 BOM 成本</span> <span className="text-emerald-400">零負擔</span></h4>
-                                <p className="text-slate-400 text-xs">消除對專用 ASIL 監控核心的需求（例如：Cortex-R52 雙核鎖步的矽面積佔用），全面釋放 AI 推論算力。</p>
-                            </div>
-                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-                                <h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-code-branch text-sky-400 mr-2 w-5"></i>驗證成本攤銷 (V&V)</span> <span className="text-emerald-400">巨幅節省</span></h4>
-                                <p className="text-slate-400 text-xs">大幅縮減執行 ASIL-D OS 與韌體窮舉驗證所需的人月工程資源。</p>
-                            </div>
-                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-                                <h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-thermometer-half text-sky-400 mr-2 w-5"></i>散熱與功耗</span> <span className="text-emerald-400">核心 1.370 mW</span></h4>
-                                <p className="text-slate-400 text-xs">免除 CPU 持續輪詢 (Polling) 的常態開銷，簡化冷卻系統需求。核心動態功耗趨近於零。</p>
-                            </div>
-                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-                                <h4 className="text-white font-bold mb-1 flex justify-between"><span className="flex items-center"><i className="fas fa-shield-alt text-sky-400 mr-2 w-5"></i>責任曝險管理</span> <span className="text-emerald-400">終極防禦</span></h4>
-                                <p className="text-slate-400 text-xs">密碼學證據鏈將大幅釐清實體自動化設備的事故責任歸屬，並降低法律取證成本。</p>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Section 6 (SoC) */}
-                    <section className="doc-card mb-8 shadow-xl bg-slate-900 border-indigo-900/50" data-aos="fade-up">
-                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-indigo-800 pb-3">
-                            <span className="bg-indigo-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">6</span> 
-                            SoC 整合與 IP 護城河
-                        </h2>
-                        
-                        <div className="grid md:grid-cols-2 gap-8">
-                            <div>
-                                <h3 className="text-indigo-300 font-bold mb-3 text-sm uppercase tracking-wider">整合路徑</h3>
-                                <ul className="space-y-3 text-sm text-slate-300">
-                                    <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>介面協定：</strong> 標準 AXI-Lite / APB 相容。</li>
-                                    <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>封裝型態：</strong> 採用硬核 (Hard Macro) 嵌入 AI 大腦與致動器匯流排之間。</li>
-                                    <li><i className="fas fa-check-circle text-indigo-500 mr-2"></i><strong>晶片面積：</strong> 在先進 SoC 節點下，預估總面積小於 0.05 mm²。</li>
-                                </ul>
-                            </div>
-                            <div className="border-l border-slate-700 pl-6">
-                                <h3 className="text-indigo-300 font-bold mb-3 text-sm uppercase tracking-wider">三層 IP 護城河</h3>
-                                <ol className="list-decimal list-inside space-y-2 text-sm text-slate-300">
-                                    <li><strong className="text-white">跨域專業知識：</strong> 深度融合 ASIL 硬體規範、AI 治理策略與密碼學機制。</li>
-                                    <li><strong className="text-white">記憶體感知 RTL：</strong> 針對 SSRAM 區塊客製化映射，確保具備確定性邊界的可擴展性。</li>
-                                    <li><strong className="text-white">全球專利佈局：</strong> 全面覆蓋實體邏輯閘設計、規則包 OTA 機制、證據鏈以及離線緩衝架構。</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Section 7 (Roadmap & Economics) */}
-                    <section className="doc-card mb-8 shadow-xl border-rose-900/50" data-aos="fade-up">
-                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-rose-800 pb-3">
-                            <span className="bg-rose-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">7</span> 
-                            通往自主實體 AI 最具成本效益的硬體路徑
-                        </h2>
-                        
-                        {/* 7.1 */}
-                        <div className="mb-8">
-                            <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">7.1 突破 ASIL-D 瓶頸</h3>
-                            <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                                自主實體系統（如 L4/L5 SDV、智慧工廠）的商業部署面臨一項嚴峻的法規前提：<strong>ISO 26262 ASIL-D 認證</strong>。SVG 架構提供了最短的達標路徑：
-                            </p>
-                            <div className="overflow-x-auto rounded-lg border border-slate-700">
-                                <table className="w-full text-sm text-left">
-                                    <thead className="bg-slate-900 text-slate-300">
-                                        <tr>
-                                            <th className="p-3 border-b border-slate-700">認證挑戰</th>
-                                            <th className="p-3 border-b border-slate-700">純軟體監控架構</th>
-                                            <th className="p-3 border-b border-slate-700 text-emerald-400 font-bold">WesmartAI SVG 硬體架構</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="text-slate-300">
-                                        <tr className="border-b border-slate-800 bg-slate-800/20">
-                                            <td className="p-3 font-bold text-white">驗證範疇</td>
-                                            <td className="p-3 text-rose-400">數百萬行代碼 (LOC)</td>
-                                            <td className="p-3 text-emerald-300">僅需驗證 434 LUTs (靜態 RTL)</td>
-                                        </tr>
-                                        <tr className="border-b border-slate-800">
-                                            <td className="p-3 font-bold text-white">時序確定性</td>
-                                            <td className="p-3 text-rose-400">依賴統計模擬 (非正式證明)</td>
-                                            <td className="p-3 text-emerald-300">佈線後 STA 分析 (形式化物理證明)</td>
-                                        </tr>
-                                        <tr className="border-b border-slate-800 bg-slate-800/20">
-                                            <td className="p-3 font-bold text-white">作業系統變數</td>
-                                            <td className="p-3 text-rose-400">需要完整的 RTOS 認證配合</td>
-                                            <td className="p-3 text-emerald-300">零 OS 依賴 (純物理邏輯運作)</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        {/* 7.3 */}
-                        <div className="mb-8">
-                            <h3 className="text-rose-400 font-bold mb-3 text-sm uppercase tracking-wider">7.2 矽經濟學：鎖定 4nm/5nm 先進製程與 OTA 更新餘裕</h3>
-                            <div className="bg-slate-900 p-4 rounded-lg font-mono text-sm text-sky-300 border border-slate-700 mb-6 overflow-x-auto">
-                                // 先進邊緣運算節點 (4nm/5nm) 的 SVG 晶片面積推估<br/>
-                                邏輯核心 (Logic Core): 434 LUTs (~4,000 gates) = &lt; 0.005 mm²<br/>
-                                規則包記憶體 (RulePack Memory): 256 KByte 專用安全 SRAM = ~0.04 mm²<br/>
-                                (SRAM 容量足以支援大量 128-bit 寬度的硬體規則)<br/>
-                                ----------------------------------------<br/>
-                                總預估面積: &lt; 0.05 mm²
-                            </div>
-                            <div className="grid md:grid-cols-2 gap-4">
-                                <div className="bg-emerald-900/20 border border-emerald-700/50 p-4 rounded">
-                                    <div className="text-emerald-400 font-bold text-xl mb-1">&lt; 0.05 mm²</div>
-                                    <div className="text-white font-bold text-sm mb-1">總晶片面積 (邏輯 + 記憶體)</div>
-                                    <div className="text-slate-400 text-xs">基於高密度 5nm SRAM 節點。對整體 SoC 良率產生零負面影響。</div>
-                                </div>
-                                <div className="bg-blue-900/20 border border-blue-700/50 p-4 rounded">
-                                    <div className="text-blue-400 font-bold text-xl mb-1">256 Kbyte</div>
-                                    <div className="text-white font-bold text-sm mb-1">未來的 OTA 更新餘裕</div>
-                                    <div className="text-slate-400 text-xs">預先劃設高達 256KB 的硬體記憶體邊界，輕鬆支援長達 10 年以上的實體 AI (Physical AI) 政策法規更新。</div>
-                                </div>
-                            </div>
-                            <p className="text-slate-300 text-sm mt-4 italic border-l-4 border-emerald-500 pl-4">
-                                <strong>結論：</strong> 以不到 <strong>0.05 mm²</strong> 的微小矽面積交換，換取通往 ASIL-D 的最短路徑。透過有策略地將實體 SRAM 超額配置至 256 Kbyte，本架構確保了未來十年的安全 OTA 更新能力，且成本僅為部署雙核鎖步 CPU 的極小零頭。
-                            </p>
-                        </div>
-                    </section>
-
-                    {/* Section 8 (Zero-Overhead Logging) */}
-                    <section className="doc-card mb-8 shadow-xl border-amber-900/50" data-aos="fade-up">
+                    {/* Section 2: Global Prosecution */}
+                    <section className="doc-card mb-12 shadow-xl border-amber-900/50" data-aos="fade-up">
                         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-amber-800 pb-3">
-                            <span className="bg-amber-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">8</span> 
-                            零負載合規：並行不可篡改日誌
+                            <span className="bg-amber-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">2</span> 
+                            國際佈局：USPTO PPH 專利審查高速公路
                         </h2>
                         
-                        <div className="highlight-box text-left mb-6 shadow-lg" style={{ background: 'rgba(245, 158, 11, 0.1)', borderLeftColor: '#f59e0b' }}>
-                            <h3 className="text-amber-400 font-bold text-base mb-2">對齊歐盟 AI 法案 (EU AI Act)：終極的證據防禦</h3>
-                            <p className="text-slate-200 text-sm leading-relaxed mb-3">
-                                WesmartAI SVG 解決了合規監控的痛點，在 RTL 邏輯層級徹底將<strong>判決資料路徑</strong>與<strong>證據生成資料路徑</strong>解耦。在物理執行層產生數學上無可辯駁的證據，使其對任何軟體層的篡改免疫。
-                            </p>
-                        </div>
+                        <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                            強悍的專利戰略必須搭配迅速的國際執行力。我們的基礎核心專利 (P2) 已順利通過審查，並<strong>正式取得台灣智慧財產局 (TIPO) 的發明專利核准 (專利號 I923536)</strong>。我們正立即利用此一核准狀態，啟動全球防護網的加速佈建。
+                        </p>
 
-                        <div className="grid md:grid-cols-3 gap-4 mb-4">
-                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-                                <h4 className="text-white font-bold mb-2 flex items-center gap-2"><i className="fas fa-bolt text-amber-400"></i> 同步擷取</h4>
-                                <p className="text-slate-400 text-xs leading-relaxed">每一次的判決事件，都由平行暫存器在執行的精確時鐘週期同步記錄，確保零遺漏。</p>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <div className="bg-slate-900 p-6 rounded-lg border border-slate-700">
+                                <h3 className="text-white font-bold mb-4 flex items-center"><i className="fas fa-check-circle text-emerald-500 mr-3 text-xl"></i> TIPO 專利核准狀態</h3>
+                                <p className="text-slate-400 text-sm">
+                                    核心方法論的早期核准，實質證明了本架構的新穎性與非顯而易見性。這為我們提供了立即生效的法律武器，並在面對全球科技巨頭時，確立了無可挑戰的優先權日 (Priority Date)。
+                                </p>
                             </div>
-                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-                                <h4 className="text-white font-bold mb-2 flex items-center gap-2"><i className="fas fa-random text-amber-400"></i> 並行導出通道</h4>
-                                <p className="text-slate-400 text-xs leading-relaxed">具備密碼學綁定的證據封包將透過專屬的硬體旁路並行導出，完全不會消耗 NPU 的運算資源。</p>
-                            </div>
-                            <div className="bg-slate-800/50 p-4 rounded border border-slate-700">
-                                <h4 className="text-white font-bold mb-2 flex items-center gap-2"><i className="fas fa-database text-amber-400"></i> 儲存介質中立</h4>
-                                <p className="text-slate-400 text-xs leading-relaxed">SoC 供應商保留架構靈活性，可將日誌自由路由至安全 SRAM、外部 Flash，或 TrustZone 隔離區。</p>
+                            <div className="bg-slate-900 p-6 rounded-lg border border-amber-700/50 relative overflow-hidden">
+                                <div className="absolute top-0 right-0 bg-amber-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">推進中</div>
+                                <h3 className="text-white font-bold mb-4 flex items-center"><i className="fas fa-plane-departure text-amber-500 mr-3 text-xl"></i> USPTO PPH 加速審查</h3>
+                                <p className="text-slate-400 text-sm">
+                                    我們正透過<strong>專利審查高速公路 (PPH)</strong> 計畫，將台灣 TIPO 的有利審查結果，直接用於加速美國專利商標局 (USPTO) 的審查進度。此舉將大幅縮短常規排隊的數年審查期，旨在以最快速度取得美國專利，強勢鎖定北美龐大的自動駕駛與工業自動化市場。
+                                </p>
                             </div>
                         </div>
                     </section>
 
-                    {/* Conclusion */}
-                    <section className="doc-card shadow-xl bg-gradient-to-br from-slate-800/80 to-slate-900/80" data-aos="fade-up">
-                        <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                            <i className="fas fa-rocket text-blue-500"></i>
-                            下一步：硬體模擬與預認證
+                    {/* Section 3: Engineering Barrier */}
+                    <section className="doc-card mb-8 shadow-xl border-purple-900/50" data-aos="fade-up">
+                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-purple-800 pb-3">
+                            <span className="bg-purple-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">3</span> 
+                            獨家 SVG 矽智財 RTL：實體工程壁壘
                         </h2>
+
                         <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                            Phase 2.6 已在 55nm FPGA 晶片上成功完成驗證，確立了 434 LUTs 的超輕量資源佔用與 19.04 µs 絕對決定性延遲基準。我們目前正與 Tier-1 夥伴展開 <strong>AXI-Lite 硬體模擬 (基於 Palladium/Zebu)</strong>，並積極整合具備擴充性的 256KB 商用記憶體規格。
+                            專利的價值取決於其物理實現的難度。競爭對手固然可以閱讀公開專利，但要完美複製我們極致的效能參數 (PPA: 功耗、效能、面積)，必須掌握高度專業的營業秘密與專有的暫存器傳輸層 (RTL) 設計技術 (Know-how)。而我們，已經徹底消除了這項開發風險。
                         </p>
-                        <div className="flex flex-col sm:flex-row gap-4 items-center">
-                            <a href="mailto:weshuangimpact@gmail.com" className="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition text-center shadow-lg shadow-blue-500/20">
-                                預約深度技術盡職調查會議
-                            </a>
+                        
+                        <div className="grid md:grid-cols-3 gap-6 mb-6">
+                            <div className="bg-slate-800/50 p-5 rounded border border-purple-500/30">
+                                <div className="text-purple-400 font-black text-3xl mb-2">9.52 µs</div>
+                                <h4 className="text-white font-bold text-sm mb-2">確定性物理延遲</h4>
+                                <p className="text-slate-400 text-xs leading-relaxed">要在 128 條平行規則掃描下維持 O(1) 的恆定執行時間，必須仰賴我們專利的記憶體感知綜合技術。採用標準 CPU/MCU 架構的對手，將無可避免地面臨數百毫秒的 OS 時序抖動。</p>
+                            </div>
+                            <div className="bg-slate-800/50 p-5 rounded border border-purple-500/30">
+                                <div className="text-purple-400 font-black text-3xl mb-2">&lt; 0.05 mm²</div>
+                                <h4 className="text-white font-bold text-sm mb-2">極小晶片面積開銷</h4>
+                                <p className="text-slate-400 text-xs leading-relaxed">在 55nm FPGA 上我們已證實只需 434 LUTs 的超輕量足跡。當轉換至 4nm/5nm 的先進 SoC 節點，我們的 IP 對晶片商而言，意味著「零成本」的矽面積負擔，大幅降低授權推廣的阻力。</p>
+                            </div>
+                            <div className="bg-slate-800/50 p-5 rounded border border-purple-500/30">
+                                <div className="text-purple-400 font-black text-3xl mb-2">0.000 TNS</div>
+                                <h4 className="text-white font-bold text-sm mb-2">完美時序收斂</h4>
+                                <p className="text-slate-400 text-xs leading-relaxed">在加入 ASIL-D 等級的雙模冗餘 (DMR) 與 ECC 防護下，依然達成零時序違規。我們已提前克服了這個通常需要工程團隊耗費數年不斷疊代的時序與亞穩態難題。</p>
+                            </div>
+                        </div>
+
+                        <div className="bg-emerald-900/20 border-l-4 border-emerald-500 p-5 rounded text-sm text-slate-300 italic shadow-lg">
+                            <strong>給投資人的盡職調查總結：</strong> WesmartAI 提供的不僅僅是理論概念。我們掌握了已核准的核心專利方法論、正在建構國際封鎖網的專利請求項矩陣，以及經過高度最佳化且矽驗證完成的 RTL 原始碼。這構築了一道深不可測的「法律 + 架構 + 效能」三維護城河，確保 WesmartAI 將成為實體 AI 安全合規領域無可取代的絕對標準。
                         </div>
                     </section>
 
