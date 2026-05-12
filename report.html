@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silicon IP Technical Brief | Hardware-Enforced Adjudication</title>
+    <title>Silicon IP Technical Brief | EU AI Act Hardware Compliance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
@@ -18,22 +18,6 @@
         th, td { border: 1px solid #334155; padding: 0.75rem; text-align: left; font-size: 0.875rem; }
         th { background-color: #0f172a; color: #94a3b8; font-size: 0.875rem; }
         tr:nth-child(even) { background-color: #0f172a; }
-        
-        /* Image Preview Styles */
-        .preview-container {
-            max-width: 800px;
-            margin: 0 auto;
-            cursor: zoom-in;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .preview-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px -10px rgba(56, 189, 248, 0.2);
-        }
-        #imageModal {
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-        }
     </style>
 </head>
 <body class="antialiased pt-20 flex flex-col min-h-screen">
@@ -68,24 +52,13 @@
             </div>
             <h1 class="text-3xl md:text-5xl font-black text-white mb-6 leading-tight tracking-tight">
                 Silicon IP Technical Brief <br/>
-                <span class="text-2xl md:text-3xl text-slate-400 font-medium">Silicon-Governed: Making Physical AI Deterministic</span>
+                <span class="text-2xl md:text-3xl text-slate-400 font-medium">Hardware-Enforced EU AI Act Compliance for Agentic AI</span>
             </h1>
             <p class="text-slate-400 mt-2 mb-8">ASIL-D Physical Layer Validation & 55nm Architecture Report</p>
             
-            <div class="preview-container relative group" onclick="openModal('pic15.jpg')">
-                <div class="absolute -inset-1 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-                <div class="relative bg-slate-900 rounded-xl overflow-hidden border border-slate-700">
-                    <img src="pic15.jpg" alt="WesmartAI SVG Architecture Overview" class="w-full h-auto shadow-2xl">
-                    <div class="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <div class="bg-slate-900/90 px-4 py-2 rounded-full border border-blue-400/50 text-blue-400 text-sm font-bold">
-                            <i class="fas fa-search-plus mr-2"></i> Click to Enlarge Overview
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="max-w-3xl mx-auto mt-4 text-left">
                 <p class="text-emerald-400/90 text-xs leading-relaxed border-l-2 border-emerald-500 pl-3">
-                    <strong>* Note on Hardware Validation:</strong> This post-route Static Timing Analysis (STA) was executed on the Gowin GW2A-18 (20K FPGA), utilizing a mature <strong>55nm process</strong>. Achieving 7 levels of logic depth, 7.934 ns critical path latency (126.035 MHz Fmax) and zero timing violations proves the extreme efficiency of our memory-aware RTL design. This architecture directly liberates VLA tokens by offloading compliance to a physical silicon gate.
+                    <strong>* Note on Hardware Validation:</strong> This post-route Static Timing Analysis (STA) was executed on the Gowin GW2A-18 (20K FPGA), utilizing a mature <strong>55nm process</strong>. Achieving 7 levels of logic depth, 7.934 ns critical path latency (126.035 MHz Fmax) and zero timing violations proves the extreme efficiency of our memory-aware RTL design. This architecture directly liberates Agentic AI models by offloading regulatory compliance to a physical silicon gate.
                 </p>
             </div>
         </div>
@@ -95,36 +68,35 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">1. Project Overview</h2>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">1. Compliance-Driven Overview</h2>
                 <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                    Physical AI systems increasingly require deterministic and legally admissible control mechanisms. This project develops a hardware-enforced adjudication engine implemented as Silicon IP. It translates probabilistic AI outputs (hallucinations) into legally defensible, verifiable physical execution with an absolute deterministic boundary.
+                    Agentic AI systems targeting the European market face strict obligations under the EU AI Act. Pure software "AI Alignment" cannot guarantee deterministic physical safety. This project develops a hardware-enforced adjudication engine (Silicon Verdict Gate) that translates probabilistic AI outputs into legally defensible, verifiable physical execution with an absolute deterministic boundary.
                 </p>
                 <ul class="list-disc list-inside text-sm text-slate-300">
-                    <li><strong>Objective:</strong> Safety & Compliance by Design. 100% physical execution accuracy.</li>
-                    <li><strong>Target:</strong> High-stakes environments (Smart Factories, Autonomous Vehicles, Surgical Robotics).</li>
+                    <li><strong>Objective:</strong> Legal admissibility through hardware-anchored zero-jitter execution.</li>
+                    <li><strong>Target:</strong> High-risk edge AI (Smart Factories, SDVs, Surgical Robotics).</li>
                 </ul>
             </section>
 
             <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">2. System Architecture</h2>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">2. SVG System Architecture</h2>
                 <div class="bg-slate-900 p-4 rounded text-sm font-mono text-slate-300 border border-slate-700">
-                    <p class="text-slate-400">AI Inference Engine (NPU/GPU)</p>
-                    <p class="text-slate-500 py-1 pl-4">↓ (Probabilistic Intent)</p>
-                    <p class="text-sky-400 font-bold">Hardware Adjudication IP (Silicon Verdict Gate)</p>
+                    <p class="text-slate-400">Agentic AI Inference SoC (NPU/GPU)</p>
+                    <p class="text-slate-500 py-1 pl-4">↓ (Probabilistic Intent / Potential Hallucination)</p>
+                    <p class="text-sky-400 font-bold">Hardware Adjudication IP (Layer 0 Boundary)</p>
                     <p class="text-slate-500 py-1 pl-4">├─ Deterministic Rule → <span class="text-emerald-400">Actuator Control</span></p>
-                    <p class="text-slate-500 pl-4">└─ Hardware Evidence → <span class="text-indigo-400">Immutable SHA-256 Ledger</span></p>
+                    <p class="text-slate-500 pl-4">└─ Hardware Evidence → <span class="text-indigo-400">Immutable Cryptographic Ledger</span></p>
                 </div>
             </section>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">3. Conceptual Functional Blocks</h2>
-                <div class="bg-slate-900 p-4 rounded border border-slate-700 text-slate-300 font-mono text-sm leading-loose">
-                    [+] One-way Physical Isolation Interface (RX)<br>
-                    [+] RTL-Enforced Deterministic Policy Engine<br>
-                    [+] Physical Gate Controller (Zero Jitter)<br>
-                    [+] Cryptographic Ledger Generator (ASIL-D Ready)
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">3. EU AI Act Regulatory Mapping</h2>
+                <div class="bg-slate-900 p-4 rounded border border-slate-700 text-slate-300 text-sm leading-relaxed space-y-3">
+                    <p><strong>[+] Article 14 (Human Oversight):</strong><br> <span class="text-slate-400">RTL-Enforced Deterministic Policy Engine translates human intent into machine-speed hardware rules.</span></p>
+                    <p><strong>[+] Article 12 (Record-Keeping):</strong><br> <span class="text-slate-400">Cryptographic Ledger Generator creates tamper-proof logs directly tied to physical actuation.</span></p>
+                    <p><strong>[+] Article 15 (Cybersecurity & Robustness):</strong><br> <span class="text-slate-400">One-way Physical Isolation Interface guarantees immunity against adversarial prompt injections or OS crashes.</span></p>
                 </div>
             </section>
 
@@ -132,7 +104,7 @@
                 <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">4. Hardware Data Flow</h2>
                 <ul class="space-y-3 text-sm text-slate-300">
                     <li><strong class="text-sky-400">Input (From AI Brain):</strong> Unidirectional routing receiving non-deterministic payloads and trajectories.</li>
-                    <li><strong class="text-emerald-400">Control Output (To Actuator):</strong> Strict deterministic execution states (ALLOW, DENY) intercepting physical boundary breaches.</li>
+                    <li><strong class="text-emerald-400">Control Output (To Actuator):</strong> Strict deterministic execution states (ALLOW, DENY) intercepting physical boundary breaches without OS intervention.</li>
                     <li><strong class="text-indigo-400">Evidence Output:</strong> Cryptographically bound hash linking the physical interception directly to the hardware state.</li>
                 </ul>
             </section>
@@ -147,7 +119,7 @@
             <div class="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="lg:col-span-2">
                     <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                        To guarantee ASIC migration readiness for Tier-1 Edge SoCs, the RTL logic was fundamentally optimized to a 256-rule commercial target on the 55nm FPGA architecture. By integrating 100% of the patented claims—including the 128-bit Offline Store & Forward queue and Hardware Crypto Engine—we unlocked an extreme frequency boost without breaking our deterministic O(1) guarantee.
+                        To guarantee ASIC migration readiness for Tier-1 Agentic Edge SoCs, the RTL logic was fundamentally optimized to a 256-rule commercial target on the 55nm FPGA architecture. By integrating 100% of the patented claims—including the 128-bit Offline Store & Forward queue and Hardware Crypto Engine—we unlocked an extreme frequency boost without breaking our deterministic O(1) guarantee.
                     </p>
                 </div>
                 
@@ -169,13 +141,13 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">6. Commercial Target Optimization</h2>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">6. Commercial Edge SoC Target Optimization</h2>
                 <table class="text-center">
                     <thead>
                         <tr>
                             <th class="text-left w-1/3">Metric</th>
                             <th class="text-center w-1/3">Phase 2.5<br/><span class="text-xs text-slate-500 font-normal">(1,024-Rule Stress Test)</span></th>
-                            <th class="text-center text-cyan-400 w-1/3">Phase 2.6<br/><span class="text-xs text-cyan-700 font-normal">(256-Rule Target)</span></th>
+                            <th class="text-center text-cyan-400 w-1/3">Phase 2.6<br/><span class="text-xs text-cyan-700 font-normal">(256-Rule Auto Target)</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -196,7 +168,7 @@
                         </tr>
                         <tr>
                             <td class="font-medium text-slate-200 text-left">Deterministic WCET</td>
-                            <td class="text-slate-400">-</td>
+                            <td class="text-slate-400">37.0 µs</td>
                             <td class="text-cyan-400 font-bold">19.04 µs</td>
                         </tr>
                     </tbody>
@@ -214,7 +186,7 @@
                     <div class="border-t border-slate-700/50 pt-3 mt-2 text-left">
                         <span class="inline-block bg-blue-900/50 text-blue-300 text-[10px] px-2 py-0.5 rounded mb-2">0.000 TNS Achieved</span>
                         <p class="text-slate-300 text-sm leading-relaxed">
-                            Delivering <strong>Zero Timing Violation (0.000 TNS)</strong> under strict 27MHz vehicular/industrial clock constraints. This confirms robust ASIL-D timing closure and perfectly deterministic task completion, rendering OS crashes completely irrelevant to physical safety.
+                            Delivering <strong>Zero Timing Violation (0.000 TNS)</strong> under strict 27MHz vehicular/industrial clock constraints. This confirms robust ASIL-D timing closure and perfectly deterministic task completion, rendering AI hallucinations and OS crashes completely irrelevant to physical safety.
                         </p>
                     </div>
                 </div>
@@ -231,7 +203,7 @@
                         <li class="flex justify-between border-b border-slate-700 pb-2"><span>Quiescent Power:</span> <span>121.155 mW</span></li>
                         <li class="flex justify-between text-cyan-400 font-bold pt-1"><span>Core Dynamic Power:</span> <span>1.370 mW</span></li>
                     </ul>
-                    <p class="text-[10px] text-slate-500 mt-3 leading-relaxed">Dual-core FSM dynamic power runs at an ultra-low 0.114 mW. This near-zero power penalty makes it perfectly suited for thermal-constrained Edge AI and robotic end devices.</p>
+                    <p class="text-[10px] text-slate-500 mt-3 leading-relaxed">Dual-core FSM dynamic power runs at an ultra-low 0.114 mW. This near-zero power penalty makes it perfectly suited for thermal-constrained Agentic Edge AI end devices.</p>
                 </div>
                 <div class="bg-slate-900 p-5 rounded border border-slate-700 hover:border-indigo-500/50 transition">
                     <h3 class="text-indigo-400 font-bold mb-3"><i class="fas fa-network-wired mr-2"></i>Hardwired Pin Verification</h3>
@@ -240,21 +212,21 @@
                         <li><span class="text-slate-500 text-xs">HW Fault Alert:</span> dmr_fault_alert, ecc_uncorrectable</li>
                         <li><span class="text-slate-500 text-xs">Gate Control:</span> led_allow, led_deny</li>
                     </ul>
-                    <p class="text-[10px] text-slate-500 mt-3 leading-relaxed">Synthesis pinout confirms dedicated unidirectional data channels, alongside ISO 26262 required Latent Fault BIST hooks and SECDED ECC readiness.</p>
+                    <p class="text-[10px] text-slate-500 mt-3 leading-relaxed">Synthesis pinout confirms dedicated unidirectional data channels, establishing the definitive physical boundary demanded by the EU AI Act.</p>
                 </div>
             </div>
         </section>
 
         <section class="section-card border-emerald-700 bg-slate-800/50">
-            <h2 class="text-xl mb-4 border-b border-emerald-800 pb-2 text-emerald-400">9. Competitive Positioning & Market Moat</h2>
-            <p class="text-slate-300 text-sm mb-4">Why pure software architectures fail the Physical AI deployment test.</p>
+            <h2 class="text-xl mb-4 border-b border-emerald-800 pb-2 text-emerald-400">9. Competitive Positioning & Regulatory Moat</h2>
+            <p class="text-slate-300 text-sm mb-4">Why pure software architectures fail the EU AI Act Physical deployment test.</p>
             <div class="overflow-x-auto">
                 <table class="w-full text-sm min-w-[600px]">
                     <thead>
                         <tr>
                             <th class="bg-slate-900 text-center">Architecture</th>
                             <th class="bg-slate-900 text-center">Isolation Level</th>
-                            <th class="bg-slate-900 text-center">AI Token Capability</th>
+                            <th class="bg-slate-900 text-center">Legal Admissibility</th>
                             <th class="bg-slate-900 text-center">Immunity to OS Crash</th>
                             <th class="bg-slate-900 text-emerald-400 border-emerald-700/50 text-center">WesmartAI SVG</th>
                         </tr>
@@ -263,12 +235,12 @@
                         <tr>
                             <td class="font-semibold text-slate-200 text-center">Software Guardrails</td>
                             <td class="text-slate-400 text-center">Application Layer</td>
-                            <td class="text-rose-400 text-center">Compromised (Shares Compute)</td>
+                            <td class="text-rose-400 text-center">Fail (Tamperable Logs)</td>
                             <td class="text-rose-400 text-center">None</td>
                             <td rowspan="3" class="bg-emerald-900/20 border-emerald-700/50 align-top p-4">
                                 <ul class="space-y-2 text-emerald-300 text-left mx-auto w-fit">
                                     <li><i class="fas fa-check mr-2"></i><strong>Hardwired Silicon IP</strong></li>
-                                    <li><i class="fas fa-check mr-2"></i><strong>Liberates 100% AI Tokens</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>EU AI Act Ready Logs</strong></li>
                                     <li><i class="fas fa-check mr-2"></i><strong>100% OS Crash Immune</strong></li>
                                     <li><i class="fas fa-check mr-2"></i><strong>O(1) Physical Determinism</strong></li>
                                 </ul>
@@ -277,19 +249,19 @@
                         <tr>
                             <td class="font-semibold text-slate-200 text-center">ARM TrustZone</td>
                             <td class="text-slate-400 text-center">Secure OS / Logical</td>
-                            <td class="text-yellow-400 text-center">Reduced (Context Switch)</td>
+                            <td class="text-yellow-400 text-center">Weak (Shared Hardware)</td>
                             <td class="text-yellow-400 text-center">Partial</td>
                         </tr>
                         <tr>
                             <td class="font-semibold text-slate-200 text-center">Safety Island (MCU)</td>
                             <td class="text-slate-400 text-center">Physical MCU</td>
-                            <td class="text-emerald-400 text-center">Intact</td>
+                            <td class="text-emerald-400 text-center">High</td>
                             <td class="text-emerald-400 text-center">High (Subject to firmware bugs)</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <p class="text-slate-400 text-xs mt-3 italic">* Unlike a programmable Safety Island MCU, our static SVG RTL architecture prevents runtime code injection and scheduler jitter entirely.</p>
+            <p class="text-slate-400 text-xs mt-3 italic">* Unlike a programmable Safety Island MCU, our static SVG RTL architecture prevents runtime code injection and scheduler jitter entirely, providing the ultimate legal defense for OEMs.</p>
         </section>
 
     </main>
@@ -301,7 +273,7 @@
                     <h4 class="text-white text-lg font-bold mb-4">WesmartAI</h4>
                     <p class="text-sm leading-relaxed mb-4">
                         Making Trust Transparent.<br/>
-                        Silicon-level physical isolation: The ultimate compliance defense for Physical AI.
+                        Silicon-level physical isolation: The ultimate compliance defense for Physical Agentic AI.
                     </p>
                 </div>
                 <div>
@@ -331,26 +303,5 @@
         </div>
     </footer>
 
-    <div id="imageModal" class="fixed inset-0 z-[100] hidden bg-black/95 flex flex-col justify-center items-center p-4">
-        <span class="absolute top-6 right-8 text-white text-4xl cursor-pointer hover:text-red-500 transition" onclick="closeModal()">&times;</span>
-        <img id="modalImage" class="max-w-full max-h-[85vh] object-contain rounded-lg border-2 border-slate-700 shadow-2xl" src="">
-        <p id="modalCaption" class="mt-6 text-slate-300 text-lg font-bold"></p>
-    </div>
-
-    <script>
-        function openModal(imgSrc) {
-            document.getElementById('modalImage').src = imgSrc;
-            document.getElementById('modalCaption').innerText = "WesmartAI SVG Architecture (55nm Gowin 20K Validation)";
-            document.getElementById('imageModal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            document.getElementById('imageModal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        document.addEventListener('keydown', (e) => { if (e.key === "Escape") closeModal(); });
-    </script>
 </body>
 </html>
