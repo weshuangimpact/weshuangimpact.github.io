@@ -158,19 +158,15 @@
                                     <div className="flex flex-wrap gap-2 mb-6">
                                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-900/60 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
                                             <WIcon name="Cpu" size={14} />
-                                            <span>階段一：MCU 驗證完成</span>
+                                            <span>FPGA 驗證完成</span>
                                         </div>
                                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/60 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
-                                            <WIcon name="Server" size={14} />
-                                            <span>階段二：FPGA 驗證完成</span>
+                                            <WIcon name="Zap" size={14} />
+                                            <span>零 OS 抖動</span>
                                         </div>
                                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-900/60 border border-cyan-500/30 text-cyan-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
-                                            <WIcon name="Activity" size={14} />
-                                            <span>階段 2.5：量產前置引擎</span>
-                                        </div>
-                                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-900/60 border border-indigo-500/30 text-indigo-400 text-xs font-semibold uppercase tracking-wider backdrop-blur-md">
                                             <WIcon name="ShieldCheck" size={14} />
-                                            <span>階段 2.6：ASIL-D 實證</span>
+                                            <span>符合歐盟 AI 法案</span>
                                         </div>
                                     </div>
                                     
@@ -179,11 +175,11 @@
                                         <span className="tech-gradient-text drop-shadow-md">硬體強制治理架構。</span>
                                     </h1>
                                     <p className="text-lg md:text-xl text-slate-300 leading-relaxed mb-8 drop-shadow">
-                                        專為邊緣代理式 AI (Edge Agentic AI) 設計、經矽驗證的防禦邊界。我們在不妥協推論吞吐量的前提下，提供絕對確定性的合規保障，將機率性的 AI 轉化為具備任務關鍵級物理安全性的系統。
+                                        專為邊緣代理式 AI 設計、經矽驗證的防禦邊界。我們在不妥協推論吞吐量的前提下，提供絕對確定性的合規保障，將機率性的 AI 轉化為具備任務關鍵級物理安全性的系統。
                                     </p>
                                     <div className="flex flex-col sm:flex-row gap-4">
-                                        <a href="rtl-wrapper.html" className="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20 border border-blue-500/50">
-                                            探索 RTL 規格與專利佈局 <WIcon name="ArrowRight" size={18} />
+                                        <a href="#prototype-data" className="px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition flex items-center justify-center gap-2 shadow-lg shadow-blue-600/20 border border-blue-500/50">
+                                            探索實測數據 <WIcon name="ArrowRight" size={18} />
                                         </a>
                                         <a href="founder.html" className="px-6 py-3.5 glass-card hover:bg-slate-800 text-slate-200 font-medium rounded-lg transition text-center shadow-lg">
                                             關於創辦人
@@ -199,7 +195,7 @@
                                         </div>
                                         <div>
                                             <div className="text-sm font-bold text-white">絕對確定性</div>
-                                            <div className="text-xs text-slate-300">19.04 μs (最差執行延遲)</div>
+                                            <div className="text-xs text-slate-300">9.52 μs 最差執行時間</div>
                                         </div>
                                     </div>
                                 </div>
@@ -266,7 +262,7 @@
                                 </div>
                                 <h2 className="text-3xl md:text-4xl font-black text-white mb-4">專利演進與法理護城河</h2>
                                 <p className="text-slate-400 max-w-3xl mx-auto leading-relaxed text-lg">
-                                    5 個月、4 項專利、1 套完整的矽架構。在撰寫第一行 RTL 程式碼前，我們已建立完整的防禦邊界，包含已獲<strong>台灣智慧財產局 (TIPO) 核准的發明專利</strong>，以及正在進行中的 <strong>USPTO PPH</strong> 加速審查。
+                                    5 個月、4 項專利、1 套完整的矽架構。在撰寫第一行 RTL 程式碼前，我們已建立完整的防禦邊界，包含已獲<strong>台灣智慧財產局 (TIPO) 核准的發明專利</strong> (No. I923536)，以及正在進行中的 <strong>USPTO PPH</strong> 加速審查。
                                 </p>
                             </div>
 
@@ -294,367 +290,133 @@
                                     <div className="glass-card p-6 rounded-xl border border-emerald-500/30 relative overflow-hidden">
                                         <div className="absolute top-0 right-0 bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-3 py-1 rounded-bl-lg">已核准 (TIPO 2026/3)</div>
                                         <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2"><WIcon name="BookOpen" size={18} className="text-emerald-400" /> P1 / P2：治理證據鏈</h3>
-                                        <p className="text-sm text-slate-300 leading-relaxed"><strong>2025年11月</strong> — 確立了非確定性 AI 系統生成不可變紀錄的核心框架，定義了廣泛保護的抽象層。</p>
+                                        <p className="text-sm text-slate-300 leading-relaxed">確立了非確定性 AI 系統生成不可變紀錄的核心框架，鎖死軟體與硬體的繞道途徑。</p>
                                     </div>
                                     
                                     <div className="glass-card p-6 rounded-xl border border-slate-700">
                                         <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2"><WIcon name="Cpu" size={18} className="text-slate-400" /> P3：軟體定義裁決</h3>
-                                        <p className="text-sm text-slate-400 leading-relaxed"><strong>2025年12月</strong> — 定義了軟體層面的可重放裁決機制。此階段揭示了最終的結構性限制：作業系統 (OS) 與韌體的脆弱性。</p>
+                                        <p className="text-slate-400 text-sm leading-relaxed">定義了可重放的裁決與治理機制，以涵蓋所有需要安全驗證的非確定性 AI 輸出系統。</p>
                                     </div>
                                     
                                     <div className="glass-card p-6 rounded-xl border border-blue-500/40 shadow-[0_0_20px_rgba(59,130,246,0.15)] relative">
                                         <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center shadow-[0_0_10px_rgba(59,130,246,0.8)]"><i className="fas fa-bolt text-white text-xs"></i></div>
                                         <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2 pl-4"><WIcon name="Lock" size={18} className="text-blue-400" /> P4：硬體物理隔離</h3>
-                                        <p className="text-sm text-slate-300 leading-relaxed pl-4"><strong>2026年2月</strong> — 徹底消除 OS 依賴。純 RTL 物理層實作，構成了 <strong>Silicon Verdict Gate (SVG)</strong> 的決定性架構與專利防禦邊界。</p>
+                                        <p className="text-sm text-slate-300 leading-relaxed pl-4">將抽象的 AI 治理法規，轉化為絕對的暫存器傳輸層 (RTL) 物理邊界，構成硬體強制隔離裝置之專利。</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
 
-                    {/* PHASE 1: MCU Hardware Prototype */}
-                    <section id="mcu-prototype" className="py-24 bg-[#0a0f1c] border-t border-white/5 relative">
-                        <div className="max-w-7xl mx-auto px-6">
-                            <div className="text-center mb-16" data-aos="fade-up">
-                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-900/30 border border-emerald-700/50 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-4">
-                                    階段一：開發板級原型
-                                </div>
-                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">硬體隔離架構驗證 <br/><span className="text-xl text-slate-400 font-medium mt-2 block">(高通 QRB2210 + 車規級安全 MCU)</span></h2>
-                                <p className="text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                                    以實體防禦邊界取代傳統軟體過濾器，隔離非確定性的 AI 推論 (MPU) 與關鍵執行系統 (MCU)。實現 <strong className="text-emerald-400">13.23 毫秒</strong>的端到端裁決延遲，達成真正的零摩擦整合。
-                                </p>
-                            </div>
-
-                            <div className="grid lg:grid-cols-2 gap-16 items-center">
-                                <div className="order-2 lg:order-1" data-aos="fade-right">
-                                    <img src="pic9.png" alt="MPU to MCU Hardware Gate" className="w-full h-auto aspect-square rounded-2xl border border-slate-700 shadow-2xl object-cover bg-slate-800/50" onError={(e) => { e.target.onerror = null; e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600' viewBox='0 0 600 600'%3E%3Crect width='600' height='600' fill='%231e293b'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='20' fill='%2364748b'%3E[pic9.png] Deep-Tech Architecture%3C/text%3E%3C/svg%3E" }} />
-                                </div>
-                                <div className="order-1 lg:order-2 space-y-8">
-                                    <div className="flex gap-4" data-aos="fade-up" data-aos-delay="100">
-                                        <div className="mt-1 w-10 h-10 rounded bg-emerald-900/30 flex items-center justify-center text-emerald-400 shrink-0 border border-emerald-500/20">
-                                            <WIcon name="Cpu" size={20} />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-xl font-bold text-white mb-2">板級 MPU–MCU 整合</h3>
-                                            <p className="text-slate-400 text-sm leading-relaxed">高通 Dragonwing MPU 產生高速指令，並透過專屬、單向的硬體介面驅動隔離的安全 MCU，建立嚴格的資料二極體，不暴露任何標準易受攻擊的連接埠。</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div className="flex gap-4" data-aos="fade-up" data-aos-delay="200">
-                                        <div className="mt-1 w-10 h-10 rounded bg-emerald-900/30 flex items-center justify-center text-emerald-400 shrink-0 border border-emerald-500/20">
-                                            <WIcon name="ShieldCheck" size={20} />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-xl font-bold text-white mb-2">22.4 KB 裸機執行環境</h3>
-                                            <p className="text-slate-400 text-sm leading-relaxed">確定性裁決引擎以極小的 22.4 KB 裸機韌體運行。這大幅降低了軟體複雜度並最小化攻擊面，保證極度穩定且恆定時間的執行。</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex gap-4" data-aos="fade-up" data-aos-delay="300">
-                                        <div className="mt-1 w-10 h-10 rounded bg-emerald-900/30 flex items-center justify-center text-emerald-400 shrink-0 border border-emerald-500/20">
-                                            <WIcon name="Server" size={20} />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-xl font-bold text-white mb-2">邊緣控制重新部署</h3>
-                                            <p className="text-slate-400 text-sm leading-relaxed">自動化的編譯上傳管線允許 MPU 在邊緣動態重新部署並更新 MCU 上的靜態版本化合規 RulePack，無縫適應法規變動。</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex gap-4" data-aos="fade-up" data-aos-delay="400">
-                                        <div className="mt-1 w-10 h-10 rounded bg-emerald-900/30 flex items-center justify-center text-emerald-400 shrink-0 border border-emerald-500/20">
-                                            <WIcon name="Target" size={20} />
-                                        </div>
-                                        <div>
-                                            <h3 className="text-xl font-bold text-white mb-2">動態裁決與自我修復</h3>
-                                            <p className="text-slate-400 text-sm leading-relaxed">指令被評估為嚴格的狀態：<strong className="text-emerald-400">ALLOW</strong> (100% 合規)、<strong className="text-rose-400">DENY</strong> (觸發立即物理阻斷/硬丟棄)、或 <strong className="text-yellow-400">PENDING</strong> (啟動自主修復迴圈)。整個生命週期皆記錄於不可變的密碼學證據鏈中。</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* PHASE 2: Silicon IP & FPGA Section */}
-                    <section id="fpga-silicon" className="py-24 relative overflow-hidden">
-                        <div className="absolute top-0 left-0 w-full h-full bg-slate-900/50 pointer-events-none"></div>
+                    {/* NEW SECTION: FPGA Prototype Verified Data */}
+                    <section id="prototype-data" className="py-24 relative overflow-hidden bg-[#080d1a] border-t border-blue-900/30">
+                        <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none"></div>
                         <div className="max-w-7xl mx-auto px-6 relative z-10">
                             <div className="flex flex-col md:flex-row justify-between items-end mb-12" data-aos="fade-up">
                                 <div>
                                     <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-900/30 border border-blue-700/50 text-blue-400 text-xs font-bold uppercase tracking-widest mb-4">
-                                        階段二：矽智財 MVP
+                                        工程實證數據
                                     </div>
-                                    <h2 className="text-3xl md:text-4xl font-black text-white mb-3">RTL 物理層驗證 <br/><span className="text-xl text-slate-400 font-medium">(55奈米架構 - Gowin 9K)</span></h2>
-                                    <p className="text-slate-400">在進入完整引擎架構前，驗證絕對物理防禦邊界與硬體攔截基準能力。</p>
+                                    <h2 className="text-3xl md:text-4xl font-black text-white mb-3">FPGA 原型驗證數據</h2>
+                                    <p className="text-slate-400 max-w-2xl">核心邏輯已完全開發、合成並在 FPGA 上進行物理驗證，成功消除核心技術風險。</p>
                                 </div>
                             </div>
                             
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                {/* Latency */}
                                 <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="100">
                                     <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
-                                        17.360 <span className="text-2xl">ns</span>
-                                    </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">概念驗證延遲</div>
-                                    <p className="text-sm text-blue-100/60">成功證明了在奈秒級速度下，純硬體物理攔截的絕對可行性。</p>
-                                </div>
-                                
-                                <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="200">
-                                    <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
-                                        601 <span className="text-2xl">LUTs</span>
-                                    </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">基礎邏輯面積</div>
-                                    <p className="text-sm text-blue-100/60">極輕量化的核心邏輯，為未來的解析引擎擴充奠定基礎。</p>
-                                </div>
-                                
-                                <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="300">
-                                    <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
-                                        100%
-                                    </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">免疫 OS 崩潰</div>
-                                    <p className="text-sm text-blue-100/60">剝離所有韌體依賴與作業系統漏洞的純物理邏輯執行。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* PHASE 2.5: MP-Ready Rule Engine */}
-                    <section id="phase-2-5" className="py-24 bg-[#080d1a] relative overflow-hidden border-t border-cyan-900/30">
-                        <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-b from-cyan-900/10 to-transparent pointer-events-none"></div>
-                        <div className="max-w-7xl mx-auto px-6 relative z-10">
-                            <div className="text-center mb-16" data-aos="fade-up">
-                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-900/40 border border-cyan-500/50 text-cyan-400 text-xs font-bold uppercase tracking-widest mb-4 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
-                                    階段 2.5：量產前置 (MP-Ready) 規則引擎 (v4.2)
-                                </div>
-                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
-                                    Rule-as-Data 數據化規則架構與全專利覆蓋 <br/>
-                                    <span className="text-xl text-cyan-400/80 font-medium mt-2 block tracking-wide">(55奈米 Gowin Tang Primer 20K • 超額配置容量)</span>
-                                </h2>
-                                <p className="text-slate-400 max-w-3xl mx-auto leading-relaxed text-lg">
-                                    為了實現<strong>「治理即服務 (GaaS)」</strong>的訂閱商業模式，商用車載 SoC 必須具備 10 年免改實體硬體的生命週期。在階段 2.5 中，我們實作了「循序解析引擎」與獨立的記憶體陣列。透過主動預留高達 <strong className="text-white">1,024 條合規規則</strong>的容量（為現行業界標準約 100 條的 10 倍），我們保證了系統具備完整的 OTA 更新能力，並能無縫整合 Tier-1 車廠的專有機密參數。
-                                </p>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                <div className="glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]" data-aos="fade-up" data-aos-delay="100">
-                                    <div className="text-5xl font-black text-cyan-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
-                                        37 <span className="text-2xl">μs</span>
+                                        9.52 <span className="text-2xl">μs</span>
                                     </div>
                                     <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">確定性最差執行時間</div>
-                                    <p className="text-sm text-cyan-100/60">掃描滿載 1,024 條規則的最差執行時間 (WCET)。在車控系統 33 毫秒的運作週期內，這依然是絕對的實體級零延遲攔截。</p>
+                                    <p className="text-sm text-blue-100/60">透過物理恆定時間執行，消除 251ms 的作業系統抖動，並執行 128 條規則的全平行掃描。</p>
                                 </div>
                                 
-                                <div className="glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]" data-aos="fade-up" data-aos-delay="200">
-                                    <div className="text-5xl font-black text-cyan-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
-                                        1,024
+                                {/* Area/Logic */}
+                                <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="200">
+                                    <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+                                        61%
                                     </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">規則包 (RulePack) 容量</div>
-                                    <p className="text-sm text-cyan-100/60">巨量超額配置的記憶體邊界。確保未來 10 年的法規演進彈性，並容納車廠專有的安全餘裕。</p>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">邏輯資源佔用率</div>
+                                    <p className="text-sm text-blue-100/60">耗用 12,552 個 LUT。包含 HDMI 輸出的完全獨立運作，證明了無需主機 PC 的隨插即用能力。</p>
                                 </div>
                                 
-                                <div className="glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]" data-aos="fade-up" data-aos-delay="300">
-                                    <div className="text-5xl font-black text-cyan-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
-                                        SSRAM
+                                {/* Power */}
+                                <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="300">
+                                    <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+                                        325 <span className="text-2xl">mW</span>
                                     </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">記憶體感知合成</div>
-                                    <p className="text-sm text-cyan-100/60">規則直接物理映射至晶片內建的 Shadow SRAM。完美實現了專利請求項中「純硬體可更新性」的要求。</p>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">總功耗</div>
+                                    <p className="text-sm text-blue-100/60">極低的動態功耗 (203mW) 與靜態功耗 (122mW)，使其能在嚴苛環境下實現無風扇被動散熱。</p>
                                 </div>
-                                
-                                <div className="glass-card p-8 rounded-xl border border-cyan-500/30 hover:border-cyan-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(6,182,212,0.1)]" data-aos="fade-up" data-aos-delay="400">
-                                    <div className="text-5xl font-black text-cyan-400 mb-1 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]">
-                                        1,212 <span className="text-2xl">LUTs</span>
+
+                                {/* Frequency */}
+                                <div className="glass-card p-8 rounded-xl border border-blue-500/30 hover:border-blue-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(59,130,246,0.1)]" data-aos="fade-up" data-aos-delay="400">
+                                    <div className="text-5xl font-black text-blue-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+                                        28.1 <span className="text-2xl">MHz</span>
                                     </div>
-                                    <div className="text-lg font-bold text-cyan-300 mb-2">+ 120 REGs</div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">硬體資源耗用</div>
-                                    <p className="text-sm text-cyan-100/60">滿載的有限狀態機 (FSM) 引擎僅消耗不到 <strong>&lt; 7%</strong> 的基礎 20K FPGA 邏輯資源，確保未來轉移至 ASIC 時的面積開銷微乎其微。</p>
+                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">系統時脈</div>
+                                    <p className="text-sm text-blue-100/60">完美的時序收斂且零違例 (TNS/WNS: 0.000)。無縫對接嚴苛的工業控制基礎時脈。</p>
                                 </div>
                             </div>
                         </div>
                     </section>
 
-                    {/* PHASE 2.6: ASIL-D Ready Validation */}
-                    <section id="phase-2-6" className="py-24 bg-[#0a0c1a] relative overflow-hidden border-t border-indigo-900/40">
-                        <div className="absolute inset-0 bg-gradient-to-tr from-indigo-950/20 via-transparent to-transparent pointer-events-none"></div>
-                        <div className="max-w-7xl mx-auto px-6 relative z-10">
-                            <div className="text-center mb-16" data-aos="fade-up">
-                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-900/40 border border-indigo-500/50 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-4 shadow-[0_0_15px_rgba(99,102,241,0.3)]">
-                                    階段 2.6：ASIL-D 物理層實證 (v5.0)
-                                </div>
-                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
-                                    隨機硬體失效防禦與 ISO 26262 規格對齊 <br/>
-                                    <span className="text-xl text-indigo-300/80 font-medium mt-2 block tracking-wide">(55奈米 Gowin Tang Primer 20K • 零時序違例)</span>
-                                </h2>
-                                <p className="text-slate-400 max-w-3xl mx-auto leading-relaxed text-lg">
-                                    針對車規最高安全等級 (ASIL-D)，全面導入雙模冗餘 (DMR) 架構與 SECDED ECC 記憶體防護。在 27MHz 系統時脈要求下達成零時序違例，建立對抗單步翻轉 (SEU) 與潛伏故障 (Latent Fault) 的絕對物理護城河，完全契合 ISO 26262 Part 5 與 Part 11 標準規範。
-                                </p>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                <div className="glass-card p-8 rounded-xl border border-indigo-500/30 hover:border-indigo-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(99,102,241,0.1)]" data-aos="fade-up" data-aos-delay="100">
-                                    <div className="text-5xl font-black text-indigo-400 mb-3 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]">
-                                        19.04 <span className="text-2xl">μs</span>
-                                    </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">極致 FTTI 裕度</div>
-                                    <p className="text-sm text-indigo-100/60">規則庫精簡至 256 條，有效壓低實體受擊表面積，並將最差執行延遲壓縮至極致，提供系統級故障容許時間間隔極大餘裕。</p>
-                                </div>
-                                
-                                <div className="glass-card p-8 rounded-xl border border-indigo-500/30 hover:border-indigo-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(99,102,241,0.1)]" data-aos="fade-up" data-aos-delay="200">
-                                    <div className="text-3xl font-black text-indigo-400 mb-4 mt-2 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]">
-                                        DMR & ECC
-                                    </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">隨機失效防護</div>
-                                    <p className="text-sm text-indigo-100/60">實作 FSM 硬體鎖步狀態機與記憶體錯誤更正碼，完美偵測邏輯不一致並免疫靜默資料損壞 (SDC)，滿足 SPFM 基礎要求。</p>
-                                </div>
-                                
-                                <div className="glass-card p-8 rounded-xl border border-indigo-500/30 hover:border-indigo-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(99,102,241,0.1)]" data-aos="fade-up" data-aos-delay="300">
-                                    <div className="text-5xl font-black text-indigo-400 mb-1 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]">
-                                        3%
-                                    </div>
-                                    <div className="text-lg font-bold text-indigo-300 mb-2">474 邏輯單元</div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">極低面積開銷</div>
-                                    <p className="text-sm text-indigo-100/60">雙模冗餘架構僅耗用 372 個 LUTs 與 129 個暫存器，保留極佳的 PPA (功耗、效能、面積) 競爭力，無縫過渡 ASIC 量產。</p>
-                                </div>
-                                
-                                <div className="glass-card p-8 rounded-xl border border-indigo-500/30 hover:border-indigo-400 transition-all text-center group bg-gradient-to-b from-slate-800/60 to-slate-900/80 shadow-[0_0_20px_rgba(99,102,241,0.1)]" data-aos="fade-up" data-aos-delay="400">
-                                    <div className="text-4xl font-black text-indigo-400 mb-3 mt-1 group-hover:scale-110 transition-transform drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]">
-                                        BIST Hooks
-                                    </div>
-                                    <div className="text-sm font-bold text-white mb-2 uppercase tracking-wide">潛伏故障自測介面</div>
-                                    <p className="text-sm text-indigo-100/60">內建專屬的邏輯與記憶體自測控制引腳，支援外部晶片整合商對接標準 EDA 診斷工具，符合 ASIL-D 潛伏故障度量 (LFM)。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* ISO 26262 Integration Section */}
-                    <section id="iso26262-compliance" className="py-24 bg-[#0a101d] relative border-t border-indigo-900/30">
-                        <div className="max-w-7xl mx-auto px-6 relative z-10">
-                            <div className="text-center mb-16" data-aos="fade-up">
-                                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-900/30 border border-indigo-700/50 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-4">
-                                    ISO 26262 規格對齊
-                                </div>
-                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">符合 ASIL-D 規範之硬體架構</h2>
-                                <p className="text-slate-400 max-w-3xl mx-auto leading-relaxed text-lg">
-                                    為了滿足 ISO 26262 Part 5 與 Part 11 嚴苛的車用功能安全標準，我們徹底重構了 RTL 邏輯，以在物理層面減輕隨機硬體失效與潛伏故障的風險。
-                                </p>
-                            </div>
-                            <div className="grid md:grid-cols-2 gap-8">
-                                {/* Box 1: DMR */}
-                                <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-indigo-500/50 transition-all" data-aos="fade-up" data-aos-delay="100">
-                                    <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-3"><WIcon name="Cpu" size={24} className="text-indigo-400" /> 雙模冗餘 (DMR)</h3>
-                                    <p className="text-slate-400 text-sm leading-relaxed">核心控制流全面採用 FSM 硬體鎖步 (Lockstep)。系統能即時偵測狀態不一致，並透過實體硬體比較器強制進入安全狀態，滿足嚴格的單點故障度量 (SPFM) 要求。</p>
-                                </div>
-                                {/* Box 2: SECDED ECC */}
-                                <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-indigo-500/50 transition-all" data-aos="fade-up" data-aos-delay="200">
-                                    <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-3"><WIcon name="ShieldCheck" size={24} className="text-indigo-400" /> SECDED ECC 防護</h3>
-                                    <p className="text-slate-400 text-sm leading-relaxed">儲存合規規則包的記憶體陣列受單錯更正、雙錯偵測 (SECDED) 保護。這使矽晶片對阿爾法粒子與宇宙射線引起的軟錯誤 (Soft Errors) 及靜默資料損壞 (SDC) 免疫。</p>
-                                </div>
-                                {/* Box 3: BIST Hooks */}
-                                <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-indigo-500/50 transition-all" data-aos="fade-up" data-aos-delay="300">
-                                    <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-3"><WIcon name="Activity" size={24} className="text-indigo-400" /> 潛伏故障 BIST 介面</h3>
-                                    <p className="text-slate-400 text-sm leading-relaxed">內建測試引腳允許外部安全 MCU 或標準 EDA 診斷工具在每次開機 (Key-on) 時觸發高覆蓋率自測，滿足潛伏故障度量 (LFM) 規範。</p>
-                                </div>
-                                {/* Box 4: CDC */}
-                                <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-indigo-500/50 transition-all" data-aos="fade-up" data-aos-delay="400">
-                                    <h3 className="text-xl font-bold text-white mb-3 flex items-center gap-3"><WIcon name="Lock" size={24} className="text-indigo-400" /> CDC 與亞穩態預防</h3>
-                                    <p className="text-slate-400 text-sm leading-relaxed">跨所有非同步 ASIL-D 控制引腳實作專屬的雙階同步器 (2-stage synchronizers)。徹底消除外部中斷帶來的亞穩態風險，確保絕對的時序收斂與信號完整性。</p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Architecture Evolution / Comparison Section (REPLACES THE OLD DECOUPLED SECTION) */}
-                    <section id="architecture-evolution" className="py-20 bg-[#0a101d] relative border-t border-slate-800/50">
-                        <div className="max-w-7xl mx-auto px-6 relative z-10">
-                            <div className="text-center mb-12" data-aos="fade-up">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-600 text-slate-300 text-xs font-bold uppercase tracking-widest mb-4">
-                                    架構演進與效能對比
-                                </div>
-                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">容量與極致安全的工程取捨</h2>
-                                <p className="text-slate-400 max-w-3xl mx-auto leading-relaxed text-sm md:text-base">
-                                    我們將「物理防護邊界」與「密碼學稽核軌跡」進行了非同步解耦。透過對比 v4.2 與 v5.0 架構，可以清晰看見我們如何在導入雙模冗餘 (DMR) 等沉重安全機制的同時，藉由降維規則庫深度，將最差執行時間 (WCET) 壓縮近 50%，為 ASIL-D 規範爭取了關鍵的 18 μs 故障容許時間間隔 (FTTI) 裕度。
-                                </p>
-                            </div>
-
-                            <div className="overflow-x-auto" data-aos="fade-up" data-aos-delay="100">
-                                <table className="w-full text-left border-collapse">
-                                    <thead>
-                                        <tr>
-                                            <th className="p-4 border-b-2 border-slate-700 bg-slate-800/50 text-white font-bold w-1/3 rounded-tl-xl">硬體指標 (Metrics)</th>
-                                            <th className="p-4 border-b-2 border-cyan-900/50 bg-cyan-950/20 text-cyan-400 font-bold w-1/3 text-center">Phase 2.5 (v4.2)<br/><span className="text-xs font-normal text-cyan-200/60">量產前置規則引擎</span></th>
-                                            <th className="p-4 border-b-2 border-indigo-900/50 bg-indigo-950/20 text-indigo-400 font-bold w-1/3 text-center rounded-tr-xl">Phase 2.6 (v5.0)<br/><span className="text-xs font-normal text-indigo-200/60">ASIL-D 實體驗證</span></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="text-sm md:text-base">
-                                        <tr className="border-b border-slate-800/80 hover:bg-slate-800/30 transition-colors">
-                                            <td className="p-4 text-slate-300 font-medium">規則庫容量 (Rule Capacity)</td>
-                                            <td className="p-4 text-center text-cyan-100/80 font-bold">1,024 條 <span className="text-xs font-normal block text-slate-500">(10年更新裕度)</span></td>
-                                            <td className="p-4 text-center text-indigo-100/80 font-bold">256 條 <span className="text-xs font-normal block text-slate-500">(極小化實體受擊面)</span></td>
-                                        </tr>
-                                        <tr className="border-b border-slate-800/80 hover:bg-slate-800/30 transition-colors">
-                                            <td className="p-4 text-slate-300 font-medium">實體閘門延遲 (WCET / Path 1)</td>
-                                            <td className="p-4 text-center text-cyan-400 font-black">37.0 μs</td>
-                                            <td className="p-4 text-center text-indigo-400 font-black">19.04 μs <span className="text-xs text-emerald-400 ml-1">(-48%)</span></td>
-                                        </tr>
-                                        <tr className="border-b border-slate-800/80 hover:bg-slate-800/30 transition-colors">
-                                            <td className="p-4 text-slate-300 font-medium">邏輯面積開銷 (Logic Area)</td>
-                                            <td className="p-4 text-center text-cyan-100/80">1,212 LUTs</td>
-                                            <td className="p-4 text-center text-indigo-100/80 font-bold">474 LUTs <span className="text-xs text-emerald-400 ml-1">(-61%)</span></td>
-                                        </tr>
-                                        <tr className="border-b border-slate-800/80 hover:bg-slate-800/30 transition-colors">
-                                            <td className="p-4 text-slate-300 font-medium">背景密碼學引擎 (Path 2)</td>
-                                            <td className="p-4 text-center text-cyan-100/80">2.4 μs (SHA-256)</td>
-                                            <td className="p-4 text-center text-indigo-100/80">2.4 μs (SHA-256)</td>
-                                        </tr>
-                                        <tr className="hover:bg-slate-800/30 transition-colors">
-                                            <td className="p-4 text-slate-300 font-medium rounded-bl-xl">硬體隨機失效防護 (Safety)</td>
-                                            <td className="p-4 text-center text-slate-500">無 (單核架構)</td>
-                                            <td className="p-4 text-center text-indigo-300 font-bold rounded-br-xl">FSM DMR 鎖步 + SECDED ECC</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* PHASE 3: Tier-1 PoC */}
-                    <section id="poc-target" className="py-24 bg-[#070b14] border-t border-white/5 relative overflow-hidden">
+                    {/* NEW SECTION: Deployment Roadmap & Business Models */}
+                    <section id="deployment-roadmap" className="py-24 bg-[#0a101d] border-t border-white/5 relative overflow-hidden">
                         <div className="max-w-7xl mx-auto px-6 relative z-10">
                             <div className="text-center mb-16" data-aos="fade-up">
                                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-900/30 border border-purple-700/50 text-purple-400 text-xs font-bold uppercase tracking-widest mb-4">
-                                    階段三：下一階段目標
+                                    商業化與發展路線
                                 </div>
-                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">車用 SoC 模擬與 Tier-1 概念驗證</h2>
-                                <p className="text-slate-400 max-w-2xl mx-auto">將驗證過的 FPGA 矽智財轉化為企業級硬體模擬，並為 Snapdragon 等級架構建立 ASIL-B 合規性。</p>
+                                <h2 className="text-3xl md:text-4xl font-black text-white mb-4">商業落地與實體化佈局</h2>
+                                <p className="text-slate-400 max-w-2xl mx-auto">從填補合規缺口的即時硬體營收，到透過矽智財 (IP) 授權壟斷實體 AI 的安全防護層。</p>
                             </div>
                             
-                            <div className="grid md:grid-cols-3 gap-8">
-                                <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-purple-500/50 transition-all transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="100">
-                                    <div className="w-12 h-12 rounded-lg bg-purple-900/30 flex items-center justify-center text-purple-400 mb-6 border border-purple-700/50">
-                                        <WIcon name="Cpu" size={24} />
+                            <div className="grid lg:grid-cols-3 gap-8">
+                                {/* Centralized SVG */}
+                                <div className="glass-card rounded-2xl overflow-hidden border border-slate-700 hover:border-purple-500/50 transition-all flex flex-col group" data-aos="fade-up" data-aos-delay="100">
+                                    <div className="h-48 overflow-hidden relative cursor-pointer" onClick={() => window.openModal('jpg20.jpg', '中控型 SVG 部署架構')}>
+                                        <div className="absolute inset-0 bg-purple-900/20 group-hover:bg-transparent transition-colors z-10"></div>
+                                        <img src="jpg20.jpg" alt="Centralized SVG" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onError={(e) => { e.target.onerror = null; e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231e293b'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='16' fill='%2364748b'%3E[jpg20.jpg] Centralized SVG%3C/text%3E%3C/svg%3E" }} />
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-3">1. AXI/AMBA 匯流排模擬</h3>
-                                    <p className="text-slate-400 text-sm leading-relaxed mb-4">
-                                        將 RTL 程式碼部署至企業級硬體模擬器 (如 Palladium/Zebu)，驗證直接整合至 SoC 內部匯流排的可行性，保護核心 NPU 與周邊致動器間的路徑。
-                                    </p>
+                                    <div className="p-8 flex-1 flex flex-col">
+                                        <h3 className="text-xl font-bold text-white mb-3">中控型 SVG (Centralized)</h3>
+                                        <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-1">
+                                            專為智慧工廠的「大腦層」設計。部署於中控室或網路骨幹，作為整條生產線終極的「指揮官級」安全合規核心。
+                                        </p>
+                                        <div className="text-xs font-bold text-purple-400 uppercase tracking-widest border-t border-slate-700 pt-4">硬體銷售與 NRE 專案</div>
+                                    </div>
                                 </div>
                                 
-                                <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-purple-500/50 transition-all transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
-                                    <div className="w-12 h-12 rounded-lg bg-purple-900/30 flex items-center justify-center text-purple-400 mb-6 border border-purple-700/50">
-                                        <WIcon name="ShieldCheck" size={24} />
+                                {/* Edge SVG */}
+                                <div className="glass-card rounded-2xl overflow-hidden border border-slate-700 hover:border-purple-500/50 transition-all flex flex-col group" data-aos="fade-up" data-aos-delay="200">
+                                    <div className="h-48 overflow-hidden relative cursor-pointer" onClick={() => window.openModal('jpg21.jpg', '邊緣型 SVG 部署架構')}>
+                                        <div className="absolute inset-0 bg-purple-900/20 group-hover:bg-transparent transition-colors z-10"></div>
+                                        <img src="jpg21.jpg" alt="Edge SVG" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onError={(e) => { e.target.onerror = null; e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231e293b'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='16' fill='%2364748b'%3E[jpg21.jpg] Edge SVG%3C/text%3E%3C/svg%3E" }} />
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-3">2. ASIL-B 功能安全</h3>
-                                    <p className="text-slate-400 text-sm leading-relaxed mb-4">
-                                        在矽晶片層級執行嚴格的故障注入測試，以正式通過 ISO 26262 ASIL-B 標準認證，這是車用部署的嚴格先決條件。
-                                    </p>
+                                    <div className="p-8 flex-1 flex flex-col">
+                                        <h3 className="text-xl font-bold text-white mb-3">邊緣型 SVG (Edge)</h3>
+                                        <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-1">
+                                            專為終端設備設計的微型外接硬體。可輕易附加於各種移動平台與自動化設備，包含 AGV、AMR、無人機、自駕車與精密機械手臂。
+                                        </p>
+                                        <div className="text-xs font-bold text-purple-400 uppercase tracking-widest border-t border-slate-700 pt-4">目標 75% 高毛利率</div>
+                                    </div>
                                 </div>
                                 
-                                <div className="glass-card p-8 rounded-xl border border-slate-700 hover:border-purple-500/50 transition-all transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="300">
-                                    <div className="w-12 h-12 rounded-lg bg-purple-900/30 flex items-center justify-center text-purple-400 mb-6 border border-purple-700/50">
-                                        <WIcon name="Car" size={24} />
+                                {/* SoC IP */}
+                                <div className="glass-card rounded-2xl overflow-hidden border border-slate-700 hover:border-purple-500/50 transition-all flex flex-col group" data-aos="fade-up" data-aos-delay="300">
+                                    <div className="h-48 overflow-hidden relative cursor-pointer" onClick={() => window.openModal('jpg22.jpg', '矽智財 SoC 整合架構')}>
+                                        <div className="absolute inset-0 bg-purple-900/20 group-hover:bg-transparent transition-colors z-10"></div>
+                                        <img src="jpg22.jpg" alt="Silicon IP" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onError={(e) => { e.target.onerror = null; e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231e293b'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='monospace' font-size='16' fill='%2364748b'%3E[jpg22.jpg] Silicon IP%3C/text%3E%3C/svg%3E" }} />
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-3">3. Tier-1 軟體定義汽車整合</h3>
-                                    <p className="text-slate-400 text-sm leading-relaxed mb-4">
-                                        與頂尖 SoC 供應商及 Tier-1 供應商合作，完成實車概念驗證，展示自動駕駛感知與執行的端到端確定性安全。
-                                    </p>
+                                    <div className="p-8 flex-1 flex flex-col">
+                                        <h3 className="text-xl font-bold text-white mb-3">矽智財 (SoC IP 授權)</h3>
+                                        <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-1">
+                                            終局戰略。將 RTL 直接整合至次世代 NPU 或 SoC 晶片中。實現「開箱即合規」，將公司轉型為依晶片出貨量收取權利金的高槓桿 IP 授權商。
+                                        </p>
+                                        <div className="text-xs font-bold text-purple-400 uppercase tracking-widest border-t border-slate-700 pt-4">IP 授權與量產權利金</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
