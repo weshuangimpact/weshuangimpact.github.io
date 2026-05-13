@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG 實體 AI 治理雲端中樞 | WesmartAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0f172a',
+                        card: '#1e293b',
+                        primary: '#38bdf8',
+                        danger: '#ef4444',
+                        success: '#10b981'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0f172a; color: #f8fafc; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+
+    <aside class="w-64 glass-panel border-r border-slate-700 flex flex-col">
+        <div class="h-16 flex items-center px-6 border-b border-slate-700">
+            <span class="text-xl font-bold tracking-wider text-white">Wesmart<span class="text-primary">AI</span></span>
+        </div>
+        <nav class="flex-1 py-4">
+            <ul class="space-y-1">
+                <li><a href="#" class="flex items-center px-6 py-3 bg-slate-800 text-primary border-r-4 border-primary font-medium">🌐 全局戰情室</a></li>
+                <li><a href="#" class="flex items-center px-6 py-3 text-slate-400 hover:text-white hover:bg-slate-800 transition">📦 Safety PLC 參數庫</a></li>
+                <li><a href="#" class="flex items-center px-6 py-3 text-slate-400 hover:text-white hover:bg-slate-800 transition">🔒 不可變稽核日誌</a></li>
+                <li><a href="#" class="flex items-center px-6 py-3 text-slate-400 hover:text-white hover:bg-slate-800 transition">⚙️ SoC 授權金鑰管理</a></li>
+                <li><a href="#" class="flex items-center px-6 py-3 text-slate-400 hover:text-white hover:bg-slate-800 transition">📊 邊緣節點狀態</a></li>
+            </ul>
+        </nav>
+        <div class="p-4 border-t border-slate-700 text-xs text-slate-500">
+            System Version: SVG-OS v2.8.1<br>
+            Status: <span class="text-success font-bold">● Online</span>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-screen overflow-y-auto">
+        <header class="h-16 glass-panel border-b border-slate-700 flex items-center justify-between px-8 sticky top-0 z-10">
+            <h1 class="text-lg font-semibold text-slate-200">SVG Compliance Cloud：安規數據庫與晶片授權中樞</h1>
+            <div class="flex items-center space-x-4 text-sm">
+                <span class="px-3 py-1 bg-slate-800 rounded-full border border-slate-600">最新安規同步：ISO 26262 / EU AI Act 2026</span>
+                <div class="w-8 h-8 bg-slate-700 rounded-full flex items-center justify-center font-bold">WH</div>
+            </div>
+        </header>
+
+        <div class="p-8 space-y-6">
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="glass-panel p-6 rounded-xl shadow-lg">
+                    <h3 class="text-slate-400 text-sm font-medium mb-1">匯聚 PLC 實體安規規則數</h3>
+                    <div class="text-3xl font-bold text-white">12,450</div>
+                    <div class="text-success text-xs mt-2">↑ 覆蓋 Siemens / Rockwell</div>
+                </div>
+                <div class="glass-panel p-6 rounded-xl shadow-lg">
+                    <h3 class="text-slate-400 text-sm font-medium mb-1">活躍邊緣 SVG 節點</h3>
+                    <div class="text-3xl font-bold text-white">1,024</div>
+                    <div class="text-primary text-xs mt-2">部署於 AMR / 機械手臂</div>
+                </div>
+                <div class="glass-panel p-6 rounded-xl shadow-lg">
+                    <h3 class="text-slate-400 text-sm font-medium mb-1">近 24H 實體防護攔截</h3>
+                    <div class="text-3xl font-bold text-danger">15,802</div>
+                    <div class="text-slate-400 text-xs mt-2">AI 抖動與幻覺觸發</div>
+                </div>
+                <div class="glass-panel p-6 rounded-xl shadow-lg">
+                    <h3 class="text-slate-400 text-sm font-medium mb-1">SoC 授權數據籌碼狀態</h3>
+                    <div class="text-3xl font-bold text-success">Ready</div>
+                    <div class="text-slate-400 text-xs mt-2">具備晶片整合級別合規庫</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 glass-panel p-6 rounded-xl shadow-lg">
+                    <h3 class="text-lg font-medium text-white mb-4 flex justify-between">
+                        <span>實體驗證數據累積 (推動 IP 授權籌碼)</span>
+                        <span class="text-xs font-normal bg-slate-800 px-2 py-1 rounded text-slate-300">本月</span>
+                    </h3>
+                    <div class="h-64 relative">
+                        <canvas id="trendChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 rounded-xl shadow-lg">
+                    <h3 class="text-lg font-medium text-white mb-4">實體安規參數庫來源</h3>
+                    <div class="h-64 relative flex items-center justify-center">
+                        <canvas id="doughnutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-xl shadow-lg overflow-hidden">
+                <div class="px-6 py-4 border-b border-slate-700 flex justify-between items-center">
+                    <h3 class="text-lg font-medium text-white">第三方公證：實時不可變治理證據鏈 (Audit Trail)</h3>
+                    <button class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-sm rounded border border-slate-600 transition">匯出稽核報告</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm whitespace-nowrap">
+                        <thead class="bg-slate-800/50 text-slate-400">
+                            <tr>
+                                <th class="px-6 py-3 font-medium">時間戳記</th>
+                                <th class="px-6 py-3 font-medium">節點 ID / 設備</th>
+                                <th class="px-6 py-3 font-medium">原始 AI 指令</th>
+                                <th class="px-6 py-3 font-medium">觸發 PLC 參數庫</th>
+                                <th class="px-6 py-3 font-medium">SVG 物理裁決</th>
+                                <th class="px-6 py-3 font-medium">不可變硬體簽章 (Hash)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-700/50 text-slate-300">
+                            <tr class="hover:bg-slate-800/30 transition">
+                                <td class="px-6 py-4 font-mono">2026-05-13 15:52:19.041</td>
+                                <td class="px-6 py-4">AMR-Node-08</td>
+                                <td class="px-6 py-4">Velocity = 1.8 m/s</td>
+                                <td class="px-6 py-4 text-primary">S7-1500F [Rule-045]</td>
+                                <td class="px-6 py-4"><span class="px-2 py-1 bg-danger/20 text-danger border border-danger/50 rounded text-xs font-bold">BLOCK</span></td>
+                                <td class="px-6 py-4 font-mono text-xs text-slate-500 truncate max-w-[150px]">0x8f9a3b2c1d4e5f...</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/30 transition">
+                                <td class="px-6 py-4 font-mono">2026-05-13 15:52:18.882</td>
+                                <td class="px-6 py-4">Arm-Node-12</td>
+                                <td class="px-6 py-4">Angle = 45 deg</td>
+                                <td class="px-6 py-4 text-primary">GuardLogix [Rule-012]</td>
+                                <td class="px-6 py-4"><span class="px-2 py-1 bg-success/20 text-success border border-success/50 rounded text-xs font-bold">PASS</span></td>
+                                <td class="px-6 py-4 font-mono text-xs text-slate-500 truncate max-w-[150px]">0x3b2c1d4e5f6a7b...</td>
+                            </tr>
+                            <tr class="hover:bg-slate-800/30 transition">
+                                <td class="px-6 py-4 font-mono">2026-05-13 15:52:16.105</td>
+                                <td class="px-6 py-4">Drone-Node-02</td>
+                                <td class="px-6 py-4">Alt = -0.5 m (幻覺)</td>
+                                <td class="px-6 py-4 text-primary">Custom ISO26262</td>
+                                <td class="px-6 py-4"><span class="px-2 py-1 bg-danger/20 text-danger border border-danger/50 rounded text-xs font-bold">BLOCK</span></td>
+                                <td class="px-6 py-4 font-mono text-xs text-slate-500 truncate max-w-[150px]">0x7b8c9d0e1f2a3b...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <footer class="text-center text-xs text-slate-500 pt-4 pb-8">
+                &copy; 2026 WesmartAI. Making Trust Transparent.
+            </footer>
+        </div>
+    </main>
+
+    <script>
+        // 設定 Chart.js 全局預設顏色適應深色模式
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.borderColor = 'rgba(148, 163, 184, 0.1)';
+
+        // 繪製趨勢圖 (折線圖 + 長條圖混合)
+        const trendCtx = document.getElementById('trendChart').getContext('2d');
+        new Chart(trendCtx, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                datasets: [
+                    {
+                        label: '收錄安規參數總量 (智財籌碼)',
+                        data: [2000, 4500, 6800, 9200, 11000, 12450],
+                        borderColor: '#38bdf8',
+                        backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        yAxisID: 'y'
+                    },
+                    {
+                        type: 'bar',
+                        label: '硬體層 AI 抖動攔截次數',
+                        data: [1500, 3200, 4100, 5800, 8900, 15802],
+                        backgroundColor: '#ef4444',
+                        borderRadius: 4,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                scales: {
+                    y: { type: 'linear', display: true, position: 'left', title: { display: true, text: '參數數量' } },
+                    y1: { type: 'linear', display: true, position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: '攔截次數' } }
+                },
+                plugins: { legend: { position: 'top' } }
+            }
+        });
+
+        // 繪製圓餅圖
+        const doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
+        new Chart(doughnutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Siemens', 'Rockwell', 'Mitsubishi', 'Others'],
+                datasets: [{
+                    data: [45, 30, 15, 10],
+                    backgroundColor: ['#38bdf8', '#818cf8', '#34d399', '#475569'],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: { position: 'bottom', labels: { boxWidth: 12, padding: 15 } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
