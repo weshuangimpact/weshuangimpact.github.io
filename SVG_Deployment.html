@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-width=1.0">
-    <title>WesmartAI SVG 配置工具</title>
+    <title>WesmartAI SVG 中控與配置工具</title>
     <style>
         :root {
             --bg-color: #0f172a;
@@ -157,19 +157,70 @@
 
         .btn:hover { background-color: #2563eb; }
 
-        .btn-danger {
-            background-color: var(--danger);
-        }
+        .btn-danger { background-color: var(--danger); }
         .btn-danger:hover { background-color: #dc2626; }
 
-        /* Grid */
+        /* Grid System */
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
 
-        /* Toast */
+        /* Central Matrix UI */
+        .matrix-panel {
+            margin-top: 25px;
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 4px;
+        }
+
+        .matrix-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .arm-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+            gap: 15px;
+            padding: 10px;
+        }
+
+        .arm-node {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #0f172a;
+            font-weight: bold;
+            cursor: default;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .arm-node.error {
+            background-color: var(--danger);
+            color: white;
+            box-shadow: 0 0 15px var(--danger);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        /* Toast Notification */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -179,7 +230,9 @@
             padding: 15px 25px;
             border-radius: 4px;
             display: none;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            z-index: 1000;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -188,25 +241,25 @@
     <div class="sidebar">
         <div class="brand">Wesmart<span>AI</span></div>
         <ul class="nav-menu">
-            <li class="nav-item active" onclick="switchPanel('dashboard')">系統總覽 (Dashboard)</li>
-            <li class="nav-item" onclick="switchPanel('plc-integration')">安規對接 (PLC Integration)</li>
+            <li class="nav-item active" onclick="switchPanel('dashboard')">中央監控 (Dashboard)</li>
+            <li class="nav-item" onclick="switchPanel('plc-integration')">安規對接 (PLC Config)</li>
             <li class="nav-item" onclick="switchPanel('rulepack')">規則部署 (Rulepack)</li>
         </ul>
     </div>
 
     <div class="main-content">
         <div class="header">
-            <h2>SVG 配置與授權工具 (Configuration Tool)</h2>
+            <h2>SVG 中控介面 (Central Management Tool)</h2>
             <div class="status-indicator">
                 <div class="dot"></div>
-                <span>設備已連線 (COM3) | 延遲: 9.52 µs</span>
+                <span>系統已連線 | 邊緣節點: 40 | 延遲: 9.52 µs</span>
             </div>
         </div>
 
         <div class="content-area">
             
             <div id="dashboard" class="panel active">
-                <h3>硬體裁決閘狀態</h3>
+                <h3>硬體裁決閘狀態總覽</h3>
                 <hr style="border-color: var(--border); margin-bottom: 20px;">
                 <div class="grid-2">
                     <div style="background: var(--bg-color); padding: 20px; border-radius: 4px;">
@@ -214,9 +267,21 @@
                         <h1 style="margin: 0; color: var(--success);">128 / 256</h1>
                     </div>
                     <div style="background: var(--bg-color); padding: 20px; border-radius: 4px;">
-                        <p style="color: var(--text-muted); margin-top: 0;">今日攔截次數 (Block Count)</p>
-                        <h1 style="margin: 0; color: var(--danger);">14</h1>
+                        <p style="color: var(--text-muted); margin-top: 0;">今日阻斷次數 (Block Count)</p>
+                        <h1 id="block-counter" style="margin: 0; color: var(--danger);">14</h1>
                     </div>
+                </div>
+
+                <div class="matrix-panel">
+                    <div class="matrix-header">
+                        <h4 style="margin: 0; color: var(--text-main);">中控實體隔離陣列 (Node Status)</h4>
+                        <div style="font-size: 0.9rem; color: var(--text-muted);">
+                            <span style="color: var(--success); margin-right: 5px;">●</span> 正常運作 (Normal)
+                            <span style="color: var(--danger); margin-left: 15px; margin-right: 5px;">●</span> 攔截阻斷 (Blocked)
+                        </div>
+                    </div>
+                    <div class="arm-grid" id="arm-grid">
+                        </div>
                 </div>
             </div>
 
@@ -257,7 +322,7 @@
                     </div>
                 </div>
 
-                <button class="btn" onclick="showToast('參數對接已編譯並寫入硬體暫存區')">寫入安規對接參數</button>
+                <button class="btn" onclick="showToast('參數對接已編譯並寫入硬體暫存區', false)">寫入安規對接參數</button>
             </div>
 
             <div id="rulepack" class="panel">
@@ -277,10 +342,10 @@
                 <div style="background: var(--bg-color); padding: 15px; border-radius: 4px; margin-bottom: 20px; font-family: monospace; color: var(--text-muted); font-size: 0.85rem;">
                     > 規則包將轉換為 RTL 邏輯陣列<br>
                     > 預計佔用 FPGA 邏輯閘: 45%<br>
-                    > 警告：寫入期間將暫停 AI 推理訊號轉發
+                    > 警告：寫入期間將暫停對應節點之 AI 推理訊號轉發
                 </div>
 
-                <button class="btn btn-danger" onclick="showToast('規則包已成功覆寫至不可變儲存區 (MicroSD)')">執行硬體燒錄 (Flash Rulepack)</button>
+                <button class="btn btn-danger" onclick="showToast('規則包已成功下發並覆寫至全區節點', false)">全區硬體燒錄 (Flash All Nodes)</button>
             </div>
 
         </div>
@@ -289,29 +354,75 @@
     <div id="toast" class="toast">操作成功</div>
 
     <script>
+        // 初始化面板切換
         function switchPanel(panelId) {
-            // Update active menu item
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
             });
             event.target.classList.add('active');
 
-            // Update active panel
             document.querySelectorAll('.panel').forEach(panel => {
                 panel.classList.remove('active');
             });
             document.getElementById(panelId).classList.add('active');
         }
 
-        function showToast(message) {
+        // 初始化跳窗通知
+        function showToast(message, isError) {
             const toast = document.getElementById('toast');
             toast.innerText = message;
+            toast.style.backgroundColor = isError ? 'var(--danger)' : 'var(--success)';
             toast.style.display = 'block';
             
             setTimeout(() => {
                 toast.style.display = 'none';
-            }, 3000);
+            }, 4000);
         }
+
+        // 生成中控矩陣節點 (模擬 40 台機器手臂)
+        const grid = document.getElementById('arm-grid');
+        const numNodes = 40; 
+        for (let i = 1; i <= numNodes; i++) {
+            const node = document.createElement('div');
+            node.className = 'arm-node';
+            node.id = `node-${i}`;
+            // 補零格式化 (例如 01, 02)
+            node.innerText = i.toString().padStart(2, '0');
+            node.title = `節點 #${i} - 狀態：正常運作`;
+            grid.appendChild(node);
+        }
+
+        // 模擬 AI 失控與實體阻斷邏輯
+        let blockCount = 14; 
+        
+        function simulateAnomaly() {
+            // 隨機選擇一個節點
+            const targetId = Math.floor(Math.random() * numNodes) + 1;
+            const targetNode = document.getElementById(`node-${targetId}`);
+            
+            // 如果該節點目前是正常狀態，則觸發異常
+            if (!targetNode.classList.contains('error')) {
+                // 變更節點外觀與狀態
+                targetNode.classList.add('error');
+                targetNode.title = `節點 #${targetId} - 狀態：異常 (指令越界，已阻斷)`;
+                
+                // 更新阻斷計數器
+                blockCount++;
+                document.getElementById('block-counter').innerText = blockCount;
+                
+                // 觸發紅色警告跳窗
+                showToast(`[中控警報] 節點 #${targetId.toString().padStart(2, '0')} 發生 AI 幻覺，SVG 已實體阻斷！`, true);
+                
+                // 模擬 6 秒後人工介入或系統重置恢復正常
+                setTimeout(() => {
+                    targetNode.classList.remove('error');
+                    targetNode.title = `節點 #${targetId} - 狀態：正常運作`;
+                }, 6000);
+            }
+        }
+
+        // 啟動模擬，每 5 秒隨機觸發一次異常
+        setInterval(simulateAnomaly, 5000);
     </script>
 </body>
 </html>
