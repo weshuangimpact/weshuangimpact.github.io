@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-width=1.0">
+    <title>WesmartAI SVG 配置工具</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --panel-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --success: #10b981;
+            --danger: #ef4444;
+            --border: #334155;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: var(--panel-bg);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            padding: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-bottom: 1px solid var(--border);
+            letter-spacing: 1px;
+        }
+
+        .brand span { color: var(--accent); }
+
+        .nav-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            padding: 15px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background-color: #334155;
+            border-left: 4px solid var(--accent);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            padding: 20px;
+            background-color: var(--panel-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--success);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--success);
+        }
+
+        .content-area {
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .panel {
+            display: none;
+            background-color: var(--panel-bg);
+            border-radius: 8px;
+            padding: 25px;
+            border: 1px solid var(--border);
+        }
+
+        .panel.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Forms & Inputs */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn:hover { background-color: #2563eb; }
+
+        .btn-danger {
+            background-color: var(--danger);
+        }
+        .btn-danger:hover { background-color: #dc2626; }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--success);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 4px;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="brand">Wesmart<span>AI</span></div>
+        <ul class="nav-menu">
+            <li class="nav-item active" onclick="switchPanel('dashboard')">系統總覽 (Dashboard)</li>
+            <li class="nav-item" onclick="switchPanel('plc-integration')">安規對接 (PLC Integration)</li>
+            <li class="nav-item" onclick="switchPanel('rulepack')">規則部署 (Rulepack)</li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h2>SVG 配置與授權工具 (Configuration Tool)</h2>
+            <div class="status-indicator">
+                <div class="dot"></div>
+                <span>設備已連線 (COM3) | 延遲: 9.52 µs</span>
+            </div>
+        </div>
+
+        <div class="content-area">
+            
+            <div id="dashboard" class="panel active">
+                <h3>硬體裁決閘狀態</h3>
+                <hr style="border-color: var(--border); margin-bottom: 20px;">
+                <div class="grid-2">
+                    <div style="background: var(--bg-color); padding: 20px; border-radius: 4px;">
+                        <p style="color: var(--text-muted); margin-top: 0;">目前運作規則數量</p>
+                        <h1 style="margin: 0; color: var(--success);">128 / 256</h1>
+                    </div>
+                    <div style="background: var(--bg-color); padding: 20px; border-radius: 4px;">
+                        <p style="color: var(--text-muted); margin-top: 0;">今日攔截次數 (Block Count)</p>
+                        <h1 style="margin: 0; color: var(--danger);">14</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div id="plc-integration" class="panel">
+                <h3>Safety PLC 參數對接與 NRE 設置</h3>
+                <hr style="border-color: var(--border); margin-bottom: 20px;">
+                
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>下游工控機廠牌 (Target PLC)</label>
+                        <select id="plc-brand">
+                            <option value="siemens">Siemens (S7-1500F)</option>
+                            <option value="rockwell">Rockwell (GuardLogix)</option>
+                            <option value="beckhoff">Beckhoff (TwinSAFE)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>通訊協定底層 (Protocol)</label>
+                        <select disabled>
+                            <option>EtherCAT (Default)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Fail-Safe 觸發實體位址 (Address Mapping)</label>
+                    <input type="text" value="0x00A4 (對應 PLC 緊急停止閘口)" readonly>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>越界容忍度 (Jitter Tolerance - mm)</label>
+                        <input type="number" value="2.5" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label>強制阻斷反應時間閾值 (µs)</label>
+                        <input type="number" value="9.52" readonly style="color: var(--success);">
+                    </div>
+                </div>
+
+                <button class="btn" onclick="showToast('參數對接已編譯並寫入硬體暫存區')">寫入安規對接參數</button>
+            </div>
+
+            <div id="rulepack" class="panel">
+                <h3>EU AI Act 合規規則包部署 (Rulepack Update)</h3>
+                <hr style="border-color: var(--border); margin-bottom: 20px;">
+                
+                <div class="form-group">
+                    <label>當前版本授權狀態</label>
+                    <input type="text" value="Valid (Authorized for EU-Region)" style="color: var(--success); border-color: var(--success);" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>選擇本機合規規則包 (.bin / .rpk)</label>
+                    <input type="file" accept=".bin,.rpk">
+                </div>
+
+                <div style="background: var(--bg-color); padding: 15px; border-radius: 4px; margin-bottom: 20px; font-family: monospace; color: var(--text-muted); font-size: 0.85rem;">
+                    > 規則包將轉換為 RTL 邏輯陣列<br>
+                    > 預計佔用 FPGA 邏輯閘: 45%<br>
+                    > 警告：寫入期間將暫停 AI 推理訊號轉發
+                </div>
+
+                <button class="btn btn-danger" onclick="showToast('規則包已成功覆寫至不可變儲存區 (MicroSD)')">執行硬體燒錄 (Flash Rulepack)</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="toast" class="toast">操作成功</div>
+
+    <script>
+        function switchPanel(panelId) {
+            // Update active menu item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update active panel
+            document.querySelectorAll('.panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+            document.getElementById(panelId).classList.add('active');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.style.display = 'block';
+            
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
