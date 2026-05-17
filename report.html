@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>矽智財技術報告 | 歐盟 AI 法案硬體合規</title>
+    <title>Silicon IP Technical Report | EU AI Act Hardware Compliance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -24,23 +24,23 @@
 
     <nav class="fixed w-full top-0 z-50 glass-nav transition-all">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="index2.html" class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
+            <a href="index.html" class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
                 <div class="w-8 h-8 accent-gradient rounded flex items-center justify-center shadow-lg shadow-blue-500/20">
                     <span class="font-bold text-white">W</span>
                 </div>
                 <div>
-                    <div class="font-bold text-lg tracking-tight text-white">可信智慧整合</div>
+                    <div class="font-bold text-lg tracking-tight text-white">WesmartAI</div>
                     <div class="text-[10px] text-slate-400 uppercase tracking-widest">WesmartAI Co., Ltd.</div>
                 </div>
             </a>
             <div class="hidden md:flex text-sm font-medium text-slate-300 gap-8 items-center">
-                <a href="index2.html" class="hover:text-white transition">架構總覽</a>
-                <a href="ohacss2.html" class="hover:text-white transition">產品</a>
-                <span class="text-blue-400 cursor-default border-b-2 border-blue-400 pb-1">FPGA 報告</span>
-                <a href="tech-dd2.html" class="hover:text-white transition">Tech DD</a>
-                <a href="rtl-wrapper2.html" class="hover:text-white transition">RTL 規格</a>
-                <a href="founder2.html" class="hover:text-white transition">創辦人</a>
-                <a href="report.html" class="px-3 py-1 rounded-full border border-slate-600 hover:bg-slate-800 hover:text-white transition text-xs font-bold tracking-wider">EN</a>
+                <a href="index.html" class="hover:text-white transition">Architecture Overview</a>
+                <a href="ohacss.html" class="hover:text-white transition">Products</a>
+                <span class="text-blue-400 cursor-default border-b-2 border-blue-400 pb-1">FPGA Report</span>
+                <a href="tech-dd.html" class="hover:text-white transition">Tech DD</a>
+                <a href="rtl-wrapper.html" class="hover:text-white transition">RTL Specs</a>
+                <a href="founder.html" class="hover:text-white transition">Founder</a>
+                <a href="report2.html" class="px-3 py-1 rounded-full border border-slate-600 hover:bg-slate-800 hover:text-white transition text-xs font-bold tracking-wider">TW</a>
             </div>
         </div>
     </nav>
@@ -48,17 +48,17 @@
     <header class="pt-12 mb-8 text-center">
         <div class="max-w-5xl mx-auto px-6">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/30 border border-blue-700/50 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
-                執行摘要
+                Executive Summary
             </div>
             <h1 class="text-3xl md:text-5xl font-black text-white mb-6 leading-tight tracking-tight">
-                矽智財技術報告 <br/>
-                <span class="text-2xl md:text-3xl text-slate-400 font-medium">硬體強制歐盟 AI 法案合規：專為實體 AI 打造</span>
+                Silicon IP Technical Report <br/>
+                <span class="text-2xl md:text-3xl text-slate-400 font-medium">Hardware-Enforced EU AI Act Compliance: Built for Physical AI</span>
             </h1>
-            <p class="text-slate-400 mt-2 mb-8">實體層全機驗證與 FPGA 架構報告</p>
+            <p class="text-slate-400 mt-2 mb-8">Physical Layer Full-System Verification & FPGA Architecture Report</p>
             
             <div class="max-w-3xl mx-auto mt-4 text-left">
                 <p class="text-emerald-400/90 text-xs leading-relaxed border-l-2 border-emerald-500 pl-3">
-                    <strong>* 硬體驗證聲明：</strong> 本次佈線後靜態時序分析 (Post-route STA) 係於 FPGA 平台上針對整機核心邏輯執行。達成精確的 <strong>37.037 奈秒絕對決定性延遲</strong>、28.1 MHz 低干擾系統時脈且零時序違規，證明了我們硬體防線的極致可靠性。此架構將法規合規任務卸載至絕對的實體矽智財邊界，直接解放 AI 模型的運算資源。
+                    <strong>* Hardware Verification Statement:</strong> This Post-route Static Timing Analysis (STA) was executed on the FPGA platform covering the full-system core logic. Achieving a precise <strong>37.037 ns absolute deterministic latency</strong>, 28.1 MHz low-interference system clock, and zero timing violations, proving the extreme reliability of our hardware defense line. This architecture offloads regulatory compliance tasks to an absolute physical silicon IP boundary, directly liberating the computational resources of AI models.
                 </p>
             </div>
         </div>
@@ -68,72 +68,72 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">1. 合規驅動概述</h2>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">1. Compliance-Driven Overview</h2>
                 <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                    鎖定全球市場的實體 AI (Physical AI) 系統面臨歐盟《AI 法案》的嚴格義務。純軟體的「AI 對齊 (Alignment)」無法保證確定性的物理安全。本專案開發了一套硬體強制裁決引擎 (SVG)，能將機率性的 AI 輸出強制轉換為具備法律防禦力、擁有絕對物理邊界限制的實體動作。
+                    Physical AI systems targeting the global market face strict obligations under the EU AI Act. Purely software-based "AI Alignment" cannot guarantee deterministic physical safety. This project developed a hardware-enforced Silicon Verdict Gate (SVG), forcing probabilistic AI outputs into legally defensible physical actions bounded by absolute physical limits.
                 </p>
                 <ul class="list-disc list-inside text-sm text-slate-300">
-                    <li><strong>目標：</strong> 透過硬體錨定的零抖動執行，確保法律可採信性 (Legal Admissibility)。</li>
-                    <li><strong>應用場景：</strong> 高風險邊緣 AI (自動駕駛、工業機器人、無人機、精密醫療)。</li>
+                    <li><strong>Objective:</strong> Ensure Legal Admissibility through hardware-anchored, zero-jitter execution.</li>
+                    <li><strong>Application Scenarios:</strong> High-risk Edge AI (Autonomous Driving, Industrial Robotics, UAVs, Precision Medicine).</li>
                 </ul>
             </section>
 
             <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">2. SVG 系統架構</h2>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">2. SVG System Architecture</h2>
                 <div class="bg-slate-900 p-4 rounded text-sm font-mono text-slate-300 border border-slate-700">
-                    <p class="text-slate-400">實體 AI 推論 SoC (NPU/GPU)</p>
-                    <p class="text-slate-500 py-1 pl-4">↓ (機率性意圖 / 潛在幻覺指令)</p>
-                    <p class="text-sky-400 font-bold">硬體裁決矽智財 (Layer 0 物理邊界)</p>
-                    <p class="text-slate-500 py-1 pl-4">├─ 確定性規則 → <span class="text-emerald-400">實體致動器控制</span></p>
-                    <p class="text-slate-500 pl-4">└─ 硬體級證據 → <span class="text-indigo-400">不可篡改之密碼學分類帳</span></p>
+                    <p class="text-slate-400">Physical AI Inference SoC (NPU/GPU)</p>
+                    <p class="text-slate-500 py-1 pl-4">↓ (Probabilistic Intent / Potential Hallucinated Commands)</p>
+                    <p class="text-sky-400 font-bold">Hardware Verdict Silicon IP (Layer 0 Physical Boundary)</p>
+                    <p class="text-slate-500 py-1 pl-4">├─ Deterministic Rules → <span class="text-emerald-400">Physical Actuator Control</span></p>
+                    <p class="text-slate-500 pl-4">└─ Hardware-grade Evidence → <span class="text-indigo-400">Tamper-proof Cryptographic Ledger</span></p>
                 </div>
             </section>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">3. 歐盟《AI 法案》法規映射</h2>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">3. EU AI Act Regulatory Mapping</h2>
                 <div class="bg-slate-900 p-4 rounded border border-slate-700 text-slate-300 text-sm leading-relaxed space-y-3">
-                    <p><strong>[+] 第 14 條 (人類監督)：</strong><br> <span class="text-slate-400">RTL 強制的確定性策略引擎，將人類意圖轉化為奈秒級機器速度的硬體規則，攔截異常。</span></p>
-                    <p><strong>[+] 第 12 條 (紀錄保存)：</strong><br> <span class="text-slate-400">密碼學證據鏈直接與實體致動綁定，不經 OS，建立絕對防竄改的合規稽核日誌。</span></p>
-                    <p><strong>[+] 第 15 條 (網路安全與強健性)：</strong><br> <span class="text-slate-400">單向實體隔離介面保證對惡意軟體攻擊、提示詞注入或 OS 崩潰的絕對物理免疫。</span></p>
+                    <p><strong>[+] Article 14 (Human Oversight):</strong><br> <span class="text-slate-400">RTL-enforced deterministic policy engine translates human intent into hardware rules at nanosecond machine speeds to intercept anomalies.</span></p>
+                    <p><strong>[+] Article 12 (Record Keeping):</strong><br> <span class="text-slate-400">Cryptographic evidence chain binds directly to physical actuation, bypassing the OS, to establish an absolutely tamper-proof compliance audit log.</span></p>
+                    <p><strong>[+] Article 15 (Cybersecurity and Robustness):</strong><br> <span class="text-slate-400">One-way physical isolation interface guarantees absolute physical immunity against malware attacks, prompt injections, or OS crashes.</span></p>
                 </div>
             </section>
 
             <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">4. 硬體資料流向</h2>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">4. Hardware Data Flow</h2>
                 <ul class="space-y-3 text-sm text-slate-300">
-                    <li><strong class="text-sky-400">輸入 (來自 AI 大腦)：</strong> 專屬單向通道，接收非確定性的酬載與軌跡規劃指令。</li>
-                    <li><strong class="text-emerald-400">控制輸出 (至 致動器)：</strong> 嚴格的確定性執行狀態 (允許/阻擋)，於物理層面強制切斷越界動作，無須軟體介入。</li>
-                    <li><strong class="text-indigo-400">證據輸出：</strong> 密碼學綁定的雜湊值，將物理攔截事件與硬體底層狀態直接連結。</li>
+                    <li><strong class="text-sky-400">Input (from AI Brain):</strong> Dedicated one-way channel receiving non-deterministic payloads and trajectory planning commands.</li>
+                    <li><strong class="text-emerald-400">Control Output (to Actuators):</strong> Strict deterministic execution states (Allow/Block), physically cutting off out-of-bounds actions without software intervention.</li>
+                    <li><strong class="text-indigo-400">Evidence Output:</strong> Cryptographically bound hashes linking physical interception events directly to hardware underlying states.</li>
                 </ul>
             </section>
         </div>
 
         <section class="section-card border-cyan-900/30">
             <div class="flex justify-between items-center border-b border-slate-600 mb-4 pb-2">
-                <h2 class="text-xl">5. 全機實體層驗證數據</h2>
-                <span class="bg-cyan-900/40 border border-cyan-500/50 text-cyan-400 text-xs px-2 py-1 rounded uppercase tracking-wider">FPGA 整機收斂指標</span>
+                <h2 class="text-xl">5. Full-System Physical Layer Verification Data</h2>
+                <span class="bg-cyan-900/40 border border-cyan-500/50 text-cyan-400 text-xs px-2 py-1 rounded uppercase tracking-wider">FPGA Full-System Convergence Metrics</span>
             </div>
             
             <div class="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="lg:col-span-2">
                     <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                        為確保能順利將產品實體化並最終遷移至晶片 IP 授權，核心邏輯與周邊子系統已在 FPGA 上完成整機佈線驗證。成功消除軟體堆疊的排程誤差，並在資源佔用與散熱限制之間取得完美平衡。
+                        To ensure a smooth transition toward physical products and ultimately Silicon IP licensing, the core logic and peripheral subsystems have completed full-system place-and-route verification on FPGA. This successfully eliminates scheduling jitter from software stacks and achieves a perfect balance between resource utilization and thermal constraints.
                     </p>
                 </div>
                 
                 <div class="bg-cyan-900/20 border border-cyan-700/50 rounded-lg p-4 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
-                    <h4 class="text-cyan-400 text-sm font-bold mb-2"><i class="fas fa-microchip mr-2"></i>量產級資源覆印</h4>
+                    <h4 class="text-cyan-400 text-sm font-bold mb-2"><i class="fas fa-microchip mr-2"></i>Mass-Production Ready Resource Footprint</h4>
                     <p class="text-slate-300 text-xs leading-relaxed">
-                        包含核心裁決引擎、HDMI 視訊渲染與 I/O 控制在內的完整系統，僅佔用 <strong>61% (12,553 LUTs)</strong> 的邏輯資源與 <strong>70% 的區塊記憶體 (BSRAM)</strong>。超低資源需求證明本架構具備極低的硬體成本負擔，完全具備大規模終端量產的可行性。
+                        The complete system, including the core verdict engine, HDMI video rendering, and I/O control, consumes only <strong>61% (12,553 LUTs)</strong> of logic resources and <strong>70% of Block SRAM (BSRAM)</strong>. This ultra-low resource footprint proves the architecture's negligible hardware cost overhead, making it highly feasible for large-scale edge deployment.
                     </p>
                 </div>
 
                 <div class="bg-emerald-900/20 border border-emerald-700/50 rounded-lg p-4 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
-                    <h4 class="text-emerald-400 text-sm font-bold mb-2"><i class="fas fa-bolt mr-2"></i>極限常數時間攔截</h4>
+                    <h4 class="text-emerald-400 text-sm font-bold mb-2"><i class="fas fa-bolt mr-2"></i>Extreme Constant-Time Interception</h4>
                     <p class="text-slate-300 text-xs leading-relaxed">
-                        在 128 條規則滿載掃描下，架構於精確的 <strong>37.037 ns</strong> 內完成物理極限攔截。相較於現行 AI 系統動輒 251 毫秒的 OS Jitter，提供早了數百萬倍的時間餘裕，徹底消除作業系統不確定性帶來的安全盲區。
+                        Under a full load of 128 concurrent rules, the architecture executes physical interceptions in exactly <strong>37.037 ns</strong>. Compared to the typical 251 ms OS jitter in current AI systems, this provides a time margin millions of times faster, completely eliminating safety blind spots caused by operating system non-determinism.
                     </p>
                 </div>
             </div>
@@ -141,47 +141,47 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">6. 系統級優化進程</h2>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">6. System-Level Optimization Progress</h2>
                 <table class="text-center">
                     <thead>
                         <tr>
-                            <th class="text-left w-1/3">評估指標</th>
-                            <th class="text-center text-cyan-400 w-2/3">整機 FPGA 原型驗證<br/><span class="text-xs text-cyan-700 font-normal">(完整系統包含 I/O 與視訊渲染)</span></th>
+                            <th class="text-left w-1/3">Evaluation Metrics</th>
+                            <th class="text-center text-cyan-400 w-2/3">Full-System FPGA Prototyping<br/><span class="text-xs text-cyan-700 font-normal">(Complete system including I/O and video rendering)</span></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">系統運作時脈 (Fmax)</td>
+                            <td class="font-medium text-slate-200 text-left">System Operating Clock (Fmax)</td>
                             <td class="text-cyan-400 font-bold">28.1 MHz</td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">決定性攔截延遲 (WCET)</td>
+                            <td class="font-medium text-slate-200 text-left">Deterministic Interception Latency (WCET)</td>
                             <td class="text-cyan-400 font-bold">37.037 ns</td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">整機邏輯佔用</td>
+                            <td class="font-medium text-slate-200 text-left">Full-System Logic Utilization</td>
                             <td class="text-cyan-400 font-bold">12,553 LUTs (61%)</td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">時序違規 (TNS)</td>
+                            <td class="font-medium text-slate-200 text-left">Total Negative Slack (TNS)</td>
                             <td class="text-cyan-400 font-bold">0.000</td>
                         </tr>
                     </tbody>
                 </table>
-                <p class="text-slate-400 text-[10px] mt-3 italic">* 指正聲明：摒棄過往追求單一模組極高時脈的設計迷思，目前 28.1 MHz 的系統時脈為刻意抑制之最佳化結果。此低頻率設計不僅達成零時序違規，更將電磁干擾 (EMI) 降至最低，直接節省高昂的安規認證成本。</p>
+                <p class="text-slate-400 text-[10px] mt-3 italic">* Clarification: Discarding the design myth of chasing ultra-high clock speeds for single modules, the current 28.1 MHz system clock is an intentionally suppressed and optimized result. This low-frequency design not only achieves zero timing violations but also minimizes Electromagnetic Interference (EMI), directly saving substantial safety certification costs.</p>
             </section>
 
             <section class="section-card bg-slate-800/30">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">7. 嚴苛工業標準與時序收斂</h2>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">7. Stringent Industrial Standards & Timing Closure</h2>
                 <div class="bg-slate-900 p-5 rounded border border-slate-700">
                     <div class="flex justify-between items-center w-full mb-3">
-                        <div class="text-slate-400 text-xs uppercase tracking-wider text-left">物理極限反應時間<br><span class="text-sky-500 font-bold normal-case text-sm">零失誤攔截保證</span></div>
+                        <div class="text-slate-400 text-xs uppercase tracking-wider text-left">Physical Limit Response Time<br><span class="text-sky-500 font-bold normal-case text-sm">Zero-Miss Interception Guarantee</span></div>
                         <div class="text-cyan-400 font-bold text-3xl">37.037 <span class="text-xl">ns</span></div>
                     </div>
                     <div class="border-t border-slate-700/50 pt-3 mt-2 text-left">
-                        <span class="inline-block bg-blue-900/50 text-blue-300 text-[10px] px-2 py-0.5 rounded mb-2">達成 0.000 TNS (零時序違規)</span>
+                        <span class="inline-block bg-blue-900/50 text-blue-300 text-[10px] px-2 py-0.5 rounded mb-2">Achieved 0.000 TNS (Zero Timing Violations)</span>
                         <p class="text-slate-300 text-sm leading-relaxed">
-                            在全系統整合後，EDA 實體繞線分析確認達成<strong>零時序違規</strong>。這意味著風險指令的硬體攔截與裁決，在電路物理層面上不存在任何延遲失誤的可能，符合最高等級的功能安全要求。
+                            Following full-system integration, EDA physical routing analysis confirms <strong>zero timing violations</strong>. This means hardware interception and verdicts of risky commands have absolutely no possibility of delay or error at the physical circuit level, meeting the highest tiers of functional safety requirements.
                         </p>
                     </div>
                 </div>
@@ -189,74 +189,74 @@
         </div>
 
         <section class="section-card">
-            <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">8. 功耗效率與實體相容性</h2>
+            <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">8. Power Efficiency & Physical Compatibility</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="bg-slate-900 p-5 rounded border border-slate-700 hover:border-cyan-500/50 transition">
-                    <h3 class="text-emerald-400 font-bold mb-3"><i class="fas fa-leaf mr-2"></i>無風扇被動散熱設計</h3>
+                    <h3 class="text-emerald-400 font-bold mb-3"><i class="fas fa-leaf mr-2"></i>Fanless Passive Cooling Design</h3>
                     <ul class="text-sm text-slate-300 space-y-2">
-                        <li class="flex justify-between"><span>整機總功耗 (Total Power):</span> <strong>325 mW</strong></li>
-                        <li class="flex justify-between border-b border-slate-700 pb-2"><span>靜態功耗 (Static):</span> <span>122 mW</span></li>
-                        <li class="flex justify-between text-cyan-400 font-bold pt-1"><span>動態功耗 (Dynamic):</span> <span>203 mW</span></li>
+                        <li class="flex justify-between"><span>Total Power:</span> <strong>325 mW</strong></li>
+                        <li class="flex justify-between border-b border-slate-700 pb-2"><span>Static Power:</span> <span>122 mW</span></li>
+                        <li class="flex justify-between text-cyan-400 font-bold pt-1"><span>Dynamic Power:</span> <span>203 mW</span></li>
                     </ul>
-                    <p class="text-[10px] text-slate-500 mt-3 leading-relaxed">全機總功耗極低，不需改變任何既有散熱架構即可部署，完美相容於空間與散熱受限的各種邊緣 AI 終端設備。</p>
+                    <p class="text-[10px] text-slate-500 mt-3 leading-relaxed">The overall power consumption is extremely low, allowing deployment without altering any existing thermal architectures. It is perfectly compatible with various edge AI terminal devices constrained by space and cooling.</p>
                 </div>
                 <div class="bg-slate-900 p-5 rounded border border-slate-700 hover:border-indigo-500/50 transition">
-                    <h3 class="text-indigo-400 font-bold mb-3"><i class="fas fa-network-wired mr-2"></i>隨插即用獨立運作</h3>
+                    <h3 class="text-indigo-400 font-bold mb-3"><i class="fas fa-network-wired mr-2"></i>Plug-and-Play Independent Operation</h3>
                     <ul class="text-sm text-slate-300 space-y-2 font-mono">
-                        <li><span class="text-slate-500 text-xs">專屬輸出:</span> 硬體直驅 HDMI 告警</li>
-                        <li><span class="text-slate-500 text-xs">獨立運算:</span> 徹底脫離主機 PC 依賴</li>
-                        <li><span class="text-slate-500 text-xs">物理屏障:</span> 單向硬體邏輯閘</li>
+                        <li><span class="text-slate-500 text-xs">Dedicated Output:</span> Hardware-driven HDMI Alerts</li>
+                        <li><span class="text-slate-500 text-xs">Independent Compute:</span> Completely detached from Host PC reliance</li>
+                        <li><span class="text-slate-500 text-xs">Physical Barrier:</span> One-way hardware logic gates</li>
                     </ul>
-                    <p class="text-[10px] text-slate-500 mt-3 leading-relaxed">內建視訊與控制訊號直驅能力，證明本硬體為高度自治的合規模組，不受限於任何主系統的運算負載狀態。</p>
+                    <p class="text-[10px] text-slate-500 mt-3 leading-relaxed">Built-in direct drive capabilities for video and control signals prove this hardware is a highly autonomous compliance module, unconstrained by the compute load status of any host system.</p>
                 </div>
             </div>
         </section>
 
         <section class="section-card border-emerald-700 bg-slate-800/50">
-            <h2 class="text-xl mb-4 border-b border-emerald-800 pb-2 text-emerald-400">9. 競爭定位與法理護城河</h2>
-            <p class="text-slate-300 text-sm mb-4">為何純軟體架構無法通過歐盟《AI 法案》的實體部署考驗。</p>
+            <h2 class="text-xl mb-4 border-b border-emerald-800 pb-2 text-emerald-400">9. Competitive Positioning & Legal Moat</h2>
+            <p class="text-slate-300 text-sm mb-4">Why pure software architectures fail the physical deployment tests of the EU AI Act.</p>
             <div class="overflow-x-auto">
                 <table class="w-full text-sm min-w-[600px]">
                     <thead>
                         <tr>
-                            <th class="bg-slate-900 text-center">防禦架構</th>
-                            <th class="bg-slate-900 text-center">隔離層級</th>
-                            <th class="bg-slate-900 text-center">法律可採信性</th>
-                            <th class="bg-slate-900 text-center">對 OS 崩潰之免疫力</th>
-                            <th class="bg-slate-900 text-emerald-400 border-emerald-700/50 text-center">可信智慧整合 SVG</th>
+                            <th class="bg-slate-900 text-center">Defense Architecture</th>
+                            <th class="bg-slate-900 text-center">Isolation Level</th>
+                            <th class="bg-slate-900 text-center">Legal Admissibility</th>
+                            <th class="bg-slate-900 text-center">OS Crash Immunity</th>
+                            <th class="bg-slate-900 text-emerald-400 border-emerald-700/50 text-center">WesmartAI SVG</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="font-semibold text-slate-200 text-center">純軟體防護欄 (Software Guardrails)</td>
-                            <td class="text-slate-400 text-center">應用程式層 (App Layer)</td>
-                            <td class="text-rose-400 text-center">不合格 (日誌易遭竄改)</td>
-                            <td class="text-rose-400 text-center">無</td>
+                            <td class="font-semibold text-slate-200 text-center">Pure Software Guardrails</td>
+                            <td class="text-slate-400 text-center">Application Layer</td>
+                            <td class="text-rose-400 text-center">Fail (Logs easily altered)</td>
+                            <td class="text-rose-400 text-center">None</td>
                             <td rowspan="3" class="bg-emerald-900/20 border-emerald-700/50 align-top p-4">
                                 <ul class="space-y-2 text-emerald-300 text-left mx-auto w-fit">
-                                    <li><i class="fas fa-check mr-2"></i><strong>矽智財物理隔離</strong></li>
-                                    <li><i class="fas fa-check mr-2"></i><strong>符合 EU AI Act 密碼學日誌</strong></li>
-                                    <li><i class="fas fa-check mr-2"></i><strong>100% OS 崩潰絕對免疫</strong></li>
-                                    <li><i class="fas fa-check mr-2"></i><strong>37 奈秒絕對決定性攔截</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>Silicon IP Physical Isolation</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>EU AI Act Compliant Cryptographic Logs</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>100% Absolute OS Crash Immunity</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>37ns Absolute Deterministic Intercept</strong></li>
                                 </ul>
                             </td>
                         </tr>
                         <tr>
                             <td class="font-semibold text-slate-200 text-center">ARM TrustZone</td>
-                            <td class="text-slate-400 text-center">安全作業系統 / 邏輯隔離</td>
-                            <td class="text-yellow-400 text-center">薄弱 (共用底層硬體)</td>
-                            <td class="text-yellow-400 text-center">部分免疫</td>
+                            <td class="text-slate-400 text-center">Secure OS / Logical Isolation</td>
+                            <td class="text-yellow-400 text-center">Weak (Shared underlying hardware)</td>
+                            <td class="text-yellow-400 text-center">Partial Immunity</td>
                         </tr>
                         <tr>
-                            <td class="font-semibold text-slate-200 text-center">安全微控制器 (Safety Island MCU)</td>
-                            <td class="text-slate-400 text-center">實體 MCU 隔離</td>
-                            <td class="text-emerald-400 text-center">高</td>
-                            <td class="text-emerald-400 text-center">高 (仍受限於韌體漏洞)</td>
+                            <td class="font-semibold text-slate-200 text-center">Safety Island MCU</td>
+                            <td class="text-slate-400 text-center">Physical MCU Isolation</td>
+                            <td class="text-emerald-400 text-center">High</td>
+                            <td class="text-emerald-400 text-center">High (Still limited by firmware vulnerabilities)</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <p class="text-slate-400 text-xs mt-3 italic">* 與可寫入程式的軟體韌體防線不同，SVG 純硬體架構從根本上杜絕了運行時 (runtime) 的惡意程式碼注入與作業系統抖動，為設備製造商提供不可撼動的法律安全港。</p>
+            <p class="text-slate-400 text-xs mt-3 italic">* Unlike programmable software/firmware defenses, SVG's pure hardware architecture fundamentally eradicates runtime malicious code injections and operating system jitter, providing OEMs with an unshakable legal safe harbor.</p>
         </section>
 
     </main>
@@ -265,34 +265,34 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid md:grid-cols-3 gap-8 mb-12">
                 <div>
-                    <h4 class="text-white text-lg font-bold mb-4">可信智慧整合</h4>
+                    <h4 class="text-white text-lg font-bold mb-4">WesmartAI</h4>
                     <p class="text-sm leading-relaxed mb-4">
-                        讓信任清晰可見。<br/>
-                        矽級別的物理隔離：實體 AI 的終極合規防禦。
+                        Making Trust Visible.<br/>
+                        Silicon-level Physical Isolation: The ultimate compliance defense for Physical AI.
                     </p>
                 </div>
                 <div>
-                    <h4 class="text-white text-lg font-bold mb-4">聯絡我們</h4>
+                    <h4 class="text-white text-lg font-bold mb-4">Contact Us</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><i class="fas fa-map-marker-alt mr-2 w-4 text-center"></i>台南市佳里區光明街68號1樓</li>
+                        <li><i class="fas fa-map-marker-alt mr-2 w-4 text-center"></i>1F., No. 68, Guangming St., Jiali Dist., Tainan City</li>
                         <li><i class="fas fa-phone mr-2 w-4 text-center"></i>+886-912-310570</li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-white text-lg font-bold mb-4">網站導覽</h4>
+                    <h4 class="text-white text-lg font-bold mb-4">Navigation</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="index2.html" class="hover:text-white transition text-left block">首頁</a></li>
-                        <li><a href="ohacss2.html" class="hover:text-blue-400 transition text-left block">產品</a></li>
-                        <li><a href="tech-dd2.html" class="hover:text-blue-400 transition text-left block">技術盡職調查 (Tech DD)</a></li>
-                        <li><a href="rtl-wrapper2.html" class="hover:text-blue-400 transition text-left block">RTL 架構規格</a></li>
-                        <li><a href="founder2.html" class="hover:text-blue-400 transition text-left block">創辦人</a></li>
-                        <li class="pt-2"><a href="report.html" class="text-blue-400 hover:text-blue-300 font-bold transition text-left block flex items-center gap-2"><i class="fas fa-globe"></i> English (EN)</a></li>
+                        <li><a href="index.html" class="hover:text-white transition text-left block">Home</a></li>
+                        <li><a href="ohacss.html" class="hover:text-blue-400 transition text-left block">Products</a></li>
+                        <li><a href="tech-dd.html" class="hover:text-blue-400 transition text-left block">Tech DD</a></li>
+                        <li><a href="rtl-wrapper.html" class="hover:text-blue-400 transition text-left block">RTL Specs</a></li>
+                        <li><a href="founder.html" class="hover:text-blue-400 transition text-left block">Founder</a></li>
+                        <li class="pt-2"><a href="report2.html" class="text-blue-400 hover:text-blue-300 font-bold transition text-left block flex items-center gap-2"><i class="fas fa-globe"></i> 繁體中文 (TW)</a></li>
                     </ul>
                 </div>
             </div>
             <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
-                <p>&copy; 2026 可信智慧整合有限公司 (WesmartAI Co., Ltd.). All rights reserved.</p>
-                <p class="mt-2 md:mt-0">統一編號: 42917004</p>
+                <p>&copy; 2026 WesmartAI Co., Ltd. All rights reserved.</p>
+                <p class="mt-2 md:mt-0">Tax ID: 42917004</p>
             </div>
         </div>
     </footer>
