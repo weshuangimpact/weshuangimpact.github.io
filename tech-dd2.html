@@ -149,18 +149,23 @@
                                 </thead>
                                 <tbody className="text-sm text-slate-300">
                                     <tr>
-                                        <td className="font-bold text-emerald-400">P1 & P2<br/><span className="text-xs text-slate-400 font-normal">不可變證據鏈</span></td>
-                                        <td>定義了從非確定性 AI 生成防竄改、且具備密碼學綁定之紀錄的核心框架。</td>
+                                        <td className="font-bold text-blue-400">P1<br/><span className="text-xs text-slate-400 font-normal">事前錨定</span></td>
+                                        <td>定義了「AI 證據的起點」。任何 AI 稽核系統，若要對 AI 推論行為建立可離線驗證的密碼學證據，必須在推論前完成錨定。</td>
+                                        <td><strong>封鎖稽核前置路徑：</strong> 涵蓋 AI 稽核 SaaS、合規日誌 SDK 等市場。阻止競爭者在推論啟動前建立合法的證據基線。</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="font-bold text-emerald-400">P2<br/><span className="text-xs text-slate-400 font-normal">全程鏈接</span></td>
+                                        <td>定義了「AI 證據的完整性」。將非確定性 AI 推論的輸入、行為與輸出以不可變方式全程鏈結。</td>
                                         <td><strong>封鎖日誌合規路徑：</strong> 任何試圖透過連續且不可竄改的狀態機，來滿足歐盟 AI 法案紀錄保存義務 (第 12 條) 的廠商，皆會落入此請求項的打擊範圍。</td>
                                     </tr>
                                     <tr>
-                                        <td className="font-bold text-sky-400">P3<br/><span className="text-xs text-slate-400 font-normal">軟體定義裁決</span></td>
-                                        <td>定義了在軟體層面進行可重放之裁決與治理機制。</td>
+                                        <td className="font-bold text-purple-400">P3<br/><span className="text-xs text-slate-400 font-normal">軟體定義裁決</span></td>
+                                        <td>定義了「AI 輸出的軟體閘門」。在軟體層面進行獨立信任邊界與決定性規則裁決。</td>
                                         <td><strong>封鎖中介軟體解決方案：</strong> 全面捕捉試圖利用 RTOS、Hypervisor 或安全中介軟體 (Middleware) 來監控與限制 AI 輸出邊界的競爭對手。</td>
                                     </tr>
                                     <tr>
-                                        <td className="font-bold text-indigo-400">P4<br/><span className="text-xs text-slate-400 font-normal">硬體物理隔離</span></td>
-                                        <td>將抽象的 AI 治理規範，轉化為絕對的暫存器傳輸層 (RTL) 物理隔離邊界。</td>
+                                        <td className="font-bold text-orange-400">P4<br/><span className="text-xs text-slate-400 font-normal">硬體物理隔離</span></td>
+                                        <td>定義了「AI 輸出的硬體閘門」。將抽象的 AI 治理規範，轉化為絕對的暫存器傳輸層 (RTL) 單向資料通路與物理隔離邊界。</td>
                                         <td><strong>封鎖矽智財 (IP) 競爭者：</strong> 鞏固最終戰略目標。任何試圖直接在晶片 (SoC) 內部燒錄「硬體 AI 安全閘門」的 IC 設計廠，皆會構成對本專利架構的侵權。</td>
                                     </tr>
                                 </tbody>
