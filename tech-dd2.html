@@ -48,7 +48,7 @@
                     </a>
                     <div className="hidden md:flex text-sm font-medium text-slate-300 gap-8 items-center">
                         <a href="index2.html#architecture" className="hover:text-white transition">系統架構</a>
-                        <a href="ohacss2.html" className="hover:text-white transition">Gaas 平台</a>
+                        <a href="ohacss2.html" className="hover:text-white transition">產品</a>
                         <a href="report2.html" className="hover:text-white transition">FPGA 報告</a>
                         <span className="text-blue-400 cursor-default border-b-2 border-blue-400 pb-1">技術盡職調查</span>
                         <a href="rtl-wrapper2.html" className="hover:text-white transition">RTL 規格</a>
@@ -81,7 +81,7 @@
                             <h4 className="text-white text-lg font-bold mb-4">網站導覽</h4>
                             <ul className="space-y-2 text-sm">
                                 <li><a href="index2.html" className="hover:text-blue-400 transition text-left block">首頁</a></li>
-                                <li><a href="ohacss2.html" className="hover:text-blue-400 transition text-left block">OHACSS 產品</a></li>
+                                <li><a href="ohacss2.html" className="hover:text-blue-400 transition text-left block">產品</a></li>
                                 <li><a href="report2.html" className="hover:text-blue-400 transition text-left block">FPGA 報告</a></li>
                                 <li><a href="tech-dd2.html" className="hover:text-blue-400 transition text-left block">技術盡職調查 (Tech DD)</a></li>
                                 <li><a href="rtl-wrapper2.html" className="hover:text-blue-400 transition text-left block">RTL 架構規格</a></li>
@@ -209,19 +209,19 @@
                         
                         <div className="grid md:grid-cols-3 gap-6 mb-6">
                             <div className="bg-slate-800/50 p-5 rounded border border-purple-500/30">
-                                <div className="text-purple-400 font-black text-3xl mb-2">9.52 µs</div>
-                                <h4 className="text-white font-bold text-sm mb-2">確定性物理延遲</h4>
-                                <p className="text-slate-400 text-xs leading-relaxed">要在 128 條平行規則掃描下維持 O(1) 的恆定執行時間，必須仰賴我們專利的記憶體感知綜合技術。採用標準 CPU/MCU 架構的對手，將無可避免地面臨數百毫秒的 OS 時序抖動。</p>
+                                <div className="text-purple-400 font-black text-3xl mb-2">37.037 ns</div>
+                                <h4 className="text-white font-bold text-sm mb-2">極限物理攔截速度</h4>
+                                <p className="text-slate-400 text-xs leading-relaxed">要在 128 條並行規則滿載掃描下維持 O(1) 的絕對決定性延遲 (37.037ns)，必須仰賴我們專利的硬體架構。採用標準 CPU/MCU 軟體架構的對手，將無可避免地面臨最差高達 251 毫秒的 OS 時序抖動。</p>
                             </div>
                             <div className="bg-slate-800/50 p-5 rounded border border-purple-500/30">
                                 <div className="text-purple-400 font-black text-3xl mb-2">&lt; 0.05 mm²</div>
                                 <h4 className="text-white font-bold text-sm mb-2">極小晶片面積開銷</h4>
-                                <p className="text-slate-400 text-xs leading-relaxed">在 55nm FPGA 上我們已證實只需 434 LUTs 的超輕量足跡。當轉換至 4nm/5nm 的先進 SoC 節點，我們的 IP 對晶片商而言，意味著「零成本」的矽面積負擔，大幅降低授權推廣的阻力。</p>
+                                <p className="text-slate-400 text-xs leading-relaxed">我們已證實純 IP 核心邏輯佔用極低 (低於 5%)。當轉換至先進 SoC 節點，我們的純 IP 核心對晶片商而言，意味著近乎「零成本」的矽面積負擔 (&lt; 0.05 mm²)，完全不干擾原廠晶片佈局。</p>
                             </div>
                             <div className="bg-slate-800/50 p-5 rounded border border-purple-500/30">
                                 <div className="text-purple-400 font-black text-3xl mb-2">0.000 TNS</div>
                                 <h4 className="text-white font-bold text-sm mb-2">完美時序收斂</h4>
-                                <p className="text-slate-400 text-xs leading-relaxed">在加入 ASIL-D 等級的雙模冗餘 (DMR) 與 ECC 防護下，依然達成零時序違規。我們已提前克服了這個通常需要工程團隊耗費數年不斷疊代的時序與亞穩態難題。</p>
+                                <p className="text-slate-400 text-xs leading-relaxed">在全機系統時脈實測下達成零時序違例 (TNS=0.000)。我們已提前克服了硬體層面的時序與亞穩態難題，確保對任何單一指令的攔截達到 100% 決定性與零失誤的實體防護能力。</p>
                             </div>
                         </div>
 
