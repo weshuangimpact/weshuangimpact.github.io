@@ -23,6 +23,7 @@
         .signal-badge { display: inline-flex; align-items: center; justify-content: center; padding: 0.1rem 0.5rem; border-radius: 0.25rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; min-width: 40px;}
         .sig-in { background-color: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
         .sig-out { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .sig-inout { background-color: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
         
         /* Image Preview Styles */
         .preview-container { cursor: zoom-in; transition: transform 0.3s ease; }
@@ -50,7 +51,7 @@
                     <div className="hidden md:flex text-sm font-medium text-slate-300 gap-8 items-center">
                         <a href="index.html#architecture" className="hover:text-white transition">Architecture</a>
                         <a href="ohacss.html" className="hover:text-white transition">GaaS Platform</a>
-                        <a href="report.html" className="hover:text-white transition">FPGA Report</a>
+                        <a href="report.html" className="hover:text-white transition">Verification Report</a>
                         <a href="tech-dd.html" className="hover:text-white transition">Tech DD</a>
                         <span className="text-blue-400 cursor-default border-b-2 border-blue-400 pb-1">RTL Wrapper</span>
                         <a href="founder.html" className="hover:text-white transition">Founder</a>
@@ -83,7 +84,7 @@
                             <ul className="space-y-2 text-sm">
                                 <li><a href="index.html" className="hover:text-blue-400 transition text-left block">Corporate Home</a></li>
                                 <li><a href="ohacss.html" className="hover:text-blue-400 transition text-left block">GaaS Platform</a></li>
-                                <li><a href="report.html" className="hover:text-blue-400 transition text-left block">FPGA Report</a></li>
+                                <li><a href="report.html" className="hover:text-blue-400 transition text-left block">Verification Report</a></li>
                                 <li><a href="tech-dd.html" className="hover:text-blue-400 transition text-left block">Tech DD</a></li>
                                 <li><span className="text-slate-500 cursor-default block">RTL Wrapper</span></li>
                                 <li><a href="founder.html" className="hover:text-blue-400 transition text-left block">About Founder</a></li>
@@ -102,7 +103,7 @@
         const SignalRow = ({ name, type, color, desc }) => (
             <div className="border-b border-slate-800/50 py-2 flex flex-col sm:flex-row sm:items-center gap-2 hover:bg-slate-800/30 transition-colors px-2 rounded">
                 <div className="sm:w-2/5 flex items-center gap-3">
-                    <span className={`signal-badge ${type === 'IN' ? 'sig-in' : 'sig-out'}`}>{type}</span>
+                    <span className={`signal-badge ${type === 'IN' ? 'sig-in' : type === 'OUT' ? 'sig-out' : 'sig-inout'}`}>{type}</span>
                     <code className="text-[13px] font-semibold text-slate-200">{name}</code>
                 </div>
                 <div className="sm:w-3/5 flex items-center gap-3">
@@ -133,7 +134,7 @@
                         <div className="bg-amber-900/20 border border-amber-600/50 p-5 rounded-lg shadow-lg text-left max-w-4xl mx-auto">
                             <h4 className="text-amber-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-shield-alt mr-2"></i>Intellectual Property Protection Notice</h4>
                             <p className="text-slate-300 text-sm leading-relaxed">
-                                To strictly protect our proprietary combinational logic and core trade secrets during the <strong>Technical Due Diligence</strong> phase, this document exposes the structural I/O interfaces of the <strong>three primary sub-modules</strong> comprising the SVG Architecture. These EDA-generated visual wrappers serve as the standard reference for integrating the Silicon Verdict Gate into Edge AI SoCs.
+                                To strictly protect our proprietary combinational logic and core trade secrets during the <strong>Technical Due Diligence</strong> phase, this technical document only exposes the structural I/O interfaces of the core adjudication, log generation, and top-level system wrapper modules comprising the SVG architecture. These EDA-generated visual wrappers serve as the standard reference for integrating the Silicon Verdict Gate into Edge AI SoCs or as an independent ASIC.
                             </p>
                         </div>
                     </div>
@@ -145,15 +146,15 @@
                             <div className="p-6 border-b border-slate-700 bg-slate-800/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
                                     <h3 className="text-xl font-bold text-emerald-400 flex items-center gap-2"><i className="fas fa-brain"></i> 1. The Core Brain: Silicon Verdict Engine</h3>
-                                    <p className="text-sm text-slate-300 mt-1">Instantiated as: <code>u_svg_core ($VG_Core_v5)</code></p>
+                                    <p className="text-sm text-slate-300 mt-1">Instantiated as: <code>u_svg_core (SVG_Core_v6)</code></p>
                                 </div>
                                 <div className="text-xs text-slate-400 bg-slate-900 px-3 py-2 rounded border border-slate-700 text-right">
-                                    <strong>Strategic Value:</strong> Achieves 37.037 ns absolute deterministic latency. Pure hardware combinational logic executing fully parallel rule scanning.
+                                    <strong>Strategic Value:</strong> Achieves ultra-fast physical interception. Pure hardware combinational logic executing fully parallel rule scanning.
                                 </div>
                             </div>
                             <div className="flex flex-col lg:flex-row">
-                                <div className="lg:w-1/3 p-6 bg-white flex items-center justify-center border-r border-slate-700 preview-container" onClick={() => window.openModal('jpg23.jpg', 'Module 1: Silicon Verdict Engine ($VG_Core_v5)')}>
-                                    <img src="jpg23.jpg" alt="SVG Core Wrapper" className="max-w-full h-auto object-contain drop-shadow-md" />
+                                <div className="lg:w-1/3 p-6 bg-white flex items-center justify-center border-r border-slate-700 preview-container" onClick={() => window.openModal('image_5c8c03.png', 'Module 1: Silicon Verdict Engine (SVG_Core_v6)')}>
+                                    <img src="image_5c8c03.png" alt="SVG Core Wrapper" className="max-w-full h-auto object-contain drop-shadow-md" />
                                 </div>
                                 <div className="lg:w-2/3 p-6 bg-slate-900/50">
                                     <h4 className="text-white font-bold text-sm mb-3 border-b border-slate-800 pb-2">Interface Signals</h4>
@@ -161,70 +162,88 @@
                                     <SignalRow name="rst_n" type="IN" color="#00FFFF" desc="Active-low reset signal." />
                                     <SignalRow name="npu_id[11:0]" type="IN" color="#0000FF" desc="Identifier of the specific target actuator/node." />
                                     <SignalRow name="npu_val[15:0]" type="IN" color="#0000FF" desc="Ingested probabilistic output/parameter from the AI inference engine." />
-                                    <SignalRow name="config_addr[7:0]" type="IN" color="#0000FF" desc="Address bus for loading physical safety rules into local SSRAM." />
+                                    <SignalRow name="npu_valid" type="IN" color="#0000FF" desc="NPU packet data valid signal." />
+                                    <SignalRow name="config_addr[11:0]" type="IN" color="#0000FF" desc="Address bus for loading physical safety rules into local SSRAM." />
                                     <SignalRow name="config_data[31:0]" type="IN" color="#0000FF" desc="Data bus for the safety rule payloads." />
                                     <SignalRow name="config_we" type="IN" color="#00FFFF" desc="Write enable for the rule configuration memory." />
-                                    <SignalRow name="violation_code[31:0]" type="OUT" color="#0000FF" desc="Outputs the exact rule ID breached if an AI hallucination is intercepted." />
+                                    <SignalRow name="core_ready" type="OUT" color="#00FF00" desc="Flag indicating core initialization and rule loading completion." />
                                     <SignalRow name="verdict" type="OUT" color="#00FFFF" desc="Direct deterministic hardware control state (ALLOW/BLOCK) routed to the actuator." />
+                                    <SignalRow name="violation_code[31:0]" type="OUT" color="#0000FF" desc="Outputs the exact rule ID breached if an AI hallucination is intercepted." />
+                                    <SignalRow name="verdict_valid" type="OUT" color="#0000FF" desc="Verdict valid signal, sampled by the backend logging system." />
                                 </div>
                             </div>
                         </div>
 
-                        {/* Module 2: Evidence FIFO */}
+                        {/* Module 2: Evidence Logger */}
                         <div className="doc-card p-0 overflow-hidden" data-aos="fade-up">
                             <div className="p-6 border-b border-slate-700 bg-slate-800/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
-                                    <h3 className="text-xl font-bold text-sky-400 flex items-center gap-2"><i className="fas fa-shield-alt"></i> 2. Physical Isolation: Evidence Chain Buffer</h3>
-                                    <p className="text-sm text-slate-300 mt-1">Instantiated as: <code>u_evidence_fifo (Evidence_FIFO)</code></p>
+                                    <h3 className="text-xl font-bold text-sky-400 flex items-center gap-2"><i className="fas fa-shield-alt"></i> 2. Physical Isolation: Evidence Chain Logger</h3>
+                                    <p className="text-sm text-slate-300 mt-1">Instantiated as: <code>u_evidence (SVG_Evidence_Logger)</code></p>
                                 </div>
                                 <div className="text-xs text-slate-400 bg-slate-900 px-3 py-2 rounded border border-slate-700 text-right">
-                                    <strong>Strategic Value:</strong> Asynchronous hardware FIFO. Instantly latches violation codes and timestamps upon anomaly detection. The first line of defense ensuring zero data loss for the immutable evidence chain.
+                                    <strong>Strategic Value:</strong> Independent hardware cryptographic encapsulation. Bypasses the OS to write adjudication results and hashes directly to physical storage.
                                 </div>
                             </div>
                             <div className="flex flex-col lg:flex-row">
-                                <div className="lg:w-1/3 p-6 bg-white flex items-center justify-center border-r border-slate-700 preview-container" onClick={() => window.openModal('jpg24.jpg', 'Module 2: Evidence Chain Buffer (Evidence_FIFO)')}>
-                                    <img src="jpg24.jpg" alt="Evidence FIFO Wrapper" className="max-w-full h-auto object-contain drop-shadow-md" />
+                                <div className="lg:w-1/3 p-6 bg-white flex items-center justify-center border-r border-slate-700 preview-container" onClick={() => window.openModal('image_5c74ab.png', 'Module 2: Evidence Chain Logger (SVG_Evidence_Logger)')}>
+                                    <img src="image_5c74ab.png" alt="Evidence Logger Wrapper" className="max-w-full h-auto object-contain drop-shadow-md" />
                                 </div>
                                 <div className="lg:w-2/3 p-6 bg-slate-900/50">
                                     <h4 className="text-white font-bold text-sm mb-3 border-b border-slate-800 pb-2">Interface Signals</h4>
-                                    <SignalRow name="clk" type="IN" color="#00FF00" desc="System clock input." />
-                                    <SignalRow name="rst_n" type="IN" color="#00FFFF" desc="Active-low reset signal." />
-                                    <SignalRow name="violation_detected" type="IN" color="#00FFFF" desc="Write trigger asserted by the SVG Core upon intercepting an anomaly." />
-                                    <SignalRow name="violation_code[31:0]" type="IN" color="#0000FF" desc="Rule breach identifier payload." />
-                                    <SignalRow name="npu_id[11:0]" type="IN" color="#0000FF" desc="Actuator node identifier." />
-                                    <SignalRow name="npu_val[15:0]" type="IN" color="#0000FF" desc="The exact out-of-bound parameter attempted by the AI." />
-                                    <SignalRow name="timestamp[31:0]" type="IN" color="#0000FF" desc="Hardware RTC synchronization stamp for the event." />
-                                    <SignalRow name="rd_en" type="IN" color="#00FFFF" desc="Read enable controlled by the downstream Governance Manager." />
-                                    <SignalRow name="rd_data[255:0]" type="OUT" color="#0000FF" desc="256-bit wide bus securely exporting the complete concatenated evidence packet." />
-                                    <SignalRow name="empty" type="OUT" color="#0000FF" desc="FIFO status flag." />
+                                    <SignalRow name="clk / rst_n" type="IN" color="#00FF00" desc="System clock and reset signals." />
+                                    <SignalRow name="boot_ready" type="IN" color="#00FFFF" desc="System boot completion indicator." />
+                                    <SignalRow name="verdict_valid / verdict" type="IN" color="#0000FF" desc="Receives the verdict result and status from the adjudication engine." />
+                                    <SignalRow name="violation_code / npu_id / npu_val" type="IN" color="#0000FF" desc="Logs detailed parameters and node information triggering the anomaly." />
+                                    <SignalRow name="npu_ts[63:0]" type="IN" color="#0000FF" desc="64-bit timestamp, ensuring evidentiary timing cannot be altered." />
+                                    <SignalRow name="sha_init / sha_update / sha_data_in" type="OUT" color="#60a5fa" desc="Control signals to the external SHA256 hardware acceleration engine." />
+                                    <SignalRow name="sha_digest[255:0]" type="IN" color="#0000FF" desc="Receives the calculated 256-bit hash value." />
+                                    <SignalRow name="sd_wr_req / sd_wr_lba / sd_wr_data" type="OUT" color="#60a5fa" desc="Issues write requests and data addresses to the underlying memory controller." />
+                                    <SignalRow name="event_count[31:0] / log_full" type="OUT" color="#60a5fa" desc="Reports the current log count and storage status to the system." />
                                 </div>
                             </div>
                         </div>
 
-                        {/* Module 3: HDMI Top */}
+                        {/* Module 3: Top Level Wrapper */}
                         <div className="doc-card p-0 overflow-hidden" data-aos="fade-up">
                             <div className="p-6 border-b border-slate-700 bg-slate-800/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
-                                    <h3 className="text-xl font-bold text-rose-400 flex items-center gap-2"><i className="fas fa-desktop"></i> 3. Real-time Alert: Hardware Video Output</h3>
-                                    <p className="text-sm text-slate-300 mt-1">Instantiated as: <code>hdmi_inst (SVG_HDMI_Top_v1_1)</code></p>
+                                    <h3 className="text-xl font-bold text-purple-400 flex items-center gap-2"><i className="fas fa-microchip"></i> 3. SoC Top-Level Integration Wrapper</h3>
+                                    <p className="text-sm text-slate-300 mt-1">Instantiated as: <code>SVG_FPGA_Wrapper_v8</code></p>
                                 </div>
                                 <div className="text-xs text-slate-400 bg-slate-900 px-3 py-2 rounded border border-slate-700 text-right">
-                                    <strong>Strategic Value:</strong> Physical layer TMDS driver. Renders on-screen pixels directly via digital hardware signals without relying on an OS or GPU, guaranteeing zero-latency PASS/BLOCK visual alerts for operators.
+                                    <strong>Strategic Value:</strong> Proof of system integration completion. Handles cross-clock domains and external bus communication, enabling drop-in readiness.
                                 </div>
                             </div>
                             <div className="flex flex-col lg:flex-row">
-                                <div className="lg:w-1/3 p-6 bg-white flex items-center justify-center border-r border-slate-700 preview-container" onClick={() => window.openModal('jpg26.jpg', 'Module 3: Real-time Alert Video Output (SVG_HDMI_Top)')}>
-                                    <img src="jpg26.jpg" alt="HDMI Wrapper" className="max-w-full h-auto object-contain drop-shadow-md" />
-                                </div>
-                                <div className="lg:w-2/3 p-6 bg-slate-900/50">
-                                    <h4 className="text-white font-bold text-sm mb-3 border-b border-slate-800 pb-2">Interface Signals</h4>
-                                    <SignalRow name="I_clk" type="IN" color="#00FF00" desc="Dedicated pixel clock (e.g., 74.25 MHz for 720p)." />
-                                    <SignalRow name="I_rst_n" type="IN" color="#00FFFF" desc="Active-low reset signal." />
-                                    <SignalRow name="I_plc_verdict" type="IN" color="#00FFFF" desc="Reads the absolute state (ALLOW/BLOCK) from the SVG Core." />
-                                    <SignalRow name="I_violation_code[31:0]" type="IN" color="#0000FF" desc="Ingests the specific rule violation for screen rendering." />
-                                    <SignalRow name="I_npu_val[15:0]" type="IN" color="#0000FF" desc="Ingests the anomalous parameter for screen rendering." />
-                                    <SignalRow name="O_tmds_p[2:0]" type="OUT" color="#0000FF" desc="Differential TMDS data channels driving the physical HDMI port." />
-                                    <SignalRow name="O_tmds_clk_p" type="OUT" color="#00FFFF" desc="Differential TMDS clock channel." />
+                                <div className="lg:w-full p-6 bg-slate-900/50">
+                                    <h4 className="text-white font-bold text-sm mb-3 border-b border-slate-800 pb-2">Top-Level I/O Declaration</h4>
+                                    <pre className="text-slate-300 text-xs font-mono bg-black/50 p-4 rounded border border-slate-700 overflow-x-auto">
+{`module SVG_FPGA_Wrapper_v8 (
+    // Infrastructure Clock and Reset
+    input  wire        clk,
+    input  wire        rst_n,
+
+    // NPU Network/Data Receive Channel (RMII Interface Example)
+    input  wire        eth_ref_clk,
+    input  wire        eth_crs_dv,
+    input  wire [1:0]  eth_rxd,
+
+    // Physical Memory Interface (SD/SPI Mode)
+    output wire        sd_clk,
+    output wire        sd_cs_n,
+    output wire        sd_mosi,
+    input  wire        sd_miso,
+
+    // External PHY Chip Control
+    output wire        phy_reset_n,
+    inout  wire        phy_mdio,
+    output wire        phy_mdc
+);`}
+                                    </pre>
+                                    <p className="text-xs text-slate-400 mt-4 leading-relaxed border-l-2 border-purple-500 pl-3">
+                                        * This top-level wrapper demonstrates how the SVG system can be seamlessly integrated into existing systems with minimal pin requirements (clock, data channels, memory bus). It internally includes cross-clock domain synchronizers (CDC_Synchronizer), packet decoders, and memory arbitration mechanisms.
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -249,21 +268,21 @@
                                 <tbody className="text-sm text-slate-400 divide-y divide-slate-700/50">
                                     <tr className="hover:bg-slate-800/30 transition-colors">
                                         <td className="p-4 font-semibold text-emerald-400">Core Brain: Silicon Verdict Engine</td>
-                                        <td className="p-4"><code className="bg-slate-900 px-2 py-1 rounded border border-slate-700">u_svg_core</code></td>
+                                        <td className="p-4"><code className="bg-slate-900 px-2 py-1 rounded border border-slate-700">SVG_Core_v6</code></td>
                                         <td className="p-4 leading-relaxed">Full hardware circuit-level parallel scanning, receiving and processing data directly to bypass traditional software calculation layers.</td>
-                                        <td className="p-4 leading-relaxed"><span className="text-white font-semibold">Adjudication Speed:</span> Achieves 37.037ns absolute deterministic latency, establishing an industry-leading technical moat.</td>
+                                        <td className="p-4 leading-relaxed"><span className="text-white font-semibold">Adjudication Speed:</span> Achieves absolute deterministic physical latency, establishing an industry-leading technical moat.</td>
                                     </tr>
                                     <tr className="hover:bg-slate-800/30 transition-colors">
-                                        <td className="p-4 font-semibold text-sky-400">Physical Isolation: Evidence Chain Buffer</td>
-                                        <td className="p-4"><code className="bg-slate-900 px-2 py-1 rounded border border-slate-700">u_evidence_fifo</code></td>
-                                        <td className="p-4 leading-relaxed">Physical-level instant latch mechanism, completely sealing critical data within milliseconds when anomalies occur.</td>
-                                        <td className="p-4 leading-relaxed"><span className="text-white font-semibold">Legal Evidence Chain:</span> Ensures anomaly records hold legal evidentiary value, forming an immutable chain of evidence.</td>
+                                        <td className="p-4 font-semibold text-sky-400">Physical Isolation: Evidence Chain Logger</td>
+                                        <td className="p-4"><code className="bg-slate-900 px-2 py-1 rounded border border-slate-700">SVG_Evidence_Logger</code></td>
+                                        <td className="p-4 leading-relaxed">Automatically extracts adjudication results, timestamps, and rule codes, calling an external hardware engine to generate hash values.</td>
+                                        <td className="p-4 leading-relaxed"><span className="text-white font-semibold">Legal Evidence Chain:</span> Ensures anomaly records hold legal evidentiary value with a tamper-proof design that completely bypasses the OS.</td>
                                     </tr>
                                     <tr className="hover:bg-slate-800/30 transition-colors">
-                                        <td className="p-4 font-semibold text-rose-400">Real-time Alert: Hardware Video Output</td>
-                                        <td className="p-4"><code className="bg-slate-900 px-2 py-1 rounded border border-slate-700">hdmi_inst</code></td>
-                                        <td className="p-4 leading-relaxed">Driven by native digital signals without the need for a GPU, providing system status feedback directly at hardware speeds.</td>
-                                        <td className="p-4 leading-relaxed"><span className="text-white font-semibold">On-site Verification:</span> Delivers absolutely reliable real-time alerts at the edge, offering intuitive proof for POC validation and practical deployment.</td>
+                                        <td className="p-4 font-semibold text-purple-400">System Integration: Top-Level Wrapper</td>
+                                        <td className="p-4"><code className="bg-slate-900 px-2 py-1 rounded border border-slate-700">SVG_FPGA_Wrapper_v8</code></td>
+                                        <td className="p-4 leading-relaxed">Handles external clocks, packet decoding, and memory arbitration, encapsulating core functions into standard system blocks.</td>
+                                        <td className="p-4 leading-relaxed"><span className="text-white font-semibold">Ready for Commercial Licensing:</span> Reduces integration friction for IC design houses, proving its drop-in readiness for SoC licensing.</td>
                                     </tr>
                                 </tbody>
                             </table>
