@@ -58,7 +58,7 @@
             
             <div class="max-w-3xl mx-auto mt-4 text-left">
                 <p class="text-emerald-400/90 text-xs leading-relaxed border-l-2 border-emerald-500 pl-3">
-                    <strong>* 硬體驗證聲明：</strong> 本次佈線後靜態時序分析 (Post-route STA) 係於成熟晶片平台上執行。達成精確的 111 奈秒硬體比對 [cite: 73] 且零時序違規 (TNS=0) [cite: 75, 78]。此架構將法規合規任務卸載至絕對的實體邊界，直接解放 AI 模型的運算資源，消弭幻覺帶來的實體風險。
+                    <strong>* 硬體驗證聲明：</strong> 本次佈線後靜態時序分析係於成熟晶片平台上執行。達成精確的一百一十一奈秒硬體比對，且總負時序寬裕度完全為零。此架構將法規合規任務卸載至絕對的實體邊界，直接解放模型的運算資源，消弭幻覺帶來的實體風險。
                 </p>
             </div>
         </div>
@@ -70,70 +70,70 @@
             <section class="section-card">
                 <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">1. 合規驅動概述</h2>
                 <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                    鎖定全球高風險實體 AI 系統面臨歐盟《AI 法案》(AI Act) 的嚴格義務。純軟體的防護無法保證確定性的物理安全 [cite: 100]。本專案開發了一套純硬體裁決引擎 (SVG) [cite: 98]，能將機率性的 AI 輸出強制轉換為具備法律防禦力、擁有絕對物理邊界限制的實體動作。
+                    鎖定全球高風險實體自動化系統面臨歐盟法案的嚴格義務。純軟體的防護無法保證確定性的物理安全。本專案開發了一套純硬體裁決引擎 (SVG)，能將機率性的輸出強制轉換為具備法律防禦力、擁有絕對邊界限制的實體動作。
                 </p>
                 <ul class="list-disc list-inside text-sm text-slate-300">
-                    <li><strong>目標：</strong> 透過純硬體 [cite: 98]、零信任的比對執行 [cite: 59]，確保證據保存絕對保全 [cite: 66]。</li>
-                    <li><strong>應用場景：</strong> 高風險邊緣 AI (工業、車用、醫療、無人機) [cite: 118]。</li>
+                    <li><strong>目標：</strong> 透過純實體層、無信任假設的比對執行，確保證據保存絕對保全。</li>
+                    <li><strong>應用場景：</strong> 高風險邊緣運算 (工業、車用、醫療、無人機)。</li>
                 </ul>
             </section>
 
             <section class="section-card">
                 <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">2. SVG 系統架構</h2>
                 <div class="bg-slate-900 p-4 rounded text-sm font-mono text-slate-300 border border-slate-700">
-                    <p class="text-slate-400">AI 推論晶片 (NPU)</p>
-                    <p class="text-slate-500 py-1 pl-4">↓ (機率性輸出 / 潛在幻覺指令)</p>
-                    <p class="text-sky-400 font-bold">矽裁決閘 SVG (硬體海關物理邊界)</p>
+                    <p class="text-slate-400">推論晶片 (NPU)</p>
+                    <p class="text-slate-500 py-1 pl-4">↓ (機率性輸出 / 潛在失控指令)</p>
+                    <p class="text-sky-400 font-bold">矽裁決閘 SVG (實體海關邊界)</p>
                     <p class="text-slate-500 py-1 pl-4">├─ 確定性裁決 → <span class="text-emerald-400">安全控制器 (Safety PLC)</span></p>
-                    <p class="text-slate-500 pl-4">└─ 硬體級證據 → <span class="text-indigo-400">內建硬體 SHA256 雜湊鏈</span></p>
+                    <p class="text-slate-500 pl-4">└─ 晶片級證據 → <span class="text-indigo-400">內建實體 SHA256 雜湊鏈</span></p>
                 </div>
             </section>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <section class="section-card">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">3. 歐盟《AI 法案》法規映射</h2>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">3. 歐盟法規映射</h2>
                 <div class="bg-slate-900 p-4 rounded border border-slate-700 text-slate-300 text-sm leading-relaxed space-y-3">
-                    <p><strong>[+] 第 14 條 (人類監督)：</strong><br> <span class="text-slate-400">純粹的數位邏輯電路強制攔截 [cite: 61, 70]，將安全規則轉化為機器速度級的硬體斷路 [cite: 63]。</span></p>
-                    <p><strong>[+] 第 12 條 (紀錄保存)：</strong><br> <span class="text-slate-400">獨立晶片徹底繞過作業系統，密碼學封裝確保事故證據保全，滿足嚴苛的究責與審計需求 [cite: 65, 66, 68]。</span></p>
-                    <p><strong>[+] 第 15 條 (網路安全與強健性)：</strong><br> <span class="text-slate-400">無作業系統，免疫所有軟體與網路漏洞 [cite: 65, 70]，建立堅固的防線。</span></p>
+                    <p><strong>[+] 第 14 條 (人類監督)：</strong><br> <span class="text-slate-400">純粹的數位邏輯電路強制攔截，將安全規則轉化為機器速度級的硬體斷路。</span></p>
+                    <p><strong>[+] 第 12 條 (紀錄保存)：</strong><br> <span class="text-slate-400">獨立晶片徹底繞過系統，密碼學封裝確保事故證據保全，滿足嚴苛的究責需求。</span></p>
+                    <p><strong>[+] 第 15 條 (網路安全與強健性)：</strong><br> <span class="text-slate-400">無作業系統，免疫所有軟體與網路漏洞，建立堅固的防線。</span></p>
                 </div>
             </section>
 
             <section class="section-card">
                 <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">4. 硬體資料流向</h2>
                 <ul class="space-y-3 text-sm text-slate-300">
-                    <li><strong class="text-sky-400">輸入 (來自 NPU)：</strong> 接收非確定性的 AI 指令 [cite: 45, 61]。</li>
-                    <li><strong class="text-emerald-400">控制輸出 (至 PLC)：</strong> 於物理層面強制攔截違規動作，每條指令通過比對才能放行，無須 OS 介入 [cite: 52, 56, 70]。</li>
-                    <li><strong class="text-indigo-400">證據輸出：</strong> 即時裁決並寫入不可變的證據鏈 [cite: 59, 142]。</li>
+                    <li><strong class="text-sky-400">輸入端：</strong> 接收非確定性的神經網路指令。</li>
+                    <li><strong class="text-emerald-400">控制輸出 (至 PLC)：</strong> 於物理層面強制攔截違規動作，每筆指令通過比對才能放行，無須 OS 介入。</li>
+                    <li><strong class="text-indigo-400">證據輸出：</strong> 即時裁決並寫入不可篡改的證據鏈。</li>
                 </ul>
             </section>
         </div>
 
         <section class="section-card border-cyan-900/30">
             <div class="flex justify-between items-center border-b border-slate-600 mb-4 pb-2">
-                <h2 class="text-xl">5. 產品原型實體層驗證 (矽智財 IP 完成)</h2>
+                <h2 class="text-xl">5. 產品原型實體層驗證</h2>
                 <span class="bg-cyan-900/40 border border-cyan-500/50 text-cyan-400 text-xs px-2 py-1 rounded uppercase tracking-wider">成熟晶片實證數據</span>
             </div>
             
             <div class="mb-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div class="lg:col-span-2">
                     <p class="text-slate-300 text-sm leading-relaxed mb-4">
-                        為確保能順利以「外掛型硬體」導入市場，提供最小導入摩擦 [cite: 72]，核心邏輯已在成熟的晶片架構上針對高達 4096 條規則巨集進行了實體驗證 。我們解鎖了極高的攔截速度，且完美維持零時序違例 (TNS=0) 的絕對決定性保證 [cite: 75, 78]。
+                        為確保能順利以「外接型硬體」導入市場，提供極低導入摩擦，核心邏輯已在成熟的晶片架構上針對高達四千零九十六項規則巨集進行了實體驗證。我們解鎖了極高的攔截速度，且完美維持零誤差的絕對決定性保證。
                     </p>
                 </div>
                 
                 <div class="bg-cyan-900/20 border border-cyan-700/50 rounded-lg p-4 shadow-[0_0_15px_rgba(6,182,212,0.1)]">
                     <h4 class="text-cyan-400 text-sm font-bold mb-2"><i class="fas fa-microchip mr-2"></i>極限輕量化與規則滿載</h4>
                     <p class="text-slate-300 text-xs leading-relaxed">
-                        針對 <strong>4096 條規則</strong> 的龐大巨集 [cite: 74]，我們的架構僅佔用入門級成熟晶片約 <strong>30% 的邏輯資源</strong> [cite: 86]。極限輕量化架構大幅壓低了硬體 BOM 成本 [cite: 84]，且單一模組即可同時看管約 40 隻機械手臂 [cite: 80]。
+                        針對四千多條安規的龐大巨集，我們的架構僅佔用入門級成熟晶片約百分之三十的邏輯資源。極限輕量化大幅壓低了實體 BOM 成本，且單一模組即可同時看管約四十隻機械手臂。
                     </p>
                 </div>
 
                 <div class="bg-emerald-900/20 border border-emerald-700/50 rounded-lg p-4 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
-                    <h4 class="text-emerald-400 text-sm font-bold mb-2"><i class="fas fa-bolt mr-2"></i>奈秒級物理攔截</h4>
+                    <h4 class="text-emerald-400 text-sm font-bold mb-2"><i class="fas fa-bolt mr-2"></i>奈秒級極速攔截</h4>
                     <p class="text-slate-300 text-xs leading-relaxed">
-                        實測數據顯示，硬體比對可在精確的 <strong>111 ns</strong> 內完成 [cite: 73]。這比眨眼快上 130 萬倍 [cite: 76]，保證了無感延遲 [cite: 62]，在異常訊號觸達機台前即刻強制切斷 [cite: 63]。
+                        實測數據顯示，硬體比對可在精確的一百一十一奈秒內完成。這速度超越人類眨眼百萬倍，保證了無感延遲，在異常訊號觸達機台前即刻強制切斷。
                     </p>
                 </div>
             </div>
@@ -152,35 +152,35 @@
                     <tbody>
                         <tr>
                             <td class="font-medium text-slate-200 text-left">硬體比對時間</td>
-                            <td class="text-cyan-400 font-bold">111 ns</td>
+                            <td class="text-cyan-400 font-bold">111 奈秒</td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">單一規則完成裁決</td>
-                            <td class="text-cyan-400 font-bold">82 µs</td>
+                            <td class="font-medium text-slate-200 text-left">單筆規則裁定時間</td>
+                            <td class="text-cyan-400 font-bold">82 微秒</td>
                         </tr>
                         <tr>
                             <td class="font-medium text-slate-200 text-left">支援規則數量</td>
-                            <td class="text-cyan-400 font-bold">4096 條</td>
+                            <td class="text-cyan-400 font-bold">4096 項</td>
                         </tr>
                         <tr>
-                            <td class="font-medium text-slate-200 text-left">總負時序寬裕 (TNS)</td>
-                            <td class="text-cyan-400 font-bold">0</td>
+                            <td class="font-medium text-slate-200 text-left">總負時序寬裕度</td>
+                            <td class="text-cyan-400 font-bold">完全為零</td>
                         </tr>
                     </tbody>
                 </table>
-                <p class="text-slate-400 text-[10px] mt-3 italic">* 矽智財與實體原型機皆已完成，準備好進入工廠進行 POC 驗證 [cite: 82]。</p>
+                <p class="text-slate-400 text-[10px] mt-3 italic">* 矽智財與實體機皆已建構完畢，準備好進入工廠進行場域驗證。</p>
             </section>
 
             <section class="section-card bg-slate-800/30">
-                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">7. 零時序違例保證</h2>
+                <h2 class="text-xl mb-4 border-b border-slate-600 pb-2">7. 無誤差執行保證</h2>
                 <div class="bg-slate-900 p-5 rounded border border-slate-700">
                     <div class="flex justify-between items-center w-full mb-3">
-                        <div class="text-slate-400 text-xs uppercase tracking-wider text-left">時序違例 (Timing Violation)<br><span class="text-emerald-500 font-bold normal-case text-sm">物理正確性</span></div>
-                        <div class="text-emerald-400 font-bold text-3xl">TNS=0</div>
+                        <div class="text-slate-400 text-xs uppercase tracking-wider text-left">時序違規容忍度<br><span class="text-emerald-500 font-bold normal-case text-sm">物理正確性</span></div>
+                        <div class="text-emerald-400 font-bold text-3xl">T N S = 0</div>
                     </div>
                     <div class="border-t border-slate-700/50 pt-3 mt-2 text-left">
                         <p class="text-slate-300 text-sm leading-relaxed">
-                            驗證結果顯示<strong>零時序違例 (TNS=0)</strong> [cite: 75, 78]。這意味著 SVG 作為一套純粹的數位邏輯電路 [cite: 70]，其裁決時間絕對固定 [cite: 85]。在處理指令時，物理上不會發生判斷錯誤，徹底根除 AI 失控風險 [cite: 61, 81]。
+                            驗證結果顯示無任何時序違規。這意味著 SVG 作為一套純粹的數位邏輯電路，其裁決時間絕對固定。在處理指令時，物理上不會發生判斷錯誤，徹底根除失控風險。
                         </p>
                     </div>
                 </div>
@@ -202,37 +202,37 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="font-semibold text-slate-200 text-center">FORT Robotics / BlackBerry QNX [cite: 98]</td>
-                            <td class="text-slate-400 text-center">軟體平台 / 即時 OS [cite: 98]</td>
-                            <td class="text-rose-400 text-center">高整合成本，導入週期長 (30萬~100萬+/年) [cite: 98]</td>
+                            <td class="font-semibold text-slate-200 text-center">知名軟體護欄平台</td>
+                            <td class="text-slate-400 text-center">軟體平台 / 即時作業系統</td>
+                            <td class="text-rose-400 text-center">高整合成本，導入週期長</td>
                             <td rowspan="4" class="bg-emerald-900/20 border-emerald-700/50 align-top p-4">
                                 <ul class="space-y-2 text-emerald-300 text-left mx-auto w-fit">
-                                    <li><i class="fas fa-check mr-2"></i><strong>純硬體物理隔離 [cite: 100]</strong></li>
-                                    <li><i class="fas fa-check mr-2"></i><strong>外掛式低改造成本 [cite: 98, 102]</strong></li>
-                                    <li><i class="fas fa-check mr-2"></i><strong>不綁定任何 AI 品牌或機台 [cite: 101]</strong></li>
-                                    <li><i class="fas fa-check mr-2"></i><strong>降低 AI 安規導入門檻 [cite: 104]</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>純實體層硬體隔離</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>外接式低改造成本</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>無須綁定特定運算品牌</strong></li>
+                                    <li><i class="fas fa-check mr-2"></i><strong>降低安規導入門檻</strong></li>
                                 </ul>
                             </td>
                         </tr>
                         <tr>
-                            <td class="font-semibold text-slate-200 text-center">NVIDIA 安全模組 [cite: 98]</td>
-                            <td class="text-slate-400 text-center">硬體+軟體生態 [cite: 98]</td>
-                            <td class="text-yellow-400 text-center">綁定特定 AI 生態 (60萬~150萬+) [cite: 98]</td>
+                            <td class="font-semibold text-slate-200 text-center">GPU 原廠安全模組</td>
+                            <td class="text-slate-400 text-center">硬體加軟體生態系</td>
+                            <td class="text-yellow-400 text-center">受限於單一生態綁定</td>
                         </tr>
                         <tr>
-                            <td class="font-semibold text-slate-200 text-center">生成式 AI Guardrails [cite: 98]</td>
-                            <td class="text-slate-400 text-center">軟體平台 [cite: 98]</td>
-                            <td class="text-rose-400 text-center">易受模型與幻覺影響 [cite: 98]</td>
+                            <td class="font-semibold text-slate-200 text-center">生成式安規過濾器</td>
+                            <td class="text-slate-400 text-center">純軟體平台</td>
+                            <td class="text-rose-400 text-center">易受模型本身失誤影響</td>
                         </tr>
                         <tr>
-                            <td class="font-semibold text-slate-200 text-center">自研軟韌體 [cite: 98]</td>
-                            <td class="text-slate-400 text-center">土法煉鋼整合維護 [cite: 98]</td>
-                            <td class="text-yellow-400 text-center">高維護與驗證成本 [cite: 98]</td>
+                            <td class="font-semibold text-slate-200 text-center">自研軟韌體方案</td>
+                            <td class="text-slate-400 text-center">自行整合開發</td>
+                            <td class="text-yellow-400 text-center">高昂的維護與驗證成本</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <p class="text-slate-400 text-xs mt-3 italic">* SVG 專利佈局涵蓋硬體隔離閘與軟體裁決閘 [cite: 132, 136]，佔據了全市場唯一的「有證據的物理海關」[cite: 147]。</p>
+            <p class="text-slate-400 text-xs mt-3 italic">* 專利佈局涵蓋硬體隔離閘與軟體裁決閘，佔據了全市場唯一的「具備證據保全的物理海關」。</p>
         </section>
 
     </main>
@@ -244,7 +244,7 @@
                     <h4 class="text-white text-lg font-bold mb-4">可信智慧整合</h4>
                     <p class="text-sm leading-relaxed mb-4">
                         讓信任清晰可見。<br/>
-                        矽級別的物理隔離：實體 AI 的終極合規防禦。
+                        矽級別的物理隔離：實體智慧系統的終極合規防禦。
                     </p>
                 </div>
                 <div>
