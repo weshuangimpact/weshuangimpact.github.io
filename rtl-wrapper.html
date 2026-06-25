@@ -7,7 +7,7 @@
     
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.23.10/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -19,13 +19,10 @@
         .glass-nav { background: rgba(11, 17, 32, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
         .accent-gradient { background: linear-gradient(135deg, #2563eb, #10b981); }
         .doc-card { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 0.75rem; padding: 2rem; }
-        .highlight-box { background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; padding: 1rem 1.5rem; border-radius: 0 0.5rem 0.5rem 0; }
         .signal-badge { display: inline-flex; align-items: center; justify-content: center; padding: 0.1rem 0.5rem; border-radius: 0.25rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; min-width: 40px;}
         .sig-in { background-color: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
         .sig-out { background-color: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
         .sig-inout { background-color: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
-        
-        /* Image Preview Styles */
         .preview-container { cursor: zoom-in; transition: transform 0.3s ease; }
         .preview-container:hover { transform: translateY(-3px); }
     </style>
@@ -82,8 +79,8 @@
                         <div>
                             <h4 className="text-white text-lg font-bold mb-4">Explore</h4>
                             <ul className="space-y-2 text-sm">
-                                <li><a href="index.html" className="hover:text-blue-400 transition text-left block">Corporate Home</a></li>
-                                <li><a href="ohacss.html" className="hover:text-blue-400 transition text-left block">GaaS Platform</a></li>
+                                <li><a href="index.html" className="hover:text-white transition text-left block">Home</a></li>
+                                <li><a href="ohacss.html" className="hover:text-blue-400 transition text-left block">Products</a></li>
                                 <li><a href="report.html" className="hover:text-blue-400 transition text-left block">Verification Report</a></li>
                                 <li><a href="tech-dd.html" className="hover:text-blue-400 transition text-left block">Tech DD</a></li>
                                 <li><span className="text-slate-500 cursor-default block">RTL Wrapper</span></li>
@@ -120,8 +117,6 @@
 
             return (
                 <div className="max-w-6xl mx-auto px-6 pt-12 pb-24">
-                    
-                    {/* Header */}
                     <div className="mb-10 text-center" data-aos="fade-down">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-900/30 border border-indigo-700/50 text-indigo-400 text-xs font-bold uppercase tracking-widest mb-6">
                             Technical Specification
@@ -130,18 +125,15 @@
                             RTL Architecture Subsystems <br/>
                             <span className="text-2xl md:text-3xl text-slate-400 font-medium">Top-Level Instantiation Interfaces</span>
                         </h1>
-                        
                         <div className="bg-amber-900/20 border border-amber-600/50 p-5 rounded-lg shadow-lg text-left max-w-4xl mx-auto">
                             <h4 className="text-amber-400 font-bold text-sm mb-2 flex items-center"><i className="fas fa-shield-alt mr-2"></i>Intellectual Property Protection Notice</h4>
                             <p className="text-slate-300 text-sm leading-relaxed">
-                                To strictly protect our proprietary combinational logic and core trade secrets during the <strong>Technical Due Diligence</strong> phase, this technical document only exposes the structural I/O interfaces of the core adjudication, log generation, and top-level system wrapper modules comprising the SVG architecture. These EDA-generated visual wrappers serve as the standard reference for integrating the Silicon Verdict Gate into Edge AI SoCs or as an independent ASIC.
+                                To strictly protect our proprietary combinational logic and core trade secrets during the <strong>Technical Due Diligence</strong> phase, this technical document only exposes the structural I/O interfaces of the core adjudication, log generation, and top-level system wrapper modules.
                             </p>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-1 gap-12">
-                        
-                        {/* Module 1: SVG Core */}
                         <div className="doc-card p-0 overflow-hidden" data-aos="fade-up">
                             <div className="p-6 border-b border-slate-700 bg-slate-800/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
@@ -149,7 +141,7 @@
                                     <p className="text-sm text-slate-300 mt-1">Instantiated as: <code>u_svg_core (SVG_Core_v6)</code></p>
                                 </div>
                                 <div className="text-xs text-slate-400 bg-slate-900 px-3 py-2 rounded border border-slate-700 text-right">
-                                    <strong>Strategic Value:</strong> Achieves ultra-fast physical interception. Pure hardware combinational logic executing fully parallel rule scanning.
+                                    <strong>Strategic Value:</strong> Achieves ultra-fast physical interception.
                                 </div>
                             </div>
                             <div className="flex flex-col lg:flex-row">
@@ -174,7 +166,6 @@
                             </div>
                         </div>
 
-                        {/* Module 2: Evidence Logger */}
                         <div className="doc-card p-0 overflow-hidden" data-aos="fade-up">
                             <div className="p-6 border-b border-slate-700 bg-slate-800/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
@@ -182,7 +173,7 @@
                                     <p className="text-sm text-slate-300 mt-1">Instantiated as: <code>u_evidence (SVG_Evidence_Logger)</code></p>
                                 </div>
                                 <div className="text-xs text-slate-400 bg-slate-900 px-3 py-2 rounded border border-slate-700 text-right">
-                                    <strong>Strategic Value:</strong> Independent hardware cryptographic encapsulation. Bypasses the OS to write adjudication results and hashes directly to physical storage.
+                                    <strong>Strategic Value:</strong> Independent hardware cryptographic encapsulation.
                                 </div>
                             </div>
                             <div className="flex flex-col lg:flex-row">
@@ -204,7 +195,6 @@
                             </div>
                         </div>
 
-                        {/* Module 3: Top Level Wrapper */}
                         <div className="doc-card p-0 overflow-hidden" data-aos="fade-up">
                             <div className="p-6 border-b border-slate-700 bg-slate-800/50 flex flex-col md:flex-row md:items-center justify-between gap-4">
                                 <div>
@@ -212,7 +202,7 @@
                                     <p className="text-sm text-slate-300 mt-1">Instantiated as: <code>SVG_FPGA_Wrapper_v8</code></p>
                                 </div>
                                 <div className="text-xs text-slate-400 bg-slate-900 px-3 py-2 rounded border border-slate-700 text-right">
-                                    <strong>Strategic Value:</strong> Proof of system integration completion. Handles cross-clock domains and external bus communication, enabling drop-in readiness.
+                                    <strong>Strategic Value:</strong> Proof of system integration completion.
                                 </div>
                             </div>
                             <div className="flex flex-col lg:flex-row">
@@ -241,54 +231,10 @@
     output wire        phy_mdc
 );`}
                                     </pre>
-                                    <p className="text-xs text-slate-400 mt-4 leading-relaxed border-l-2 border-purple-500 pl-3">
-                                        * This top-level wrapper demonstrates how the SVG system can be seamlessly integrated into existing systems with minimal pin requirements (clock, data channels, memory bus). It internally includes cross-clock domain synchronizers (CDC_Synchronizer), packet decoders, and memory arbitration mechanisms.
-                                    </p>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
-                    {/* Module Function Positioning Table */}
-                    <div className="mt-16 doc-card overflow-hidden" data-aos="fade-up">
-                        <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2 border-b border-slate-700 pb-4">
-                            <i className="fas fa-table text-blue-400"></i> Module Function Positioning
-                        </h3>
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left border-collapse">
-                                <thead>
-                                    <tr className="bg-slate-800/50 text-slate-300 text-sm border-b border-slate-700">
-                                        <th className="p-4 font-bold">Functional Positioning</th>
-                                        <th className="p-4 font-bold">Instantiation Name</th>
-                                        <th className="p-4 font-bold w-1/3">Mechanism & Technical Characteristics</th>
-                                        <th className="p-4 font-bold w-1/3">Regulatory & Commercial Value</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="text-sm text-slate-400 divide-y divide-slate-700/50">
-                                    <tr className="hover:bg-slate-800/30 transition-colors">
-                                        <td className="p-4 font-semibold text-emerald-400">Core Brain: Silicon Verdict Engine</td>
-                                        <td className="p-4"><code className="bg-slate-900 px-2 py-1 rounded border border-slate-700">SVG_Core_v6</code></td>
-                                        <td className="p-4 leading-relaxed">Full hardware circuit-level parallel scanning, receiving and processing data directly to bypass traditional software calculation layers.</td>
-                                        <td className="p-4 leading-relaxed"><span className="text-white font-semibold">Adjudication Speed:</span> Achieves absolute deterministic physical latency, establishing an industry-leading technical moat.</td>
-                                    </tr>
-                                    <tr className="hover:bg-slate-800/30 transition-colors">
-                                        <td className="p-4 font-semibold text-sky-400">Physical Isolation: Evidence Chain Logger</td>
-                                        <td className="p-4"><code className="bg-slate-900 px-2 py-1 rounded border border-slate-700">SVG_Evidence_Logger</code></td>
-                                        <td className="p-4 leading-relaxed">Automatically extracts adjudication results, timestamps, and rule codes, calling an external hardware engine to generate hash values.</td>
-                                        <td className="p-4 leading-relaxed"><span className="text-white font-semibold">Legal Evidence Chain:</span> Ensures anomaly records hold legal evidentiary value with a tamper-proof design that completely bypasses the OS.</td>
-                                    </tr>
-                                    <tr className="hover:bg-slate-800/30 transition-colors">
-                                        <td className="p-4 font-semibold text-purple-400">System Integration: Top-Level Wrapper</td>
-                                        <td className="p-4"><code className="bg-slate-900 px-2 py-1 rounded border border-slate-700">SVG_FPGA_Wrapper_v8</code></td>
-                                        <td className="p-4 leading-relaxed">Handles external clocks, packet decoding, and memory arbitration, encapsulating core functions into standard system blocks.</td>
-                                        <td className="p-4 leading-relaxed"><span className="text-white font-semibold">Ready for Commercial Licensing:</span> Reduces integration friction for IC design houses, proving its drop-in readiness for SoC licensing.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
                 </div>
             );
         };
@@ -299,7 +245,6 @@
                 <RTLPage />
                 <Footer />
                 
-                {/* Image Modal */}
                 <div id="imageModal" className="fixed inset-0 z-[100] hidden bg-black/95 flex-col justify-center items-center p-4" style={{backdropFilter: 'blur(8px)', transition: 'all 0.3s ease'}}>
                     <span className="absolute top-6 right-8 text-white text-4xl cursor-pointer hover:text-red-500 transition" onClick={() => {
                         document.getElementById('imageModal').classList.add('hidden');
@@ -311,7 +256,6 @@
             </>
         );
 
-        // Global modal handler
         window.openModal = (imgSrc, caption) => {
             document.getElementById('modalImage').src = imgSrc;
             document.getElementById('modalCaption').innerText = caption;
@@ -319,7 +263,6 @@
             document.body.style.overflow = 'hidden';
         };
         
-        // Escape key to close modal
         document.addEventListener('keydown', (e) => { 
             if (e.key === "Escape") {
                 const modal = document.getElementById('imageModal');
