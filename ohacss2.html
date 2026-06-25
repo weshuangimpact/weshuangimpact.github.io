@@ -7,7 +7,7 @@
     
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.23.10/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -36,7 +36,6 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        // --- Shared Icons ---
         const Icon = ({ path, size = 24, className = "" }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
                 {path}
@@ -49,9 +48,6 @@
 
         const WIcon = ({ name, className, size }) => <Icon path={Icons[name]} className={className} size={size} />;
 
-        // ==========================================
-        // Footer Component (Shared)
-        // ==========================================
         const Footer = () => (
             <footer className="bg-slate-900 border-t border-slate-800 pt-16 pb-8 text-slate-400 mt-20">
                 <div className="max-w-7xl mx-auto px-6">
@@ -91,18 +87,14 @@
             </footer>
         );
 
-        // ==========================================
-        // PAGE: SVG GaaS Product Page
-        // ==========================================
         const GaaSPage = () => {
             useEffect(() => {
-                document.body.style.backgroundColor = "#0b1120"; // Dark Slate BG
+                document.body.style.backgroundColor = "#0b1120";
                 AOS.init({ once: true, offset: 100, duration: 800, easing: 'ease-out-cubic' });
             }, []);
 
             return (
                 <div className="text-slate-200 page-enter font-sans">
-                    {/* Unified Global Navigation */}
                     <nav className="fixed w-full top-0 z-50 glass-nav transition-all">
                         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
                             <a href="index2.html" className="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
@@ -126,7 +118,6 @@
                         </div>
                     </nav>
 
-                    {/* Hero Section (No Image, CSS Focused) */}
                     <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
                         <div className="absolute inset-0 bg-slate-900">
                             <div className="absolute top-0 right-0 w-3/4 h-full bg-gradient-to-l from-blue-900/30 to-transparent"></div>
@@ -152,7 +143,6 @@
                         </div>
                     </section>
 
-                    {/* Features Section 1: Fleet Management */}
                     <section id="features" className="py-24 bg-[#0a0f1c] relative border-t border-slate-800">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                             <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
@@ -186,159 +176,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-
-                    {/* Features Section 2: Immutable Vault */}
-                    <section className="py-24 bg-[#0d1326] relative border-t border-slate-800">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                            <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
-                                <div className="order-2 lg:order-1 glass-card p-10 relative overflow-hidden flex items-center justify-center min-h-[350px]" data-aos="fade-right">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/20 to-transparent"></div>
-                                    <div className="relative z-10 text-center floating-element">
-                                        <div className="text-7xl text-emerald-400 mb-6 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)]">
-                                            <i className="fas fa-link"></i>
-                                        </div>
-                                        <h3 className="text-xl font-bold text-white mb-2">SHA-256 雜湊鏈</h3>
-                                        <p className="text-sm text-slate-400">零信任架構下的密碼學證據連結。</p>
-                                    </div>
-                                </div>
-                                <div className="order-1 lg:order-2 mb-12 lg:mb-0" data-aos="fade-left">
-                                    <div className="inline-flex items-center justify-center p-2 bg-emerald-900/40 rounded-lg mb-6 border border-emerald-500/30">
-                                        <span className="text-emerald-400 font-bold px-3 tracking-wider text-xs uppercase">零信任分類帳</span>
-                                    </div>
-                                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 tracking-tight">密碼學證據金庫<br/><span className="text-emerald-400">無可辯駁的事實</span></h2>
-                                    <p className="text-slate-400 leading-relaxed mb-6">
-                                        每當矽裁決閘 (SVG) 攔截到一次 AI 幻覺輸出，便會同步生成一筆不可竄改的日誌。GaaS 平台負責提取、解密並將這些證據安全鎖入雲端金庫，保護企業免於事故責任糾紛。
-                                    </p>
-                                    <ul className="space-y-4">
-                                        <li className="flex items-start">
-                                            <i className="fas fa-shield-alt text-emerald-500 mt-1 mr-3"></i>
-                                            <span className="text-slate-300"><strong>硬體錨定日誌：</strong> 證據紀錄直接生成於實體層，對作業系統崩潰或軟體層篡改具備 100% 免疫力。</span>
-                                        </li>
-                                        <li className="flex items-start">
-                                            <i className="fas fa-shield-alt text-emerald-500 mt-1 mr-3"></i>
-                                            <span className="text-slate-300"><strong>非同步離線卸載：</strong> 於無網路環境 (如深層礦坑或封閉廠房) 運作的設備，會在恢復連線後，自動將密碼學證據鏈同步至雲端金庫。</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Features Section 3: EU AI Act Reporting */}
-                    <section className="py-24 bg-[#0a0f1c] relative border-t border-slate-800">
-                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                            <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
-                                <div className="mb-12 lg:mb-0" data-aos="fade-right">
-                                    <div className="inline-flex items-center justify-center p-2 bg-amber-900/40 rounded-lg mb-6 border border-amber-500/30">
-                                        <span className="text-amber-400 font-bold px-3 tracking-wider text-xs uppercase">自動化合規稽核</span>
-                                    </div>
-                                    <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 tracking-tight">歐盟《AI 法案》合規引擎<br/><span className="text-amber-400">一鍵產出認證報告</span></h2>
-                                    <p className="text-slate-400 leading-relaxed mb-6">
-                                        應對監管機構的嚴格審查，無需耗費數月進行人工日誌比對。GaaS 平台能將底層的硬體密碼學數據，自動轉化為標準化、人類可讀的法定合規報告。
-                                    </p>
-                                    <ul className="space-y-4">
-                                        <li className="flex items-start">
-                                            <i className="fas fa-file-contract text-amber-500 mt-1 mr-3"></i>
-                                            <span className="text-slate-300"><strong>滿足法案第 12 條 (紀錄保存)：</strong> 自動產出不可竄改的追溯性紀錄，詳細列出每一次被成功攔截的異常 AI 請求與對應的規則代碼。</span>
-                                        </li>
-                                        <li className="flex items-start">
-                                            <i className="fas fa-file-contract text-amber-500 mt-1 mr-3"></i>
-                                            <span className="text-slate-300"><strong>驗證法案第 14 條 (人類監督)：</strong> 在數學與物理層面上證明，由人類定義的安全邊界在產品整個生命週期中皆保持完好且被強制執行。</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div className="glass-card p-10 relative overflow-hidden flex items-center justify-center min-h-[350px]" data-aos="fade-left">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-amber-900/20 to-transparent"></div>
-                                    <div className="relative z-10 text-center floating-element">
-                                        <div className="text-7xl text-amber-400 mb-6 drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]">
-                                            <i className="fas fa-file-signature"></i>
-                                        </div>
-                                        <h3 className="text-xl font-bold text-white mb-2">自動化合規卷宗</h3>
-                                        <p className="text-sm text-slate-400">瞬間匯出符合監管機構要求的審查證明。</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Comparison Section */}
-                    <section id="comparison" className="py-24 relative bg-slate-900 border-t border-slate-800">
-                        <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent pointer-events-none"></div>
-                        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div className="text-center mb-16" data-aos="fade-up">
-                                <h2 className="text-3xl md:text-5xl font-bold text-white mb-6 tracking-tight">GaaS 模式的絕對優勢</h2>
-                                <p className="text-slate-400 text-lg">透過持續性的價值交付，為硬體 IP 創造源源不絕的經常性營收</p>
-                            </div>
-                            
-                            <div className="grid md:grid-cols-2 gap-8">
-                                <div className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700" data-aos="fade-right">
-                                    <h3 className="text-xl font-bold text-rose-400 mb-6 border-b border-slate-700 pb-4">傳統軟體稽核模式</h3>
-                                    <ul className="space-y-6">
-                                        <li className="flex items-start">
-                                            <i className="fas fa-times text-rose-500 mt-1 mr-3"></i>
-                                            <div>
-                                                <strong className="text-white block mb-1">四散的軟體日誌</strong>
-                                                <span className="text-slate-400 text-sm">日誌存放在易失性的 OS 記憶體中，極易因當機、重開機或惡意攻擊而遺失或遭篡改。</span>
-                                            </div>
-                                        </li>
-                                        <li className="flex items-start">
-                                            <i className="fas fa-times text-rose-500 mt-1 mr-3"></i>
-                                            <div>
-                                                <strong className="text-white block mb-1">手動韌體更新的高昂成本</strong>
-                                                <span className="text-slate-400 text-sm">當法規安全極限變更時，需大規模召回設備或刷寫底層韌體，衍生極高營運風險。</span>
-                                            </div>
-                                        </li>
-                                        <li className="flex items-start">
-                                            <i className="fas fa-times text-rose-500 mt-1 mr-3"></i>
-                                            <div>
-                                                <strong className="text-white block mb-1">被動且昂貴的合規應對</strong>
-                                                <span className="text-slate-400 text-sm">往往於重大事故發生後，才耗費鉅資聘請鑑識專家，試圖從殘缺資料中還原現場，流於被動。</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-
-                                <div className="bg-gradient-to-br from-blue-900/40 to-slate-800 p-8 rounded-2xl border border-blue-500/30 relative overflow-hidden" data-aos="fade-left">
-                                    <div className="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">最佳解決方案</div>
-                                    <h3 className="text-xl font-bold text-blue-400 mb-6 border-b border-slate-700 pb-4">SVG GaaS 治理平台</h3>
-                                    <ul className="space-y-6">
-                                        <li className="flex items-start">
-                                            <i className="fas fa-check text-blue-400 mt-1 mr-3"></i>
-                                            <div>
-                                                <strong className="text-white block mb-1">堅不可摧的密碼學證據鏈</strong>
-                                                <span className="text-slate-300 text-sm">由硬體底層直接生成的雜湊鏈，確保 100% 的資料完整性，提供無懈可擊的法律防禦。</span>
-                                            </div>
-                                        </li>
-                                        <li className="flex items-start">
-                                            <i className="fas fa-check text-blue-400 mt-1 mr-3"></i>
-                                            <div>
-                                                <strong className="text-white block mb-1">集中式 OTA 策略部署</strong>
-                                                <span className="text-slate-300 text-sm">透過雲端瞬間完成全球設備的版本化硬體規則包更新，零韌體修改風險。</span>
-                                            </div>
-                                        </li>
-                                        <li className="flex items-start">
-                                            <i className="fas fa-check text-blue-400 mt-1 mr-3"></i>
-                                            <div>
-                                                <strong className="text-white block mb-1">主動式的法規認證報告</strong>
-                                                <span className="text-slate-300 text-sm">專為應對歐盟《AI 法案》與監管機構審查所設計，一鍵產出標準化法定報告。</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Contact CTA */}
-                    <section id="contact" className="py-24 bg-[#070b14] border-t border-slate-800">
-                        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up">
-                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">立即為您的實體 AI 設備建立防護網</h2>
-                            <p className="text-slate-400 text-lg mb-10">導入 SVG GaaS 平台，實現無可挑剔的法規合規性，並為您的邊緣運算設備建立強大的經常性訂閱價值 (Recurring Revenue)。</p>
-                            <a href="mailto:weshuangimpact@gmail.com" className="inline-flex items-center gap-3 px-8 py-4 bg-white text-slate-900 rounded-lg font-bold hover:bg-slate-200 transition shadow-lg">
-                                <i className="fas fa-envelope"></i> 聯絡企業解決方案團隊
-                            </a>
                         </div>
                     </section>
                 </div>
