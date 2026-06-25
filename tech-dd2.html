@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>技術盡職調查 | WesmartAI</title>
+    <title>技術盡職調查 | 可信智慧整合</title>
     
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.23.10/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -83,7 +83,7 @@
                                 <li><a href="index2.html" className="hover:text-blue-400 transition text-left block">首頁</a></li>
                                 <li><a href="ohacss2.html" className="hover:text-blue-400 transition text-left block">產品</a></li>
                                 <li><a href="report2.html" className="hover:text-blue-400 transition text-left block">驗證報告</a></li>
-                                <li><a href="tech-dd2.html" className="hover:text-blue-400 transition text-left block">技術盡職調查 (Tech DD)</a></li>
+                                <li><span className="text-slate-500 cursor-default block">技術盡職調查 (Tech DD)</span></li>
                                 <li><a href="rtl-wrapper2.html" className="hover:text-blue-400 transition text-left block">RTL 架構規格</a></li>
                                 <li><a href="founder2.html" className="hover:text-blue-400 transition text-left block">創辦人</a></li>
                                 <li className="pt-2"><a href="tech-dd.html" className="text-blue-400 hover:text-blue-300 font-bold transition text-left block flex items-center gap-2"><i className="fas fa-globe"></i> English (EN)</a></li>
@@ -91,8 +91,8 @@
                         </div>
                     </div>
                     <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
-                        <p>&copy; 2026 可信智慧整合有限公司 (WesmartAI Co., Ltd.) 版權所有</p>
-                        <p className="mt-2 md:mt-0">統一編號：42917004</p>
+                        <p>&copy; 2026 可信智慧整合有限公司 (WesmartAI Co., Ltd.). All rights reserved.</p>
+                        <p className="mt-2 md:mt-0">統一編號: 42917004</p>
                     </div>
                 </div>
             </footer>
@@ -106,7 +106,6 @@
             return (
                 <div className="max-w-5xl mx-auto px-6 pt-12 pb-24">
                     
-                    {/* Header & Disclosures */}
                     <div className="mb-12 text-center" data-aos="fade-down">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/30 border border-blue-700/50 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
                             投資人盡職調查 (Investor Due Diligence)
@@ -124,7 +123,6 @@
                         </div>
                     </div>
 
-                    {/* Section 1: The Patent Moat */}
                     <section className="doc-card mb-12 shadow-xl" data-aos="fade-up">
                         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
                             <span className="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">1</span> 
@@ -168,7 +166,6 @@
                         </div>
                     </section>
 
-                    {/* Section 2: Global Prosecution */}
                     <section className="doc-card mb-12 shadow-xl border-amber-900/50" data-aos="fade-up">
                         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-amber-800 pb-3">
                             <span className="bg-amber-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">2</span> 
@@ -195,41 +192,6 @@
                             </div>
                         </div>
                     </section>
-
-                    {/* Section 3: Engineering Barrier */}
-                    <section className="doc-card mb-8 shadow-xl border-purple-900/50" data-aos="fade-up">
-                        <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-purple-800 pb-3">
-                            <span className="bg-purple-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">3</span> 
-                            獨家 SVG 矽智財 RTL：實體工程壁壘
-                        </h2>
-
-                        <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                            專利的價值取決於其物理實現的難度。競爭對手固然可以閱讀公開專利，但要完美複製我們極致的硬體效能參數，必須掌握高度專業的營業秘密與專有的暫存器傳輸層 (RTL) 設計技術。而我們，已經在成熟晶片平台上徹底完成了實體驗證，消除了開發風險。
-                        </p>
-                        
-                        <div className="grid md:grid-cols-3 gap-6 mb-6">
-                            <div className="bg-slate-800/50 p-5 rounded border border-purple-500/30">
-                                <div className="text-purple-400 font-black text-3xl mb-2">111 ns</div>
-                                <h4 className="text-white font-bold text-sm mb-2">極速物理攔截</h4>
-                                <p className="text-slate-400 text-xs leading-relaxed">要在 4096 條規則巨集下維持絕對的決定性延遲 (111ns)，必須仰賴我們專利的純硬體架構。採用標準軟體架構的對手，將無可避免地面臨作業系統排程所帶來的嚴重時序抖動與延遲。</p>
-                            </div>
-                            <div className="bg-slate-800/50 p-5 rounded border border-purple-500/30">
-                                <div className="text-purple-400 font-black text-3xl mb-2">30%</div>
-                                <h4 className="text-white font-bold text-sm mb-2">極低資源佔用</h4>
-                                <p className="text-slate-400 text-xs leading-relaxed">我們已證實核心邏輯佔用極低。在龐大的規則滿載下，僅佔用入門級晶片約 30% 的邏輯資源。當未來轉換至先進 SoC 節點，這對晶片商而言意味著近乎零成本的面積開銷。</p>
-                            </div>
-                            <div className="bg-slate-800/50 p-5 rounded border border-purple-500/30">
-                                <div className="text-purple-400 font-black text-3xl mb-2">0 TNS</div>
-                                <h4 className="text-white font-bold text-sm mb-2">完美無誤差時序</h4>
-                                <p className="text-slate-400 text-xs leading-relaxed">在全機系統時脈實測下達成總負時序寬裕為零 (TNS=0)。我們已提前克服了硬體層面的時序與亞穩態難題，確保對任何單一異常指令的攔截達到物理層面上 100% 絕對正確。</p>
-                            </div>
-                        </div>
-
-                        <div className="bg-emerald-900/20 border-l-4 border-emerald-500 p-5 rounded text-sm text-slate-300 italic shadow-lg">
-                            <strong>給投資人的盡職調查總結：</strong> WesmartAI 提供的不僅僅是理論概念。我們掌握了已核准的核心專利方法論、正在建構國際封鎖網的三大專利矩陣，以及經過高度最佳化且實體驗證完成的純硬體 RTL 原始碼。這構築了一道深不可測的「法律 + 架構 + 效能」三維護城河，確保 WesmartAI 將成為實體 AI 安全合規領域無可取代的絕對標準。
-                        </div>
-                    </section>
-
                 </div>
             );
         };
