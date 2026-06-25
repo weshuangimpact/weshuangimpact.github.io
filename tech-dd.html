@@ -7,7 +7,8 @@
     
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- 【修正處】強制鎖定 Babel 版本以確保一致的編譯環境 -->
+    <script src="https://unpkg.com/@babel/standalone@7.23.10/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -83,7 +84,7 @@
                                 <li><a href="index.html" className="hover:text-white transition text-left block">Home</a></li>
                                 <li><a href="ohacss.html" className="hover:text-blue-400 transition text-left block">Products</a></li>
                                 <li><a href="report.html" className="hover:text-blue-400 transition text-left block">Verification Report</a></li>
-                                <li><a href="tech-dd.html" className="hover:text-blue-400 transition text-left block">Tech DD</a></li>
+                                <li><span className="text-slate-500 cursor-default block">Tech DD</span></li>
                                 <li><a href="rtl-wrapper.html" className="hover:text-blue-400 transition text-left block">RTL Specs</a></li>
                                 <li><a href="founder.html" className="hover:text-blue-400 transition text-left block">Founder</a></li>
                                 <li className="pt-2"><a href="tech-dd2.html" className="text-blue-400 hover:text-blue-300 font-bold transition text-left block flex items-center gap-2"><i className="fas fa-globe"></i> 繁體中文 (TW)</a></li>
@@ -106,7 +107,6 @@
             return (
                 <div className="max-w-5xl mx-auto px-6 pt-12 pb-24">
                     
-                    {/* Header & Disclosures */}
                     <div className="mb-12 text-center" data-aos="fade-down">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-900/30 border border-blue-700/50 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
                             Investor Due Diligence
@@ -124,7 +124,6 @@
                         </div>
                     </div>
 
-                    {/* Section 1: The Patent Moat */}
                     <section className="doc-card mb-12 shadow-xl" data-aos="fade-up">
                         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-slate-700 pb-3">
                             <span className="bg-blue-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">1</span> 
@@ -168,7 +167,6 @@
                         </div>
                     </section>
 
-                    {/* Section 2: Global Prosecution */}
                     <section className="doc-card mb-12 shadow-xl border-amber-900/50" data-aos="fade-up">
                         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-amber-800 pb-3">
                             <span className="bg-amber-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">2</span> 
@@ -196,7 +194,6 @@
                         </div>
                     </section>
 
-                    {/* Section 3: Engineering Barrier */}
                     <section className="doc-card mb-8 shadow-xl border-purple-900/50" data-aos="fade-up">
                         <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3 border-b border-purple-800 pb-3">
                             <span className="bg-purple-600 text-white w-8 h-8 rounded-lg flex items-center justify-center text-sm">3</span> 
@@ -229,7 +226,6 @@
                             <strong>Conclusion for Investors:</strong> WesmartAI is not presenting a theoretical concept. We hold the granted core methodology, the pending international structural claims matrix, and the heavily optimized, physically-verified pure hardware RTL source code. This forms an insurmountable three-dimensional moat (Legal + Architecture + Performance) that positions WesmartAI as the inevitable standard for physical AI safety compliance.
                         </div>
                     </section>
-
                 </div>
             );
         };
